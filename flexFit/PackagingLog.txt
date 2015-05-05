@@ -1,0 +1,34 @@
+ant:
+<ant>
+  <mkdir dir="C:\Users\Dappled\OneDrive\dappled's sky\cs\matlab\convexMonotoneFit\flexFit\for_redistribution" />
+  <mkdir dir="C:\Users\Dappled\OneDrive\dappled's sky\cs\matlab\convexMonotoneFit\flexFit\for_testing" />
+</ant>
+mcc -W 'dotnet:flexFit,FlexFit,0.0,private' -T link:lib -d 'C:\Users\Dappled\OneDrive\dappled's sky\cs\matlab\convexMonotoneFit\flexFit\for_testing' -v 'C:\Program Files\MATLAB\R2014a\toolbox\javabuilder\Examples\MagicSquareExample\MagicDemoComp\flexTimeFit.m' 'C:\Program Files\MATLAB\R2014a\toolbox\javabuilder\Examples\MagicSquareExample\MagicDemoComp\flexWingFit.m' 'class{FlexFit:C:\Program Files\MATLAB\R2014a\toolbox\javabuilder\Examples\MagicSquareExample\MagicDemoComp\flexTimeFit.m,C:\Program Files\MATLAB\R2014a\toolbox\javabuilder\Examples\MagicSquareExample\MagicDemoComp\flexWingFit.m}' -a 'C:\Program Files\MATLAB\R2014a\toolbox\curvefit\splines\csaps.m' -a 'C:\Program Files\MATLAB\R2014a\toolbox\matlab\optimfun\fminbnd.m' -a 'C:\Program Files\MATLAB\R2014a\toolbox\matlab\polyfun\polyfit.m' -a 'C:\Program Files\MATLAB\R2014a\toolbox\optim\optim\quadprog.m' -a 'C:\Program Files\MATLAB\R2014a\toolbox\javabuilder\Examples\MagicSquareExample\MagicDemoComp\splineHelper.m' 
+Compiler version: 5.1 (R2014a)
+Dependency analysis by REQUIREMENTS.
+[Warning: Adding path "C:\Program
+Files\MATLAB\R2014a\toolbox\javabuilder\Examples\MagicSquareExample\MagicDemoComp"
+to Compiler path instance.] 
+[Warning: Adding path "C:\Program
+Files\MATLAB\R2014a\toolbox\javabuilder\Examples\MagicSquareExample\MagicDemoComp"
+to Compiler path instance.] 
+Parsing file "C:\Program Files\MATLAB\R2014a\toolbox\javabuilder\Examples\MagicSquareExample\MagicDemoComp\flexTimeFit.m"
+	(Referenced from: "Compiler Command Line").
+Parsing file "C:\Program Files\MATLAB\R2014a\toolbox\javabuilder\Examples\MagicSquareExample\MagicDemoComp\flexWingFit.m"
+	(Referenced from: "Compiler Command Line").
+Parsing file "C:\Program Files\MATLAB\R2014a\toolbox\compiler\deploy\deployprint.m"
+	(Referenced from: "Compiler Command Line").
+Parsing file "C:\Program Files\MATLAB\R2014a\toolbox\compiler\deploy\printdlg.m"
+	(Referenced from: "Compiler Command Line").
+Deleting 3 temporary MEX authorization files.
+Removing: 'C:\Users\Dappled\AppData\Local\Temp\mathworks_tmp_13076_14171_13076.auth'.
+Removing: 'C:\Users\Dappled\AppData\Local\Temp\mathworks_tmp_13076_19696_13076.auth'.
+Removing: 'C:\Users\Dappled\AppData\Local\Temp\mathworks_tmp_13076_16261_13076.auth'.
+Generating file "C:\Users\Dappled\OneDrive\dappled's sky\cs\matlab\convexMonotoneFit\flexFit\for_testing\FlexFitNative.cs".
+Generating file "C:\Users\Dappled\OneDrive\dappled's sky\cs\matlab\convexMonotoneFit\flexFit\for_testing\FlexFit.cs".
+Generating file "C:\Users\Dappled\OneDrive\dappled's sky\cs\matlab\convexMonotoneFit\flexFit\for_testing\readme.txt".
+Executing command: C:\Windows\Microsoft.NET\Framework64\v4.0.30319\csc.exe /nologo /optimize /doc:"C:\Users\Dappled\OneDrive\dappled's sky\cs\matlab\convexMonotoneFit\flexFit\for_testing\flexFit.xml" /t:library /r:"C:\Program Files\MATLAB\R2014a\toolbox\dotnetbuilder\bin\win64\v2.0\MWArray.dll" /resource:"C:\Users\Dappled\OneDrive\dappled's sky\cs\matlab\convexMonotoneFit\flexFit\for_testing\flexFit.ctf" /out:"C:\Users\Dappled\OneDrive\dappled's sky\cs\matlab\convexMonotoneFit\flexFit\for_testing\flexFit.dll" "C:\Users\Dappled\OneDrive\dappled's sky\cs\matlab\convexMonotoneFit\flexFit\for_testing\FlexFit.cs"Executing command: C:\Windows\Microsoft.NET\Framework64\v4.0.30319\csc.exe /nologo /optimize /doc:"C:\Users\Dappled\OneDrive\dappled's sky\cs\matlab\convexMonotoneFit\flexFit\for_testing\flexFitNative.xml" /t:library /r:"C:\Program Files\MATLAB\R2014a\toolbox\dotnetbuilder\bin\win64\v2.0\MWArray.dll" /resource:"C:\Users\Dappled\OneDrive\dappled's sky\cs\matlab\convexMonotoneFit\flexFit\for_testing\flexFit.ctf" /out:"C:\Users\Dappled\OneDrive\dappled's sky\cs\matlab\convexMonotoneFit\flexFit\for_testing\flexFitNative.dll" "C:\Users\Dappled\OneDrive\dappled's sky\cs\matlab\convexMonotoneFit\flexFit\for_testing\FlexFitNative.cs"
+Packaging...
+Creating the bundle...
+Web based installer created at C:\Users\Dappled\OneDrive\dappled's sky\cs\matlab\convexMonotoneFit\flexFit\for_redistribution\MyAppInstaller_web.exe.
+Packaging complete.

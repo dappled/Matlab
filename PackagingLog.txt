@@ -1,0 +1,6 @@
+ant:
+<ant>
+  <mkdir dir="C:\Users\mike\Desktop\Dong\OneDrive\dappled's sky\cs\matlab\convexMonotoneFit\FlexWingFit" />
+  <mkdir dir="C:\Users\mike\Desktop\Dong\OneDrive\dappled's sky\cs\matlab\convexMonotoneFit\FlexWingFit" />
+</ant>
+mcc  -W 'dotnet:flexWingFit,FlexWingFit,0.0,private' -T link:lib -d 'C:\Users\mike\Desktop\Dong\OneDrive\dappled's sky\cs\matlab\convexMonotoneFit\FlexWingFit' -v 'C:\Program Files\MATLAB\R2014a\toolbox\javabuilder\Examples\MagicSquareExample\MagicDemoComp\flexWingFit.m' 'class{FlexWingFit:C:\Program Files\MATLAB\R2014a\toolbox\javabuilder\Examples\MagicSquareExample\MagicDemoComp\flexWingFit.m}' -a 'C:\Program Files\MATLAB\R2014a\toolbox\optim\optim\quadprog.m' 
