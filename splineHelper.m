@@ -70,7 +70,7 @@ classdef splineHelper
                 end
             end
             if ~isempty(aMax)
-                if concave & bb > right
+                if concave & bb > right & left < 0
                     bb = left;
                 else
                     bb = min(max(bb, left), right);
@@ -79,8 +79,8 @@ classdef splineHelper
                 left = -inf;
             end
             bb = min(0, bb); % left wing should be decreasing
-            if ~isnan(tailConcavity) % && bb > left
-                bb = bb * 0.6 + bb * 0.4 * tailConcavity;
+            if ~isnan(tailConcavity) && bb > left
+                bb = bb * 0.9 + bb * 0.1 * tailConcavity;
             end
             
             if flat
@@ -101,7 +101,7 @@ classdef splineHelper
             maxCC = 0;
             minCC = -bb/hleft;
             
-%             if ~isempty(aMax)
+            if ~isempty(aMax)
 %                 ccBoundMax = min((beta - bb * gammaa) ./ tao);
 %                 ccBoundMin = max((alpha - bb * gammaa) ./ tao);
 %                 if (ccBoundMax < ccBoundMin)
@@ -110,7 +110,7 @@ classdef splineHelper
 %                 end
 %                 maxCC = min(maxCC, ccBoundMax);
 %                 minCC = max(minCC, ccBoundMin);
-%             end
+            end
             if concave & cc > maxCC
                 cc = minCC;
             else
@@ -174,7 +174,7 @@ classdef splineHelper
             end
             %bb = b(end);
             if ~isempty(aMax)
-                if concave & bb > right
+                if concave & bb > right & left > 0
                     bb = left;
                 else
                     bb = min(max(bb, left), right);

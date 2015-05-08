@@ -184,7 +184,7 @@ while ~goodleft || ~goodright
     rightflat = false;
     if ~isempty(xexl) && (bbb(1) == 0) % should not be here       
         if ~isempty(xexl) && ~joinedleft
-            idx = find(xendl, xexl(1));
+            idx = find(xendl, xexl(1));+
             xin = [xexl xin];
             yin = [yexl yin];
             w = [ones(1, length(xexl)) * min(w) w];
@@ -230,7 +230,7 @@ while ~goodleft || ~goodright
             goodright = true;
         end
     else
-        goodright = true;
+        goodright = false;
     end
 end
 aal = aaa(1);
