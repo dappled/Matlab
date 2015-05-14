@@ -90,7 +90,6 @@ originSecD = ((y(3:n) - y(2:n-1))./h(2:end) - (y(2:n-1) - y(1:n-2))./ h(1:end-1)
 avg = mean(abs(originSecD));
 hugedxxregion = find(abs(originSecD) > avg * 5);
 
-originsmooth = smooth;
 goodboundary = false;
 boundarydchanged = false;
 boundarychanged = false;
@@ -396,7 +395,7 @@ gamma = [dxxleft; re(n+1:end); dxxright];
 firstDx = [(g(2:n) - g(1:n-1))./h' - (2*gamma(1:n-1) + gamma(2:n))/6.*h'; (g(n) - g(n-1))/h(n-1) + h(n-1) * (gamma(n-1) + 2* gamma(n))/6];
 a = g(1:end); % g(line) - abcd(line,4)
 b = firstDx(1:end); % (g(line+1) - g(line))/h(line) - (gamma(line+1) + 2*gamma(line))/6*h(line) - abcd(line,5)
-c = [gamma(1:end-1)/2; dxxright]; % 0.5*gamma(line) - abcd(line,6)
+c = gamma/2; % 0.5*gamma(line) - abcd(line,6)
 %d = [(gamma(2:end) - gamma(1:end-1))/ 6 ./ h'; 0]; % (gamma(line+1) - gamma(line))/6/h(line) - abcd(line,7)
 
 % interpolation
@@ -744,6 +743,7 @@ end
             
             if changedMin || count == 0 % here if the minx is not good enough we want to force it
                 [xinc, xdec, Aless, bless, Aeqq, Beqq, ubb, ubb2] = dealWithMin(minx, Ales, bles, Aeq, Beq, ub, ub2, minleftright);
+                needRefit = true;
             end
             
             % check monotone increasing after minx
@@ -1444,9 +1444,9 @@ end
                 % dxxright * hi/3
                 Ales = [Ales; zeros(1, n-2), 1/h(n-1), -1/h(n-1), zeros(1, n-3), -h(n-1)/6];
                 if isnan(dxxright)
-                    bles = [bles; -1e-5];
+                    bles = [bles; -1e-7];
                 else
-                    bles = [bles; -1e-5 + dxxright * h(n-1)/3];
+                    bles = [bles; -1e-7 + dxxright * h(n-1)/3];
                 end
             elseif xx == x(1)
                 % (this might include leftflat so we allow 0) b1 - dxxleft*h1/3>= 0 (-b1 <= dxxleft*h1/3)
@@ -1460,14 +1460,14 @@ end
                 % bn-1  - dxxright*hn-1/6 > 1e-7, -bn-1 <= -1e-7 - dxxright*hn-1/6
                 Ales = [Ales; zeros(1, n-2), 1/h(n-1), -1/h(n-1), zeros(1,n-3), +h(n-1)/3];
                 if isnan(dxxright)
-                    bles = [bles; -1e-5];
+                    bles = [bles; -1e-7];
                 else
-                    bles = [bles; -1e-5 - dxxright * h(n-1)/6];
+                    bles = [bles; -1e-7 - dxxright * h(n-1)/6];
                 end
             else
                 % in increase part bi > 1e-7, -bi <= -1e-7
                 Ales = [Ales; zeros(1, idxx-1),  1/h(idxx), -1/h(idxx), zeros(1, n-2-(idxx-1)), zeros(1, idxx - 2), h(idxx)/3, h(idxx)/6, zeros(1, n-4-(idxx-2))];
-                bles = [bles; -1e-5];
+                bles = [bles; -1e-7];
             end
         end
         % dec part simple constraint
@@ -1495,9 +1495,9 @@ end
                 % normal left wing start, b1 - dxxleft*h1/3 < -1e-7
                 Ales = [Ales; -1/h(1), +1/h(1), zeros(1, n-2), -h(1)/6, zeros(1, n-3)];
                 if isnan(dxxleft)
-                    bles = [bles; -1e-5];
+                    bles = [bles; -1e-7];
                 else
-                    bles = [bles; -1e-5 + dxxleft*h(1)/3];
+                    bles = [bles; -1e-7 + dxxleft*h(1)/3];
                 end
             elseif xx == x(end)
                 % (this might include rightflat so we allow 0) bn + dxxright *hn-1/3<=0,
@@ -1512,14 +1512,14 @@ end
                 % bn-1 < -1e-7 + dxxright * hi/6
                 Ales = [Ales; zeros(1, n-2), -1/h(n-1), 1/h(n-1),zeros(1,n-3), -h(n-1)/3];
                 if isnan(dxxright)
-                    bles = [bles; -1e-5];
+                    bles = [bles; -1e-7];
                 else
-                    bles = [bles; -1e-5 + dxxright * h(n-1)/6];
+                    bles = [bles; -1e-7 + dxxright * h(n-1)/6];
                 end
             else
                 % in decrease part bi < -1e-7
                 Ales = [Ales; zeros(1, idxx-1), -1/h(idxx), 1/h(idxx), zeros(1, n-2-(idxx-1)), zeros(1, idxx - 2), -h(idxx)/3, -h(idxx)/6, zeros(1, n-4-(idxx-2))];
-                bles = [bles; -1e-5];
+                bles = [bles; -1e-7];
             end
         end
         

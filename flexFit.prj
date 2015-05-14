@@ -1,5 +1,5 @@
 <deployment-project plugin="plugin.ezdeploy" plugin-version="1.0">
-  <configuration build-checksum="2696942203" file="C:\Users\Dappled\OneDrive\dappled's sky\cs\matlab\convexMonotoneFit\flexFit.prj" location="C:\Users\Dappled\OneDrive\dappled's sky\cs\matlab\convexMonotoneFit" name="flexFit" preferred-package-location="C:\Users\Dappled\OneDrive\dappled's sky\cs\matlab\convexMonotoneFit\flexFit\for_redistribution" preferred-package-type="package.type.exe" target="target.ezdeploy.library" target-name="MATLAB Compiler for Libraries and Classes">
+  <configuration build-checksum="1505834992" file="C:\Users\Dappled\OneDrive\dappled's sky\cs\matlab\convexMonotoneFit\flexFit.prj" location="C:\Users\Dappled\OneDrive\dappled's sky\cs\matlab\convexMonotoneFit" name="flexFit" preferred-package-location="C:\Users\Dappled\OneDrive\dappled's sky\cs\matlab\convexMonotoneFit\flexFit\for_redistribution" preferred-package-type="package.type.exe" target="target.ezdeploy.library" target-name="MATLAB Compiler for Libraries and Classes">
     <param.appname>flexFit</param.appname>
     <param.icon />
     <param.icons />

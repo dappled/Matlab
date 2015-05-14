@@ -89,6 +89,7 @@ goodleft = false;
 goodright = false;
 joinedleft = false;
 joinedright = false;
+count = 0;
 while ~goodleft || ~goodright
     %prefit
     if isnan(leftright) || leftright == 1
@@ -97,13 +98,15 @@ while ~goodleft || ~goodright
             boundarydxx(1) = nan;
             %boundarydx(1) = nan;
         else
-            xl = xexl - xexl(1);
+            tmpx = [xexl xin(1) xin(2)];
+            tmpy = [yexl yin(1) yin(2)];
+            xl = tmpx - tmpx(1);
             if length(xl) < 3
                 boundarydxx(1) = nan;
-            elseif length(xl) == 4
-                pl = csaps(xl, yexl);
-                if (pl.coefs(end,3) < 0)
-                    if all(diff(yexl)) <= 0
+            else
+                pl = csaps(xl, tmpy);
+                if (pl.coefs(end,3) > 0)
+                    if all(diff(tmpy)) <= 0
                         boundarydxx(1) = nan;
                     else
                         error('Invalid left polyfit');
@@ -111,18 +114,18 @@ while ~goodleft || ~goodright
                 else
                     boundarydxx(1) = pl.coefs(end,2);
                 end
-            else
-                pl = polyfit(xl, yexl, 3);
-                if pl(3) > 0 % don't want to time fit strange left wing
-                    if all(diff(yexl)) <= 0
-                        boundarydxx(1) = nan;
-                    else
-                        error('Invalid left polyfit');
-                    end
-                else
-                    boundarydxx(1) = pl(2);
-                    %boundarydx(1) = pl(3);
-                end
+%             else
+%                 pl = polyfit(xl, yexl, 3);
+%                 if pl(3) > 0 % don't want to time fit strange left wing
+%                     if all(diff(yexl)) <= 0
+%                         boundarydxx(1) = nan;
+%                     else
+%                         error('Invalid left polyfit');
+%                     end
+%                 else
+%                     boundarydxx(1) = pl(2);
+%                     %boundarydx(1) = pl(3);
+%                 end
             end
         end
     end
@@ -188,7 +191,12 @@ while ~goodleft || ~goodright
         if strcmp(e.message, 'right need more data')
             bbb(1) = inf;
             bbb(2) = 0;
-            
+        elseif strcmp(e.message, 'right need more data')
+            bbb(1) = 0;
+            bbb(2) = inf;
+        else
+            rethrow(e)
+        end
     end
     
     leftflat = false;
@@ -242,6 +250,12 @@ while ~goodleft || ~goodright
         end
     else
         goodright = true;
+    end
+    
+    count = count + 1;
+    if (count > 3)
+        err = 'Fail to time fit';
+        error('%s', err);
     end
 end
 

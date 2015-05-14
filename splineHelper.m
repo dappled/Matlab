@@ -13,8 +13,8 @@ classdef splineHelper
         end
         
         function [aa, bb, cc, dd] = leftPars(x, a, b, c, stationaryPoint, flat, xEnd, aMin, aMax, tailConcavity, dx, dxx, concave)
-            if ~isempty(aMin) && (a(1) < aMin(end) && b(end) > 0)
-                err = 'left need more data';
+            if ~isempty(aMin) && (a(1) < aMin(end) && b(1) > 0)
+                err = 'Left need more data';
                 error('%s', err);
             end
             
@@ -47,12 +47,12 @@ classdef splineHelper
                 right = min(alpha ./ gammaa);
                 
                 if (left > 0)
-                    err = 'Fail to interpolate with given boundary';
-                    error('error in quadprog: %s', err);
+                    err = 'Fail to extrapolate with given boundary';
+                    error('%s', err);
                 end
                 if (left > right)
-                    err = 'Fail to interpolate with given boundary';
-                    error('error in quadprog: %s', err);
+                    err = 'Fail to extrapolate with given boundary';
+                    error('%s', err);
                 end
             end
 
@@ -91,8 +91,8 @@ classdef splineHelper
             
             if (abs(bb) > 3 * abs(originb) || abs(bb) < 0.3 * abs(originb))
                 if bb ~= 0
-                    err = 'Extrapolate will change slope a lot';
-                    error('error in quadprog: %s', err);
+                    err = 'Extrapolate left will change slope a lot';
+                    error('%s', err);
                 end
             end
             
@@ -119,8 +119,8 @@ classdef splineHelper
                 ccBoundMin = max((alpha - bb * gammaa) ./ tao);
                 if (ccBoundMax < ccBoundMin)
                     if (isnan(left) || bb == 0)
-                        err = 'Fail to interpolate with given boundary';
-                        error('error in quadprog: %s', err);
+                        err = 'Fail to extrapolate with given boundary';
+                        error('%s', err);
                     end
                     findb = false;
                     for ii = linspace(bb, left)
@@ -133,13 +133,13 @@ classdef splineHelper
                         end
                     end
                     if (~findb)
-                        err = 'Fail to interpolate with given boundary';
-                        error('error in quadprog: %s', err);
+                        err = 'Fail to extrapolate with given boundary';
+                        error('%s', err);
                     end
                     if (abs(bb) > 3 * abs(originb) || abs(bb) < 0.3 * abs(originb))
                         if bb ~= 0
-                            err = 'Extrapolate will change slope a lot';
-                            error('error in quadprog: %s', err);
+                            err = 'Extrapolate left will change slope a lot';
+                            error('%s', err);
                         end
                     end
                 end
@@ -160,7 +160,7 @@ classdef splineHelper
         
         function [aa, bb, cc, dd] = rightPars(x, a, b, c, stationaryPoint, flat, xEnd, aMin, aMax, tailConcavity, dx, dxx, concave)
             if ~isempty(aMin) && a(end) < aMin(1) && b(end) < 0
-                err = 'right need more data';
+                err = 'Right need more data';
                 error('%s', err);
             end
             
@@ -186,12 +186,12 @@ classdef splineHelper
                 right = min(beta * hright ./ (gammaa * hright - tao));
               
                 if (right < 0)
-                    err = 'Fail to interpolate with given boundary';
-                    error('error in quadprog: %s', err);
+                    err = 'Fail to extrapolate with given boundary';
+                    error('%s', err);
                 end
                 if (left > right)
-                    err = 'Fail to interpolate with given boundary';
-                    error('error in quadprog: %s', err);
+                    err = 'Fail to extrapolate with given boundary';
+                    error('%s', err);
                 end
             end
             
@@ -230,8 +230,8 @@ classdef splineHelper
             
             if (abs(bb) > 3 * abs(originb) || abs(bb) < 0.3 * abs(originb))
                 if bb ~= 0
-                    err = 'Extrapolate will change slope a lot';
-                    error('error in quadprog: %s', err);
+                    err = 'Extrapolate right will change slope a lot';
+                    error('%s', err);
                 end
             end
             
@@ -258,8 +258,8 @@ classdef splineHelper
                 ccBoundMin = max((alpha - bb * gammaa) ./ tao);
                 if (ccBoundMax < ccBoundMin)
                     if (isnan(right) || bb == 0)
-                        err = 'Fail to interpolate with given boundary';
-                        error('error in quadprog: %s', err);
+                        err = 'Fail to extrapolate with given boundary';
+                        error('%s', err);
                     end
                     findb = false;
                     for ii = linspace(bb, right)
@@ -272,13 +272,13 @@ classdef splineHelper
                         end
                     end
                     if (~findb)
-                        err = 'Fail to interpolate with given boundary';
-                        error('error in quadprog: %s', err);
+                        err = 'Fail to extrapolate with given boundary';
+                        error('%s', err);
                     end
                     if (abs(bb) > 3 * abs(originb) || abs(bb) < 0.3 * abs(originb))
                         if bb ~= 0
-                            err = 'Extrapolate will change slope a lot';
-                            error('error in quadprog: %s', err);
+                            err = 'Extrapolate right will change slope a lot';
+                            error('%s', err);
                         end
                     end
                 end
@@ -307,8 +307,8 @@ classdef splineHelper
                 right = min((aMax - aa - bb * delta - dd * delta3) ./ delta2);
                 
                 if (left > right)
-                    err = 'Fail to interpolate with given boundary';
-                    error('error in quadprog: %s', err);
+                    err = 'Fail to extrapolate with given boundary';
+                    error('%s', err);
                 end
             end
             
@@ -344,13 +344,13 @@ classdef splineHelper
                     left = max((aMax - aa - dd * delta3 - cc * delta2) ./ delta);
                     right = min((aMin - aa - dd * delta3 - cc * delta2) ./ delta);
                 else
-                    err = 'Fail to interpolate with given boundary';
-                    error('error in quadprog: %s', err);    
+                    err = 'Fail to extrapolate with given boundary';
+                    error('%s', err);    
                 end
                 
                 if (left > right)
-                    err = 'Fail to interpolate with given boundary';
-                    error('error in quadprog: %s', err);
+                    err = 'Fail to extrapolate with given boundary';
+                    error('%s', err);
                 end
             end
             
