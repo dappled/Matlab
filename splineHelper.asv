@@ -13,11 +13,6 @@ classdef splineHelper
         end
         
         function [aa, bb, cc, dd] = leftPars(x, a, b, c, stationaryPoint, flat, xEnd, aMin, aMax, tailConcavity, dx, dxx, concave)
-            if ~isempty(aMin) && (a(1) < aMin(end) && b(end) > 0)
-                err = 'left need more data';
-                error('%s', err);
-            end
-            
             xEnd = xEnd(aMax ~= 0);
             aMin = aMin(aMax ~= 0);
             aMax = aMax(aMax ~= 0);
@@ -118,30 +113,8 @@ classdef splineHelper
                 ccBoundMax = min((beta - bb * gammaa) ./ tao);
                 ccBoundMin = max((alpha - bb * gammaa) ./ tao);
                 if (ccBoundMax < ccBoundMin)
-                    if (isnan(left) || bb == 0)
-                        err = 'Fail to interpolate with given boundary';
-                        error('error in quadprog: %s', err);
-                    end
-                    findb = false;
-                    for ii = linspace(bb, left)
-                        ccBoundMax = min((beta - ii * gammaa) ./ tao);
-                        ccBoundMin = max((alpha - ii * gammaa) ./ tao);
-                        if (ccBoundMax >= ccBoundMin)
-                            bb = ii;
-                            findb = true;
-                            break;
-                        end
-                    end
-                    if (~findb)
-                        err = 'Fail to interpolate with given boundary';
-                        error('error in quadprog: %s', err);
-                    end
-                    if (abs(bb) > 3 * abs(originb) || abs(bb) < 0.3 * abs(originb))
-                        if bb ~= 0
-                            err = 'Extrapolate will change slope a lot';
-                            error('error in quadprog: %s', err);
-                        end
-                    end
+                    err = 'Fail to interpolate with given boundary';
+                    error('error in quadprog: %s', err);
                 end
                 maxCC = min(maxCC, ccBoundMax);
                 minCC = max(minCC, ccBoundMin);
@@ -159,11 +132,6 @@ classdef splineHelper
         end
         
         function [aa, bb, cc, dd] = rightPars(x, a, b, c, stationaryPoint, flat, xEnd, aMin, aMax, tailConcavity, dx, dxx, concave)
-            if ~isempty(aMin) && a(end) < aMin(1) && b(end) < 0
-                err = 'right need more data';
-                error('%s', err);
-            end
-            
             xEnd = xEnd(aMax ~= 0);
             aMin = aMin(aMax ~= 0);
             aMax = aMax(aMax ~= 0);
@@ -261,25 +229,13 @@ classdef splineHelper
                         err = 'Fail to interpolate with given boundary';
                         error('error in quadprog: %s', err);
                     end
-                    findb = false;
-                    for ii = linspace(bb, right)
-                        ccBoundMax = min((beta - ii * gammaa) ./ tao);
-                        ccBoundMin = max((alpha - ii * gammaa) ./ tao);
-                        if (ccBoundMax >= ccBoundMin)
-                            bb = ii;
-                            findb = true;
-                            break;
-                        end
-                    end
-                    if (~findb)
+                    for ii 
+                    bb = right;
+                    ccBoundMax = min((beta - bb * gammaa) ./ tao);
+                    ccBoundMin = max((alpha - bb * gammaa) ./ tao);
+                    if (ccBoundMax < ccBoundMin)
                         err = 'Fail to interpolate with given boundary';
                         error('error in quadprog: %s', err);
-                    end
-                    if (abs(bb) > 3 * abs(originb) || abs(bb) < 0.3 * abs(originb))
-                        if bb ~= 0
-                            err = 'Extrapolate will change slope a lot';
-                            error('error in quadprog: %s', err);
-                        end
                     end
                 end
                 maxCC = min(maxCC, ccBoundMax);

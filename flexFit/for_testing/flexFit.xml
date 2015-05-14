@@ -7378,7 +7378,7 @@
              y = IV(:,6)';
              weight = ones(1,length(x));
              </remarks>
-             <param name="x">Input argument #1</param>
+             <param name="x_in1">Input argument #1</param>
              <returns>An MWArray containing the first output argument.</returns>
             
         </member>
@@ -7399,7 +7399,7 @@
              y = IV(:,6)';
              weight = ones(1,length(x));
              </remarks>
-             <param name="x">Input argument #1</param>
+             <param name="x_in1">Input argument #1</param>
              <param name="y">Input argument #2</param>
              <returns>An MWArray containing the first output argument.</returns>
             
@@ -7421,7 +7421,7 @@
              y = IV(:,6)';
              weight = ones(1,length(x));
              </remarks>
-             <param name="x">Input argument #1</param>
+             <param name="x_in1">Input argument #1</param>
              <param name="y">Input argument #2</param>
              <param name="weight">Input argument #3</param>
              <returns>An MWArray containing the first output argument.</returns>
@@ -7444,7 +7444,7 @@
              y = IV(:,6)';
              weight = ones(1,length(x));
              </remarks>
-             <param name="x">Input argument #1</param>
+             <param name="x_in1">Input argument #1</param>
              <param name="y">Input argument #2</param>
              <param name="weight">Input argument #3</param>
              <param name="stationaryPoint">Input argument #4</param>
@@ -7468,7 +7468,7 @@
              y = IV(:,6)';
              weight = ones(1,length(x));
              </remarks>
-             <param name="x">Input argument #1</param>
+             <param name="x_in1">Input argument #1</param>
              <param name="y">Input argument #2</param>
              <param name="weight">Input argument #3</param>
              <param name="stationaryPoint">Input argument #4</param>
@@ -7493,7 +7493,7 @@
              y = IV(:,6)';
              weight = ones(1,length(x));
              </remarks>
-             <param name="x">Input argument #1</param>
+             <param name="x_in1">Input argument #1</param>
              <param name="y">Input argument #2</param>
              <param name="weight">Input argument #3</param>
              <param name="stationaryPoint">Input argument #4</param>
@@ -7519,7 +7519,7 @@
              y = IV(:,6)';
              weight = ones(1,length(x));
              </remarks>
-             <param name="x">Input argument #1</param>
+             <param name="x_in1">Input argument #1</param>
              <param name="y">Input argument #2</param>
              <param name="weight">Input argument #3</param>
              <param name="stationaryPoint">Input argument #4</param>
@@ -7546,7 +7546,7 @@
              y = IV(:,6)';
              weight = ones(1,length(x));
              </remarks>
-             <param name="x">Input argument #1</param>
+             <param name="x_in1">Input argument #1</param>
              <param name="y">Input argument #2</param>
              <param name="weight">Input argument #3</param>
              <param name="stationaryPoint">Input argument #4</param>
@@ -7574,7 +7574,7 @@
              y = IV(:,6)';
              weight = ones(1,length(x));
              </remarks>
-             <param name="x">Input argument #1</param>
+             <param name="x_in1">Input argument #1</param>
              <param name="y">Input argument #2</param>
              <param name="weight">Input argument #3</param>
              <param name="stationaryPoint">Input argument #4</param>
@@ -7603,7 +7603,7 @@
              y = IV(:,6)';
              weight = ones(1,length(x));
              </remarks>
-             <param name="x">Input argument #1</param>
+             <param name="x_in1">Input argument #1</param>
              <param name="y">Input argument #2</param>
              <param name="weight">Input argument #3</param>
              <param name="stationaryPoint">Input argument #4</param>
@@ -7633,7 +7633,7 @@
              y = IV(:,6)';
              weight = ones(1,length(x));
              </remarks>
-             <param name="x">Input argument #1</param>
+             <param name="x_in1">Input argument #1</param>
              <param name="y">Input argument #2</param>
              <param name="weight">Input argument #3</param>
              <param name="stationaryPoint">Input argument #4</param>
@@ -7664,7 +7664,7 @@
              y = IV(:,6)';
              weight = ones(1,length(x));
              </remarks>
-             <param name="x">Input argument #1</param>
+             <param name="x_in1">Input argument #1</param>
              <param name="y">Input argument #2</param>
              <param name="weight">Input argument #3</param>
              <param name="stationaryPoint">Input argument #4</param>
@@ -7696,7 +7696,7 @@
              y = IV(:,6)';
              weight = ones(1,length(x));
              </remarks>
-             <param name="x">Input argument #1</param>
+             <param name="x_in1">Input argument #1</param>
              <param name="y">Input argument #2</param>
              <param name="weight">Input argument #3</param>
              <param name="stationaryPoint">Input argument #4</param>
@@ -7729,7 +7729,7 @@
              y = IV(:,6)';
              weight = ones(1,length(x));
              </remarks>
-             <param name="x">Input argument #1</param>
+             <param name="x_in1">Input argument #1</param>
              <param name="y">Input argument #2</param>
              <param name="weight">Input argument #3</param>
              <param name="stationaryPoint">Input argument #4</param>
@@ -7763,7 +7763,7 @@
              y = IV(:,6)';
              weight = ones(1,length(x));
              </remarks>
-             <param name="x">Input argument #1</param>
+             <param name="x_in1">Input argument #1</param>
              <param name="y">Input argument #2</param>
              <param name="weight">Input argument #3</param>
              <param name="stationaryPoint">Input argument #4</param>
@@ -7798,7 +7798,7 @@
              y = IV(:,6)';
              weight = ones(1,length(x));
              </remarks>
-             <param name="x">Input argument #1</param>
+             <param name="x_in1">Input argument #1</param>
              <param name="y">Input argument #2</param>
              <param name="weight">Input argument #3</param>
              <param name="stationaryPoint">Input argument #4</param>
@@ -7834,7 +7834,7 @@
              y = IV(:,6)';
              weight = ones(1,length(x));
              </remarks>
-             <param name="x">Input argument #1</param>
+             <param name="x_in1">Input argument #1</param>
              <param name="y">Input argument #2</param>
              <param name="weight">Input argument #3</param>
              <param name="stationaryPoint">Input argument #4</param>
@@ -7871,7 +7871,7 @@
              y = IV(:,6)';
              weight = ones(1,length(x));
              </remarks>
-             <param name="x">Input argument #1</param>
+             <param name="x_in1">Input argument #1</param>
              <param name="y">Input argument #2</param>
              <param name="weight">Input argument #3</param>
              <param name="stationaryPoint">Input argument #4</param>
@@ -7909,7 +7909,7 @@
              y = IV(:,6)';
              weight = ones(1,length(x));
              </remarks>
-             <param name="x">Input argument #1</param>
+             <param name="x_in1">Input argument #1</param>
              <param name="y">Input argument #2</param>
              <param name="weight">Input argument #3</param>
              <param name="stationaryPoint">Input argument #4</param>
@@ -7948,7 +7948,7 @@
              y = IV(:,6)';
              weight = ones(1,length(x));
              </remarks>
-             <param name="x">Input argument #1</param>
+             <param name="x_in1">Input argument #1</param>
              <param name="y">Input argument #2</param>
              <param name="weight">Input argument #3</param>
              <param name="stationaryPoint">Input argument #4</param>
@@ -7988,7 +7988,7 @@
              y = IV(:,6)';
              weight = ones(1,length(x));
              </remarks>
-             <param name="x">Input argument #1</param>
+             <param name="x_in1">Input argument #1</param>
              <param name="y">Input argument #2</param>
              <param name="weight">Input argument #3</param>
              <param name="stationaryPoint">Input argument #4</param>
@@ -8029,7 +8029,7 @@
              y = IV(:,6)';
              weight = ones(1,length(x));
              </remarks>
-             <param name="x">Input argument #1</param>
+             <param name="x_in1">Input argument #1</param>
              <param name="y">Input argument #2</param>
              <param name="weight">Input argument #3</param>
              <param name="stationaryPoint">Input argument #4</param>
@@ -8071,7 +8071,7 @@
              y = IV(:,6)';
              weight = ones(1,length(x));
              </remarks>
-             <param name="x">Input argument #1</param>
+             <param name="x_in1">Input argument #1</param>
              <param name="y">Input argument #2</param>
              <param name="weight">Input argument #3</param>
              <param name="stationaryPoint">Input argument #4</param>
@@ -8114,7 +8114,7 @@
              y = IV(:,6)';
              weight = ones(1,length(x));
              </remarks>
-             <param name="x">Input argument #1</param>
+             <param name="x_in1">Input argument #1</param>
              <param name="y">Input argument #2</param>
              <param name="weight">Input argument #3</param>
              <param name="stationaryPoint">Input argument #4</param>
@@ -8158,7 +8158,7 @@
              y = IV(:,6)';
              weight = ones(1,length(x));
              </remarks>
-             <param name="x">Input argument #1</param>
+             <param name="x_in1">Input argument #1</param>
              <param name="y">Input argument #2</param>
              <param name="weight">Input argument #3</param>
              <param name="stationaryPoint">Input argument #4</param>
@@ -8203,7 +8203,7 @@
              y = IV(:,6)';
              weight = ones(1,length(x));
              </remarks>
-             <param name="x">Input argument #1</param>
+             <param name="x_in1">Input argument #1</param>
              <param name="y">Input argument #2</param>
              <param name="weight">Input argument #3</param>
              <param name="stationaryPoint">Input argument #4</param>
@@ -8249,7 +8249,7 @@
              y = IV(:,6)';
              weight = ones(1,length(x));
              </remarks>
-             <param name="x">Input argument #1</param>
+             <param name="x_in1">Input argument #1</param>
              <param name="y">Input argument #2</param>
              <param name="weight">Input argument #3</param>
              <param name="stationaryPoint">Input argument #4</param>
@@ -8296,7 +8296,7 @@
              y = IV(:,6)';
              weight = ones(1,length(x));
              </remarks>
-             <param name="x">Input argument #1</param>
+             <param name="x_in1">Input argument #1</param>
              <param name="y">Input argument #2</param>
              <param name="weight">Input argument #3</param>
              <param name="stationaryPoint">Input argument #4</param>
@@ -8344,7 +8344,7 @@
              y = IV(:,6)';
              weight = ones(1,length(x));
              </remarks>
-             <param name="x">Input argument #1</param>
+             <param name="x_in1">Input argument #1</param>
              <param name="y">Input argument #2</param>
              <param name="weight">Input argument #3</param>
              <param name="stationaryPoint">Input argument #4</param>
@@ -8393,7 +8393,7 @@
              y = IV(:,6)';
              weight = ones(1,length(x));
              </remarks>
-             <param name="x">Input argument #1</param>
+             <param name="x_in1">Input argument #1</param>
              <param name="y">Input argument #2</param>
              <param name="weight">Input argument #3</param>
              <param name="stationaryPoint">Input argument #4</param>
@@ -8466,7 +8466,7 @@
              weight = ones(1,length(x));
              </remarks>
              <param name="numArgsOut">The number of output arguments to return.</param>
-             <param name="x">Input argument #1</param>
+             <param name="x_in1">Input argument #1</param>
              <returns>An Array of length "numArgsOut" containing the output
              arguments.</returns>
             
@@ -8489,7 +8489,7 @@
              weight = ones(1,length(x));
              </remarks>
              <param name="numArgsOut">The number of output arguments to return.</param>
-             <param name="x">Input argument #1</param>
+             <param name="x_in1">Input argument #1</param>
              <param name="y">Input argument #2</param>
              <returns>An Array of length "numArgsOut" containing the output
              arguments.</returns>
@@ -8513,7 +8513,7 @@
              weight = ones(1,length(x));
              </remarks>
              <param name="numArgsOut">The number of output arguments to return.</param>
-             <param name="x">Input argument #1</param>
+             <param name="x_in1">Input argument #1</param>
              <param name="y">Input argument #2</param>
              <param name="weight">Input argument #3</param>
              <returns>An Array of length "numArgsOut" containing the output
@@ -8538,7 +8538,7 @@
              weight = ones(1,length(x));
              </remarks>
              <param name="numArgsOut">The number of output arguments to return.</param>
-             <param name="x">Input argument #1</param>
+             <param name="x_in1">Input argument #1</param>
              <param name="y">Input argument #2</param>
              <param name="weight">Input argument #3</param>
              <param name="stationaryPoint">Input argument #4</param>
@@ -8564,7 +8564,7 @@
              weight = ones(1,length(x));
              </remarks>
              <param name="numArgsOut">The number of output arguments to return.</param>
-             <param name="x">Input argument #1</param>
+             <param name="x_in1">Input argument #1</param>
              <param name="y">Input argument #2</param>
              <param name="weight">Input argument #3</param>
              <param name="stationaryPoint">Input argument #4</param>
@@ -8591,7 +8591,7 @@
              weight = ones(1,length(x));
              </remarks>
              <param name="numArgsOut">The number of output arguments to return.</param>
-             <param name="x">Input argument #1</param>
+             <param name="x_in1">Input argument #1</param>
              <param name="y">Input argument #2</param>
              <param name="weight">Input argument #3</param>
              <param name="stationaryPoint">Input argument #4</param>
@@ -8619,7 +8619,7 @@
              weight = ones(1,length(x));
              </remarks>
              <param name="numArgsOut">The number of output arguments to return.</param>
-             <param name="x">Input argument #1</param>
+             <param name="x_in1">Input argument #1</param>
              <param name="y">Input argument #2</param>
              <param name="weight">Input argument #3</param>
              <param name="stationaryPoint">Input argument #4</param>
@@ -8648,7 +8648,7 @@
              weight = ones(1,length(x));
              </remarks>
              <param name="numArgsOut">The number of output arguments to return.</param>
-             <param name="x">Input argument #1</param>
+             <param name="x_in1">Input argument #1</param>
              <param name="y">Input argument #2</param>
              <param name="weight">Input argument #3</param>
              <param name="stationaryPoint">Input argument #4</param>
@@ -8678,7 +8678,7 @@
              weight = ones(1,length(x));
              </remarks>
              <param name="numArgsOut">The number of output arguments to return.</param>
-             <param name="x">Input argument #1</param>
+             <param name="x_in1">Input argument #1</param>
              <param name="y">Input argument #2</param>
              <param name="weight">Input argument #3</param>
              <param name="stationaryPoint">Input argument #4</param>
@@ -8709,7 +8709,7 @@
              weight = ones(1,length(x));
              </remarks>
              <param name="numArgsOut">The number of output arguments to return.</param>
-             <param name="x">Input argument #1</param>
+             <param name="x_in1">Input argument #1</param>
              <param name="y">Input argument #2</param>
              <param name="weight">Input argument #3</param>
              <param name="stationaryPoint">Input argument #4</param>
@@ -8741,7 +8741,7 @@
              weight = ones(1,length(x));
              </remarks>
              <param name="numArgsOut">The number of output arguments to return.</param>
-             <param name="x">Input argument #1</param>
+             <param name="x_in1">Input argument #1</param>
              <param name="y">Input argument #2</param>
              <param name="weight">Input argument #3</param>
              <param name="stationaryPoint">Input argument #4</param>
@@ -8774,7 +8774,7 @@
              weight = ones(1,length(x));
              </remarks>
              <param name="numArgsOut">The number of output arguments to return.</param>
-             <param name="x">Input argument #1</param>
+             <param name="x_in1">Input argument #1</param>
              <param name="y">Input argument #2</param>
              <param name="weight">Input argument #3</param>
              <param name="stationaryPoint">Input argument #4</param>
@@ -8808,7 +8808,7 @@
              weight = ones(1,length(x));
              </remarks>
              <param name="numArgsOut">The number of output arguments to return.</param>
-             <param name="x">Input argument #1</param>
+             <param name="x_in1">Input argument #1</param>
              <param name="y">Input argument #2</param>
              <param name="weight">Input argument #3</param>
              <param name="stationaryPoint">Input argument #4</param>
@@ -8843,7 +8843,7 @@
              weight = ones(1,length(x));
              </remarks>
              <param name="numArgsOut">The number of output arguments to return.</param>
-             <param name="x">Input argument #1</param>
+             <param name="x_in1">Input argument #1</param>
              <param name="y">Input argument #2</param>
              <param name="weight">Input argument #3</param>
              <param name="stationaryPoint">Input argument #4</param>
@@ -8879,7 +8879,7 @@
              weight = ones(1,length(x));
              </remarks>
              <param name="numArgsOut">The number of output arguments to return.</param>
-             <param name="x">Input argument #1</param>
+             <param name="x_in1">Input argument #1</param>
              <param name="y">Input argument #2</param>
              <param name="weight">Input argument #3</param>
              <param name="stationaryPoint">Input argument #4</param>
@@ -8916,7 +8916,7 @@
              weight = ones(1,length(x));
              </remarks>
              <param name="numArgsOut">The number of output arguments to return.</param>
-             <param name="x">Input argument #1</param>
+             <param name="x_in1">Input argument #1</param>
              <param name="y">Input argument #2</param>
              <param name="weight">Input argument #3</param>
              <param name="stationaryPoint">Input argument #4</param>
@@ -8954,7 +8954,7 @@
              weight = ones(1,length(x));
              </remarks>
              <param name="numArgsOut">The number of output arguments to return.</param>
-             <param name="x">Input argument #1</param>
+             <param name="x_in1">Input argument #1</param>
              <param name="y">Input argument #2</param>
              <param name="weight">Input argument #3</param>
              <param name="stationaryPoint">Input argument #4</param>
@@ -8993,7 +8993,7 @@
              weight = ones(1,length(x));
              </remarks>
              <param name="numArgsOut">The number of output arguments to return.</param>
-             <param name="x">Input argument #1</param>
+             <param name="x_in1">Input argument #1</param>
              <param name="y">Input argument #2</param>
              <param name="weight">Input argument #3</param>
              <param name="stationaryPoint">Input argument #4</param>
@@ -9033,7 +9033,7 @@
              weight = ones(1,length(x));
              </remarks>
              <param name="numArgsOut">The number of output arguments to return.</param>
-             <param name="x">Input argument #1</param>
+             <param name="x_in1">Input argument #1</param>
              <param name="y">Input argument #2</param>
              <param name="weight">Input argument #3</param>
              <param name="stationaryPoint">Input argument #4</param>
@@ -9074,7 +9074,7 @@
              weight = ones(1,length(x));
              </remarks>
              <param name="numArgsOut">The number of output arguments to return.</param>
-             <param name="x">Input argument #1</param>
+             <param name="x_in1">Input argument #1</param>
              <param name="y">Input argument #2</param>
              <param name="weight">Input argument #3</param>
              <param name="stationaryPoint">Input argument #4</param>
@@ -9116,7 +9116,7 @@
              weight = ones(1,length(x));
              </remarks>
              <param name="numArgsOut">The number of output arguments to return.</param>
-             <param name="x">Input argument #1</param>
+             <param name="x_in1">Input argument #1</param>
              <param name="y">Input argument #2</param>
              <param name="weight">Input argument #3</param>
              <param name="stationaryPoint">Input argument #4</param>
@@ -9159,7 +9159,7 @@
              weight = ones(1,length(x));
              </remarks>
              <param name="numArgsOut">The number of output arguments to return.</param>
-             <param name="x">Input argument #1</param>
+             <param name="x_in1">Input argument #1</param>
              <param name="y">Input argument #2</param>
              <param name="weight">Input argument #3</param>
              <param name="stationaryPoint">Input argument #4</param>
@@ -9203,7 +9203,7 @@
              weight = ones(1,length(x));
              </remarks>
              <param name="numArgsOut">The number of output arguments to return.</param>
-             <param name="x">Input argument #1</param>
+             <param name="x_in1">Input argument #1</param>
              <param name="y">Input argument #2</param>
              <param name="weight">Input argument #3</param>
              <param name="stationaryPoint">Input argument #4</param>
@@ -9248,7 +9248,7 @@
              weight = ones(1,length(x));
              </remarks>
              <param name="numArgsOut">The number of output arguments to return.</param>
-             <param name="x">Input argument #1</param>
+             <param name="x_in1">Input argument #1</param>
              <param name="y">Input argument #2</param>
              <param name="weight">Input argument #3</param>
              <param name="stationaryPoint">Input argument #4</param>
@@ -9294,7 +9294,7 @@
              weight = ones(1,length(x));
              </remarks>
              <param name="numArgsOut">The number of output arguments to return.</param>
-             <param name="x">Input argument #1</param>
+             <param name="x_in1">Input argument #1</param>
              <param name="y">Input argument #2</param>
              <param name="weight">Input argument #3</param>
              <param name="stationaryPoint">Input argument #4</param>
@@ -9341,7 +9341,7 @@
              weight = ones(1,length(x));
              </remarks>
              <param name="numArgsOut">The number of output arguments to return.</param>
-             <param name="x">Input argument #1</param>
+             <param name="x_in1">Input argument #1</param>
              <param name="y">Input argument #2</param>
              <param name="weight">Input argument #3</param>
              <param name="stationaryPoint">Input argument #4</param>
@@ -9389,7 +9389,7 @@
              weight = ones(1,length(x));
              </remarks>
              <param name="numArgsOut">The number of output arguments to return.</param>
-             <param name="x">Input argument #1</param>
+             <param name="x_in1">Input argument #1</param>
              <param name="y">Input argument #2</param>
              <param name="weight">Input argument #3</param>
              <param name="stationaryPoint">Input argument #4</param>
@@ -9438,7 +9438,7 @@
              weight = ones(1,length(x));
              </remarks>
              <param name="numArgsOut">The number of output arguments to return.</param>
-             <param name="x">Input argument #1</param>
+             <param name="x_in1">Input argument #1</param>
              <param name="y">Input argument #2</param>
              <param name="weight">Input argument #3</param>
              <param name="stationaryPoint">Input argument #4</param>
@@ -9488,7 +9488,7 @@
              weight = ones(1,length(x));
              </remarks>
              <param name="numArgsOut">The number of output arguments to return.</param>
-             <param name="x">Input argument #1</param>
+             <param name="x_in1">Input argument #1</param>
              <param name="y">Input argument #2</param>
              <param name="weight">Input argument #3</param>
              <param name="stationaryPoint">Input argument #4</param>
@@ -9539,7 +9539,7 @@
              weight = ones(1,length(x));
              </remarks>
              <param name="numArgsOut">The number of output arguments to return.</param>
-             <param name="x">Input argument #1</param>
+             <param name="x_in1">Input argument #1</param>
              <param name="y">Input argument #2</param>
              <param name="weight">Input argument #3</param>
              <param name="stationaryPoint">Input argument #4</param>

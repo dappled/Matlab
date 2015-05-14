@@ -1,6 +1,6 @@
 /*
 * MATLAB Compiler: 5.1 (R2014a)
-* Date: Thu May 07 21:15:21 2015
+* Date: Thu May 14 12:56:06 2015
 * Arguments: "-B" "macro_default" "-W" "dotnet:flexFit,FlexFit,0.0,private" "-T"
 * "link:lib" "-d" "C:\Users\Dappled\OneDrive\dappled's
 * sky\cs\matlab\convexMonotoneFit\flexFit\for_testing" "-v" "C:\Program
@@ -8047,12 +8047,12 @@ namespace flexFit
     /// y = IV(:,6)';
     /// weight = ones(1,length(x));
     /// </remarks>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <returns>An MWArray containing the first output argument.</returns>
     ///
-    public MWArray flexWingFit(MWArray x)
+    public MWArray flexWingFit(MWArray x_in1)
     {
-      return mcr.EvaluateFunction("flexWingFit", x);
+      return mcr.EvaluateFunction("flexWingFit", x_in1);
     }
 
 
@@ -8072,13 +8072,13 @@ namespace flexFit
     /// y = IV(:,6)';
     /// weight = ones(1,length(x));
     /// </remarks>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <returns>An MWArray containing the first output argument.</returns>
     ///
-    public MWArray flexWingFit(MWArray x, MWArray y)
+    public MWArray flexWingFit(MWArray x_in1, MWArray y)
     {
-      return mcr.EvaluateFunction("flexWingFit", x, y);
+      return mcr.EvaluateFunction("flexWingFit", x_in1, y);
     }
 
 
@@ -8098,14 +8098,14 @@ namespace flexFit
     /// y = IV(:,6)';
     /// weight = ones(1,length(x));
     /// </remarks>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <returns>An MWArray containing the first output argument.</returns>
     ///
-    public MWArray flexWingFit(MWArray x, MWArray y, MWArray weight)
+    public MWArray flexWingFit(MWArray x_in1, MWArray y, MWArray weight)
     {
-      return mcr.EvaluateFunction("flexWingFit", x, y, weight);
+      return mcr.EvaluateFunction("flexWingFit", x_in1, y, weight);
     }
 
 
@@ -8125,16 +8125,16 @@ namespace flexFit
     /// y = IV(:,6)';
     /// weight = ones(1,length(x));
     /// </remarks>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <param name="stationaryPoint">Input argument #4</param>
     /// <returns>An MWArray containing the first output argument.</returns>
     ///
-    public MWArray flexWingFit(MWArray x, MWArray y, MWArray weight, MWArray 
+    public MWArray flexWingFit(MWArray x_in1, MWArray y, MWArray weight, MWArray 
                          stationaryPoint)
     {
-      return mcr.EvaluateFunction("flexWingFit", x, y, weight, stationaryPoint);
+      return mcr.EvaluateFunction("flexWingFit", x_in1, y, weight, stationaryPoint);
     }
 
 
@@ -8154,17 +8154,17 @@ namespace flexFit
     /// y = IV(:,6)';
     /// weight = ones(1,length(x));
     /// </remarks>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <param name="stationaryPoint">Input argument #4</param>
     /// <param name="tailConcavity">Input argument #5</param>
     /// <returns>An MWArray containing the first output argument.</returns>
     ///
-    public MWArray flexWingFit(MWArray x, MWArray y, MWArray weight, MWArray 
+    public MWArray flexWingFit(MWArray x_in1, MWArray y, MWArray weight, MWArray 
                          stationaryPoint, MWArray tailConcavity)
     {
-      return mcr.EvaluateFunction("flexWingFit", x, y, weight, stationaryPoint, tailConcavity);
+      return mcr.EvaluateFunction("flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity);
     }
 
 
@@ -8184,7 +8184,7 @@ namespace flexFit
     /// y = IV(:,6)';
     /// weight = ones(1,length(x));
     /// </remarks>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <param name="stationaryPoint">Input argument #4</param>
@@ -8192,10 +8192,10 @@ namespace flexFit
     /// <param name="smoothCoeff">Input argument #6</param>
     /// <returns>An MWArray containing the first output argument.</returns>
     ///
-    public MWArray flexWingFit(MWArray x, MWArray y, MWArray weight, MWArray 
+    public MWArray flexWingFit(MWArray x_in1, MWArray y, MWArray weight, MWArray 
                          stationaryPoint, MWArray tailConcavity, MWArray smoothCoeff)
     {
-      return mcr.EvaluateFunction("flexWingFit", x, y, weight, stationaryPoint, tailConcavity, smoothCoeff);
+      return mcr.EvaluateFunction("flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff);
     }
 
 
@@ -8215,7 +8215,7 @@ namespace flexFit
     /// y = IV(:,6)';
     /// weight = ones(1,length(x));
     /// </remarks>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <param name="stationaryPoint">Input argument #4</param>
@@ -8224,11 +8224,11 @@ namespace flexFit
     /// <param name="turningPoint_in1">Input argument #7</param>
     /// <returns>An MWArray containing the first output argument.</returns>
     ///
-    public MWArray flexWingFit(MWArray x, MWArray y, MWArray weight, MWArray 
+    public MWArray flexWingFit(MWArray x_in1, MWArray y, MWArray weight, MWArray 
                          stationaryPoint, MWArray tailConcavity, MWArray smoothCoeff, 
                          MWArray turningPoint_in1)
     {
-      return mcr.EvaluateFunction("flexWingFit", x, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1);
+      return mcr.EvaluateFunction("flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1);
     }
 
 
@@ -8248,7 +8248,7 @@ namespace flexFit
     /// y = IV(:,6)';
     /// weight = ones(1,length(x));
     /// </remarks>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <param name="stationaryPoint">Input argument #4</param>
@@ -8258,11 +8258,11 @@ namespace flexFit
     /// <param name="boundaryx">Input argument #8</param>
     /// <returns>An MWArray containing the first output argument.</returns>
     ///
-    public MWArray flexWingFit(MWArray x, MWArray y, MWArray weight, MWArray 
+    public MWArray flexWingFit(MWArray x_in1, MWArray y, MWArray weight, MWArray 
                          stationaryPoint, MWArray tailConcavity, MWArray smoothCoeff, 
                          MWArray turningPoint_in1, MWArray boundaryx)
     {
-      return mcr.EvaluateFunction("flexWingFit", x, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx);
+      return mcr.EvaluateFunction("flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx);
     }
 
 
@@ -8282,7 +8282,7 @@ namespace flexFit
     /// y = IV(:,6)';
     /// weight = ones(1,length(x));
     /// </remarks>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <param name="stationaryPoint">Input argument #4</param>
@@ -8293,11 +8293,11 @@ namespace flexFit
     /// <param name="boundarydx">Input argument #9</param>
     /// <returns>An MWArray containing the first output argument.</returns>
     ///
-    public MWArray flexWingFit(MWArray x, MWArray y, MWArray weight, MWArray 
+    public MWArray flexWingFit(MWArray x_in1, MWArray y, MWArray weight, MWArray 
                          stationaryPoint, MWArray tailConcavity, MWArray smoothCoeff, 
                          MWArray turningPoint_in1, MWArray boundaryx, MWArray boundarydx)
     {
-      return mcr.EvaluateFunction("flexWingFit", x, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx);
+      return mcr.EvaluateFunction("flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx);
     }
 
 
@@ -8317,7 +8317,7 @@ namespace flexFit
     /// y = IV(:,6)';
     /// weight = ones(1,length(x));
     /// </remarks>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <param name="stationaryPoint">Input argument #4</param>
@@ -8329,12 +8329,12 @@ namespace flexFit
     /// <param name="boundarydxx">Input argument #10</param>
     /// <returns>An MWArray containing the first output argument.</returns>
     ///
-    public MWArray flexWingFit(MWArray x, MWArray y, MWArray weight, MWArray 
+    public MWArray flexWingFit(MWArray x_in1, MWArray y, MWArray weight, MWArray 
                          stationaryPoint, MWArray tailConcavity, MWArray smoothCoeff, 
                          MWArray turningPoint_in1, MWArray boundaryx, MWArray boundarydx, 
                          MWArray boundarydxx)
     {
-      return mcr.EvaluateFunction("flexWingFit", x, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx);
+      return mcr.EvaluateFunction("flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx);
     }
 
 
@@ -8354,7 +8354,7 @@ namespace flexFit
     /// y = IV(:,6)';
     /// weight = ones(1,length(x));
     /// </remarks>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <param name="stationaryPoint">Input argument #4</param>
@@ -8367,12 +8367,12 @@ namespace flexFit
     /// <param name="leftright">Input argument #11</param>
     /// <returns>An MWArray containing the first output argument.</returns>
     ///
-    public MWArray flexWingFit(MWArray x, MWArray y, MWArray weight, MWArray 
+    public MWArray flexWingFit(MWArray x_in1, MWArray y, MWArray weight, MWArray 
                          stationaryPoint, MWArray tailConcavity, MWArray smoothCoeff, 
                          MWArray turningPoint_in1, MWArray boundaryx, MWArray boundarydx, 
                          MWArray boundarydxx, MWArray leftright)
     {
-      return mcr.EvaluateFunction("flexWingFit", x, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright);
+      return mcr.EvaluateFunction("flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright);
     }
 
 
@@ -8392,7 +8392,7 @@ namespace flexFit
     /// y = IV(:,6)';
     /// weight = ones(1,length(x));
     /// </remarks>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <param name="stationaryPoint">Input argument #4</param>
@@ -8406,12 +8406,12 @@ namespace flexFit
     /// <param name="upperLimitG">Input argument #12</param>
     /// <returns>An MWArray containing the first output argument.</returns>
     ///
-    public MWArray flexWingFit(MWArray x, MWArray y, MWArray weight, MWArray 
+    public MWArray flexWingFit(MWArray x_in1, MWArray y, MWArray weight, MWArray 
                          stationaryPoint, MWArray tailConcavity, MWArray smoothCoeff, 
                          MWArray turningPoint_in1, MWArray boundaryx, MWArray boundarydx, 
                          MWArray boundarydxx, MWArray leftright, MWArray upperLimitG)
     {
-      return mcr.EvaluateFunction("flexWingFit", x, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG);
+      return mcr.EvaluateFunction("flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG);
     }
 
 
@@ -8431,7 +8431,7 @@ namespace flexFit
     /// y = IV(:,6)';
     /// weight = ones(1,length(x));
     /// </remarks>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <param name="stationaryPoint">Input argument #4</param>
@@ -8446,13 +8446,13 @@ namespace flexFit
     /// <param name="lowerLimitG">Input argument #13</param>
     /// <returns>An MWArray containing the first output argument.</returns>
     ///
-    public MWArray flexWingFit(MWArray x, MWArray y, MWArray weight, MWArray 
+    public MWArray flexWingFit(MWArray x_in1, MWArray y, MWArray weight, MWArray 
                          stationaryPoint, MWArray tailConcavity, MWArray smoothCoeff, 
                          MWArray turningPoint_in1, MWArray boundaryx, MWArray boundarydx, 
                          MWArray boundarydxx, MWArray leftright, MWArray upperLimitG, 
                          MWArray lowerLimitG)
     {
-      return mcr.EvaluateFunction("flexWingFit", x, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG);
+      return mcr.EvaluateFunction("flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG);
     }
 
 
@@ -8472,7 +8472,7 @@ namespace flexFit
     /// y = IV(:,6)';
     /// weight = ones(1,length(x));
     /// </remarks>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <param name="stationaryPoint">Input argument #4</param>
@@ -8488,13 +8488,13 @@ namespace flexFit
     /// <param name="xEndl">Input argument #14</param>
     /// <returns>An MWArray containing the first output argument.</returns>
     ///
-    public MWArray flexWingFit(MWArray x, MWArray y, MWArray weight, MWArray 
+    public MWArray flexWingFit(MWArray x_in1, MWArray y, MWArray weight, MWArray 
                          stationaryPoint, MWArray tailConcavity, MWArray smoothCoeff, 
                          MWArray turningPoint_in1, MWArray boundaryx, MWArray boundarydx, 
                          MWArray boundarydxx, MWArray leftright, MWArray upperLimitG, 
                          MWArray lowerLimitG, MWArray xEndl)
     {
-      return mcr.EvaluateFunction("flexWingFit", x, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl);
+      return mcr.EvaluateFunction("flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl);
     }
 
 
@@ -8514,7 +8514,7 @@ namespace flexFit
     /// y = IV(:,6)';
     /// weight = ones(1,length(x));
     /// </remarks>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <param name="stationaryPoint">Input argument #4</param>
@@ -8531,13 +8531,13 @@ namespace flexFit
     /// <param name="aMaxl">Input argument #15</param>
     /// <returns>An MWArray containing the first output argument.</returns>
     ///
-    public MWArray flexWingFit(MWArray x, MWArray y, MWArray weight, MWArray 
+    public MWArray flexWingFit(MWArray x_in1, MWArray y, MWArray weight, MWArray 
                          stationaryPoint, MWArray tailConcavity, MWArray smoothCoeff, 
                          MWArray turningPoint_in1, MWArray boundaryx, MWArray boundarydx, 
                          MWArray boundarydxx, MWArray leftright, MWArray upperLimitG, 
                          MWArray lowerLimitG, MWArray xEndl, MWArray aMaxl)
     {
-      return mcr.EvaluateFunction("flexWingFit", x, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl);
+      return mcr.EvaluateFunction("flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl);
     }
 
 
@@ -8557,7 +8557,7 @@ namespace flexFit
     /// y = IV(:,6)';
     /// weight = ones(1,length(x));
     /// </remarks>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <param name="stationaryPoint">Input argument #4</param>
@@ -8575,13 +8575,13 @@ namespace flexFit
     /// <param name="aMinl">Input argument #16</param>
     /// <returns>An MWArray containing the first output argument.</returns>
     ///
-    public MWArray flexWingFit(MWArray x, MWArray y, MWArray weight, MWArray 
+    public MWArray flexWingFit(MWArray x_in1, MWArray y, MWArray weight, MWArray 
                          stationaryPoint, MWArray tailConcavity, MWArray smoothCoeff, 
                          MWArray turningPoint_in1, MWArray boundaryx, MWArray boundarydx, 
                          MWArray boundarydxx, MWArray leftright, MWArray upperLimitG, 
                          MWArray lowerLimitG, MWArray xEndl, MWArray aMaxl, MWArray aMinl)
     {
-      return mcr.EvaluateFunction("flexWingFit", x, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl);
+      return mcr.EvaluateFunction("flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl);
     }
 
 
@@ -8601,7 +8601,7 @@ namespace flexFit
     /// y = IV(:,6)';
     /// weight = ones(1,length(x));
     /// </remarks>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <param name="stationaryPoint">Input argument #4</param>
@@ -8620,14 +8620,14 @@ namespace flexFit
     /// <param name="xEndr">Input argument #17</param>
     /// <returns>An MWArray containing the first output argument.</returns>
     ///
-    public MWArray flexWingFit(MWArray x, MWArray y, MWArray weight, MWArray 
+    public MWArray flexWingFit(MWArray x_in1, MWArray y, MWArray weight, MWArray 
                          stationaryPoint, MWArray tailConcavity, MWArray smoothCoeff, 
                          MWArray turningPoint_in1, MWArray boundaryx, MWArray boundarydx, 
                          MWArray boundarydxx, MWArray leftright, MWArray upperLimitG, 
                          MWArray lowerLimitG, MWArray xEndl, MWArray aMaxl, MWArray 
                          aMinl, MWArray xEndr)
     {
-      return mcr.EvaluateFunction("flexWingFit", x, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr);
+      return mcr.EvaluateFunction("flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr);
     }
 
 
@@ -8647,7 +8647,7 @@ namespace flexFit
     /// y = IV(:,6)';
     /// weight = ones(1,length(x));
     /// </remarks>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <param name="stationaryPoint">Input argument #4</param>
@@ -8667,14 +8667,14 @@ namespace flexFit
     /// <param name="aMaxr">Input argument #18</param>
     /// <returns>An MWArray containing the first output argument.</returns>
     ///
-    public MWArray flexWingFit(MWArray x, MWArray y, MWArray weight, MWArray 
+    public MWArray flexWingFit(MWArray x_in1, MWArray y, MWArray weight, MWArray 
                          stationaryPoint, MWArray tailConcavity, MWArray smoothCoeff, 
                          MWArray turningPoint_in1, MWArray boundaryx, MWArray boundarydx, 
                          MWArray boundarydxx, MWArray leftright, MWArray upperLimitG, 
                          MWArray lowerLimitG, MWArray xEndl, MWArray aMaxl, MWArray 
                          aMinl, MWArray xEndr, MWArray aMaxr)
     {
-      return mcr.EvaluateFunction("flexWingFit", x, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr);
+      return mcr.EvaluateFunction("flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr);
     }
 
 
@@ -8694,7 +8694,7 @@ namespace flexFit
     /// y = IV(:,6)';
     /// weight = ones(1,length(x));
     /// </remarks>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <param name="stationaryPoint">Input argument #4</param>
@@ -8715,14 +8715,14 @@ namespace flexFit
     /// <param name="aMinr">Input argument #19</param>
     /// <returns>An MWArray containing the first output argument.</returns>
     ///
-    public MWArray flexWingFit(MWArray x, MWArray y, MWArray weight, MWArray 
+    public MWArray flexWingFit(MWArray x_in1, MWArray y, MWArray weight, MWArray 
                          stationaryPoint, MWArray tailConcavity, MWArray smoothCoeff, 
                          MWArray turningPoint_in1, MWArray boundaryx, MWArray boundarydx, 
                          MWArray boundarydxx, MWArray leftright, MWArray upperLimitG, 
                          MWArray lowerLimitG, MWArray xEndl, MWArray aMaxl, MWArray 
                          aMinl, MWArray xEndr, MWArray aMaxr, MWArray aMinr)
     {
-      return mcr.EvaluateFunction("flexWingFit", x, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr);
+      return mcr.EvaluateFunction("flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr);
     }
 
 
@@ -8742,7 +8742,7 @@ namespace flexFit
     /// y = IV(:,6)';
     /// weight = ones(1,length(x));
     /// </remarks>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <param name="stationaryPoint">Input argument #4</param>
@@ -8764,7 +8764,7 @@ namespace flexFit
     /// <param name="invalidx">Input argument #20</param>
     /// <returns>An MWArray containing the first output argument.</returns>
     ///
-    public MWArray flexWingFit(MWArray x, MWArray y, MWArray weight, MWArray 
+    public MWArray flexWingFit(MWArray x_in1, MWArray y, MWArray weight, MWArray 
                          stationaryPoint, MWArray tailConcavity, MWArray smoothCoeff, 
                          MWArray turningPoint_in1, MWArray boundaryx, MWArray boundarydx, 
                          MWArray boundarydxx, MWArray leftright, MWArray upperLimitG, 
@@ -8772,7 +8772,7 @@ namespace flexFit
                          aMinl, MWArray xEndr, MWArray aMaxr, MWArray aMinr, MWArray 
                          invalidx)
     {
-      return mcr.EvaluateFunction("flexWingFit", x, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx);
+      return mcr.EvaluateFunction("flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx);
     }
 
 
@@ -8792,7 +8792,7 @@ namespace flexFit
     /// y = IV(:,6)';
     /// weight = ones(1,length(x));
     /// </remarks>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <param name="stationaryPoint">Input argument #4</param>
@@ -8815,7 +8815,7 @@ namespace flexFit
     /// <param name="invalidupper">Input argument #21</param>
     /// <returns>An MWArray containing the first output argument.</returns>
     ///
-    public MWArray flexWingFit(MWArray x, MWArray y, MWArray weight, MWArray 
+    public MWArray flexWingFit(MWArray x_in1, MWArray y, MWArray weight, MWArray 
                          stationaryPoint, MWArray tailConcavity, MWArray smoothCoeff, 
                          MWArray turningPoint_in1, MWArray boundaryx, MWArray boundarydx, 
                          MWArray boundarydxx, MWArray leftright, MWArray upperLimitG, 
@@ -8823,7 +8823,7 @@ namespace flexFit
                          aMinl, MWArray xEndr, MWArray aMaxr, MWArray aMinr, MWArray 
                          invalidx, MWArray invalidupper)
     {
-      return mcr.EvaluateFunction("flexWingFit", x, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper);
+      return mcr.EvaluateFunction("flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper);
     }
 
 
@@ -8843,7 +8843,7 @@ namespace flexFit
     /// y = IV(:,6)';
     /// weight = ones(1,length(x));
     /// </remarks>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <param name="stationaryPoint">Input argument #4</param>
@@ -8867,7 +8867,7 @@ namespace flexFit
     /// <param name="invalidlower">Input argument #22</param>
     /// <returns>An MWArray containing the first output argument.</returns>
     ///
-    public MWArray flexWingFit(MWArray x, MWArray y, MWArray weight, MWArray 
+    public MWArray flexWingFit(MWArray x_in1, MWArray y, MWArray weight, MWArray 
                          stationaryPoint, MWArray tailConcavity, MWArray smoothCoeff, 
                          MWArray turningPoint_in1, MWArray boundaryx, MWArray boundarydx, 
                          MWArray boundarydxx, MWArray leftright, MWArray upperLimitG, 
@@ -8875,7 +8875,7 @@ namespace flexFit
                          aMinl, MWArray xEndr, MWArray aMaxr, MWArray aMinr, MWArray 
                          invalidx, MWArray invalidupper, MWArray invalidlower)
     {
-      return mcr.EvaluateFunction("flexWingFit", x, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower);
+      return mcr.EvaluateFunction("flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower);
     }
 
 
@@ -8895,7 +8895,7 @@ namespace flexFit
     /// y = IV(:,6)';
     /// weight = ones(1,length(x));
     /// </remarks>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <param name="stationaryPoint">Input argument #4</param>
@@ -8920,7 +8920,7 @@ namespace flexFit
     /// <param name="leftincrease">Input argument #23</param>
     /// <returns>An MWArray containing the first output argument.</returns>
     ///
-    public MWArray flexWingFit(MWArray x, MWArray y, MWArray weight, MWArray 
+    public MWArray flexWingFit(MWArray x_in1, MWArray y, MWArray weight, MWArray 
                          stationaryPoint, MWArray tailConcavity, MWArray smoothCoeff, 
                          MWArray turningPoint_in1, MWArray boundaryx, MWArray boundarydx, 
                          MWArray boundarydxx, MWArray leftright, MWArray upperLimitG, 
@@ -8929,7 +8929,7 @@ namespace flexFit
                          invalidx, MWArray invalidupper, MWArray invalidlower, MWArray 
                          leftincrease)
     {
-      return mcr.EvaluateFunction("flexWingFit", x, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, leftincrease);
+      return mcr.EvaluateFunction("flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, leftincrease);
     }
 
 
@@ -8949,7 +8949,7 @@ namespace flexFit
     /// y = IV(:,6)';
     /// weight = ones(1,length(x));
     /// </remarks>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <param name="stationaryPoint">Input argument #4</param>
@@ -8975,7 +8975,7 @@ namespace flexFit
     /// <param name="rightincrease">Input argument #24</param>
     /// <returns>An MWArray containing the first output argument.</returns>
     ///
-    public MWArray flexWingFit(MWArray x, MWArray y, MWArray weight, MWArray 
+    public MWArray flexWingFit(MWArray x_in1, MWArray y, MWArray weight, MWArray 
                          stationaryPoint, MWArray tailConcavity, MWArray smoothCoeff, 
                          MWArray turningPoint_in1, MWArray boundaryx, MWArray boundarydx, 
                          MWArray boundarydxx, MWArray leftright, MWArray upperLimitG, 
@@ -8984,7 +8984,7 @@ namespace flexFit
                          invalidx, MWArray invalidupper, MWArray invalidlower, MWArray 
                          leftincrease, MWArray rightincrease)
     {
-      return mcr.EvaluateFunction("flexWingFit", x, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, leftincrease, rightincrease);
+      return mcr.EvaluateFunction("flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, leftincrease, rightincrease);
     }
 
 
@@ -9004,7 +9004,7 @@ namespace flexFit
     /// y = IV(:,6)';
     /// weight = ones(1,length(x));
     /// </remarks>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <param name="stationaryPoint">Input argument #4</param>
@@ -9031,7 +9031,7 @@ namespace flexFit
     /// <param name="smooth">Input argument #25</param>
     /// <returns>An MWArray containing the first output argument.</returns>
     ///
-    public MWArray flexWingFit(MWArray x, MWArray y, MWArray weight, MWArray 
+    public MWArray flexWingFit(MWArray x_in1, MWArray y, MWArray weight, MWArray 
                          stationaryPoint, MWArray tailConcavity, MWArray smoothCoeff, 
                          MWArray turningPoint_in1, MWArray boundaryx, MWArray boundarydx, 
                          MWArray boundarydxx, MWArray leftright, MWArray upperLimitG, 
@@ -9040,7 +9040,7 @@ namespace flexFit
                          invalidx, MWArray invalidupper, MWArray invalidlower, MWArray 
                          leftincrease, MWArray rightincrease, MWArray smooth)
     {
-      return mcr.EvaluateFunction("flexWingFit", x, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, leftincrease, rightincrease, smooth);
+      return mcr.EvaluateFunction("flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, leftincrease, rightincrease, smooth);
     }
 
 
@@ -9060,7 +9060,7 @@ namespace flexFit
     /// y = IV(:,6)';
     /// weight = ones(1,length(x));
     /// </remarks>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <param name="stationaryPoint">Input argument #4</param>
@@ -9088,7 +9088,7 @@ namespace flexFit
     /// <param name="tight">Input argument #26</param>
     /// <returns>An MWArray containing the first output argument.</returns>
     ///
-    public MWArray flexWingFit(MWArray x, MWArray y, MWArray weight, MWArray 
+    public MWArray flexWingFit(MWArray x_in1, MWArray y, MWArray weight, MWArray 
                          stationaryPoint, MWArray tailConcavity, MWArray smoothCoeff, 
                          MWArray turningPoint_in1, MWArray boundaryx, MWArray boundarydx, 
                          MWArray boundarydxx, MWArray leftright, MWArray upperLimitG, 
@@ -9098,7 +9098,7 @@ namespace flexFit
                          leftincrease, MWArray rightincrease, MWArray smooth, MWArray 
                          tight)
     {
-      return mcr.EvaluateFunction("flexWingFit", x, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, leftincrease, rightincrease, smooth, tight);
+      return mcr.EvaluateFunction("flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, leftincrease, rightincrease, smooth, tight);
     }
 
 
@@ -9118,7 +9118,7 @@ namespace flexFit
     /// y = IV(:,6)';
     /// weight = ones(1,length(x));
     /// </remarks>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <param name="stationaryPoint">Input argument #4</param>
@@ -9147,7 +9147,7 @@ namespace flexFit
     /// <param name="tightlb">Input argument #27</param>
     /// <returns>An MWArray containing the first output argument.</returns>
     ///
-    public MWArray flexWingFit(MWArray x, MWArray y, MWArray weight, MWArray 
+    public MWArray flexWingFit(MWArray x_in1, MWArray y, MWArray weight, MWArray 
                          stationaryPoint, MWArray tailConcavity, MWArray smoothCoeff, 
                          MWArray turningPoint_in1, MWArray boundaryx, MWArray boundarydx, 
                          MWArray boundarydxx, MWArray leftright, MWArray upperLimitG, 
@@ -9157,7 +9157,7 @@ namespace flexFit
                          leftincrease, MWArray rightincrease, MWArray smooth, MWArray 
                          tight, MWArray tightlb)
     {
-      return mcr.EvaluateFunction("flexWingFit", x, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, leftincrease, rightincrease, smooth, tight, tightlb);
+      return mcr.EvaluateFunction("flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, leftincrease, rightincrease, smooth, tight, tightlb);
     }
 
 
@@ -9177,7 +9177,7 @@ namespace flexFit
     /// y = IV(:,6)';
     /// weight = ones(1,length(x));
     /// </remarks>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <param name="stationaryPoint">Input argument #4</param>
@@ -9207,7 +9207,7 @@ namespace flexFit
     /// <param name="tightub">Input argument #28</param>
     /// <returns>An MWArray containing the first output argument.</returns>
     ///
-    public MWArray flexWingFit(MWArray x, MWArray y, MWArray weight, MWArray 
+    public MWArray flexWingFit(MWArray x_in1, MWArray y, MWArray weight, MWArray 
                          stationaryPoint, MWArray tailConcavity, MWArray smoothCoeff, 
                          MWArray turningPoint_in1, MWArray boundaryx, MWArray boundarydx, 
                          MWArray boundarydxx, MWArray leftright, MWArray upperLimitG, 
@@ -9217,7 +9217,7 @@ namespace flexFit
                          leftincrease, MWArray rightincrease, MWArray smooth, MWArray 
                          tight, MWArray tightlb, MWArray tightub)
     {
-      return mcr.EvaluateFunction("flexWingFit", x, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, leftincrease, rightincrease, smooth, tight, tightlb, tightub);
+      return mcr.EvaluateFunction("flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, leftincrease, rightincrease, smooth, tight, tightlb, tightub);
     }
 
 
@@ -9237,7 +9237,7 @@ namespace flexFit
     /// y = IV(:,6)';
     /// weight = ones(1,length(x));
     /// </remarks>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <param name="stationaryPoint">Input argument #4</param>
@@ -9268,7 +9268,7 @@ namespace flexFit
     /// <param name="minxrange">Input argument #29</param>
     /// <returns>An MWArray containing the first output argument.</returns>
     ///
-    public MWArray flexWingFit(MWArray x, MWArray y, MWArray weight, MWArray 
+    public MWArray flexWingFit(MWArray x_in1, MWArray y, MWArray weight, MWArray 
                          stationaryPoint, MWArray tailConcavity, MWArray smoothCoeff, 
                          MWArray turningPoint_in1, MWArray boundaryx, MWArray boundarydx, 
                          MWArray boundarydxx, MWArray leftright, MWArray upperLimitG, 
@@ -9278,7 +9278,7 @@ namespace flexFit
                          leftincrease, MWArray rightincrease, MWArray smooth, MWArray 
                          tight, MWArray tightlb, MWArray tightub, MWArray minxrange)
     {
-      return mcr.EvaluateFunction("flexWingFit", x, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, leftincrease, rightincrease, smooth, tight, tightlb, tightub, minxrange);
+      return mcr.EvaluateFunction("flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, leftincrease, rightincrease, smooth, tight, tightlb, tightub, minxrange);
     }
 
 
@@ -9298,7 +9298,7 @@ namespace flexFit
     /// y = IV(:,6)';
     /// weight = ones(1,length(x));
     /// </remarks>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <param name="stationaryPoint">Input argument #4</param>
@@ -9330,7 +9330,7 @@ namespace flexFit
     /// <param name="concave">Input argument #30</param>
     /// <returns>An MWArray containing the first output argument.</returns>
     ///
-    public MWArray flexWingFit(MWArray x, MWArray y, MWArray weight, MWArray 
+    public MWArray flexWingFit(MWArray x_in1, MWArray y, MWArray weight, MWArray 
                          stationaryPoint, MWArray tailConcavity, MWArray smoothCoeff, 
                          MWArray turningPoint_in1, MWArray boundaryx, MWArray boundarydx, 
                          MWArray boundarydxx, MWArray leftright, MWArray upperLimitG, 
@@ -9341,7 +9341,7 @@ namespace flexFit
                          tight, MWArray tightlb, MWArray tightub, MWArray minxrange, 
                          MWArray concave)
     {
-      return mcr.EvaluateFunction("flexWingFit", x, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, leftincrease, rightincrease, smooth, tight, tightlb, tightub, minxrange, concave);
+      return mcr.EvaluateFunction("flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, leftincrease, rightincrease, smooth, tight, tightlb, tightub, minxrange, concave);
     }
 
 
@@ -9388,13 +9388,13 @@ namespace flexFit
     /// weight = ones(1,length(x));
     /// </remarks>
     /// <param name="numArgsOut">The number of output arguments to return.</param>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <returns>An Array of length "numArgsOut" containing the output
     /// arguments.</returns>
     ///
-    public MWArray[] flexWingFit(int numArgsOut, MWArray x)
+    public MWArray[] flexWingFit(int numArgsOut, MWArray x_in1)
     {
-      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x);
+      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x_in1);
     }
 
 
@@ -9415,14 +9415,14 @@ namespace flexFit
     /// weight = ones(1,length(x));
     /// </remarks>
     /// <param name="numArgsOut">The number of output arguments to return.</param>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <returns>An Array of length "numArgsOut" containing the output
     /// arguments.</returns>
     ///
-    public MWArray[] flexWingFit(int numArgsOut, MWArray x, MWArray y)
+    public MWArray[] flexWingFit(int numArgsOut, MWArray x_in1, MWArray y)
     {
-      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x, y);
+      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x_in1, y);
     }
 
 
@@ -9443,15 +9443,15 @@ namespace flexFit
     /// weight = ones(1,length(x));
     /// </remarks>
     /// <param name="numArgsOut">The number of output arguments to return.</param>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <returns>An Array of length "numArgsOut" containing the output
     /// arguments.</returns>
     ///
-    public MWArray[] flexWingFit(int numArgsOut, MWArray x, MWArray y, MWArray weight)
+    public MWArray[] flexWingFit(int numArgsOut, MWArray x_in1, MWArray y, MWArray weight)
     {
-      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x, y, weight);
+      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x_in1, y, weight);
     }
 
 
@@ -9472,17 +9472,17 @@ namespace flexFit
     /// weight = ones(1,length(x));
     /// </remarks>
     /// <param name="numArgsOut">The number of output arguments to return.</param>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <param name="stationaryPoint">Input argument #4</param>
     /// <returns>An Array of length "numArgsOut" containing the output
     /// arguments.</returns>
     ///
-    public MWArray[] flexWingFit(int numArgsOut, MWArray x, MWArray y, MWArray weight, 
-                           MWArray stationaryPoint)
+    public MWArray[] flexWingFit(int numArgsOut, MWArray x_in1, MWArray y, MWArray 
+                           weight, MWArray stationaryPoint)
     {
-      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x, y, weight, stationaryPoint);
+      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x_in1, y, weight, stationaryPoint);
     }
 
 
@@ -9503,7 +9503,7 @@ namespace flexFit
     /// weight = ones(1,length(x));
     /// </remarks>
     /// <param name="numArgsOut">The number of output arguments to return.</param>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <param name="stationaryPoint">Input argument #4</param>
@@ -9511,10 +9511,10 @@ namespace flexFit
     /// <returns>An Array of length "numArgsOut" containing the output
     /// arguments.</returns>
     ///
-    public MWArray[] flexWingFit(int numArgsOut, MWArray x, MWArray y, MWArray weight, 
-                           MWArray stationaryPoint, MWArray tailConcavity)
+    public MWArray[] flexWingFit(int numArgsOut, MWArray x_in1, MWArray y, MWArray 
+                           weight, MWArray stationaryPoint, MWArray tailConcavity)
     {
-      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x, y, weight, stationaryPoint, tailConcavity);
+      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity);
     }
 
 
@@ -9535,7 +9535,7 @@ namespace flexFit
     /// weight = ones(1,length(x));
     /// </remarks>
     /// <param name="numArgsOut">The number of output arguments to return.</param>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <param name="stationaryPoint">Input argument #4</param>
@@ -9544,11 +9544,11 @@ namespace flexFit
     /// <returns>An Array of length "numArgsOut" containing the output
     /// arguments.</returns>
     ///
-    public MWArray[] flexWingFit(int numArgsOut, MWArray x, MWArray y, MWArray weight, 
-                           MWArray stationaryPoint, MWArray tailConcavity, MWArray 
-                           smoothCoeff)
+    public MWArray[] flexWingFit(int numArgsOut, MWArray x_in1, MWArray y, MWArray 
+                           weight, MWArray stationaryPoint, MWArray tailConcavity, 
+                           MWArray smoothCoeff)
     {
-      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x, y, weight, stationaryPoint, tailConcavity, smoothCoeff);
+      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff);
     }
 
 
@@ -9569,7 +9569,7 @@ namespace flexFit
     /// weight = ones(1,length(x));
     /// </remarks>
     /// <param name="numArgsOut">The number of output arguments to return.</param>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <param name="stationaryPoint">Input argument #4</param>
@@ -9579,11 +9579,11 @@ namespace flexFit
     /// <returns>An Array of length "numArgsOut" containing the output
     /// arguments.</returns>
     ///
-    public MWArray[] flexWingFit(int numArgsOut, MWArray x, MWArray y, MWArray weight, 
-                           MWArray stationaryPoint, MWArray tailConcavity, MWArray 
-                           smoothCoeff, MWArray turningPoint_in1)
+    public MWArray[] flexWingFit(int numArgsOut, MWArray x_in1, MWArray y, MWArray 
+                           weight, MWArray stationaryPoint, MWArray tailConcavity, 
+                           MWArray smoothCoeff, MWArray turningPoint_in1)
     {
-      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1);
+      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1);
     }
 
 
@@ -9604,7 +9604,7 @@ namespace flexFit
     /// weight = ones(1,length(x));
     /// </remarks>
     /// <param name="numArgsOut">The number of output arguments to return.</param>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <param name="stationaryPoint">Input argument #4</param>
@@ -9615,11 +9615,12 @@ namespace flexFit
     /// <returns>An Array of length "numArgsOut" containing the output
     /// arguments.</returns>
     ///
-    public MWArray[] flexWingFit(int numArgsOut, MWArray x, MWArray y, MWArray weight, 
-                           MWArray stationaryPoint, MWArray tailConcavity, MWArray 
-                           smoothCoeff, MWArray turningPoint_in1, MWArray boundaryx)
+    public MWArray[] flexWingFit(int numArgsOut, MWArray x_in1, MWArray y, MWArray 
+                           weight, MWArray stationaryPoint, MWArray tailConcavity, 
+                           MWArray smoothCoeff, MWArray turningPoint_in1, MWArray 
+                           boundaryx)
     {
-      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx);
+      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx);
     }
 
 
@@ -9640,7 +9641,7 @@ namespace flexFit
     /// weight = ones(1,length(x));
     /// </remarks>
     /// <param name="numArgsOut">The number of output arguments to return.</param>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <param name="stationaryPoint">Input argument #4</param>
@@ -9652,12 +9653,12 @@ namespace flexFit
     /// <returns>An Array of length "numArgsOut" containing the output
     /// arguments.</returns>
     ///
-    public MWArray[] flexWingFit(int numArgsOut, MWArray x, MWArray y, MWArray weight, 
-                           MWArray stationaryPoint, MWArray tailConcavity, MWArray 
-                           smoothCoeff, MWArray turningPoint_in1, MWArray boundaryx, 
-                           MWArray boundarydx)
+    public MWArray[] flexWingFit(int numArgsOut, MWArray x_in1, MWArray y, MWArray 
+                           weight, MWArray stationaryPoint, MWArray tailConcavity, 
+                           MWArray smoothCoeff, MWArray turningPoint_in1, MWArray 
+                           boundaryx, MWArray boundarydx)
     {
-      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx);
+      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx);
     }
 
 
@@ -9678,7 +9679,7 @@ namespace flexFit
     /// weight = ones(1,length(x));
     /// </remarks>
     /// <param name="numArgsOut">The number of output arguments to return.</param>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <param name="stationaryPoint">Input argument #4</param>
@@ -9691,12 +9692,12 @@ namespace flexFit
     /// <returns>An Array of length "numArgsOut" containing the output
     /// arguments.</returns>
     ///
-    public MWArray[] flexWingFit(int numArgsOut, MWArray x, MWArray y, MWArray weight, 
-                           MWArray stationaryPoint, MWArray tailConcavity, MWArray 
-                           smoothCoeff, MWArray turningPoint_in1, MWArray boundaryx, 
-                           MWArray boundarydx, MWArray boundarydxx)
+    public MWArray[] flexWingFit(int numArgsOut, MWArray x_in1, MWArray y, MWArray 
+                           weight, MWArray stationaryPoint, MWArray tailConcavity, 
+                           MWArray smoothCoeff, MWArray turningPoint_in1, MWArray 
+                           boundaryx, MWArray boundarydx, MWArray boundarydxx)
     {
-      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx);
+      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx);
     }
 
 
@@ -9717,7 +9718,7 @@ namespace flexFit
     /// weight = ones(1,length(x));
     /// </remarks>
     /// <param name="numArgsOut">The number of output arguments to return.</param>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <param name="stationaryPoint">Input argument #4</param>
@@ -9731,12 +9732,13 @@ namespace flexFit
     /// <returns>An Array of length "numArgsOut" containing the output
     /// arguments.</returns>
     ///
-    public MWArray[] flexWingFit(int numArgsOut, MWArray x, MWArray y, MWArray weight, 
-                           MWArray stationaryPoint, MWArray tailConcavity, MWArray 
-                           smoothCoeff, MWArray turningPoint_in1, MWArray boundaryx, 
-                           MWArray boundarydx, MWArray boundarydxx, MWArray leftright)
+    public MWArray[] flexWingFit(int numArgsOut, MWArray x_in1, MWArray y, MWArray 
+                           weight, MWArray stationaryPoint, MWArray tailConcavity, 
+                           MWArray smoothCoeff, MWArray turningPoint_in1, MWArray 
+                           boundaryx, MWArray boundarydx, MWArray boundarydxx, MWArray 
+                           leftright)
     {
-      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright);
+      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright);
     }
 
 
@@ -9757,7 +9759,7 @@ namespace flexFit
     /// weight = ones(1,length(x));
     /// </remarks>
     /// <param name="numArgsOut">The number of output arguments to return.</param>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <param name="stationaryPoint">Input argument #4</param>
@@ -9772,13 +9774,13 @@ namespace flexFit
     /// <returns>An Array of length "numArgsOut" containing the output
     /// arguments.</returns>
     ///
-    public MWArray[] flexWingFit(int numArgsOut, MWArray x, MWArray y, MWArray weight, 
-                           MWArray stationaryPoint, MWArray tailConcavity, MWArray 
-                           smoothCoeff, MWArray turningPoint_in1, MWArray boundaryx, 
-                           MWArray boundarydx, MWArray boundarydxx, MWArray leftright, 
-                           MWArray upperLimitG)
+    public MWArray[] flexWingFit(int numArgsOut, MWArray x_in1, MWArray y, MWArray 
+                           weight, MWArray stationaryPoint, MWArray tailConcavity, 
+                           MWArray smoothCoeff, MWArray turningPoint_in1, MWArray 
+                           boundaryx, MWArray boundarydx, MWArray boundarydxx, MWArray 
+                           leftright, MWArray upperLimitG)
     {
-      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG);
+      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG);
     }
 
 
@@ -9799,7 +9801,7 @@ namespace flexFit
     /// weight = ones(1,length(x));
     /// </remarks>
     /// <param name="numArgsOut">The number of output arguments to return.</param>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <param name="stationaryPoint">Input argument #4</param>
@@ -9815,13 +9817,13 @@ namespace flexFit
     /// <returns>An Array of length "numArgsOut" containing the output
     /// arguments.</returns>
     ///
-    public MWArray[] flexWingFit(int numArgsOut, MWArray x, MWArray y, MWArray weight, 
-                           MWArray stationaryPoint, MWArray tailConcavity, MWArray 
-                           smoothCoeff, MWArray turningPoint_in1, MWArray boundaryx, 
-                           MWArray boundarydx, MWArray boundarydxx, MWArray leftright, 
-                           MWArray upperLimitG, MWArray lowerLimitG)
+    public MWArray[] flexWingFit(int numArgsOut, MWArray x_in1, MWArray y, MWArray 
+                           weight, MWArray stationaryPoint, MWArray tailConcavity, 
+                           MWArray smoothCoeff, MWArray turningPoint_in1, MWArray 
+                           boundaryx, MWArray boundarydx, MWArray boundarydxx, MWArray 
+                           leftright, MWArray upperLimitG, MWArray lowerLimitG)
     {
-      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG);
+      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG);
     }
 
 
@@ -9842,7 +9844,7 @@ namespace flexFit
     /// weight = ones(1,length(x));
     /// </remarks>
     /// <param name="numArgsOut">The number of output arguments to return.</param>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <param name="stationaryPoint">Input argument #4</param>
@@ -9859,13 +9861,14 @@ namespace flexFit
     /// <returns>An Array of length "numArgsOut" containing the output
     /// arguments.</returns>
     ///
-    public MWArray[] flexWingFit(int numArgsOut, MWArray x, MWArray y, MWArray weight, 
-                           MWArray stationaryPoint, MWArray tailConcavity, MWArray 
-                           smoothCoeff, MWArray turningPoint_in1, MWArray boundaryx, 
-                           MWArray boundarydx, MWArray boundarydxx, MWArray leftright, 
-                           MWArray upperLimitG, MWArray lowerLimitG, MWArray xEndl)
+    public MWArray[] flexWingFit(int numArgsOut, MWArray x_in1, MWArray y, MWArray 
+                           weight, MWArray stationaryPoint, MWArray tailConcavity, 
+                           MWArray smoothCoeff, MWArray turningPoint_in1, MWArray 
+                           boundaryx, MWArray boundarydx, MWArray boundarydxx, MWArray 
+                           leftright, MWArray upperLimitG, MWArray lowerLimitG, MWArray 
+                           xEndl)
     {
-      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl);
+      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl);
     }
 
 
@@ -9886,7 +9889,7 @@ namespace flexFit
     /// weight = ones(1,length(x));
     /// </remarks>
     /// <param name="numArgsOut">The number of output arguments to return.</param>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <param name="stationaryPoint">Input argument #4</param>
@@ -9904,14 +9907,14 @@ namespace flexFit
     /// <returns>An Array of length "numArgsOut" containing the output
     /// arguments.</returns>
     ///
-    public MWArray[] flexWingFit(int numArgsOut, MWArray x, MWArray y, MWArray weight, 
-                           MWArray stationaryPoint, MWArray tailConcavity, MWArray 
-                           smoothCoeff, MWArray turningPoint_in1, MWArray boundaryx, 
-                           MWArray boundarydx, MWArray boundarydxx, MWArray leftright, 
-                           MWArray upperLimitG, MWArray lowerLimitG, MWArray xEndl, 
-                           MWArray aMaxl)
+    public MWArray[] flexWingFit(int numArgsOut, MWArray x_in1, MWArray y, MWArray 
+                           weight, MWArray stationaryPoint, MWArray tailConcavity, 
+                           MWArray smoothCoeff, MWArray turningPoint_in1, MWArray 
+                           boundaryx, MWArray boundarydx, MWArray boundarydxx, MWArray 
+                           leftright, MWArray upperLimitG, MWArray lowerLimitG, MWArray 
+                           xEndl, MWArray aMaxl)
     {
-      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl);
+      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl);
     }
 
 
@@ -9932,7 +9935,7 @@ namespace flexFit
     /// weight = ones(1,length(x));
     /// </remarks>
     /// <param name="numArgsOut">The number of output arguments to return.</param>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <param name="stationaryPoint">Input argument #4</param>
@@ -9951,14 +9954,14 @@ namespace flexFit
     /// <returns>An Array of length "numArgsOut" containing the output
     /// arguments.</returns>
     ///
-    public MWArray[] flexWingFit(int numArgsOut, MWArray x, MWArray y, MWArray weight, 
-                           MWArray stationaryPoint, MWArray tailConcavity, MWArray 
-                           smoothCoeff, MWArray turningPoint_in1, MWArray boundaryx, 
-                           MWArray boundarydx, MWArray boundarydxx, MWArray leftright, 
-                           MWArray upperLimitG, MWArray lowerLimitG, MWArray xEndl, 
-                           MWArray aMaxl, MWArray aMinl)
+    public MWArray[] flexWingFit(int numArgsOut, MWArray x_in1, MWArray y, MWArray 
+                           weight, MWArray stationaryPoint, MWArray tailConcavity, 
+                           MWArray smoothCoeff, MWArray turningPoint_in1, MWArray 
+                           boundaryx, MWArray boundarydx, MWArray boundarydxx, MWArray 
+                           leftright, MWArray upperLimitG, MWArray lowerLimitG, MWArray 
+                           xEndl, MWArray aMaxl, MWArray aMinl)
     {
-      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl);
+      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl);
     }
 
 
@@ -9979,7 +9982,7 @@ namespace flexFit
     /// weight = ones(1,length(x));
     /// </remarks>
     /// <param name="numArgsOut">The number of output arguments to return.</param>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <param name="stationaryPoint">Input argument #4</param>
@@ -9999,14 +10002,14 @@ namespace flexFit
     /// <returns>An Array of length "numArgsOut" containing the output
     /// arguments.</returns>
     ///
-    public MWArray[] flexWingFit(int numArgsOut, MWArray x, MWArray y, MWArray weight, 
-                           MWArray stationaryPoint, MWArray tailConcavity, MWArray 
-                           smoothCoeff, MWArray turningPoint_in1, MWArray boundaryx, 
-                           MWArray boundarydx, MWArray boundarydxx, MWArray leftright, 
-                           MWArray upperLimitG, MWArray lowerLimitG, MWArray xEndl, 
-                           MWArray aMaxl, MWArray aMinl, MWArray xEndr)
+    public MWArray[] flexWingFit(int numArgsOut, MWArray x_in1, MWArray y, MWArray 
+                           weight, MWArray stationaryPoint, MWArray tailConcavity, 
+                           MWArray smoothCoeff, MWArray turningPoint_in1, MWArray 
+                           boundaryx, MWArray boundarydx, MWArray boundarydxx, MWArray 
+                           leftright, MWArray upperLimitG, MWArray lowerLimitG, MWArray 
+                           xEndl, MWArray aMaxl, MWArray aMinl, MWArray xEndr)
     {
-      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr);
+      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr);
     }
 
 
@@ -10027,7 +10030,7 @@ namespace flexFit
     /// weight = ones(1,length(x));
     /// </remarks>
     /// <param name="numArgsOut">The number of output arguments to return.</param>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <param name="stationaryPoint">Input argument #4</param>
@@ -10048,14 +10051,15 @@ namespace flexFit
     /// <returns>An Array of length "numArgsOut" containing the output
     /// arguments.</returns>
     ///
-    public MWArray[] flexWingFit(int numArgsOut, MWArray x, MWArray y, MWArray weight, 
-                           MWArray stationaryPoint, MWArray tailConcavity, MWArray 
-                           smoothCoeff, MWArray turningPoint_in1, MWArray boundaryx, 
-                           MWArray boundarydx, MWArray boundarydxx, MWArray leftright, 
-                           MWArray upperLimitG, MWArray lowerLimitG, MWArray xEndl, 
-                           MWArray aMaxl, MWArray aMinl, MWArray xEndr, MWArray aMaxr)
+    public MWArray[] flexWingFit(int numArgsOut, MWArray x_in1, MWArray y, MWArray 
+                           weight, MWArray stationaryPoint, MWArray tailConcavity, 
+                           MWArray smoothCoeff, MWArray turningPoint_in1, MWArray 
+                           boundaryx, MWArray boundarydx, MWArray boundarydxx, MWArray 
+                           leftright, MWArray upperLimitG, MWArray lowerLimitG, MWArray 
+                           xEndl, MWArray aMaxl, MWArray aMinl, MWArray xEndr, MWArray 
+                           aMaxr)
     {
-      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr);
+      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr);
     }
 
 
@@ -10076,7 +10080,7 @@ namespace flexFit
     /// weight = ones(1,length(x));
     /// </remarks>
     /// <param name="numArgsOut">The number of output arguments to return.</param>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <param name="stationaryPoint">Input argument #4</param>
@@ -10098,15 +10102,15 @@ namespace flexFit
     /// <returns>An Array of length "numArgsOut" containing the output
     /// arguments.</returns>
     ///
-    public MWArray[] flexWingFit(int numArgsOut, MWArray x, MWArray y, MWArray weight, 
-                           MWArray stationaryPoint, MWArray tailConcavity, MWArray 
-                           smoothCoeff, MWArray turningPoint_in1, MWArray boundaryx, 
-                           MWArray boundarydx, MWArray boundarydxx, MWArray leftright, 
-                           MWArray upperLimitG, MWArray lowerLimitG, MWArray xEndl, 
-                           MWArray aMaxl, MWArray aMinl, MWArray xEndr, MWArray aMaxr, 
-                           MWArray aMinr)
+    public MWArray[] flexWingFit(int numArgsOut, MWArray x_in1, MWArray y, MWArray 
+                           weight, MWArray stationaryPoint, MWArray tailConcavity, 
+                           MWArray smoothCoeff, MWArray turningPoint_in1, MWArray 
+                           boundaryx, MWArray boundarydx, MWArray boundarydxx, MWArray 
+                           leftright, MWArray upperLimitG, MWArray lowerLimitG, MWArray 
+                           xEndl, MWArray aMaxl, MWArray aMinl, MWArray xEndr, MWArray 
+                           aMaxr, MWArray aMinr)
     {
-      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr);
+      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr);
     }
 
 
@@ -10127,7 +10131,7 @@ namespace flexFit
     /// weight = ones(1,length(x));
     /// </remarks>
     /// <param name="numArgsOut">The number of output arguments to return.</param>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <param name="stationaryPoint">Input argument #4</param>
@@ -10150,15 +10154,15 @@ namespace flexFit
     /// <returns>An Array of length "numArgsOut" containing the output
     /// arguments.</returns>
     ///
-    public MWArray[] flexWingFit(int numArgsOut, MWArray x, MWArray y, MWArray weight, 
-                           MWArray stationaryPoint, MWArray tailConcavity, MWArray 
-                           smoothCoeff, MWArray turningPoint_in1, MWArray boundaryx, 
-                           MWArray boundarydx, MWArray boundarydxx, MWArray leftright, 
-                           MWArray upperLimitG, MWArray lowerLimitG, MWArray xEndl, 
-                           MWArray aMaxl, MWArray aMinl, MWArray xEndr, MWArray aMaxr, 
-                           MWArray aMinr, MWArray invalidx)
+    public MWArray[] flexWingFit(int numArgsOut, MWArray x_in1, MWArray y, MWArray 
+                           weight, MWArray stationaryPoint, MWArray tailConcavity, 
+                           MWArray smoothCoeff, MWArray turningPoint_in1, MWArray 
+                           boundaryx, MWArray boundarydx, MWArray boundarydxx, MWArray 
+                           leftright, MWArray upperLimitG, MWArray lowerLimitG, MWArray 
+                           xEndl, MWArray aMaxl, MWArray aMinl, MWArray xEndr, MWArray 
+                           aMaxr, MWArray aMinr, MWArray invalidx)
     {
-      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx);
+      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx);
     }
 
 
@@ -10179,7 +10183,7 @@ namespace flexFit
     /// weight = ones(1,length(x));
     /// </remarks>
     /// <param name="numArgsOut">The number of output arguments to return.</param>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <param name="stationaryPoint">Input argument #4</param>
@@ -10203,15 +10207,15 @@ namespace flexFit
     /// <returns>An Array of length "numArgsOut" containing the output
     /// arguments.</returns>
     ///
-    public MWArray[] flexWingFit(int numArgsOut, MWArray x, MWArray y, MWArray weight, 
-                           MWArray stationaryPoint, MWArray tailConcavity, MWArray 
-                           smoothCoeff, MWArray turningPoint_in1, MWArray boundaryx, 
-                           MWArray boundarydx, MWArray boundarydxx, MWArray leftright, 
-                           MWArray upperLimitG, MWArray lowerLimitG, MWArray xEndl, 
-                           MWArray aMaxl, MWArray aMinl, MWArray xEndr, MWArray aMaxr, 
-                           MWArray aMinr, MWArray invalidx, MWArray invalidupper)
+    public MWArray[] flexWingFit(int numArgsOut, MWArray x_in1, MWArray y, MWArray 
+                           weight, MWArray stationaryPoint, MWArray tailConcavity, 
+                           MWArray smoothCoeff, MWArray turningPoint_in1, MWArray 
+                           boundaryx, MWArray boundarydx, MWArray boundarydxx, MWArray 
+                           leftright, MWArray upperLimitG, MWArray lowerLimitG, MWArray 
+                           xEndl, MWArray aMaxl, MWArray aMinl, MWArray xEndr, MWArray 
+                           aMaxr, MWArray aMinr, MWArray invalidx, MWArray invalidupper)
     {
-      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper);
+      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper);
     }
 
 
@@ -10232,7 +10236,7 @@ namespace flexFit
     /// weight = ones(1,length(x));
     /// </remarks>
     /// <param name="numArgsOut">The number of output arguments to return.</param>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <param name="stationaryPoint">Input argument #4</param>
@@ -10257,16 +10261,16 @@ namespace flexFit
     /// <returns>An Array of length "numArgsOut" containing the output
     /// arguments.</returns>
     ///
-    public MWArray[] flexWingFit(int numArgsOut, MWArray x, MWArray y, MWArray weight, 
-                           MWArray stationaryPoint, MWArray tailConcavity, MWArray 
-                           smoothCoeff, MWArray turningPoint_in1, MWArray boundaryx, 
-                           MWArray boundarydx, MWArray boundarydxx, MWArray leftright, 
-                           MWArray upperLimitG, MWArray lowerLimitG, MWArray xEndl, 
-                           MWArray aMaxl, MWArray aMinl, MWArray xEndr, MWArray aMaxr, 
-                           MWArray aMinr, MWArray invalidx, MWArray invalidupper, MWArray 
-                           invalidlower)
+    public MWArray[] flexWingFit(int numArgsOut, MWArray x_in1, MWArray y, MWArray 
+                           weight, MWArray stationaryPoint, MWArray tailConcavity, 
+                           MWArray smoothCoeff, MWArray turningPoint_in1, MWArray 
+                           boundaryx, MWArray boundarydx, MWArray boundarydxx, MWArray 
+                           leftright, MWArray upperLimitG, MWArray lowerLimitG, MWArray 
+                           xEndl, MWArray aMaxl, MWArray aMinl, MWArray xEndr, MWArray 
+                           aMaxr, MWArray aMinr, MWArray invalidx, MWArray invalidupper, 
+                           MWArray invalidlower)
     {
-      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower);
+      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower);
     }
 
 
@@ -10287,7 +10291,7 @@ namespace flexFit
     /// weight = ones(1,length(x));
     /// </remarks>
     /// <param name="numArgsOut">The number of output arguments to return.</param>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <param name="stationaryPoint">Input argument #4</param>
@@ -10313,16 +10317,16 @@ namespace flexFit
     /// <returns>An Array of length "numArgsOut" containing the output
     /// arguments.</returns>
     ///
-    public MWArray[] flexWingFit(int numArgsOut, MWArray x, MWArray y, MWArray weight, 
-                           MWArray stationaryPoint, MWArray tailConcavity, MWArray 
-                           smoothCoeff, MWArray turningPoint_in1, MWArray boundaryx, 
-                           MWArray boundarydx, MWArray boundarydxx, MWArray leftright, 
-                           MWArray upperLimitG, MWArray lowerLimitG, MWArray xEndl, 
-                           MWArray aMaxl, MWArray aMinl, MWArray xEndr, MWArray aMaxr, 
-                           MWArray aMinr, MWArray invalidx, MWArray invalidupper, MWArray 
-                           invalidlower, MWArray leftincrease)
+    public MWArray[] flexWingFit(int numArgsOut, MWArray x_in1, MWArray y, MWArray 
+                           weight, MWArray stationaryPoint, MWArray tailConcavity, 
+                           MWArray smoothCoeff, MWArray turningPoint_in1, MWArray 
+                           boundaryx, MWArray boundarydx, MWArray boundarydxx, MWArray 
+                           leftright, MWArray upperLimitG, MWArray lowerLimitG, MWArray 
+                           xEndl, MWArray aMaxl, MWArray aMinl, MWArray xEndr, MWArray 
+                           aMaxr, MWArray aMinr, MWArray invalidx, MWArray invalidupper, 
+                           MWArray invalidlower, MWArray leftincrease)
     {
-      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, leftincrease);
+      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, leftincrease);
     }
 
 
@@ -10343,7 +10347,7 @@ namespace flexFit
     /// weight = ones(1,length(x));
     /// </remarks>
     /// <param name="numArgsOut">The number of output arguments to return.</param>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <param name="stationaryPoint">Input argument #4</param>
@@ -10370,16 +10374,17 @@ namespace flexFit
     /// <returns>An Array of length "numArgsOut" containing the output
     /// arguments.</returns>
     ///
-    public MWArray[] flexWingFit(int numArgsOut, MWArray x, MWArray y, MWArray weight, 
-                           MWArray stationaryPoint, MWArray tailConcavity, MWArray 
-                           smoothCoeff, MWArray turningPoint_in1, MWArray boundaryx, 
-                           MWArray boundarydx, MWArray boundarydxx, MWArray leftright, 
-                           MWArray upperLimitG, MWArray lowerLimitG, MWArray xEndl, 
-                           MWArray aMaxl, MWArray aMinl, MWArray xEndr, MWArray aMaxr, 
-                           MWArray aMinr, MWArray invalidx, MWArray invalidupper, MWArray 
-                           invalidlower, MWArray leftincrease, MWArray rightincrease)
+    public MWArray[] flexWingFit(int numArgsOut, MWArray x_in1, MWArray y, MWArray 
+                           weight, MWArray stationaryPoint, MWArray tailConcavity, 
+                           MWArray smoothCoeff, MWArray turningPoint_in1, MWArray 
+                           boundaryx, MWArray boundarydx, MWArray boundarydxx, MWArray 
+                           leftright, MWArray upperLimitG, MWArray lowerLimitG, MWArray 
+                           xEndl, MWArray aMaxl, MWArray aMinl, MWArray xEndr, MWArray 
+                           aMaxr, MWArray aMinr, MWArray invalidx, MWArray invalidupper, 
+                           MWArray invalidlower, MWArray leftincrease, MWArray 
+                           rightincrease)
     {
-      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, leftincrease, rightincrease);
+      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, leftincrease, rightincrease);
     }
 
 
@@ -10400,7 +10405,7 @@ namespace flexFit
     /// weight = ones(1,length(x));
     /// </remarks>
     /// <param name="numArgsOut">The number of output arguments to return.</param>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <param name="stationaryPoint">Input argument #4</param>
@@ -10428,17 +10433,17 @@ namespace flexFit
     /// <returns>An Array of length "numArgsOut" containing the output
     /// arguments.</returns>
     ///
-    public MWArray[] flexWingFit(int numArgsOut, MWArray x, MWArray y, MWArray weight, 
-                           MWArray stationaryPoint, MWArray tailConcavity, MWArray 
-                           smoothCoeff, MWArray turningPoint_in1, MWArray boundaryx, 
-                           MWArray boundarydx, MWArray boundarydxx, MWArray leftright, 
-                           MWArray upperLimitG, MWArray lowerLimitG, MWArray xEndl, 
-                           MWArray aMaxl, MWArray aMinl, MWArray xEndr, MWArray aMaxr, 
-                           MWArray aMinr, MWArray invalidx, MWArray invalidupper, MWArray 
-                           invalidlower, MWArray leftincrease, MWArray rightincrease, 
-                           MWArray smooth)
+    public MWArray[] flexWingFit(int numArgsOut, MWArray x_in1, MWArray y, MWArray 
+                           weight, MWArray stationaryPoint, MWArray tailConcavity, 
+                           MWArray smoothCoeff, MWArray turningPoint_in1, MWArray 
+                           boundaryx, MWArray boundarydx, MWArray boundarydxx, MWArray 
+                           leftright, MWArray upperLimitG, MWArray lowerLimitG, MWArray 
+                           xEndl, MWArray aMaxl, MWArray aMinl, MWArray xEndr, MWArray 
+                           aMaxr, MWArray aMinr, MWArray invalidx, MWArray invalidupper, 
+                           MWArray invalidlower, MWArray leftincrease, MWArray 
+                           rightincrease, MWArray smooth)
     {
-      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, leftincrease, rightincrease, smooth);
+      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, leftincrease, rightincrease, smooth);
     }
 
 
@@ -10459,7 +10464,7 @@ namespace flexFit
     /// weight = ones(1,length(x));
     /// </remarks>
     /// <param name="numArgsOut">The number of output arguments to return.</param>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <param name="stationaryPoint">Input argument #4</param>
@@ -10488,17 +10493,17 @@ namespace flexFit
     /// <returns>An Array of length "numArgsOut" containing the output
     /// arguments.</returns>
     ///
-    public MWArray[] flexWingFit(int numArgsOut, MWArray x, MWArray y, MWArray weight, 
-                           MWArray stationaryPoint, MWArray tailConcavity, MWArray 
-                           smoothCoeff, MWArray turningPoint_in1, MWArray boundaryx, 
-                           MWArray boundarydx, MWArray boundarydxx, MWArray leftright, 
-                           MWArray upperLimitG, MWArray lowerLimitG, MWArray xEndl, 
-                           MWArray aMaxl, MWArray aMinl, MWArray xEndr, MWArray aMaxr, 
-                           MWArray aMinr, MWArray invalidx, MWArray invalidupper, MWArray 
-                           invalidlower, MWArray leftincrease, MWArray rightincrease, 
-                           MWArray smooth, MWArray tight)
+    public MWArray[] flexWingFit(int numArgsOut, MWArray x_in1, MWArray y, MWArray 
+                           weight, MWArray stationaryPoint, MWArray tailConcavity, 
+                           MWArray smoothCoeff, MWArray turningPoint_in1, MWArray 
+                           boundaryx, MWArray boundarydx, MWArray boundarydxx, MWArray 
+                           leftright, MWArray upperLimitG, MWArray lowerLimitG, MWArray 
+                           xEndl, MWArray aMaxl, MWArray aMinl, MWArray xEndr, MWArray 
+                           aMaxr, MWArray aMinr, MWArray invalidx, MWArray invalidupper, 
+                           MWArray invalidlower, MWArray leftincrease, MWArray 
+                           rightincrease, MWArray smooth, MWArray tight)
     {
-      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, leftincrease, rightincrease, smooth, tight);
+      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, leftincrease, rightincrease, smooth, tight);
     }
 
 
@@ -10519,7 +10524,7 @@ namespace flexFit
     /// weight = ones(1,length(x));
     /// </remarks>
     /// <param name="numArgsOut">The number of output arguments to return.</param>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <param name="stationaryPoint">Input argument #4</param>
@@ -10549,17 +10554,17 @@ namespace flexFit
     /// <returns>An Array of length "numArgsOut" containing the output
     /// arguments.</returns>
     ///
-    public MWArray[] flexWingFit(int numArgsOut, MWArray x, MWArray y, MWArray weight, 
-                           MWArray stationaryPoint, MWArray tailConcavity, MWArray 
-                           smoothCoeff, MWArray turningPoint_in1, MWArray boundaryx, 
-                           MWArray boundarydx, MWArray boundarydxx, MWArray leftright, 
-                           MWArray upperLimitG, MWArray lowerLimitG, MWArray xEndl, 
-                           MWArray aMaxl, MWArray aMinl, MWArray xEndr, MWArray aMaxr, 
-                           MWArray aMinr, MWArray invalidx, MWArray invalidupper, MWArray 
-                           invalidlower, MWArray leftincrease, MWArray rightincrease, 
-                           MWArray smooth, MWArray tight, MWArray tightlb)
+    public MWArray[] flexWingFit(int numArgsOut, MWArray x_in1, MWArray y, MWArray 
+                           weight, MWArray stationaryPoint, MWArray tailConcavity, 
+                           MWArray smoothCoeff, MWArray turningPoint_in1, MWArray 
+                           boundaryx, MWArray boundarydx, MWArray boundarydxx, MWArray 
+                           leftright, MWArray upperLimitG, MWArray lowerLimitG, MWArray 
+                           xEndl, MWArray aMaxl, MWArray aMinl, MWArray xEndr, MWArray 
+                           aMaxr, MWArray aMinr, MWArray invalidx, MWArray invalidupper, 
+                           MWArray invalidlower, MWArray leftincrease, MWArray 
+                           rightincrease, MWArray smooth, MWArray tight, MWArray tightlb)
     {
-      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, leftincrease, rightincrease, smooth, tight, tightlb);
+      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, leftincrease, rightincrease, smooth, tight, tightlb);
     }
 
 
@@ -10580,7 +10585,7 @@ namespace flexFit
     /// weight = ones(1,length(x));
     /// </remarks>
     /// <param name="numArgsOut">The number of output arguments to return.</param>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <param name="stationaryPoint">Input argument #4</param>
@@ -10611,18 +10616,18 @@ namespace flexFit
     /// <returns>An Array of length "numArgsOut" containing the output
     /// arguments.</returns>
     ///
-    public MWArray[] flexWingFit(int numArgsOut, MWArray x, MWArray y, MWArray weight, 
-                           MWArray stationaryPoint, MWArray tailConcavity, MWArray 
-                           smoothCoeff, MWArray turningPoint_in1, MWArray boundaryx, 
-                           MWArray boundarydx, MWArray boundarydxx, MWArray leftright, 
-                           MWArray upperLimitG, MWArray lowerLimitG, MWArray xEndl, 
-                           MWArray aMaxl, MWArray aMinl, MWArray xEndr, MWArray aMaxr, 
-                           MWArray aMinr, MWArray invalidx, MWArray invalidupper, MWArray 
-                           invalidlower, MWArray leftincrease, MWArray rightincrease, 
-                           MWArray smooth, MWArray tight, MWArray tightlb, MWArray 
-                           tightub)
+    public MWArray[] flexWingFit(int numArgsOut, MWArray x_in1, MWArray y, MWArray 
+                           weight, MWArray stationaryPoint, MWArray tailConcavity, 
+                           MWArray smoothCoeff, MWArray turningPoint_in1, MWArray 
+                           boundaryx, MWArray boundarydx, MWArray boundarydxx, MWArray 
+                           leftright, MWArray upperLimitG, MWArray lowerLimitG, MWArray 
+                           xEndl, MWArray aMaxl, MWArray aMinl, MWArray xEndr, MWArray 
+                           aMaxr, MWArray aMinr, MWArray invalidx, MWArray invalidupper, 
+                           MWArray invalidlower, MWArray leftincrease, MWArray 
+                           rightincrease, MWArray smooth, MWArray tight, MWArray tightlb, 
+                           MWArray tightub)
     {
-      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, leftincrease, rightincrease, smooth, tight, tightlb, tightub);
+      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, leftincrease, rightincrease, smooth, tight, tightlb, tightub);
     }
 
 
@@ -10643,7 +10648,7 @@ namespace flexFit
     /// weight = ones(1,length(x));
     /// </remarks>
     /// <param name="numArgsOut">The number of output arguments to return.</param>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <param name="stationaryPoint">Input argument #4</param>
@@ -10675,18 +10680,18 @@ namespace flexFit
     /// <returns>An Array of length "numArgsOut" containing the output
     /// arguments.</returns>
     ///
-    public MWArray[] flexWingFit(int numArgsOut, MWArray x, MWArray y, MWArray weight, 
-                           MWArray stationaryPoint, MWArray tailConcavity, MWArray 
-                           smoothCoeff, MWArray turningPoint_in1, MWArray boundaryx, 
-                           MWArray boundarydx, MWArray boundarydxx, MWArray leftright, 
-                           MWArray upperLimitG, MWArray lowerLimitG, MWArray xEndl, 
-                           MWArray aMaxl, MWArray aMinl, MWArray xEndr, MWArray aMaxr, 
-                           MWArray aMinr, MWArray invalidx, MWArray invalidupper, MWArray 
-                           invalidlower, MWArray leftincrease, MWArray rightincrease, 
-                           MWArray smooth, MWArray tight, MWArray tightlb, MWArray 
-                           tightub, MWArray minxrange)
+    public MWArray[] flexWingFit(int numArgsOut, MWArray x_in1, MWArray y, MWArray 
+                           weight, MWArray stationaryPoint, MWArray tailConcavity, 
+                           MWArray smoothCoeff, MWArray turningPoint_in1, MWArray 
+                           boundaryx, MWArray boundarydx, MWArray boundarydxx, MWArray 
+                           leftright, MWArray upperLimitG, MWArray lowerLimitG, MWArray 
+                           xEndl, MWArray aMaxl, MWArray aMinl, MWArray xEndr, MWArray 
+                           aMaxr, MWArray aMinr, MWArray invalidx, MWArray invalidupper, 
+                           MWArray invalidlower, MWArray leftincrease, MWArray 
+                           rightincrease, MWArray smooth, MWArray tight, MWArray tightlb, 
+                           MWArray tightub, MWArray minxrange)
     {
-      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, leftincrease, rightincrease, smooth, tight, tightlb, tightub, minxrange);
+      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, leftincrease, rightincrease, smooth, tight, tightlb, tightub, minxrange);
     }
 
 
@@ -10707,7 +10712,7 @@ namespace flexFit
     /// weight = ones(1,length(x));
     /// </remarks>
     /// <param name="numArgsOut">The number of output arguments to return.</param>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <param name="stationaryPoint">Input argument #4</param>
@@ -10740,18 +10745,18 @@ namespace flexFit
     /// <returns>An Array of length "numArgsOut" containing the output
     /// arguments.</returns>
     ///
-    public MWArray[] flexWingFit(int numArgsOut, MWArray x, MWArray y, MWArray weight, 
-                           MWArray stationaryPoint, MWArray tailConcavity, MWArray 
-                           smoothCoeff, MWArray turningPoint_in1, MWArray boundaryx, 
-                           MWArray boundarydx, MWArray boundarydxx, MWArray leftright, 
-                           MWArray upperLimitG, MWArray lowerLimitG, MWArray xEndl, 
-                           MWArray aMaxl, MWArray aMinl, MWArray xEndr, MWArray aMaxr, 
-                           MWArray aMinr, MWArray invalidx, MWArray invalidupper, MWArray 
-                           invalidlower, MWArray leftincrease, MWArray rightincrease, 
-                           MWArray smooth, MWArray tight, MWArray tightlb, MWArray 
-                           tightub, MWArray minxrange, MWArray concave)
+    public MWArray[] flexWingFit(int numArgsOut, MWArray x_in1, MWArray y, MWArray 
+                           weight, MWArray stationaryPoint, MWArray tailConcavity, 
+                           MWArray smoothCoeff, MWArray turningPoint_in1, MWArray 
+                           boundaryx, MWArray boundarydx, MWArray boundarydxx, MWArray 
+                           leftright, MWArray upperLimitG, MWArray lowerLimitG, MWArray 
+                           xEndl, MWArray aMaxl, MWArray aMinl, MWArray xEndr, MWArray 
+                           aMaxr, MWArray aMinr, MWArray invalidx, MWArray invalidupper, 
+                           MWArray invalidlower, MWArray leftincrease, MWArray 
+                           rightincrease, MWArray smooth, MWArray tight, MWArray tightlb, 
+                           MWArray tightub, MWArray minxrange, MWArray concave)
     {
-      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, leftincrease, rightincrease, smooth, tight, tightlb, tightub, minxrange, concave);
+      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, leftincrease, rightincrease, smooth, tight, tightlb, tightub, minxrange, concave);
     }
 
 

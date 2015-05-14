@@ -1,6 +1,6 @@
 /*
 * MATLAB Compiler: 5.1 (R2014a)
-* Date: Thu May 07 21:15:21 2015
+* Date: Thu May 14 12:56:06 2015
 * Arguments: "-B" "macro_default" "-W" "dotnet:flexFit,FlexFit,0.0,private" "-T"
 * "link:lib" "-d" "C:\Users\Dappled\OneDrive\dappled's
 * sky\cs\matlab\convexMonotoneFit\flexFit\for_testing" "-v" "C:\Program
@@ -7977,7 +7977,7 @@ namespace flexFitNative
     /// <param name= "varArgsIn">Array of Object representing variable input
     /// arguments</param>
     ///
-    [MATLABSignature("flexTimeFit", 32, 9, 0)]
+    [MATLABSignature("flexTimeFit", 32, 10, 0)]
     protected void flexTimeFit(int numArgsOut, ref Object[] argsOut, Object[] argsIn, params Object[] varArgsIn)
     {
         mcr.EvaluateFunctionForTypeSafeCall("flexTimeFit", numArgsOut, ref argsOut, argsIn, varArgsIn);
@@ -8022,12 +8022,12 @@ namespace flexFitNative
     /// y = IV(:,6)';
     /// weight = ones(1,length(x));
     /// </remarks>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <returns>An Object containing the first output argument.</returns>
     ///
-    public Object flexWingFit(Object x)
+    public Object flexWingFit(Object x_in1)
     {
-      return mcr.EvaluateFunction("flexWingFit", x);
+      return mcr.EvaluateFunction("flexWingFit", x_in1);
     }
 
 
@@ -8047,13 +8047,13 @@ namespace flexFitNative
     /// y = IV(:,6)';
     /// weight = ones(1,length(x));
     /// </remarks>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <returns>An Object containing the first output argument.</returns>
     ///
-    public Object flexWingFit(Object x, Object y)
+    public Object flexWingFit(Object x_in1, Object y)
     {
-      return mcr.EvaluateFunction("flexWingFit", x, y);
+      return mcr.EvaluateFunction("flexWingFit", x_in1, y);
     }
 
 
@@ -8073,14 +8073,14 @@ namespace flexFitNative
     /// y = IV(:,6)';
     /// weight = ones(1,length(x));
     /// </remarks>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <returns>An Object containing the first output argument.</returns>
     ///
-    public Object flexWingFit(Object x, Object y, Object weight)
+    public Object flexWingFit(Object x_in1, Object y, Object weight)
     {
-      return mcr.EvaluateFunction("flexWingFit", x, y, weight);
+      return mcr.EvaluateFunction("flexWingFit", x_in1, y, weight);
     }
 
 
@@ -8100,15 +8100,16 @@ namespace flexFitNative
     /// y = IV(:,6)';
     /// weight = ones(1,length(x));
     /// </remarks>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <param name="stationaryPoint">Input argument #4</param>
     /// <returns>An Object containing the first output argument.</returns>
     ///
-    public Object flexWingFit(Object x, Object y, Object weight, Object stationaryPoint)
+    public Object flexWingFit(Object x_in1, Object y, Object weight, Object 
+                        stationaryPoint)
     {
-      return mcr.EvaluateFunction("flexWingFit", x, y, weight, stationaryPoint);
+      return mcr.EvaluateFunction("flexWingFit", x_in1, y, weight, stationaryPoint);
     }
 
 
@@ -8128,17 +8129,17 @@ namespace flexFitNative
     /// y = IV(:,6)';
     /// weight = ones(1,length(x));
     /// </remarks>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <param name="stationaryPoint">Input argument #4</param>
     /// <param name="tailConcavity">Input argument #5</param>
     /// <returns>An Object containing the first output argument.</returns>
     ///
-    public Object flexWingFit(Object x, Object y, Object weight, Object stationaryPoint, 
-                        Object tailConcavity)
+    public Object flexWingFit(Object x_in1, Object y, Object weight, Object 
+                        stationaryPoint, Object tailConcavity)
     {
-      return mcr.EvaluateFunction("flexWingFit", x, y, weight, stationaryPoint, tailConcavity);
+      return mcr.EvaluateFunction("flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity);
     }
 
 
@@ -8158,7 +8159,7 @@ namespace flexFitNative
     /// y = IV(:,6)';
     /// weight = ones(1,length(x));
     /// </remarks>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <param name="stationaryPoint">Input argument #4</param>
@@ -8166,10 +8167,10 @@ namespace flexFitNative
     /// <param name="smoothCoeff">Input argument #6</param>
     /// <returns>An Object containing the first output argument.</returns>
     ///
-    public Object flexWingFit(Object x, Object y, Object weight, Object stationaryPoint, 
-                        Object tailConcavity, Object smoothCoeff)
+    public Object flexWingFit(Object x_in1, Object y, Object weight, Object 
+                        stationaryPoint, Object tailConcavity, Object smoothCoeff)
     {
-      return mcr.EvaluateFunction("flexWingFit", x, y, weight, stationaryPoint, tailConcavity, smoothCoeff);
+      return mcr.EvaluateFunction("flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff);
     }
 
 
@@ -8189,7 +8190,7 @@ namespace flexFitNative
     /// y = IV(:,6)';
     /// weight = ones(1,length(x));
     /// </remarks>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <param name="stationaryPoint">Input argument #4</param>
@@ -8198,10 +8199,11 @@ namespace flexFitNative
     /// <param name="turningPoint_in1">Input argument #7</param>
     /// <returns>An Object containing the first output argument.</returns>
     ///
-    public Object flexWingFit(Object x, Object y, Object weight, Object stationaryPoint, 
-                        Object tailConcavity, Object smoothCoeff, Object turningPoint_in1)
+    public Object flexWingFit(Object x_in1, Object y, Object weight, Object 
+                        stationaryPoint, Object tailConcavity, Object smoothCoeff, Object 
+                        turningPoint_in1)
     {
-      return mcr.EvaluateFunction("flexWingFit", x, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1);
+      return mcr.EvaluateFunction("flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1);
     }
 
 
@@ -8221,7 +8223,7 @@ namespace flexFitNative
     /// y = IV(:,6)';
     /// weight = ones(1,length(x));
     /// </remarks>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <param name="stationaryPoint">Input argument #4</param>
@@ -8231,11 +8233,11 @@ namespace flexFitNative
     /// <param name="boundaryx">Input argument #8</param>
     /// <returns>An Object containing the first output argument.</returns>
     ///
-    public Object flexWingFit(Object x, Object y, Object weight, Object stationaryPoint, 
-                        Object tailConcavity, Object smoothCoeff, Object 
+    public Object flexWingFit(Object x_in1, Object y, Object weight, Object 
+                        stationaryPoint, Object tailConcavity, Object smoothCoeff, Object 
                         turningPoint_in1, Object boundaryx)
     {
-      return mcr.EvaluateFunction("flexWingFit", x, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx);
+      return mcr.EvaluateFunction("flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx);
     }
 
 
@@ -8255,7 +8257,7 @@ namespace flexFitNative
     /// y = IV(:,6)';
     /// weight = ones(1,length(x));
     /// </remarks>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <param name="stationaryPoint">Input argument #4</param>
@@ -8266,11 +8268,11 @@ namespace flexFitNative
     /// <param name="boundarydx">Input argument #9</param>
     /// <returns>An Object containing the first output argument.</returns>
     ///
-    public Object flexWingFit(Object x, Object y, Object weight, Object stationaryPoint, 
-                        Object tailConcavity, Object smoothCoeff, Object 
+    public Object flexWingFit(Object x_in1, Object y, Object weight, Object 
+                        stationaryPoint, Object tailConcavity, Object smoothCoeff, Object 
                         turningPoint_in1, Object boundaryx, Object boundarydx)
     {
-      return mcr.EvaluateFunction("flexWingFit", x, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx);
+      return mcr.EvaluateFunction("flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx);
     }
 
 
@@ -8290,7 +8292,7 @@ namespace flexFitNative
     /// y = IV(:,6)';
     /// weight = ones(1,length(x));
     /// </remarks>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <param name="stationaryPoint">Input argument #4</param>
@@ -8302,12 +8304,12 @@ namespace flexFitNative
     /// <param name="boundarydxx">Input argument #10</param>
     /// <returns>An Object containing the first output argument.</returns>
     ///
-    public Object flexWingFit(Object x, Object y, Object weight, Object stationaryPoint, 
-                        Object tailConcavity, Object smoothCoeff, Object 
+    public Object flexWingFit(Object x_in1, Object y, Object weight, Object 
+                        stationaryPoint, Object tailConcavity, Object smoothCoeff, Object 
                         turningPoint_in1, Object boundaryx, Object boundarydx, Object 
                         boundarydxx)
     {
-      return mcr.EvaluateFunction("flexWingFit", x, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx);
+      return mcr.EvaluateFunction("flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx);
     }
 
 
@@ -8327,7 +8329,7 @@ namespace flexFitNative
     /// y = IV(:,6)';
     /// weight = ones(1,length(x));
     /// </remarks>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <param name="stationaryPoint">Input argument #4</param>
@@ -8340,12 +8342,12 @@ namespace flexFitNative
     /// <param name="leftright">Input argument #11</param>
     /// <returns>An Object containing the first output argument.</returns>
     ///
-    public Object flexWingFit(Object x, Object y, Object weight, Object stationaryPoint, 
-                        Object tailConcavity, Object smoothCoeff, Object 
+    public Object flexWingFit(Object x_in1, Object y, Object weight, Object 
+                        stationaryPoint, Object tailConcavity, Object smoothCoeff, Object 
                         turningPoint_in1, Object boundaryx, Object boundarydx, Object 
                         boundarydxx, Object leftright)
     {
-      return mcr.EvaluateFunction("flexWingFit", x, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright);
+      return mcr.EvaluateFunction("flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright);
     }
 
 
@@ -8365,7 +8367,7 @@ namespace flexFitNative
     /// y = IV(:,6)';
     /// weight = ones(1,length(x));
     /// </remarks>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <param name="stationaryPoint">Input argument #4</param>
@@ -8379,12 +8381,12 @@ namespace flexFitNative
     /// <param name="upperLimitG">Input argument #12</param>
     /// <returns>An Object containing the first output argument.</returns>
     ///
-    public Object flexWingFit(Object x, Object y, Object weight, Object stationaryPoint, 
-                        Object tailConcavity, Object smoothCoeff, Object 
+    public Object flexWingFit(Object x_in1, Object y, Object weight, Object 
+                        stationaryPoint, Object tailConcavity, Object smoothCoeff, Object 
                         turningPoint_in1, Object boundaryx, Object boundarydx, Object 
                         boundarydxx, Object leftright, Object upperLimitG)
     {
-      return mcr.EvaluateFunction("flexWingFit", x, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG);
+      return mcr.EvaluateFunction("flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG);
     }
 
 
@@ -8404,7 +8406,7 @@ namespace flexFitNative
     /// y = IV(:,6)';
     /// weight = ones(1,length(x));
     /// </remarks>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <param name="stationaryPoint">Input argument #4</param>
@@ -8419,13 +8421,13 @@ namespace flexFitNative
     /// <param name="lowerLimitG">Input argument #13</param>
     /// <returns>An Object containing the first output argument.</returns>
     ///
-    public Object flexWingFit(Object x, Object y, Object weight, Object stationaryPoint, 
-                        Object tailConcavity, Object smoothCoeff, Object 
+    public Object flexWingFit(Object x_in1, Object y, Object weight, Object 
+                        stationaryPoint, Object tailConcavity, Object smoothCoeff, Object 
                         turningPoint_in1, Object boundaryx, Object boundarydx, Object 
                         boundarydxx, Object leftright, Object upperLimitG, Object 
                         lowerLimitG)
     {
-      return mcr.EvaluateFunction("flexWingFit", x, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG);
+      return mcr.EvaluateFunction("flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG);
     }
 
 
@@ -8445,7 +8447,7 @@ namespace flexFitNative
     /// y = IV(:,6)';
     /// weight = ones(1,length(x));
     /// </remarks>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <param name="stationaryPoint">Input argument #4</param>
@@ -8461,13 +8463,13 @@ namespace flexFitNative
     /// <param name="xEndl">Input argument #14</param>
     /// <returns>An Object containing the first output argument.</returns>
     ///
-    public Object flexWingFit(Object x, Object y, Object weight, Object stationaryPoint, 
-                        Object tailConcavity, Object smoothCoeff, Object 
+    public Object flexWingFit(Object x_in1, Object y, Object weight, Object 
+                        stationaryPoint, Object tailConcavity, Object smoothCoeff, Object 
                         turningPoint_in1, Object boundaryx, Object boundarydx, Object 
                         boundarydxx, Object leftright, Object upperLimitG, Object 
                         lowerLimitG, Object xEndl)
     {
-      return mcr.EvaluateFunction("flexWingFit", x, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl);
+      return mcr.EvaluateFunction("flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl);
     }
 
 
@@ -8487,7 +8489,7 @@ namespace flexFitNative
     /// y = IV(:,6)';
     /// weight = ones(1,length(x));
     /// </remarks>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <param name="stationaryPoint">Input argument #4</param>
@@ -8504,13 +8506,13 @@ namespace flexFitNative
     /// <param name="aMaxl">Input argument #15</param>
     /// <returns>An Object containing the first output argument.</returns>
     ///
-    public Object flexWingFit(Object x, Object y, Object weight, Object stationaryPoint, 
-                        Object tailConcavity, Object smoothCoeff, Object 
+    public Object flexWingFit(Object x_in1, Object y, Object weight, Object 
+                        stationaryPoint, Object tailConcavity, Object smoothCoeff, Object 
                         turningPoint_in1, Object boundaryx, Object boundarydx, Object 
                         boundarydxx, Object leftright, Object upperLimitG, Object 
                         lowerLimitG, Object xEndl, Object aMaxl)
     {
-      return mcr.EvaluateFunction("flexWingFit", x, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl);
+      return mcr.EvaluateFunction("flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl);
     }
 
 
@@ -8530,7 +8532,7 @@ namespace flexFitNative
     /// y = IV(:,6)';
     /// weight = ones(1,length(x));
     /// </remarks>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <param name="stationaryPoint">Input argument #4</param>
@@ -8548,13 +8550,13 @@ namespace flexFitNative
     /// <param name="aMinl">Input argument #16</param>
     /// <returns>An Object containing the first output argument.</returns>
     ///
-    public Object flexWingFit(Object x, Object y, Object weight, Object stationaryPoint, 
-                        Object tailConcavity, Object smoothCoeff, Object 
+    public Object flexWingFit(Object x_in1, Object y, Object weight, Object 
+                        stationaryPoint, Object tailConcavity, Object smoothCoeff, Object 
                         turningPoint_in1, Object boundaryx, Object boundarydx, Object 
                         boundarydxx, Object leftright, Object upperLimitG, Object 
                         lowerLimitG, Object xEndl, Object aMaxl, Object aMinl)
     {
-      return mcr.EvaluateFunction("flexWingFit", x, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl);
+      return mcr.EvaluateFunction("flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl);
     }
 
 
@@ -8574,7 +8576,7 @@ namespace flexFitNative
     /// y = IV(:,6)';
     /// weight = ones(1,length(x));
     /// </remarks>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <param name="stationaryPoint">Input argument #4</param>
@@ -8593,14 +8595,14 @@ namespace flexFitNative
     /// <param name="xEndr">Input argument #17</param>
     /// <returns>An Object containing the first output argument.</returns>
     ///
-    public Object flexWingFit(Object x, Object y, Object weight, Object stationaryPoint, 
-                        Object tailConcavity, Object smoothCoeff, Object 
+    public Object flexWingFit(Object x_in1, Object y, Object weight, Object 
+                        stationaryPoint, Object tailConcavity, Object smoothCoeff, Object 
                         turningPoint_in1, Object boundaryx, Object boundarydx, Object 
                         boundarydxx, Object leftright, Object upperLimitG, Object 
                         lowerLimitG, Object xEndl, Object aMaxl, Object aMinl, Object 
                         xEndr)
     {
-      return mcr.EvaluateFunction("flexWingFit", x, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr);
+      return mcr.EvaluateFunction("flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr);
     }
 
 
@@ -8620,7 +8622,7 @@ namespace flexFitNative
     /// y = IV(:,6)';
     /// weight = ones(1,length(x));
     /// </remarks>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <param name="stationaryPoint">Input argument #4</param>
@@ -8640,14 +8642,14 @@ namespace flexFitNative
     /// <param name="aMaxr">Input argument #18</param>
     /// <returns>An Object containing the first output argument.</returns>
     ///
-    public Object flexWingFit(Object x, Object y, Object weight, Object stationaryPoint, 
-                        Object tailConcavity, Object smoothCoeff, Object 
+    public Object flexWingFit(Object x_in1, Object y, Object weight, Object 
+                        stationaryPoint, Object tailConcavity, Object smoothCoeff, Object 
                         turningPoint_in1, Object boundaryx, Object boundarydx, Object 
                         boundarydxx, Object leftright, Object upperLimitG, Object 
                         lowerLimitG, Object xEndl, Object aMaxl, Object aMinl, Object 
                         xEndr, Object aMaxr)
     {
-      return mcr.EvaluateFunction("flexWingFit", x, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr);
+      return mcr.EvaluateFunction("flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr);
     }
 
 
@@ -8667,7 +8669,7 @@ namespace flexFitNative
     /// y = IV(:,6)';
     /// weight = ones(1,length(x));
     /// </remarks>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <param name="stationaryPoint">Input argument #4</param>
@@ -8688,14 +8690,14 @@ namespace flexFitNative
     /// <param name="aMinr">Input argument #19</param>
     /// <returns>An Object containing the first output argument.</returns>
     ///
-    public Object flexWingFit(Object x, Object y, Object weight, Object stationaryPoint, 
-                        Object tailConcavity, Object smoothCoeff, Object 
+    public Object flexWingFit(Object x_in1, Object y, Object weight, Object 
+                        stationaryPoint, Object tailConcavity, Object smoothCoeff, Object 
                         turningPoint_in1, Object boundaryx, Object boundarydx, Object 
                         boundarydxx, Object leftright, Object upperLimitG, Object 
                         lowerLimitG, Object xEndl, Object aMaxl, Object aMinl, Object 
                         xEndr, Object aMaxr, Object aMinr)
     {
-      return mcr.EvaluateFunction("flexWingFit", x, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr);
+      return mcr.EvaluateFunction("flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr);
     }
 
 
@@ -8715,7 +8717,7 @@ namespace flexFitNative
     /// y = IV(:,6)';
     /// weight = ones(1,length(x));
     /// </remarks>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <param name="stationaryPoint">Input argument #4</param>
@@ -8737,14 +8739,14 @@ namespace flexFitNative
     /// <param name="invalidx">Input argument #20</param>
     /// <returns>An Object containing the first output argument.</returns>
     ///
-    public Object flexWingFit(Object x, Object y, Object weight, Object stationaryPoint, 
-                        Object tailConcavity, Object smoothCoeff, Object 
+    public Object flexWingFit(Object x_in1, Object y, Object weight, Object 
+                        stationaryPoint, Object tailConcavity, Object smoothCoeff, Object 
                         turningPoint_in1, Object boundaryx, Object boundarydx, Object 
                         boundarydxx, Object leftright, Object upperLimitG, Object 
                         lowerLimitG, Object xEndl, Object aMaxl, Object aMinl, Object 
                         xEndr, Object aMaxr, Object aMinr, Object invalidx)
     {
-      return mcr.EvaluateFunction("flexWingFit", x, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx);
+      return mcr.EvaluateFunction("flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx);
     }
 
 
@@ -8764,7 +8766,7 @@ namespace flexFitNative
     /// y = IV(:,6)';
     /// weight = ones(1,length(x));
     /// </remarks>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <param name="stationaryPoint">Input argument #4</param>
@@ -8787,15 +8789,15 @@ namespace flexFitNative
     /// <param name="invalidupper">Input argument #21</param>
     /// <returns>An Object containing the first output argument.</returns>
     ///
-    public Object flexWingFit(Object x, Object y, Object weight, Object stationaryPoint, 
-                        Object tailConcavity, Object smoothCoeff, Object 
+    public Object flexWingFit(Object x_in1, Object y, Object weight, Object 
+                        stationaryPoint, Object tailConcavity, Object smoothCoeff, Object 
                         turningPoint_in1, Object boundaryx, Object boundarydx, Object 
                         boundarydxx, Object leftright, Object upperLimitG, Object 
                         lowerLimitG, Object xEndl, Object aMaxl, Object aMinl, Object 
                         xEndr, Object aMaxr, Object aMinr, Object invalidx, Object 
                         invalidupper)
     {
-      return mcr.EvaluateFunction("flexWingFit", x, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper);
+      return mcr.EvaluateFunction("flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper);
     }
 
 
@@ -8815,7 +8817,7 @@ namespace flexFitNative
     /// y = IV(:,6)';
     /// weight = ones(1,length(x));
     /// </remarks>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <param name="stationaryPoint">Input argument #4</param>
@@ -8839,15 +8841,15 @@ namespace flexFitNative
     /// <param name="invalidlower">Input argument #22</param>
     /// <returns>An Object containing the first output argument.</returns>
     ///
-    public Object flexWingFit(Object x, Object y, Object weight, Object stationaryPoint, 
-                        Object tailConcavity, Object smoothCoeff, Object 
+    public Object flexWingFit(Object x_in1, Object y, Object weight, Object 
+                        stationaryPoint, Object tailConcavity, Object smoothCoeff, Object 
                         turningPoint_in1, Object boundaryx, Object boundarydx, Object 
                         boundarydxx, Object leftright, Object upperLimitG, Object 
                         lowerLimitG, Object xEndl, Object aMaxl, Object aMinl, Object 
                         xEndr, Object aMaxr, Object aMinr, Object invalidx, Object 
                         invalidupper, Object invalidlower)
     {
-      return mcr.EvaluateFunction("flexWingFit", x, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower);
+      return mcr.EvaluateFunction("flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower);
     }
 
 
@@ -8867,7 +8869,7 @@ namespace flexFitNative
     /// y = IV(:,6)';
     /// weight = ones(1,length(x));
     /// </remarks>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <param name="stationaryPoint">Input argument #4</param>
@@ -8892,15 +8894,15 @@ namespace flexFitNative
     /// <param name="leftincrease">Input argument #23</param>
     /// <returns>An Object containing the first output argument.</returns>
     ///
-    public Object flexWingFit(Object x, Object y, Object weight, Object stationaryPoint, 
-                        Object tailConcavity, Object smoothCoeff, Object 
+    public Object flexWingFit(Object x_in1, Object y, Object weight, Object 
+                        stationaryPoint, Object tailConcavity, Object smoothCoeff, Object 
                         turningPoint_in1, Object boundaryx, Object boundarydx, Object 
                         boundarydxx, Object leftright, Object upperLimitG, Object 
                         lowerLimitG, Object xEndl, Object aMaxl, Object aMinl, Object 
                         xEndr, Object aMaxr, Object aMinr, Object invalidx, Object 
                         invalidupper, Object invalidlower, Object leftincrease)
     {
-      return mcr.EvaluateFunction("flexWingFit", x, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, leftincrease);
+      return mcr.EvaluateFunction("flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, leftincrease);
     }
 
 
@@ -8920,7 +8922,7 @@ namespace flexFitNative
     /// y = IV(:,6)';
     /// weight = ones(1,length(x));
     /// </remarks>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <param name="stationaryPoint">Input argument #4</param>
@@ -8946,8 +8948,8 @@ namespace flexFitNative
     /// <param name="rightincrease">Input argument #24</param>
     /// <returns>An Object containing the first output argument.</returns>
     ///
-    public Object flexWingFit(Object x, Object y, Object weight, Object stationaryPoint, 
-                        Object tailConcavity, Object smoothCoeff, Object 
+    public Object flexWingFit(Object x_in1, Object y, Object weight, Object 
+                        stationaryPoint, Object tailConcavity, Object smoothCoeff, Object 
                         turningPoint_in1, Object boundaryx, Object boundarydx, Object 
                         boundarydxx, Object leftright, Object upperLimitG, Object 
                         lowerLimitG, Object xEndl, Object aMaxl, Object aMinl, Object 
@@ -8955,7 +8957,7 @@ namespace flexFitNative
                         invalidupper, Object invalidlower, Object leftincrease, Object 
                         rightincrease)
     {
-      return mcr.EvaluateFunction("flexWingFit", x, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, leftincrease, rightincrease);
+      return mcr.EvaluateFunction("flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, leftincrease, rightincrease);
     }
 
 
@@ -8975,7 +8977,7 @@ namespace flexFitNative
     /// y = IV(:,6)';
     /// weight = ones(1,length(x));
     /// </remarks>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <param name="stationaryPoint">Input argument #4</param>
@@ -9002,8 +9004,8 @@ namespace flexFitNative
     /// <param name="smooth">Input argument #25</param>
     /// <returns>An Object containing the first output argument.</returns>
     ///
-    public Object flexWingFit(Object x, Object y, Object weight, Object stationaryPoint, 
-                        Object tailConcavity, Object smoothCoeff, Object 
+    public Object flexWingFit(Object x_in1, Object y, Object weight, Object 
+                        stationaryPoint, Object tailConcavity, Object smoothCoeff, Object 
                         turningPoint_in1, Object boundaryx, Object boundarydx, Object 
                         boundarydxx, Object leftright, Object upperLimitG, Object 
                         lowerLimitG, Object xEndl, Object aMaxl, Object aMinl, Object 
@@ -9011,7 +9013,7 @@ namespace flexFitNative
                         invalidupper, Object invalidlower, Object leftincrease, Object 
                         rightincrease, Object smooth)
     {
-      return mcr.EvaluateFunction("flexWingFit", x, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, leftincrease, rightincrease, smooth);
+      return mcr.EvaluateFunction("flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, leftincrease, rightincrease, smooth);
     }
 
 
@@ -9031,7 +9033,7 @@ namespace flexFitNative
     /// y = IV(:,6)';
     /// weight = ones(1,length(x));
     /// </remarks>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <param name="stationaryPoint">Input argument #4</param>
@@ -9059,8 +9061,8 @@ namespace flexFitNative
     /// <param name="tight">Input argument #26</param>
     /// <returns>An Object containing the first output argument.</returns>
     ///
-    public Object flexWingFit(Object x, Object y, Object weight, Object stationaryPoint, 
-                        Object tailConcavity, Object smoothCoeff, Object 
+    public Object flexWingFit(Object x_in1, Object y, Object weight, Object 
+                        stationaryPoint, Object tailConcavity, Object smoothCoeff, Object 
                         turningPoint_in1, Object boundaryx, Object boundarydx, Object 
                         boundarydxx, Object leftright, Object upperLimitG, Object 
                         lowerLimitG, Object xEndl, Object aMaxl, Object aMinl, Object 
@@ -9068,7 +9070,7 @@ namespace flexFitNative
                         invalidupper, Object invalidlower, Object leftincrease, Object 
                         rightincrease, Object smooth, Object tight)
     {
-      return mcr.EvaluateFunction("flexWingFit", x, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, leftincrease, rightincrease, smooth, tight);
+      return mcr.EvaluateFunction("flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, leftincrease, rightincrease, smooth, tight);
     }
 
 
@@ -9088,7 +9090,7 @@ namespace flexFitNative
     /// y = IV(:,6)';
     /// weight = ones(1,length(x));
     /// </remarks>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <param name="stationaryPoint">Input argument #4</param>
@@ -9117,8 +9119,8 @@ namespace flexFitNative
     /// <param name="tightlb">Input argument #27</param>
     /// <returns>An Object containing the first output argument.</returns>
     ///
-    public Object flexWingFit(Object x, Object y, Object weight, Object stationaryPoint, 
-                        Object tailConcavity, Object smoothCoeff, Object 
+    public Object flexWingFit(Object x_in1, Object y, Object weight, Object 
+                        stationaryPoint, Object tailConcavity, Object smoothCoeff, Object 
                         turningPoint_in1, Object boundaryx, Object boundarydx, Object 
                         boundarydxx, Object leftright, Object upperLimitG, Object 
                         lowerLimitG, Object xEndl, Object aMaxl, Object aMinl, Object 
@@ -9126,7 +9128,7 @@ namespace flexFitNative
                         invalidupper, Object invalidlower, Object leftincrease, Object 
                         rightincrease, Object smooth, Object tight, Object tightlb)
     {
-      return mcr.EvaluateFunction("flexWingFit", x, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, leftincrease, rightincrease, smooth, tight, tightlb);
+      return mcr.EvaluateFunction("flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, leftincrease, rightincrease, smooth, tight, tightlb);
     }
 
 
@@ -9146,7 +9148,7 @@ namespace flexFitNative
     /// y = IV(:,6)';
     /// weight = ones(1,length(x));
     /// </remarks>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <param name="stationaryPoint">Input argument #4</param>
@@ -9176,8 +9178,8 @@ namespace flexFitNative
     /// <param name="tightub">Input argument #28</param>
     /// <returns>An Object containing the first output argument.</returns>
     ///
-    public Object flexWingFit(Object x, Object y, Object weight, Object stationaryPoint, 
-                        Object tailConcavity, Object smoothCoeff, Object 
+    public Object flexWingFit(Object x_in1, Object y, Object weight, Object 
+                        stationaryPoint, Object tailConcavity, Object smoothCoeff, Object 
                         turningPoint_in1, Object boundaryx, Object boundarydx, Object 
                         boundarydxx, Object leftright, Object upperLimitG, Object 
                         lowerLimitG, Object xEndl, Object aMaxl, Object aMinl, Object 
@@ -9186,7 +9188,7 @@ namespace flexFitNative
                         rightincrease, Object smooth, Object tight, Object tightlb, 
                         Object tightub)
     {
-      return mcr.EvaluateFunction("flexWingFit", x, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, leftincrease, rightincrease, smooth, tight, tightlb, tightub);
+      return mcr.EvaluateFunction("flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, leftincrease, rightincrease, smooth, tight, tightlb, tightub);
     }
 
 
@@ -9206,7 +9208,7 @@ namespace flexFitNative
     /// y = IV(:,6)';
     /// weight = ones(1,length(x));
     /// </remarks>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <param name="stationaryPoint">Input argument #4</param>
@@ -9237,8 +9239,8 @@ namespace flexFitNative
     /// <param name="minxrange">Input argument #29</param>
     /// <returns>An Object containing the first output argument.</returns>
     ///
-    public Object flexWingFit(Object x, Object y, Object weight, Object stationaryPoint, 
-                        Object tailConcavity, Object smoothCoeff, Object 
+    public Object flexWingFit(Object x_in1, Object y, Object weight, Object 
+                        stationaryPoint, Object tailConcavity, Object smoothCoeff, Object 
                         turningPoint_in1, Object boundaryx, Object boundarydx, Object 
                         boundarydxx, Object leftright, Object upperLimitG, Object 
                         lowerLimitG, Object xEndl, Object aMaxl, Object aMinl, Object 
@@ -9247,7 +9249,7 @@ namespace flexFitNative
                         rightincrease, Object smooth, Object tight, Object tightlb, 
                         Object tightub, Object minxrange)
     {
-      return mcr.EvaluateFunction("flexWingFit", x, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, leftincrease, rightincrease, smooth, tight, tightlb, tightub, minxrange);
+      return mcr.EvaluateFunction("flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, leftincrease, rightincrease, smooth, tight, tightlb, tightub, minxrange);
     }
 
 
@@ -9267,7 +9269,7 @@ namespace flexFitNative
     /// y = IV(:,6)';
     /// weight = ones(1,length(x));
     /// </remarks>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <param name="stationaryPoint">Input argument #4</param>
@@ -9299,8 +9301,8 @@ namespace flexFitNative
     /// <param name="concave">Input argument #30</param>
     /// <returns>An Object containing the first output argument.</returns>
     ///
-    public Object flexWingFit(Object x, Object y, Object weight, Object stationaryPoint, 
-                        Object tailConcavity, Object smoothCoeff, Object 
+    public Object flexWingFit(Object x_in1, Object y, Object weight, Object 
+                        stationaryPoint, Object tailConcavity, Object smoothCoeff, Object 
                         turningPoint_in1, Object boundaryx, Object boundarydx, Object 
                         boundarydxx, Object leftright, Object upperLimitG, Object 
                         lowerLimitG, Object xEndl, Object aMaxl, Object aMinl, Object 
@@ -9309,7 +9311,7 @@ namespace flexFitNative
                         rightincrease, Object smooth, Object tight, Object tightlb, 
                         Object tightub, Object minxrange, Object concave)
     {
-      return mcr.EvaluateFunction("flexWingFit", x, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, leftincrease, rightincrease, smooth, tight, tightlb, tightub, minxrange, concave);
+      return mcr.EvaluateFunction("flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, leftincrease, rightincrease, smooth, tight, tightlb, tightub, minxrange, concave);
     }
 
 
@@ -9356,13 +9358,13 @@ namespace flexFitNative
     /// weight = ones(1,length(x));
     /// </remarks>
     /// <param name="numArgsOut">The number of output arguments to return.</param>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <returns>An Array of length "numArgsOut" containing the output
     /// arguments.</returns>
     ///
-    public Object[] flexWingFit(int numArgsOut, Object x)
+    public Object[] flexWingFit(int numArgsOut, Object x_in1)
     {
-      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x);
+      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x_in1);
     }
 
 
@@ -9383,14 +9385,14 @@ namespace flexFitNative
     /// weight = ones(1,length(x));
     /// </remarks>
     /// <param name="numArgsOut">The number of output arguments to return.</param>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <returns>An Array of length "numArgsOut" containing the output
     /// arguments.</returns>
     ///
-    public Object[] flexWingFit(int numArgsOut, Object x, Object y)
+    public Object[] flexWingFit(int numArgsOut, Object x_in1, Object y)
     {
-      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x, y);
+      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x_in1, y);
     }
 
 
@@ -9411,15 +9413,15 @@ namespace flexFitNative
     /// weight = ones(1,length(x));
     /// </remarks>
     /// <param name="numArgsOut">The number of output arguments to return.</param>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <returns>An Array of length "numArgsOut" containing the output
     /// arguments.</returns>
     ///
-    public Object[] flexWingFit(int numArgsOut, Object x, Object y, Object weight)
+    public Object[] flexWingFit(int numArgsOut, Object x_in1, Object y, Object weight)
     {
-      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x, y, weight);
+      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x_in1, y, weight);
     }
 
 
@@ -9440,17 +9442,17 @@ namespace flexFitNative
     /// weight = ones(1,length(x));
     /// </remarks>
     /// <param name="numArgsOut">The number of output arguments to return.</param>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <param name="stationaryPoint">Input argument #4</param>
     /// <returns>An Array of length "numArgsOut" containing the output
     /// arguments.</returns>
     ///
-    public Object[] flexWingFit(int numArgsOut, Object x, Object y, Object weight, Object 
-                          stationaryPoint)
+    public Object[] flexWingFit(int numArgsOut, Object x_in1, Object y, Object weight, 
+                          Object stationaryPoint)
     {
-      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x, y, weight, stationaryPoint);
+      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x_in1, y, weight, stationaryPoint);
     }
 
 
@@ -9471,7 +9473,7 @@ namespace flexFitNative
     /// weight = ones(1,length(x));
     /// </remarks>
     /// <param name="numArgsOut">The number of output arguments to return.</param>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <param name="stationaryPoint">Input argument #4</param>
@@ -9479,10 +9481,10 @@ namespace flexFitNative
     /// <returns>An Array of length "numArgsOut" containing the output
     /// arguments.</returns>
     ///
-    public Object[] flexWingFit(int numArgsOut, Object x, Object y, Object weight, Object 
-                          stationaryPoint, Object tailConcavity)
+    public Object[] flexWingFit(int numArgsOut, Object x_in1, Object y, Object weight, 
+                          Object stationaryPoint, Object tailConcavity)
     {
-      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x, y, weight, stationaryPoint, tailConcavity);
+      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity);
     }
 
 
@@ -9503,7 +9505,7 @@ namespace flexFitNative
     /// weight = ones(1,length(x));
     /// </remarks>
     /// <param name="numArgsOut">The number of output arguments to return.</param>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <param name="stationaryPoint">Input argument #4</param>
@@ -9512,10 +9514,11 @@ namespace flexFitNative
     /// <returns>An Array of length "numArgsOut" containing the output
     /// arguments.</returns>
     ///
-    public Object[] flexWingFit(int numArgsOut, Object x, Object y, Object weight, Object 
-                          stationaryPoint, Object tailConcavity, Object smoothCoeff)
+    public Object[] flexWingFit(int numArgsOut, Object x_in1, Object y, Object weight, 
+                          Object stationaryPoint, Object tailConcavity, Object 
+                          smoothCoeff)
     {
-      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x, y, weight, stationaryPoint, tailConcavity, smoothCoeff);
+      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff);
     }
 
 
@@ -9536,7 +9539,7 @@ namespace flexFitNative
     /// weight = ones(1,length(x));
     /// </remarks>
     /// <param name="numArgsOut">The number of output arguments to return.</param>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <param name="stationaryPoint">Input argument #4</param>
@@ -9546,11 +9549,11 @@ namespace flexFitNative
     /// <returns>An Array of length "numArgsOut" containing the output
     /// arguments.</returns>
     ///
-    public Object[] flexWingFit(int numArgsOut, Object x, Object y, Object weight, Object 
-                          stationaryPoint, Object tailConcavity, Object smoothCoeff, 
-                          Object turningPoint_in1)
+    public Object[] flexWingFit(int numArgsOut, Object x_in1, Object y, Object weight, 
+                          Object stationaryPoint, Object tailConcavity, Object 
+                          smoothCoeff, Object turningPoint_in1)
     {
-      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1);
+      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1);
     }
 
 
@@ -9571,7 +9574,7 @@ namespace flexFitNative
     /// weight = ones(1,length(x));
     /// </remarks>
     /// <param name="numArgsOut">The number of output arguments to return.</param>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <param name="stationaryPoint">Input argument #4</param>
@@ -9582,11 +9585,11 @@ namespace flexFitNative
     /// <returns>An Array of length "numArgsOut" containing the output
     /// arguments.</returns>
     ///
-    public Object[] flexWingFit(int numArgsOut, Object x, Object y, Object weight, Object 
-                          stationaryPoint, Object tailConcavity, Object smoothCoeff, 
-                          Object turningPoint_in1, Object boundaryx)
+    public Object[] flexWingFit(int numArgsOut, Object x_in1, Object y, Object weight, 
+                          Object stationaryPoint, Object tailConcavity, Object 
+                          smoothCoeff, Object turningPoint_in1, Object boundaryx)
     {
-      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx);
+      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx);
     }
 
 
@@ -9607,7 +9610,7 @@ namespace flexFitNative
     /// weight = ones(1,length(x));
     /// </remarks>
     /// <param name="numArgsOut">The number of output arguments to return.</param>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <param name="stationaryPoint">Input argument #4</param>
@@ -9619,11 +9622,12 @@ namespace flexFitNative
     /// <returns>An Array of length "numArgsOut" containing the output
     /// arguments.</returns>
     ///
-    public Object[] flexWingFit(int numArgsOut, Object x, Object y, Object weight, Object 
-                          stationaryPoint, Object tailConcavity, Object smoothCoeff, 
-                          Object turningPoint_in1, Object boundaryx, Object boundarydx)
+    public Object[] flexWingFit(int numArgsOut, Object x_in1, Object y, Object weight, 
+                          Object stationaryPoint, Object tailConcavity, Object 
+                          smoothCoeff, Object turningPoint_in1, Object boundaryx, Object 
+                          boundarydx)
     {
-      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx);
+      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx);
     }
 
 
@@ -9644,7 +9648,7 @@ namespace flexFitNative
     /// weight = ones(1,length(x));
     /// </remarks>
     /// <param name="numArgsOut">The number of output arguments to return.</param>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <param name="stationaryPoint">Input argument #4</param>
@@ -9657,12 +9661,12 @@ namespace flexFitNative
     /// <returns>An Array of length "numArgsOut" containing the output
     /// arguments.</returns>
     ///
-    public Object[] flexWingFit(int numArgsOut, Object x, Object y, Object weight, Object 
-                          stationaryPoint, Object tailConcavity, Object smoothCoeff, 
-                          Object turningPoint_in1, Object boundaryx, Object boundarydx, 
-                          Object boundarydxx)
+    public Object[] flexWingFit(int numArgsOut, Object x_in1, Object y, Object weight, 
+                          Object stationaryPoint, Object tailConcavity, Object 
+                          smoothCoeff, Object turningPoint_in1, Object boundaryx, Object 
+                          boundarydx, Object boundarydxx)
     {
-      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx);
+      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx);
     }
 
 
@@ -9683,7 +9687,7 @@ namespace flexFitNative
     /// weight = ones(1,length(x));
     /// </remarks>
     /// <param name="numArgsOut">The number of output arguments to return.</param>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <param name="stationaryPoint">Input argument #4</param>
@@ -9697,12 +9701,12 @@ namespace flexFitNative
     /// <returns>An Array of length "numArgsOut" containing the output
     /// arguments.</returns>
     ///
-    public Object[] flexWingFit(int numArgsOut, Object x, Object y, Object weight, Object 
-                          stationaryPoint, Object tailConcavity, Object smoothCoeff, 
-                          Object turningPoint_in1, Object boundaryx, Object boundarydx, 
-                          Object boundarydxx, Object leftright)
+    public Object[] flexWingFit(int numArgsOut, Object x_in1, Object y, Object weight, 
+                          Object stationaryPoint, Object tailConcavity, Object 
+                          smoothCoeff, Object turningPoint_in1, Object boundaryx, Object 
+                          boundarydx, Object boundarydxx, Object leftright)
     {
-      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright);
+      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright);
     }
 
 
@@ -9723,7 +9727,7 @@ namespace flexFitNative
     /// weight = ones(1,length(x));
     /// </remarks>
     /// <param name="numArgsOut">The number of output arguments to return.</param>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <param name="stationaryPoint">Input argument #4</param>
@@ -9738,12 +9742,13 @@ namespace flexFitNative
     /// <returns>An Array of length "numArgsOut" containing the output
     /// arguments.</returns>
     ///
-    public Object[] flexWingFit(int numArgsOut, Object x, Object y, Object weight, Object 
-                          stationaryPoint, Object tailConcavity, Object smoothCoeff, 
-                          Object turningPoint_in1, Object boundaryx, Object boundarydx, 
-                          Object boundarydxx, Object leftright, Object upperLimitG)
+    public Object[] flexWingFit(int numArgsOut, Object x_in1, Object y, Object weight, 
+                          Object stationaryPoint, Object tailConcavity, Object 
+                          smoothCoeff, Object turningPoint_in1, Object boundaryx, Object 
+                          boundarydx, Object boundarydxx, Object leftright, Object 
+                          upperLimitG)
     {
-      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG);
+      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG);
     }
 
 
@@ -9764,7 +9769,7 @@ namespace flexFitNative
     /// weight = ones(1,length(x));
     /// </remarks>
     /// <param name="numArgsOut">The number of output arguments to return.</param>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <param name="stationaryPoint">Input argument #4</param>
@@ -9780,13 +9785,13 @@ namespace flexFitNative
     /// <returns>An Array of length "numArgsOut" containing the output
     /// arguments.</returns>
     ///
-    public Object[] flexWingFit(int numArgsOut, Object x, Object y, Object weight, Object 
-                          stationaryPoint, Object tailConcavity, Object smoothCoeff, 
-                          Object turningPoint_in1, Object boundaryx, Object boundarydx, 
-                          Object boundarydxx, Object leftright, Object upperLimitG, 
-                          Object lowerLimitG)
+    public Object[] flexWingFit(int numArgsOut, Object x_in1, Object y, Object weight, 
+                          Object stationaryPoint, Object tailConcavity, Object 
+                          smoothCoeff, Object turningPoint_in1, Object boundaryx, Object 
+                          boundarydx, Object boundarydxx, Object leftright, Object 
+                          upperLimitG, Object lowerLimitG)
     {
-      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG);
+      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG);
     }
 
 
@@ -9807,7 +9812,7 @@ namespace flexFitNative
     /// weight = ones(1,length(x));
     /// </remarks>
     /// <param name="numArgsOut">The number of output arguments to return.</param>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <param name="stationaryPoint">Input argument #4</param>
@@ -9824,13 +9829,13 @@ namespace flexFitNative
     /// <returns>An Array of length "numArgsOut" containing the output
     /// arguments.</returns>
     ///
-    public Object[] flexWingFit(int numArgsOut, Object x, Object y, Object weight, Object 
-                          stationaryPoint, Object tailConcavity, Object smoothCoeff, 
-                          Object turningPoint_in1, Object boundaryx, Object boundarydx, 
-                          Object boundarydxx, Object leftright, Object upperLimitG, 
-                          Object lowerLimitG, Object xEndl)
+    public Object[] flexWingFit(int numArgsOut, Object x_in1, Object y, Object weight, 
+                          Object stationaryPoint, Object tailConcavity, Object 
+                          smoothCoeff, Object turningPoint_in1, Object boundaryx, Object 
+                          boundarydx, Object boundarydxx, Object leftright, Object 
+                          upperLimitG, Object lowerLimitG, Object xEndl)
     {
-      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl);
+      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl);
     }
 
 
@@ -9851,7 +9856,7 @@ namespace flexFitNative
     /// weight = ones(1,length(x));
     /// </remarks>
     /// <param name="numArgsOut">The number of output arguments to return.</param>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <param name="stationaryPoint">Input argument #4</param>
@@ -9869,13 +9874,13 @@ namespace flexFitNative
     /// <returns>An Array of length "numArgsOut" containing the output
     /// arguments.</returns>
     ///
-    public Object[] flexWingFit(int numArgsOut, Object x, Object y, Object weight, Object 
-                          stationaryPoint, Object tailConcavity, Object smoothCoeff, 
-                          Object turningPoint_in1, Object boundaryx, Object boundarydx, 
-                          Object boundarydxx, Object leftright, Object upperLimitG, 
-                          Object lowerLimitG, Object xEndl, Object aMaxl)
+    public Object[] flexWingFit(int numArgsOut, Object x_in1, Object y, Object weight, 
+                          Object stationaryPoint, Object tailConcavity, Object 
+                          smoothCoeff, Object turningPoint_in1, Object boundaryx, Object 
+                          boundarydx, Object boundarydxx, Object leftright, Object 
+                          upperLimitG, Object lowerLimitG, Object xEndl, Object aMaxl)
     {
-      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl);
+      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl);
     }
 
 
@@ -9896,7 +9901,7 @@ namespace flexFitNative
     /// weight = ones(1,length(x));
     /// </remarks>
     /// <param name="numArgsOut">The number of output arguments to return.</param>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <param name="stationaryPoint">Input argument #4</param>
@@ -9915,13 +9920,14 @@ namespace flexFitNative
     /// <returns>An Array of length "numArgsOut" containing the output
     /// arguments.</returns>
     ///
-    public Object[] flexWingFit(int numArgsOut, Object x, Object y, Object weight, Object 
-                          stationaryPoint, Object tailConcavity, Object smoothCoeff, 
-                          Object turningPoint_in1, Object boundaryx, Object boundarydx, 
-                          Object boundarydxx, Object leftright, Object upperLimitG, 
-                          Object lowerLimitG, Object xEndl, Object aMaxl, Object aMinl)
+    public Object[] flexWingFit(int numArgsOut, Object x_in1, Object y, Object weight, 
+                          Object stationaryPoint, Object tailConcavity, Object 
+                          smoothCoeff, Object turningPoint_in1, Object boundaryx, Object 
+                          boundarydx, Object boundarydxx, Object leftright, Object 
+                          upperLimitG, Object lowerLimitG, Object xEndl, Object aMaxl, 
+                          Object aMinl)
     {
-      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl);
+      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl);
     }
 
 
@@ -9942,7 +9948,7 @@ namespace flexFitNative
     /// weight = ones(1,length(x));
     /// </remarks>
     /// <param name="numArgsOut">The number of output arguments to return.</param>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <param name="stationaryPoint">Input argument #4</param>
@@ -9962,14 +9968,14 @@ namespace flexFitNative
     /// <returns>An Array of length "numArgsOut" containing the output
     /// arguments.</returns>
     ///
-    public Object[] flexWingFit(int numArgsOut, Object x, Object y, Object weight, Object 
-                          stationaryPoint, Object tailConcavity, Object smoothCoeff, 
-                          Object turningPoint_in1, Object boundaryx, Object boundarydx, 
-                          Object boundarydxx, Object leftright, Object upperLimitG, 
-                          Object lowerLimitG, Object xEndl, Object aMaxl, Object aMinl, 
-                          Object xEndr)
+    public Object[] flexWingFit(int numArgsOut, Object x_in1, Object y, Object weight, 
+                          Object stationaryPoint, Object tailConcavity, Object 
+                          smoothCoeff, Object turningPoint_in1, Object boundaryx, Object 
+                          boundarydx, Object boundarydxx, Object leftright, Object 
+                          upperLimitG, Object lowerLimitG, Object xEndl, Object aMaxl, 
+                          Object aMinl, Object xEndr)
     {
-      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr);
+      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr);
     }
 
 
@@ -9990,7 +9996,7 @@ namespace flexFitNative
     /// weight = ones(1,length(x));
     /// </remarks>
     /// <param name="numArgsOut">The number of output arguments to return.</param>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <param name="stationaryPoint">Input argument #4</param>
@@ -10011,14 +10017,14 @@ namespace flexFitNative
     /// <returns>An Array of length "numArgsOut" containing the output
     /// arguments.</returns>
     ///
-    public Object[] flexWingFit(int numArgsOut, Object x, Object y, Object weight, Object 
-                          stationaryPoint, Object tailConcavity, Object smoothCoeff, 
-                          Object turningPoint_in1, Object boundaryx, Object boundarydx, 
-                          Object boundarydxx, Object leftright, Object upperLimitG, 
-                          Object lowerLimitG, Object xEndl, Object aMaxl, Object aMinl, 
-                          Object xEndr, Object aMaxr)
+    public Object[] flexWingFit(int numArgsOut, Object x_in1, Object y, Object weight, 
+                          Object stationaryPoint, Object tailConcavity, Object 
+                          smoothCoeff, Object turningPoint_in1, Object boundaryx, Object 
+                          boundarydx, Object boundarydxx, Object leftright, Object 
+                          upperLimitG, Object lowerLimitG, Object xEndl, Object aMaxl, 
+                          Object aMinl, Object xEndr, Object aMaxr)
     {
-      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr);
+      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr);
     }
 
 
@@ -10039,7 +10045,7 @@ namespace flexFitNative
     /// weight = ones(1,length(x));
     /// </remarks>
     /// <param name="numArgsOut">The number of output arguments to return.</param>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <param name="stationaryPoint">Input argument #4</param>
@@ -10061,14 +10067,14 @@ namespace flexFitNative
     /// <returns>An Array of length "numArgsOut" containing the output
     /// arguments.</returns>
     ///
-    public Object[] flexWingFit(int numArgsOut, Object x, Object y, Object weight, Object 
-                          stationaryPoint, Object tailConcavity, Object smoothCoeff, 
-                          Object turningPoint_in1, Object boundaryx, Object boundarydx, 
-                          Object boundarydxx, Object leftright, Object upperLimitG, 
-                          Object lowerLimitG, Object xEndl, Object aMaxl, Object aMinl, 
-                          Object xEndr, Object aMaxr, Object aMinr)
+    public Object[] flexWingFit(int numArgsOut, Object x_in1, Object y, Object weight, 
+                          Object stationaryPoint, Object tailConcavity, Object 
+                          smoothCoeff, Object turningPoint_in1, Object boundaryx, Object 
+                          boundarydx, Object boundarydxx, Object leftright, Object 
+                          upperLimitG, Object lowerLimitG, Object xEndl, Object aMaxl, 
+                          Object aMinl, Object xEndr, Object aMaxr, Object aMinr)
     {
-      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr);
+      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr);
     }
 
 
@@ -10089,7 +10095,7 @@ namespace flexFitNative
     /// weight = ones(1,length(x));
     /// </remarks>
     /// <param name="numArgsOut">The number of output arguments to return.</param>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <param name="stationaryPoint">Input argument #4</param>
@@ -10112,14 +10118,15 @@ namespace flexFitNative
     /// <returns>An Array of length "numArgsOut" containing the output
     /// arguments.</returns>
     ///
-    public Object[] flexWingFit(int numArgsOut, Object x, Object y, Object weight, Object 
-                          stationaryPoint, Object tailConcavity, Object smoothCoeff, 
-                          Object turningPoint_in1, Object boundaryx, Object boundarydx, 
-                          Object boundarydxx, Object leftright, Object upperLimitG, 
-                          Object lowerLimitG, Object xEndl, Object aMaxl, Object aMinl, 
-                          Object xEndr, Object aMaxr, Object aMinr, Object invalidx)
+    public Object[] flexWingFit(int numArgsOut, Object x_in1, Object y, Object weight, 
+                          Object stationaryPoint, Object tailConcavity, Object 
+                          smoothCoeff, Object turningPoint_in1, Object boundaryx, Object 
+                          boundarydx, Object boundarydxx, Object leftright, Object 
+                          upperLimitG, Object lowerLimitG, Object xEndl, Object aMaxl, 
+                          Object aMinl, Object xEndr, Object aMaxr, Object aMinr, Object 
+                          invalidx)
     {
-      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx);
+      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx);
     }
 
 
@@ -10140,7 +10147,7 @@ namespace flexFitNative
     /// weight = ones(1,length(x));
     /// </remarks>
     /// <param name="numArgsOut">The number of output arguments to return.</param>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <param name="stationaryPoint">Input argument #4</param>
@@ -10164,15 +10171,15 @@ namespace flexFitNative
     /// <returns>An Array of length "numArgsOut" containing the output
     /// arguments.</returns>
     ///
-    public Object[] flexWingFit(int numArgsOut, Object x, Object y, Object weight, Object 
-                          stationaryPoint, Object tailConcavity, Object smoothCoeff, 
-                          Object turningPoint_in1, Object boundaryx, Object boundarydx, 
-                          Object boundarydxx, Object leftright, Object upperLimitG, 
-                          Object lowerLimitG, Object xEndl, Object aMaxl, Object aMinl, 
-                          Object xEndr, Object aMaxr, Object aMinr, Object invalidx, 
-                          Object invalidupper)
+    public Object[] flexWingFit(int numArgsOut, Object x_in1, Object y, Object weight, 
+                          Object stationaryPoint, Object tailConcavity, Object 
+                          smoothCoeff, Object turningPoint_in1, Object boundaryx, Object 
+                          boundarydx, Object boundarydxx, Object leftright, Object 
+                          upperLimitG, Object lowerLimitG, Object xEndl, Object aMaxl, 
+                          Object aMinl, Object xEndr, Object aMaxr, Object aMinr, Object 
+                          invalidx, Object invalidupper)
     {
-      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper);
+      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper);
     }
 
 
@@ -10193,7 +10200,7 @@ namespace flexFitNative
     /// weight = ones(1,length(x));
     /// </remarks>
     /// <param name="numArgsOut">The number of output arguments to return.</param>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <param name="stationaryPoint">Input argument #4</param>
@@ -10218,15 +10225,15 @@ namespace flexFitNative
     /// <returns>An Array of length "numArgsOut" containing the output
     /// arguments.</returns>
     ///
-    public Object[] flexWingFit(int numArgsOut, Object x, Object y, Object weight, Object 
-                          stationaryPoint, Object tailConcavity, Object smoothCoeff, 
-                          Object turningPoint_in1, Object boundaryx, Object boundarydx, 
-                          Object boundarydxx, Object leftright, Object upperLimitG, 
-                          Object lowerLimitG, Object xEndl, Object aMaxl, Object aMinl, 
-                          Object xEndr, Object aMaxr, Object aMinr, Object invalidx, 
-                          Object invalidupper, Object invalidlower)
+    public Object[] flexWingFit(int numArgsOut, Object x_in1, Object y, Object weight, 
+                          Object stationaryPoint, Object tailConcavity, Object 
+                          smoothCoeff, Object turningPoint_in1, Object boundaryx, Object 
+                          boundarydx, Object boundarydxx, Object leftright, Object 
+                          upperLimitG, Object lowerLimitG, Object xEndl, Object aMaxl, 
+                          Object aMinl, Object xEndr, Object aMaxr, Object aMinr, Object 
+                          invalidx, Object invalidupper, Object invalidlower)
     {
-      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower);
+      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower);
     }
 
 
@@ -10247,7 +10254,7 @@ namespace flexFitNative
     /// weight = ones(1,length(x));
     /// </remarks>
     /// <param name="numArgsOut">The number of output arguments to return.</param>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <param name="stationaryPoint">Input argument #4</param>
@@ -10273,15 +10280,16 @@ namespace flexFitNative
     /// <returns>An Array of length "numArgsOut" containing the output
     /// arguments.</returns>
     ///
-    public Object[] flexWingFit(int numArgsOut, Object x, Object y, Object weight, Object 
-                          stationaryPoint, Object tailConcavity, Object smoothCoeff, 
-                          Object turningPoint_in1, Object boundaryx, Object boundarydx, 
-                          Object boundarydxx, Object leftright, Object upperLimitG, 
-                          Object lowerLimitG, Object xEndl, Object aMaxl, Object aMinl, 
-                          Object xEndr, Object aMaxr, Object aMinr, Object invalidx, 
-                          Object invalidupper, Object invalidlower, Object leftincrease)
+    public Object[] flexWingFit(int numArgsOut, Object x_in1, Object y, Object weight, 
+                          Object stationaryPoint, Object tailConcavity, Object 
+                          smoothCoeff, Object turningPoint_in1, Object boundaryx, Object 
+                          boundarydx, Object boundarydxx, Object leftright, Object 
+                          upperLimitG, Object lowerLimitG, Object xEndl, Object aMaxl, 
+                          Object aMinl, Object xEndr, Object aMaxr, Object aMinr, Object 
+                          invalidx, Object invalidupper, Object invalidlower, Object 
+                          leftincrease)
     {
-      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, leftincrease);
+      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, leftincrease);
     }
 
 
@@ -10302,7 +10310,7 @@ namespace flexFitNative
     /// weight = ones(1,length(x));
     /// </remarks>
     /// <param name="numArgsOut">The number of output arguments to return.</param>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <param name="stationaryPoint">Input argument #4</param>
@@ -10329,16 +10337,16 @@ namespace flexFitNative
     /// <returns>An Array of length "numArgsOut" containing the output
     /// arguments.</returns>
     ///
-    public Object[] flexWingFit(int numArgsOut, Object x, Object y, Object weight, Object 
-                          stationaryPoint, Object tailConcavity, Object smoothCoeff, 
-                          Object turningPoint_in1, Object boundaryx, Object boundarydx, 
-                          Object boundarydxx, Object leftright, Object upperLimitG, 
-                          Object lowerLimitG, Object xEndl, Object aMaxl, Object aMinl, 
-                          Object xEndr, Object aMaxr, Object aMinr, Object invalidx, 
-                          Object invalidupper, Object invalidlower, Object leftincrease, 
-                          Object rightincrease)
+    public Object[] flexWingFit(int numArgsOut, Object x_in1, Object y, Object weight, 
+                          Object stationaryPoint, Object tailConcavity, Object 
+                          smoothCoeff, Object turningPoint_in1, Object boundaryx, Object 
+                          boundarydx, Object boundarydxx, Object leftright, Object 
+                          upperLimitG, Object lowerLimitG, Object xEndl, Object aMaxl, 
+                          Object aMinl, Object xEndr, Object aMaxr, Object aMinr, Object 
+                          invalidx, Object invalidupper, Object invalidlower, Object 
+                          leftincrease, Object rightincrease)
     {
-      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, leftincrease, rightincrease);
+      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, leftincrease, rightincrease);
     }
 
 
@@ -10359,7 +10367,7 @@ namespace flexFitNative
     /// weight = ones(1,length(x));
     /// </remarks>
     /// <param name="numArgsOut">The number of output arguments to return.</param>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <param name="stationaryPoint">Input argument #4</param>
@@ -10387,16 +10395,16 @@ namespace flexFitNative
     /// <returns>An Array of length "numArgsOut" containing the output
     /// arguments.</returns>
     ///
-    public Object[] flexWingFit(int numArgsOut, Object x, Object y, Object weight, Object 
-                          stationaryPoint, Object tailConcavity, Object smoothCoeff, 
-                          Object turningPoint_in1, Object boundaryx, Object boundarydx, 
-                          Object boundarydxx, Object leftright, Object upperLimitG, 
-                          Object lowerLimitG, Object xEndl, Object aMaxl, Object aMinl, 
-                          Object xEndr, Object aMaxr, Object aMinr, Object invalidx, 
-                          Object invalidupper, Object invalidlower, Object leftincrease, 
-                          Object rightincrease, Object smooth)
+    public Object[] flexWingFit(int numArgsOut, Object x_in1, Object y, Object weight, 
+                          Object stationaryPoint, Object tailConcavity, Object 
+                          smoothCoeff, Object turningPoint_in1, Object boundaryx, Object 
+                          boundarydx, Object boundarydxx, Object leftright, Object 
+                          upperLimitG, Object lowerLimitG, Object xEndl, Object aMaxl, 
+                          Object aMinl, Object xEndr, Object aMaxr, Object aMinr, Object 
+                          invalidx, Object invalidupper, Object invalidlower, Object 
+                          leftincrease, Object rightincrease, Object smooth)
     {
-      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, leftincrease, rightincrease, smooth);
+      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, leftincrease, rightincrease, smooth);
     }
 
 
@@ -10417,7 +10425,7 @@ namespace flexFitNative
     /// weight = ones(1,length(x));
     /// </remarks>
     /// <param name="numArgsOut">The number of output arguments to return.</param>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <param name="stationaryPoint">Input argument #4</param>
@@ -10446,16 +10454,16 @@ namespace flexFitNative
     /// <returns>An Array of length "numArgsOut" containing the output
     /// arguments.</returns>
     ///
-    public Object[] flexWingFit(int numArgsOut, Object x, Object y, Object weight, Object 
-                          stationaryPoint, Object tailConcavity, Object smoothCoeff, 
-                          Object turningPoint_in1, Object boundaryx, Object boundarydx, 
-                          Object boundarydxx, Object leftright, Object upperLimitG, 
-                          Object lowerLimitG, Object xEndl, Object aMaxl, Object aMinl, 
-                          Object xEndr, Object aMaxr, Object aMinr, Object invalidx, 
-                          Object invalidupper, Object invalidlower, Object leftincrease, 
-                          Object rightincrease, Object smooth, Object tight)
+    public Object[] flexWingFit(int numArgsOut, Object x_in1, Object y, Object weight, 
+                          Object stationaryPoint, Object tailConcavity, Object 
+                          smoothCoeff, Object turningPoint_in1, Object boundaryx, Object 
+                          boundarydx, Object boundarydxx, Object leftright, Object 
+                          upperLimitG, Object lowerLimitG, Object xEndl, Object aMaxl, 
+                          Object aMinl, Object xEndr, Object aMaxr, Object aMinr, Object 
+                          invalidx, Object invalidupper, Object invalidlower, Object 
+                          leftincrease, Object rightincrease, Object smooth, Object tight)
     {
-      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, leftincrease, rightincrease, smooth, tight);
+      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, leftincrease, rightincrease, smooth, tight);
     }
 
 
@@ -10476,7 +10484,7 @@ namespace flexFitNative
     /// weight = ones(1,length(x));
     /// </remarks>
     /// <param name="numArgsOut">The number of output arguments to return.</param>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <param name="stationaryPoint">Input argument #4</param>
@@ -10506,17 +10514,17 @@ namespace flexFitNative
     /// <returns>An Array of length "numArgsOut" containing the output
     /// arguments.</returns>
     ///
-    public Object[] flexWingFit(int numArgsOut, Object x, Object y, Object weight, Object 
-                          stationaryPoint, Object tailConcavity, Object smoothCoeff, 
-                          Object turningPoint_in1, Object boundaryx, Object boundarydx, 
-                          Object boundarydxx, Object leftright, Object upperLimitG, 
-                          Object lowerLimitG, Object xEndl, Object aMaxl, Object aMinl, 
-                          Object xEndr, Object aMaxr, Object aMinr, Object invalidx, 
-                          Object invalidupper, Object invalidlower, Object leftincrease, 
-                          Object rightincrease, Object smooth, Object tight, Object 
-                          tightlb)
+    public Object[] flexWingFit(int numArgsOut, Object x_in1, Object y, Object weight, 
+                          Object stationaryPoint, Object tailConcavity, Object 
+                          smoothCoeff, Object turningPoint_in1, Object boundaryx, Object 
+                          boundarydx, Object boundarydxx, Object leftright, Object 
+                          upperLimitG, Object lowerLimitG, Object xEndl, Object aMaxl, 
+                          Object aMinl, Object xEndr, Object aMaxr, Object aMinr, Object 
+                          invalidx, Object invalidupper, Object invalidlower, Object 
+                          leftincrease, Object rightincrease, Object smooth, Object 
+                          tight, Object tightlb)
     {
-      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, leftincrease, rightincrease, smooth, tight, tightlb);
+      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, leftincrease, rightincrease, smooth, tight, tightlb);
     }
 
 
@@ -10537,7 +10545,7 @@ namespace flexFitNative
     /// weight = ones(1,length(x));
     /// </remarks>
     /// <param name="numArgsOut">The number of output arguments to return.</param>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <param name="stationaryPoint">Input argument #4</param>
@@ -10568,17 +10576,17 @@ namespace flexFitNative
     /// <returns>An Array of length "numArgsOut" containing the output
     /// arguments.</returns>
     ///
-    public Object[] flexWingFit(int numArgsOut, Object x, Object y, Object weight, Object 
-                          stationaryPoint, Object tailConcavity, Object smoothCoeff, 
-                          Object turningPoint_in1, Object boundaryx, Object boundarydx, 
-                          Object boundarydxx, Object leftright, Object upperLimitG, 
-                          Object lowerLimitG, Object xEndl, Object aMaxl, Object aMinl, 
-                          Object xEndr, Object aMaxr, Object aMinr, Object invalidx, 
-                          Object invalidupper, Object invalidlower, Object leftincrease, 
-                          Object rightincrease, Object smooth, Object tight, Object 
-                          tightlb, Object tightub)
+    public Object[] flexWingFit(int numArgsOut, Object x_in1, Object y, Object weight, 
+                          Object stationaryPoint, Object tailConcavity, Object 
+                          smoothCoeff, Object turningPoint_in1, Object boundaryx, Object 
+                          boundarydx, Object boundarydxx, Object leftright, Object 
+                          upperLimitG, Object lowerLimitG, Object xEndl, Object aMaxl, 
+                          Object aMinl, Object xEndr, Object aMaxr, Object aMinr, Object 
+                          invalidx, Object invalidupper, Object invalidlower, Object 
+                          leftincrease, Object rightincrease, Object smooth, Object 
+                          tight, Object tightlb, Object tightub)
     {
-      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, leftincrease, rightincrease, smooth, tight, tightlb, tightub);
+      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, leftincrease, rightincrease, smooth, tight, tightlb, tightub);
     }
 
 
@@ -10599,7 +10607,7 @@ namespace flexFitNative
     /// weight = ones(1,length(x));
     /// </remarks>
     /// <param name="numArgsOut">The number of output arguments to return.</param>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <param name="stationaryPoint">Input argument #4</param>
@@ -10631,17 +10639,17 @@ namespace flexFitNative
     /// <returns>An Array of length "numArgsOut" containing the output
     /// arguments.</returns>
     ///
-    public Object[] flexWingFit(int numArgsOut, Object x, Object y, Object weight, Object 
-                          stationaryPoint, Object tailConcavity, Object smoothCoeff, 
-                          Object turningPoint_in1, Object boundaryx, Object boundarydx, 
-                          Object boundarydxx, Object leftright, Object upperLimitG, 
-                          Object lowerLimitG, Object xEndl, Object aMaxl, Object aMinl, 
-                          Object xEndr, Object aMaxr, Object aMinr, Object invalidx, 
-                          Object invalidupper, Object invalidlower, Object leftincrease, 
-                          Object rightincrease, Object smooth, Object tight, Object 
-                          tightlb, Object tightub, Object minxrange)
+    public Object[] flexWingFit(int numArgsOut, Object x_in1, Object y, Object weight, 
+                          Object stationaryPoint, Object tailConcavity, Object 
+                          smoothCoeff, Object turningPoint_in1, Object boundaryx, Object 
+                          boundarydx, Object boundarydxx, Object leftright, Object 
+                          upperLimitG, Object lowerLimitG, Object xEndl, Object aMaxl, 
+                          Object aMinl, Object xEndr, Object aMaxr, Object aMinr, Object 
+                          invalidx, Object invalidupper, Object invalidlower, Object 
+                          leftincrease, Object rightincrease, Object smooth, Object 
+                          tight, Object tightlb, Object tightub, Object minxrange)
     {
-      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, leftincrease, rightincrease, smooth, tight, tightlb, tightub, minxrange);
+      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, leftincrease, rightincrease, smooth, tight, tightlb, tightub, minxrange);
     }
 
 
@@ -10662,7 +10670,7 @@ namespace flexFitNative
     /// weight = ones(1,length(x));
     /// </remarks>
     /// <param name="numArgsOut">The number of output arguments to return.</param>
-    /// <param name="x">Input argument #1</param>
+    /// <param name="x_in1">Input argument #1</param>
     /// <param name="y">Input argument #2</param>
     /// <param name="weight">Input argument #3</param>
     /// <param name="stationaryPoint">Input argument #4</param>
@@ -10695,17 +10703,18 @@ namespace flexFitNative
     /// <returns>An Array of length "numArgsOut" containing the output
     /// arguments.</returns>
     ///
-    public Object[] flexWingFit(int numArgsOut, Object x, Object y, Object weight, Object 
-                          stationaryPoint, Object tailConcavity, Object smoothCoeff, 
-                          Object turningPoint_in1, Object boundaryx, Object boundarydx, 
-                          Object boundarydxx, Object leftright, Object upperLimitG, 
-                          Object lowerLimitG, Object xEndl, Object aMaxl, Object aMinl, 
-                          Object xEndr, Object aMaxr, Object aMinr, Object invalidx, 
-                          Object invalidupper, Object invalidlower, Object leftincrease, 
-                          Object rightincrease, Object smooth, Object tight, Object 
-                          tightlb, Object tightub, Object minxrange, Object concave)
+    public Object[] flexWingFit(int numArgsOut, Object x_in1, Object y, Object weight, 
+                          Object stationaryPoint, Object tailConcavity, Object 
+                          smoothCoeff, Object turningPoint_in1, Object boundaryx, Object 
+                          boundarydx, Object boundarydxx, Object leftright, Object 
+                          upperLimitG, Object lowerLimitG, Object xEndl, Object aMaxl, 
+                          Object aMinl, Object xEndr, Object aMaxr, Object aMinr, Object 
+                          invalidx, Object invalidupper, Object invalidlower, Object 
+                          leftincrease, Object rightincrease, Object smooth, Object 
+                          tight, Object tightlb, Object tightub, Object minxrange, Object 
+                          concave)
     {
-      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, leftincrease, rightincrease, smooth, tight, tightlb, tightub, minxrange, concave);
+      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, leftincrease, rightincrease, smooth, tight, tightlb, tightub, minxrange, concave);
     }
 
 
@@ -10733,7 +10742,7 @@ namespace flexFitNative
     /// <param name= "varArgsIn">Array of Object representing variable input
     /// arguments</param>
     ///
-    [MATLABSignature("flexWingFit", 30, 9, 0)]
+    [MATLABSignature("flexWingFit", 30, 10, 0)]
     protected void flexWingFit(int numArgsOut, ref Object[] argsOut, Object[] argsIn, params Object[] varArgsIn)
     {
         mcr.EvaluateFunctionForTypeSafeCall("flexWingFit", numArgsOut, ref argsOut, argsIn, varArgsIn);
