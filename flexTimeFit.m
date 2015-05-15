@@ -128,7 +128,6 @@ while ~goodleft || ~goodright
             end
         end
     end
-    boundarydxx(1) = nan;
     if boundarydxx(1) == 0
         boundarydxx(1) = nan;
     end

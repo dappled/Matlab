@@ -188,38 +188,43 @@ while ~goodBdr
         Ales = [];
         bles = [];
         
-        % %add the boundary b/c of extrapolating part boundaries
-        % %loose approach
-        % if ~isempty(xEndl) && ~isnan(dxxleft)
-        %     if ~isnan(stationaryPoint(1))
-        %         t = x(1);
-        %         hleft = stationaryPoint(1) - t;
-        %         h2 = hleft * hleft;
-        %         h3 = h2 * hleft;
-        %         deltaa = xEndl - t;
-        %         deltaa2 = deltaa .^ 2;
-        %         deltaa3 = deltaa .^ 3;
-        %
-        %         alpha = 3 * h2 * (aMinl);
-        %         beta = 3 * h2 * (aMaxl);
-        %
-        %         tao = 3 * deltaa2 * h2 - 2 * deltaa3 * hleft;
-        %         gammaaa = 3 * deltaa * h2 - deltaa3;
-        %
-        %         %b - adj <= min() + dxleft*h1/3
-        %         tmp = gammaaa;
-        %         rightt = min(alpha ./ tmp) + dxxleft*h(1)/3;
-        %         righttadj = max(-3 * h2 ./tmp);
-        %         Ales = [Ales; (-1/h(1) - righttadj),  1/h(1), zeros(1,n-2), -h(1)/6, zeros(1,n-3)];
-        %         bles = [bles; rightt];
-        %         %b -adj >= max() + dxleft*h1/3 => -b <= -(..)
-        %         tmp = (gammaaa * hleft - tao);
-        %         leftt = max(beta * hleft ./ tmp) + dxxleft*h(1)/3;
-        %         lefttadj = min(-3 * h3 ./tmp);
-        %         Ales = [Ales; -(-1/h(1) - lefttadj), -1/h(1), zeros(1,n-2), h(1)/6, zeros(1,n-3)];
-        %         bles = [bles; -leftt];
-        %     end
-        % end
+%         %add the boundary b/c of extrapolating part boundaries
+%         %loose approach
+%         if ~isempty(xEndl) && ~isnan(dxxleft)
+%             if ~isnan(stationaryPoint(1))
+%                 lidx = find(aMinl > y(1));
+%                 if ~isempty(lidx)
+%                     t = x(1);
+%                     hleft = stationaryPoint(1) - t;
+%                     h2 = hleft * hleft;
+%                     for lidxi = lidx
+%                         %h3 = h2 * hleft;
+%                         deltaa = xEndl(lidxi) - t;
+%                         %deltaa2 = deltaa .^ 2;
+%                         deltaa3 = deltaa .^ 3;
+%                         
+%                         alpha = 3 * h2 * (aMinl(lidxi));
+%                         %beta = 3 * h2 * (aMaxl);
+%                         
+%                         %tao = 3 * deltaa2 * h2 - 2 * deltaa3 * hleft;
+%                         gammaaa = 3 * deltaa * h2 - deltaa3;
+%                         
+%                         %b - adj <= min() + dxxleft*h1/3
+%                         %tmp = gammaaa;
+%                         rightt = alpha / gammaaa + dxxleft*h(1)/3;
+%                         righttadj = 3 * h2 ./ gammaaa;
+%                         Ales = [Ales; (-1/h(1) + righttadj),  1/h(1), zeros(1,n-2), -h(1)/6, zeros(1,n-3)];
+%                         bles = [bles; rightt];
+%                         %                 %b -adj >= max() + dxleft*h1/3 => -b <= -(..)
+%                         %                 tmp = (gammaaa * hleft - tao);
+%                         %                 leftt = max(beta * hleft ./ tmp) + dxxleft*h(1)/3;
+%                         %                 lefttadj = min(-3 * h3 ./tmp);
+%                         %                 Ales = [Ales; -(-1/h(1) - lefttadj), -1/h(1), zeros(1,n-2), h(1)/6, zeros(1,n-3)];
+%                         %                 bles = [bles; -leftt];
+%                     end
+%                 end
+%             end
+%         end
         % if ~isempty(xEndr) && ~isnan(dxxright)
         %     if ~isnan(stationaryPoint(2))
         %         t = x(end);
