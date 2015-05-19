@@ -1,0 +1,1504 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>sabrFitNative</name>
+    </assembly>
+    <members>
+        <member name="T:sabrFitNative.SabrFit">
+            <summary>
+            The SabrFit class provides a CLS compliant, Object (native) interface to the MATLAB
+            functions contained in the files:
+            <newpara></newpara>
+            C:\Program
+            Files\MATLAB\R2014a\toolbox\javabuilder\Examples\MagicSquareExample\MagicDemoComp\sa
+            brFit.m
+            <newpara></newpara>
+            deployprint.m
+            <newpara></newpara>
+            printdlg.m
+            </summary>
+            <remarks>
+            @Version 0.0
+            </remarks>
+        </member>
+        <member name="M:sabrFitNative.SabrFit.#cctor">
+            <summary internal= "true">
+            The static constructor instantiates and initializes the MATLAB Compiler Runtime
+            instance.
+            </summary>
+        </member>
+        <member name="M:sabrFitNative.SabrFit.#ctor">
+            <summary>
+            Constructs a new instance of the SabrFit class.
+            </summary>
+        </member>
+        <member name="M:sabrFitNative.SabrFit.Finalize">
+            <summary internal= "true">
+            Class destructor called by the CLR garbage collector.
+            </summary>
+        </member>
+        <member name="M:sabrFitNative.SabrFit.Dispose">
+            <summary>
+            Frees the native resources associated with this object
+            </summary>
+        </member>
+        <member name="M:sabrFitNative.SabrFit.Dispose(System.Boolean)">
+            <summary internal= "true">
+            Internal dispose function
+            </summary>
+        </member>
+        <member name="M:sabrFitNative.SabrFit.sabrFit">
+             <summary>
+             Provides a single output, 0-input Objectinterface to the sabrFit MATLAB function.
+             </summary>
+             <remarks>
+             M-Documentation:
+             clc
+             M = csvread('c:\temp\voltooltest\slice_SPY.USA_20141219_core.csv', 1);
+             i = find(M(:,1)' == 1);
+             iinvalid = find(M(:,1)' ~= 1);
+             atfvol = 0;
+             alpha = 0.25;
+             beta = 0.5;
+             nu = 0.3;
+             rho = 0.7;
+             kvalid = M(i,2)';
+             kinvalid = M(iinvalid, 2)';
+             y = M(i,8)';
+             wvalid = M(i,7)';
+             winvalid = M(iinvalid, 7)';
+             ttm = 2.011;
+             fwd = 190.8512;
+             upperBoundvalid = M(i,9)';  inf(1,n);
+             upperBoundvalid(upperBoundvalid == 1) = inf;
+             upperBoundinvalid = M(iinvalid,9)';  inf(1,n);
+             upperBoundinvalid(upperBoundinvalid == 1) = inf;
+             lowerBoundvalid = M(i,10)';  zeros(1,n);
+             lowerBoundinvalid = M(iinvalid, 10)';
+             </remarks>
+             <returns>An Object containing the first output argument.</returns>
+            
+        </member>
+        <member name="M:sabrFitNative.SabrFit.sabrFit(System.Object)">
+             <summary>
+             Provides a single output, 1-input Objectinterface to the sabrFit MATLAB function.
+             </summary>
+             <remarks>
+             M-Documentation:
+             clc
+             M = csvread('c:\temp\voltooltest\slice_SPY.USA_20141219_core.csv', 1);
+             i = find(M(:,1)' == 1);
+             iinvalid = find(M(:,1)' ~= 1);
+             atfvol = 0;
+             alpha = 0.25;
+             beta = 0.5;
+             nu = 0.3;
+             rho = 0.7;
+             kvalid = M(i,2)';
+             kinvalid = M(iinvalid, 2)';
+             y = M(i,8)';
+             wvalid = M(i,7)';
+             winvalid = M(iinvalid, 7)';
+             ttm = 2.011;
+             fwd = 190.8512;
+             upperBoundvalid = M(i,9)';  inf(1,n);
+             upperBoundvalid(upperBoundvalid == 1) = inf;
+             upperBoundinvalid = M(iinvalid,9)';  inf(1,n);
+             upperBoundinvalid(upperBoundinvalid == 1) = inf;
+             lowerBoundvalid = M(i,10)';  zeros(1,n);
+             lowerBoundinvalid = M(iinvalid, 10)';
+             </remarks>
+             <param name="kvalid">Input argument #1</param>
+             <returns>An Object containing the first output argument.</returns>
+            
+        </member>
+        <member name="M:sabrFitNative.SabrFit.sabrFit(System.Object,System.Object)">
+             <summary>
+             Provides a single output, 2-input Objectinterface to the sabrFit MATLAB function.
+             </summary>
+             <remarks>
+             M-Documentation:
+             clc
+             M = csvread('c:\temp\voltooltest\slice_SPY.USA_20141219_core.csv', 1);
+             i = find(M(:,1)' == 1);
+             iinvalid = find(M(:,1)' ~= 1);
+             atfvol = 0;
+             alpha = 0.25;
+             beta = 0.5;
+             nu = 0.3;
+             rho = 0.7;
+             kvalid = M(i,2)';
+             kinvalid = M(iinvalid, 2)';
+             y = M(i,8)';
+             wvalid = M(i,7)';
+             winvalid = M(iinvalid, 7)';
+             ttm = 2.011;
+             fwd = 190.8512;
+             upperBoundvalid = M(i,9)';  inf(1,n);
+             upperBoundvalid(upperBoundvalid == 1) = inf;
+             upperBoundinvalid = M(iinvalid,9)';  inf(1,n);
+             upperBoundinvalid(upperBoundinvalid == 1) = inf;
+             lowerBoundvalid = M(i,10)';  zeros(1,n);
+             lowerBoundinvalid = M(iinvalid, 10)';
+             </remarks>
+             <param name="kvalid">Input argument #1</param>
+             <param name="kinvalid">Input argument #2</param>
+             <returns>An Object containing the first output argument.</returns>
+            
+        </member>
+        <member name="M:sabrFitNative.SabrFit.sabrFit(System.Object,System.Object,System.Object)">
+             <summary>
+             Provides a single output, 3-input Objectinterface to the sabrFit MATLAB function.
+             </summary>
+             <remarks>
+             M-Documentation:
+             clc
+             M = csvread('c:\temp\voltooltest\slice_SPY.USA_20141219_core.csv', 1);
+             i = find(M(:,1)' == 1);
+             iinvalid = find(M(:,1)' ~= 1);
+             atfvol = 0;
+             alpha = 0.25;
+             beta = 0.5;
+             nu = 0.3;
+             rho = 0.7;
+             kvalid = M(i,2)';
+             kinvalid = M(iinvalid, 2)';
+             y = M(i,8)';
+             wvalid = M(i,7)';
+             winvalid = M(iinvalid, 7)';
+             ttm = 2.011;
+             fwd = 190.8512;
+             upperBoundvalid = M(i,9)';  inf(1,n);
+             upperBoundvalid(upperBoundvalid == 1) = inf;
+             upperBoundinvalid = M(iinvalid,9)';  inf(1,n);
+             upperBoundinvalid(upperBoundinvalid == 1) = inf;
+             lowerBoundvalid = M(i,10)';  zeros(1,n);
+             lowerBoundinvalid = M(iinvalid, 10)';
+             </remarks>
+             <param name="kvalid">Input argument #1</param>
+             <param name="kinvalid">Input argument #2</param>
+             <param name="y">Input argument #3</param>
+             <returns>An Object containing the first output argument.</returns>
+            
+        </member>
+        <member name="M:sabrFitNative.SabrFit.sabrFit(System.Object,System.Object,System.Object,System.Object)">
+             <summary>
+             Provides a single output, 4-input Objectinterface to the sabrFit MATLAB function.
+             </summary>
+             <remarks>
+             M-Documentation:
+             clc
+             M = csvread('c:\temp\voltooltest\slice_SPY.USA_20141219_core.csv', 1);
+             i = find(M(:,1)' == 1);
+             iinvalid = find(M(:,1)' ~= 1);
+             atfvol = 0;
+             alpha = 0.25;
+             beta = 0.5;
+             nu = 0.3;
+             rho = 0.7;
+             kvalid = M(i,2)';
+             kinvalid = M(iinvalid, 2)';
+             y = M(i,8)';
+             wvalid = M(i,7)';
+             winvalid = M(iinvalid, 7)';
+             ttm = 2.011;
+             fwd = 190.8512;
+             upperBoundvalid = M(i,9)';  inf(1,n);
+             upperBoundvalid(upperBoundvalid == 1) = inf;
+             upperBoundinvalid = M(iinvalid,9)';  inf(1,n);
+             upperBoundinvalid(upperBoundinvalid == 1) = inf;
+             lowerBoundvalid = M(i,10)';  zeros(1,n);
+             lowerBoundinvalid = M(iinvalid, 10)';
+             </remarks>
+             <param name="kvalid">Input argument #1</param>
+             <param name="kinvalid">Input argument #2</param>
+             <param name="y">Input argument #3</param>
+             <param name="wvalid">Input argument #4</param>
+             <returns>An Object containing the first output argument.</returns>
+            
+        </member>
+        <member name="M:sabrFitNative.SabrFit.sabrFit(System.Object,System.Object,System.Object,System.Object,System.Object)">
+             <summary>
+             Provides a single output, 5-input Objectinterface to the sabrFit MATLAB function.
+             </summary>
+             <remarks>
+             M-Documentation:
+             clc
+             M = csvread('c:\temp\voltooltest\slice_SPY.USA_20141219_core.csv', 1);
+             i = find(M(:,1)' == 1);
+             iinvalid = find(M(:,1)' ~= 1);
+             atfvol = 0;
+             alpha = 0.25;
+             beta = 0.5;
+             nu = 0.3;
+             rho = 0.7;
+             kvalid = M(i,2)';
+             kinvalid = M(iinvalid, 2)';
+             y = M(i,8)';
+             wvalid = M(i,7)';
+             winvalid = M(iinvalid, 7)';
+             ttm = 2.011;
+             fwd = 190.8512;
+             upperBoundvalid = M(i,9)';  inf(1,n);
+             upperBoundvalid(upperBoundvalid == 1) = inf;
+             upperBoundinvalid = M(iinvalid,9)';  inf(1,n);
+             upperBoundinvalid(upperBoundinvalid == 1) = inf;
+             lowerBoundvalid = M(i,10)';  zeros(1,n);
+             lowerBoundinvalid = M(iinvalid, 10)';
+             </remarks>
+             <param name="kvalid">Input argument #1</param>
+             <param name="kinvalid">Input argument #2</param>
+             <param name="y">Input argument #3</param>
+             <param name="wvalid">Input argument #4</param>
+             <param name="winvalid">Input argument #5</param>
+             <returns>An Object containing the first output argument.</returns>
+            
+        </member>
+        <member name="M:sabrFitNative.SabrFit.sabrFit(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
+             <summary>
+             Provides a single output, 6-input Objectinterface to the sabrFit MATLAB function.
+             </summary>
+             <remarks>
+             M-Documentation:
+             clc
+             M = csvread('c:\temp\voltooltest\slice_SPY.USA_20141219_core.csv', 1);
+             i = find(M(:,1)' == 1);
+             iinvalid = find(M(:,1)' ~= 1);
+             atfvol = 0;
+             alpha = 0.25;
+             beta = 0.5;
+             nu = 0.3;
+             rho = 0.7;
+             kvalid = M(i,2)';
+             kinvalid = M(iinvalid, 2)';
+             y = M(i,8)';
+             wvalid = M(i,7)';
+             winvalid = M(iinvalid, 7)';
+             ttm = 2.011;
+             fwd = 190.8512;
+             upperBoundvalid = M(i,9)';  inf(1,n);
+             upperBoundvalid(upperBoundvalid == 1) = inf;
+             upperBoundinvalid = M(iinvalid,9)';  inf(1,n);
+             upperBoundinvalid(upperBoundinvalid == 1) = inf;
+             lowerBoundvalid = M(i,10)';  zeros(1,n);
+             lowerBoundinvalid = M(iinvalid, 10)';
+             </remarks>
+             <param name="kvalid">Input argument #1</param>
+             <param name="kinvalid">Input argument #2</param>
+             <param name="y">Input argument #3</param>
+             <param name="wvalid">Input argument #4</param>
+             <param name="winvalid">Input argument #5</param>
+             <param name="fwd">Input argument #6</param>
+             <returns>An Object containing the first output argument.</returns>
+            
+        </member>
+        <member name="M:sabrFitNative.SabrFit.sabrFit(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
+             <summary>
+             Provides a single output, 7-input Objectinterface to the sabrFit MATLAB function.
+             </summary>
+             <remarks>
+             M-Documentation:
+             clc
+             M = csvread('c:\temp\voltooltest\slice_SPY.USA_20141219_core.csv', 1);
+             i = find(M(:,1)' == 1);
+             iinvalid = find(M(:,1)' ~= 1);
+             atfvol = 0;
+             alpha = 0.25;
+             beta = 0.5;
+             nu = 0.3;
+             rho = 0.7;
+             kvalid = M(i,2)';
+             kinvalid = M(iinvalid, 2)';
+             y = M(i,8)';
+             wvalid = M(i,7)';
+             winvalid = M(iinvalid, 7)';
+             ttm = 2.011;
+             fwd = 190.8512;
+             upperBoundvalid = M(i,9)';  inf(1,n);
+             upperBoundvalid(upperBoundvalid == 1) = inf;
+             upperBoundinvalid = M(iinvalid,9)';  inf(1,n);
+             upperBoundinvalid(upperBoundinvalid == 1) = inf;
+             lowerBoundvalid = M(i,10)';  zeros(1,n);
+             lowerBoundinvalid = M(iinvalid, 10)';
+             </remarks>
+             <param name="kvalid">Input argument #1</param>
+             <param name="kinvalid">Input argument #2</param>
+             <param name="y">Input argument #3</param>
+             <param name="wvalid">Input argument #4</param>
+             <param name="winvalid">Input argument #5</param>
+             <param name="fwd">Input argument #6</param>
+             <param name="atfvol">Input argument #7</param>
+             <returns>An Object containing the first output argument.</returns>
+            
+        </member>
+        <member name="M:sabrFitNative.SabrFit.sabrFit(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
+             <summary>
+             Provides a single output, 8-input Objectinterface to the sabrFit MATLAB function.
+             </summary>
+             <remarks>
+             M-Documentation:
+             clc
+             M = csvread('c:\temp\voltooltest\slice_SPY.USA_20141219_core.csv', 1);
+             i = find(M(:,1)' == 1);
+             iinvalid = find(M(:,1)' ~= 1);
+             atfvol = 0;
+             alpha = 0.25;
+             beta = 0.5;
+             nu = 0.3;
+             rho = 0.7;
+             kvalid = M(i,2)';
+             kinvalid = M(iinvalid, 2)';
+             y = M(i,8)';
+             wvalid = M(i,7)';
+             winvalid = M(iinvalid, 7)';
+             ttm = 2.011;
+             fwd = 190.8512;
+             upperBoundvalid = M(i,9)';  inf(1,n);
+             upperBoundvalid(upperBoundvalid == 1) = inf;
+             upperBoundinvalid = M(iinvalid,9)';  inf(1,n);
+             upperBoundinvalid(upperBoundinvalid == 1) = inf;
+             lowerBoundvalid = M(i,10)';  zeros(1,n);
+             lowerBoundinvalid = M(iinvalid, 10)';
+             </remarks>
+             <param name="kvalid">Input argument #1</param>
+             <param name="kinvalid">Input argument #2</param>
+             <param name="y">Input argument #3</param>
+             <param name="wvalid">Input argument #4</param>
+             <param name="winvalid">Input argument #5</param>
+             <param name="fwd">Input argument #6</param>
+             <param name="atfvol">Input argument #7</param>
+             <param name="ttm">Input argument #8</param>
+             <returns>An Object containing the first output argument.</returns>
+            
+        </member>
+        <member name="M:sabrFitNative.SabrFit.sabrFit(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
+             <summary>
+             Provides a single output, 9-input Objectinterface to the sabrFit MATLAB function.
+             </summary>
+             <remarks>
+             M-Documentation:
+             clc
+             M = csvread('c:\temp\voltooltest\slice_SPY.USA_20141219_core.csv', 1);
+             i = find(M(:,1)' == 1);
+             iinvalid = find(M(:,1)' ~= 1);
+             atfvol = 0;
+             alpha = 0.25;
+             beta = 0.5;
+             nu = 0.3;
+             rho = 0.7;
+             kvalid = M(i,2)';
+             kinvalid = M(iinvalid, 2)';
+             y = M(i,8)';
+             wvalid = M(i,7)';
+             winvalid = M(iinvalid, 7)';
+             ttm = 2.011;
+             fwd = 190.8512;
+             upperBoundvalid = M(i,9)';  inf(1,n);
+             upperBoundvalid(upperBoundvalid == 1) = inf;
+             upperBoundinvalid = M(iinvalid,9)';  inf(1,n);
+             upperBoundinvalid(upperBoundinvalid == 1) = inf;
+             lowerBoundvalid = M(i,10)';  zeros(1,n);
+             lowerBoundinvalid = M(iinvalid, 10)';
+             </remarks>
+             <param name="kvalid">Input argument #1</param>
+             <param name="kinvalid">Input argument #2</param>
+             <param name="y">Input argument #3</param>
+             <param name="wvalid">Input argument #4</param>
+             <param name="winvalid">Input argument #5</param>
+             <param name="fwd">Input argument #6</param>
+             <param name="atfvol">Input argument #7</param>
+             <param name="ttm">Input argument #8</param>
+             <param name="alpha_in1">Input argument #9</param>
+             <returns>An Object containing the first output argument.</returns>
+            
+        </member>
+        <member name="M:sabrFitNative.SabrFit.sabrFit(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
+             <summary>
+             Provides a single output, 10-input Objectinterface to the sabrFit MATLAB
+             function.
+             </summary>
+             <remarks>
+             M-Documentation:
+             clc
+             M = csvread('c:\temp\voltooltest\slice_SPY.USA_20141219_core.csv', 1);
+             i = find(M(:,1)' == 1);
+             iinvalid = find(M(:,1)' ~= 1);
+             atfvol = 0;
+             alpha = 0.25;
+             beta = 0.5;
+             nu = 0.3;
+             rho = 0.7;
+             kvalid = M(i,2)';
+             kinvalid = M(iinvalid, 2)';
+             y = M(i,8)';
+             wvalid = M(i,7)';
+             winvalid = M(iinvalid, 7)';
+             ttm = 2.011;
+             fwd = 190.8512;
+             upperBoundvalid = M(i,9)';  inf(1,n);
+             upperBoundvalid(upperBoundvalid == 1) = inf;
+             upperBoundinvalid = M(iinvalid,9)';  inf(1,n);
+             upperBoundinvalid(upperBoundinvalid == 1) = inf;
+             lowerBoundvalid = M(i,10)';  zeros(1,n);
+             lowerBoundinvalid = M(iinvalid, 10)';
+             </remarks>
+             <param name="kvalid">Input argument #1</param>
+             <param name="kinvalid">Input argument #2</param>
+             <param name="y">Input argument #3</param>
+             <param name="wvalid">Input argument #4</param>
+             <param name="winvalid">Input argument #5</param>
+             <param name="fwd">Input argument #6</param>
+             <param name="atfvol">Input argument #7</param>
+             <param name="ttm">Input argument #8</param>
+             <param name="alpha_in1">Input argument #9</param>
+             <param name="beta">Input argument #10</param>
+             <returns>An Object containing the first output argument.</returns>
+            
+        </member>
+        <member name="M:sabrFitNative.SabrFit.sabrFit(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
+             <summary>
+             Provides a single output, 11-input Objectinterface to the sabrFit MATLAB
+             function.
+             </summary>
+             <remarks>
+             M-Documentation:
+             clc
+             M = csvread('c:\temp\voltooltest\slice_SPY.USA_20141219_core.csv', 1);
+             i = find(M(:,1)' == 1);
+             iinvalid = find(M(:,1)' ~= 1);
+             atfvol = 0;
+             alpha = 0.25;
+             beta = 0.5;
+             nu = 0.3;
+             rho = 0.7;
+             kvalid = M(i,2)';
+             kinvalid = M(iinvalid, 2)';
+             y = M(i,8)';
+             wvalid = M(i,7)';
+             winvalid = M(iinvalid, 7)';
+             ttm = 2.011;
+             fwd = 190.8512;
+             upperBoundvalid = M(i,9)';  inf(1,n);
+             upperBoundvalid(upperBoundvalid == 1) = inf;
+             upperBoundinvalid = M(iinvalid,9)';  inf(1,n);
+             upperBoundinvalid(upperBoundinvalid == 1) = inf;
+             lowerBoundvalid = M(i,10)';  zeros(1,n);
+             lowerBoundinvalid = M(iinvalid, 10)';
+             </remarks>
+             <param name="kvalid">Input argument #1</param>
+             <param name="kinvalid">Input argument #2</param>
+             <param name="y">Input argument #3</param>
+             <param name="wvalid">Input argument #4</param>
+             <param name="winvalid">Input argument #5</param>
+             <param name="fwd">Input argument #6</param>
+             <param name="atfvol">Input argument #7</param>
+             <param name="ttm">Input argument #8</param>
+             <param name="alpha_in1">Input argument #9</param>
+             <param name="beta">Input argument #10</param>
+             <param name="nu_in1">Input argument #11</param>
+             <returns>An Object containing the first output argument.</returns>
+            
+        </member>
+        <member name="M:sabrFitNative.SabrFit.sabrFit(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
+             <summary>
+             Provides a single output, 12-input Objectinterface to the sabrFit MATLAB
+             function.
+             </summary>
+             <remarks>
+             M-Documentation:
+             clc
+             M = csvread('c:\temp\voltooltest\slice_SPY.USA_20141219_core.csv', 1);
+             i = find(M(:,1)' == 1);
+             iinvalid = find(M(:,1)' ~= 1);
+             atfvol = 0;
+             alpha = 0.25;
+             beta = 0.5;
+             nu = 0.3;
+             rho = 0.7;
+             kvalid = M(i,2)';
+             kinvalid = M(iinvalid, 2)';
+             y = M(i,8)';
+             wvalid = M(i,7)';
+             winvalid = M(iinvalid, 7)';
+             ttm = 2.011;
+             fwd = 190.8512;
+             upperBoundvalid = M(i,9)';  inf(1,n);
+             upperBoundvalid(upperBoundvalid == 1) = inf;
+             upperBoundinvalid = M(iinvalid,9)';  inf(1,n);
+             upperBoundinvalid(upperBoundinvalid == 1) = inf;
+             lowerBoundvalid = M(i,10)';  zeros(1,n);
+             lowerBoundinvalid = M(iinvalid, 10)';
+             </remarks>
+             <param name="kvalid">Input argument #1</param>
+             <param name="kinvalid">Input argument #2</param>
+             <param name="y">Input argument #3</param>
+             <param name="wvalid">Input argument #4</param>
+             <param name="winvalid">Input argument #5</param>
+             <param name="fwd">Input argument #6</param>
+             <param name="atfvol">Input argument #7</param>
+             <param name="ttm">Input argument #8</param>
+             <param name="alpha_in1">Input argument #9</param>
+             <param name="beta">Input argument #10</param>
+             <param name="nu_in1">Input argument #11</param>
+             <param name="rho_in1">Input argument #12</param>
+             <returns>An Object containing the first output argument.</returns>
+            
+        </member>
+        <member name="M:sabrFitNative.SabrFit.sabrFit(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
+             <summary>
+             Provides a single output, 13-input Objectinterface to the sabrFit MATLAB
+             function.
+             </summary>
+             <remarks>
+             M-Documentation:
+             clc
+             M = csvread('c:\temp\voltooltest\slice_SPY.USA_20141219_core.csv', 1);
+             i = find(M(:,1)' == 1);
+             iinvalid = find(M(:,1)' ~= 1);
+             atfvol = 0;
+             alpha = 0.25;
+             beta = 0.5;
+             nu = 0.3;
+             rho = 0.7;
+             kvalid = M(i,2)';
+             kinvalid = M(iinvalid, 2)';
+             y = M(i,8)';
+             wvalid = M(i,7)';
+             winvalid = M(iinvalid, 7)';
+             ttm = 2.011;
+             fwd = 190.8512;
+             upperBoundvalid = M(i,9)';  inf(1,n);
+             upperBoundvalid(upperBoundvalid == 1) = inf;
+             upperBoundinvalid = M(iinvalid,9)';  inf(1,n);
+             upperBoundinvalid(upperBoundinvalid == 1) = inf;
+             lowerBoundvalid = M(i,10)';  zeros(1,n);
+             lowerBoundinvalid = M(iinvalid, 10)';
+             </remarks>
+             <param name="kvalid">Input argument #1</param>
+             <param name="kinvalid">Input argument #2</param>
+             <param name="y">Input argument #3</param>
+             <param name="wvalid">Input argument #4</param>
+             <param name="winvalid">Input argument #5</param>
+             <param name="fwd">Input argument #6</param>
+             <param name="atfvol">Input argument #7</param>
+             <param name="ttm">Input argument #8</param>
+             <param name="alpha_in1">Input argument #9</param>
+             <param name="beta">Input argument #10</param>
+             <param name="nu_in1">Input argument #11</param>
+             <param name="rho_in1">Input argument #12</param>
+             <param name="lowerboundvalid">Input argument #13</param>
+             <returns>An Object containing the first output argument.</returns>
+            
+        </member>
+        <member name="M:sabrFitNative.SabrFit.sabrFit(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
+             <summary>
+             Provides a single output, 14-input Objectinterface to the sabrFit MATLAB
+             function.
+             </summary>
+             <remarks>
+             M-Documentation:
+             clc
+             M = csvread('c:\temp\voltooltest\slice_SPY.USA_20141219_core.csv', 1);
+             i = find(M(:,1)' == 1);
+             iinvalid = find(M(:,1)' ~= 1);
+             atfvol = 0;
+             alpha = 0.25;
+             beta = 0.5;
+             nu = 0.3;
+             rho = 0.7;
+             kvalid = M(i,2)';
+             kinvalid = M(iinvalid, 2)';
+             y = M(i,8)';
+             wvalid = M(i,7)';
+             winvalid = M(iinvalid, 7)';
+             ttm = 2.011;
+             fwd = 190.8512;
+             upperBoundvalid = M(i,9)';  inf(1,n);
+             upperBoundvalid(upperBoundvalid == 1) = inf;
+             upperBoundinvalid = M(iinvalid,9)';  inf(1,n);
+             upperBoundinvalid(upperBoundinvalid == 1) = inf;
+             lowerBoundvalid = M(i,10)';  zeros(1,n);
+             lowerBoundinvalid = M(iinvalid, 10)';
+             </remarks>
+             <param name="kvalid">Input argument #1</param>
+             <param name="kinvalid">Input argument #2</param>
+             <param name="y">Input argument #3</param>
+             <param name="wvalid">Input argument #4</param>
+             <param name="winvalid">Input argument #5</param>
+             <param name="fwd">Input argument #6</param>
+             <param name="atfvol">Input argument #7</param>
+             <param name="ttm">Input argument #8</param>
+             <param name="alpha_in1">Input argument #9</param>
+             <param name="beta">Input argument #10</param>
+             <param name="nu_in1">Input argument #11</param>
+             <param name="rho_in1">Input argument #12</param>
+             <param name="lowerboundvalid">Input argument #13</param>
+             <param name="upperboundvalid">Input argument #14</param>
+             <returns>An Object containing the first output argument.</returns>
+            
+        </member>
+        <member name="M:sabrFitNative.SabrFit.sabrFit(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
+             <summary>
+             Provides a single output, 15-input Objectinterface to the sabrFit MATLAB
+             function.
+             </summary>
+             <remarks>
+             M-Documentation:
+             clc
+             M = csvread('c:\temp\voltooltest\slice_SPY.USA_20141219_core.csv', 1);
+             i = find(M(:,1)' == 1);
+             iinvalid = find(M(:,1)' ~= 1);
+             atfvol = 0;
+             alpha = 0.25;
+             beta = 0.5;
+             nu = 0.3;
+             rho = 0.7;
+             kvalid = M(i,2)';
+             kinvalid = M(iinvalid, 2)';
+             y = M(i,8)';
+             wvalid = M(i,7)';
+             winvalid = M(iinvalid, 7)';
+             ttm = 2.011;
+             fwd = 190.8512;
+             upperBoundvalid = M(i,9)';  inf(1,n);
+             upperBoundvalid(upperBoundvalid == 1) = inf;
+             upperBoundinvalid = M(iinvalid,9)';  inf(1,n);
+             upperBoundinvalid(upperBoundinvalid == 1) = inf;
+             lowerBoundvalid = M(i,10)';  zeros(1,n);
+             lowerBoundinvalid = M(iinvalid, 10)';
+             </remarks>
+             <param name="kvalid">Input argument #1</param>
+             <param name="kinvalid">Input argument #2</param>
+             <param name="y">Input argument #3</param>
+             <param name="wvalid">Input argument #4</param>
+             <param name="winvalid">Input argument #5</param>
+             <param name="fwd">Input argument #6</param>
+             <param name="atfvol">Input argument #7</param>
+             <param name="ttm">Input argument #8</param>
+             <param name="alpha_in1">Input argument #9</param>
+             <param name="beta">Input argument #10</param>
+             <param name="nu_in1">Input argument #11</param>
+             <param name="rho_in1">Input argument #12</param>
+             <param name="lowerboundvalid">Input argument #13</param>
+             <param name="upperboundvalid">Input argument #14</param>
+             <param name="lowerboundinvalid">Input argument #15</param>
+             <returns>An Object containing the first output argument.</returns>
+            
+        </member>
+        <member name="M:sabrFitNative.SabrFit.sabrFit(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
+             <summary>
+             Provides a single output, 16-input Objectinterface to the sabrFit MATLAB
+             function.
+             </summary>
+             <remarks>
+             M-Documentation:
+             clc
+             M = csvread('c:\temp\voltooltest\slice_SPY.USA_20141219_core.csv', 1);
+             i = find(M(:,1)' == 1);
+             iinvalid = find(M(:,1)' ~= 1);
+             atfvol = 0;
+             alpha = 0.25;
+             beta = 0.5;
+             nu = 0.3;
+             rho = 0.7;
+             kvalid = M(i,2)';
+             kinvalid = M(iinvalid, 2)';
+             y = M(i,8)';
+             wvalid = M(i,7)';
+             winvalid = M(iinvalid, 7)';
+             ttm = 2.011;
+             fwd = 190.8512;
+             upperBoundvalid = M(i,9)';  inf(1,n);
+             upperBoundvalid(upperBoundvalid == 1) = inf;
+             upperBoundinvalid = M(iinvalid,9)';  inf(1,n);
+             upperBoundinvalid(upperBoundinvalid == 1) = inf;
+             lowerBoundvalid = M(i,10)';  zeros(1,n);
+             lowerBoundinvalid = M(iinvalid, 10)';
+             </remarks>
+             <param name="kvalid">Input argument #1</param>
+             <param name="kinvalid">Input argument #2</param>
+             <param name="y">Input argument #3</param>
+             <param name="wvalid">Input argument #4</param>
+             <param name="winvalid">Input argument #5</param>
+             <param name="fwd">Input argument #6</param>
+             <param name="atfvol">Input argument #7</param>
+             <param name="ttm">Input argument #8</param>
+             <param name="alpha_in1">Input argument #9</param>
+             <param name="beta">Input argument #10</param>
+             <param name="nu_in1">Input argument #11</param>
+             <param name="rho_in1">Input argument #12</param>
+             <param name="lowerboundvalid">Input argument #13</param>
+             <param name="upperboundvalid">Input argument #14</param>
+             <param name="lowerboundinvalid">Input argument #15</param>
+             <param name="upperboundinvalid">Input argument #16</param>
+             <returns>An Object containing the first output argument.</returns>
+            
+        </member>
+        <member name="M:sabrFitNative.SabrFit.sabrFit(System.Int32)">
+             <summary>
+             Provides the standard 0-input Object interface to the sabrFit MATLAB function.
+             </summary>
+             <remarks>
+             M-Documentation:
+             clc
+             M = csvread('c:\temp\voltooltest\slice_SPY.USA_20141219_core.csv', 1);
+             i = find(M(:,1)' == 1);
+             iinvalid = find(M(:,1)' ~= 1);
+             atfvol = 0;
+             alpha = 0.25;
+             beta = 0.5;
+             nu = 0.3;
+             rho = 0.7;
+             kvalid = M(i,2)';
+             kinvalid = M(iinvalid, 2)';
+             y = M(i,8)';
+             wvalid = M(i,7)';
+             winvalid = M(iinvalid, 7)';
+             ttm = 2.011;
+             fwd = 190.8512;
+             upperBoundvalid = M(i,9)';  inf(1,n);
+             upperBoundvalid(upperBoundvalid == 1) = inf;
+             upperBoundinvalid = M(iinvalid,9)';  inf(1,n);
+             upperBoundinvalid(upperBoundinvalid == 1) = inf;
+             lowerBoundvalid = M(i,10)';  zeros(1,n);
+             lowerBoundinvalid = M(iinvalid, 10)';
+             </remarks>
+             <param name="numArgsOut">The number of output arguments to return.</param>
+             <returns>An Array of length "numArgsOut" containing the output
+             arguments.</returns>
+            
+        </member>
+        <member name="M:sabrFitNative.SabrFit.sabrFit(System.Int32,System.Object)">
+             <summary>
+             Provides the standard 1-input Object interface to the sabrFit MATLAB function.
+             </summary>
+             <remarks>
+             M-Documentation:
+             clc
+             M = csvread('c:\temp\voltooltest\slice_SPY.USA_20141219_core.csv', 1);
+             i = find(M(:,1)' == 1);
+             iinvalid = find(M(:,1)' ~= 1);
+             atfvol = 0;
+             alpha = 0.25;
+             beta = 0.5;
+             nu = 0.3;
+             rho = 0.7;
+             kvalid = M(i,2)';
+             kinvalid = M(iinvalid, 2)';
+             y = M(i,8)';
+             wvalid = M(i,7)';
+             winvalid = M(iinvalid, 7)';
+             ttm = 2.011;
+             fwd = 190.8512;
+             upperBoundvalid = M(i,9)';  inf(1,n);
+             upperBoundvalid(upperBoundvalid == 1) = inf;
+             upperBoundinvalid = M(iinvalid,9)';  inf(1,n);
+             upperBoundinvalid(upperBoundinvalid == 1) = inf;
+             lowerBoundvalid = M(i,10)';  zeros(1,n);
+             lowerBoundinvalid = M(iinvalid, 10)';
+             </remarks>
+             <param name="numArgsOut">The number of output arguments to return.</param>
+             <param name="kvalid">Input argument #1</param>
+             <returns>An Array of length "numArgsOut" containing the output
+             arguments.</returns>
+            
+        </member>
+        <member name="M:sabrFitNative.SabrFit.sabrFit(System.Int32,System.Object,System.Object)">
+             <summary>
+             Provides the standard 2-input Object interface to the sabrFit MATLAB function.
+             </summary>
+             <remarks>
+             M-Documentation:
+             clc
+             M = csvread('c:\temp\voltooltest\slice_SPY.USA_20141219_core.csv', 1);
+             i = find(M(:,1)' == 1);
+             iinvalid = find(M(:,1)' ~= 1);
+             atfvol = 0;
+             alpha = 0.25;
+             beta = 0.5;
+             nu = 0.3;
+             rho = 0.7;
+             kvalid = M(i,2)';
+             kinvalid = M(iinvalid, 2)';
+             y = M(i,8)';
+             wvalid = M(i,7)';
+             winvalid = M(iinvalid, 7)';
+             ttm = 2.011;
+             fwd = 190.8512;
+             upperBoundvalid = M(i,9)';  inf(1,n);
+             upperBoundvalid(upperBoundvalid == 1) = inf;
+             upperBoundinvalid = M(iinvalid,9)';  inf(1,n);
+             upperBoundinvalid(upperBoundinvalid == 1) = inf;
+             lowerBoundvalid = M(i,10)';  zeros(1,n);
+             lowerBoundinvalid = M(iinvalid, 10)';
+             </remarks>
+             <param name="numArgsOut">The number of output arguments to return.</param>
+             <param name="kvalid">Input argument #1</param>
+             <param name="kinvalid">Input argument #2</param>
+             <returns>An Array of length "numArgsOut" containing the output
+             arguments.</returns>
+            
+        </member>
+        <member name="M:sabrFitNative.SabrFit.sabrFit(System.Int32,System.Object,System.Object,System.Object)">
+             <summary>
+             Provides the standard 3-input Object interface to the sabrFit MATLAB function.
+             </summary>
+             <remarks>
+             M-Documentation:
+             clc
+             M = csvread('c:\temp\voltooltest\slice_SPY.USA_20141219_core.csv', 1);
+             i = find(M(:,1)' == 1);
+             iinvalid = find(M(:,1)' ~= 1);
+             atfvol = 0;
+             alpha = 0.25;
+             beta = 0.5;
+             nu = 0.3;
+             rho = 0.7;
+             kvalid = M(i,2)';
+             kinvalid = M(iinvalid, 2)';
+             y = M(i,8)';
+             wvalid = M(i,7)';
+             winvalid = M(iinvalid, 7)';
+             ttm = 2.011;
+             fwd = 190.8512;
+             upperBoundvalid = M(i,9)';  inf(1,n);
+             upperBoundvalid(upperBoundvalid == 1) = inf;
+             upperBoundinvalid = M(iinvalid,9)';  inf(1,n);
+             upperBoundinvalid(upperBoundinvalid == 1) = inf;
+             lowerBoundvalid = M(i,10)';  zeros(1,n);
+             lowerBoundinvalid = M(iinvalid, 10)';
+             </remarks>
+             <param name="numArgsOut">The number of output arguments to return.</param>
+             <param name="kvalid">Input argument #1</param>
+             <param name="kinvalid">Input argument #2</param>
+             <param name="y">Input argument #3</param>
+             <returns>An Array of length "numArgsOut" containing the output
+             arguments.</returns>
+            
+        </member>
+        <member name="M:sabrFitNative.SabrFit.sabrFit(System.Int32,System.Object,System.Object,System.Object,System.Object)">
+             <summary>
+             Provides the standard 4-input Object interface to the sabrFit MATLAB function.
+             </summary>
+             <remarks>
+             M-Documentation:
+             clc
+             M = csvread('c:\temp\voltooltest\slice_SPY.USA_20141219_core.csv', 1);
+             i = find(M(:,1)' == 1);
+             iinvalid = find(M(:,1)' ~= 1);
+             atfvol = 0;
+             alpha = 0.25;
+             beta = 0.5;
+             nu = 0.3;
+             rho = 0.7;
+             kvalid = M(i,2)';
+             kinvalid = M(iinvalid, 2)';
+             y = M(i,8)';
+             wvalid = M(i,7)';
+             winvalid = M(iinvalid, 7)';
+             ttm = 2.011;
+             fwd = 190.8512;
+             upperBoundvalid = M(i,9)';  inf(1,n);
+             upperBoundvalid(upperBoundvalid == 1) = inf;
+             upperBoundinvalid = M(iinvalid,9)';  inf(1,n);
+             upperBoundinvalid(upperBoundinvalid == 1) = inf;
+             lowerBoundvalid = M(i,10)';  zeros(1,n);
+             lowerBoundinvalid = M(iinvalid, 10)';
+             </remarks>
+             <param name="numArgsOut">The number of output arguments to return.</param>
+             <param name="kvalid">Input argument #1</param>
+             <param name="kinvalid">Input argument #2</param>
+             <param name="y">Input argument #3</param>
+             <param name="wvalid">Input argument #4</param>
+             <returns>An Array of length "numArgsOut" containing the output
+             arguments.</returns>
+            
+        </member>
+        <member name="M:sabrFitNative.SabrFit.sabrFit(System.Int32,System.Object,System.Object,System.Object,System.Object,System.Object)">
+             <summary>
+             Provides the standard 5-input Object interface to the sabrFit MATLAB function.
+             </summary>
+             <remarks>
+             M-Documentation:
+             clc
+             M = csvread('c:\temp\voltooltest\slice_SPY.USA_20141219_core.csv', 1);
+             i = find(M(:,1)' == 1);
+             iinvalid = find(M(:,1)' ~= 1);
+             atfvol = 0;
+             alpha = 0.25;
+             beta = 0.5;
+             nu = 0.3;
+             rho = 0.7;
+             kvalid = M(i,2)';
+             kinvalid = M(iinvalid, 2)';
+             y = M(i,8)';
+             wvalid = M(i,7)';
+             winvalid = M(iinvalid, 7)';
+             ttm = 2.011;
+             fwd = 190.8512;
+             upperBoundvalid = M(i,9)';  inf(1,n);
+             upperBoundvalid(upperBoundvalid == 1) = inf;
+             upperBoundinvalid = M(iinvalid,9)';  inf(1,n);
+             upperBoundinvalid(upperBoundinvalid == 1) = inf;
+             lowerBoundvalid = M(i,10)';  zeros(1,n);
+             lowerBoundinvalid = M(iinvalid, 10)';
+             </remarks>
+             <param name="numArgsOut">The number of output arguments to return.</param>
+             <param name="kvalid">Input argument #1</param>
+             <param name="kinvalid">Input argument #2</param>
+             <param name="y">Input argument #3</param>
+             <param name="wvalid">Input argument #4</param>
+             <param name="winvalid">Input argument #5</param>
+             <returns>An Array of length "numArgsOut" containing the output
+             arguments.</returns>
+            
+        </member>
+        <member name="M:sabrFitNative.SabrFit.sabrFit(System.Int32,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
+             <summary>
+             Provides the standard 6-input Object interface to the sabrFit MATLAB function.
+             </summary>
+             <remarks>
+             M-Documentation:
+             clc
+             M = csvread('c:\temp\voltooltest\slice_SPY.USA_20141219_core.csv', 1);
+             i = find(M(:,1)' == 1);
+             iinvalid = find(M(:,1)' ~= 1);
+             atfvol = 0;
+             alpha = 0.25;
+             beta = 0.5;
+             nu = 0.3;
+             rho = 0.7;
+             kvalid = M(i,2)';
+             kinvalid = M(iinvalid, 2)';
+             y = M(i,8)';
+             wvalid = M(i,7)';
+             winvalid = M(iinvalid, 7)';
+             ttm = 2.011;
+             fwd = 190.8512;
+             upperBoundvalid = M(i,9)';  inf(1,n);
+             upperBoundvalid(upperBoundvalid == 1) = inf;
+             upperBoundinvalid = M(iinvalid,9)';  inf(1,n);
+             upperBoundinvalid(upperBoundinvalid == 1) = inf;
+             lowerBoundvalid = M(i,10)';  zeros(1,n);
+             lowerBoundinvalid = M(iinvalid, 10)';
+             </remarks>
+             <param name="numArgsOut">The number of output arguments to return.</param>
+             <param name="kvalid">Input argument #1</param>
+             <param name="kinvalid">Input argument #2</param>
+             <param name="y">Input argument #3</param>
+             <param name="wvalid">Input argument #4</param>
+             <param name="winvalid">Input argument #5</param>
+             <param name="fwd">Input argument #6</param>
+             <returns>An Array of length "numArgsOut" containing the output
+             arguments.</returns>
+            
+        </member>
+        <member name="M:sabrFitNative.SabrFit.sabrFit(System.Int32,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
+             <summary>
+             Provides the standard 7-input Object interface to the sabrFit MATLAB function.
+             </summary>
+             <remarks>
+             M-Documentation:
+             clc
+             M = csvread('c:\temp\voltooltest\slice_SPY.USA_20141219_core.csv', 1);
+             i = find(M(:,1)' == 1);
+             iinvalid = find(M(:,1)' ~= 1);
+             atfvol = 0;
+             alpha = 0.25;
+             beta = 0.5;
+             nu = 0.3;
+             rho = 0.7;
+             kvalid = M(i,2)';
+             kinvalid = M(iinvalid, 2)';
+             y = M(i,8)';
+             wvalid = M(i,7)';
+             winvalid = M(iinvalid, 7)';
+             ttm = 2.011;
+             fwd = 190.8512;
+             upperBoundvalid = M(i,9)';  inf(1,n);
+             upperBoundvalid(upperBoundvalid == 1) = inf;
+             upperBoundinvalid = M(iinvalid,9)';  inf(1,n);
+             upperBoundinvalid(upperBoundinvalid == 1) = inf;
+             lowerBoundvalid = M(i,10)';  zeros(1,n);
+             lowerBoundinvalid = M(iinvalid, 10)';
+             </remarks>
+             <param name="numArgsOut">The number of output arguments to return.</param>
+             <param name="kvalid">Input argument #1</param>
+             <param name="kinvalid">Input argument #2</param>
+             <param name="y">Input argument #3</param>
+             <param name="wvalid">Input argument #4</param>
+             <param name="winvalid">Input argument #5</param>
+             <param name="fwd">Input argument #6</param>
+             <param name="atfvol">Input argument #7</param>
+             <returns>An Array of length "numArgsOut" containing the output
+             arguments.</returns>
+            
+        </member>
+        <member name="M:sabrFitNative.SabrFit.sabrFit(System.Int32,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
+             <summary>
+             Provides the standard 8-input Object interface to the sabrFit MATLAB function.
+             </summary>
+             <remarks>
+             M-Documentation:
+             clc
+             M = csvread('c:\temp\voltooltest\slice_SPY.USA_20141219_core.csv', 1);
+             i = find(M(:,1)' == 1);
+             iinvalid = find(M(:,1)' ~= 1);
+             atfvol = 0;
+             alpha = 0.25;
+             beta = 0.5;
+             nu = 0.3;
+             rho = 0.7;
+             kvalid = M(i,2)';
+             kinvalid = M(iinvalid, 2)';
+             y = M(i,8)';
+             wvalid = M(i,7)';
+             winvalid = M(iinvalid, 7)';
+             ttm = 2.011;
+             fwd = 190.8512;
+             upperBoundvalid = M(i,9)';  inf(1,n);
+             upperBoundvalid(upperBoundvalid == 1) = inf;
+             upperBoundinvalid = M(iinvalid,9)';  inf(1,n);
+             upperBoundinvalid(upperBoundinvalid == 1) = inf;
+             lowerBoundvalid = M(i,10)';  zeros(1,n);
+             lowerBoundinvalid = M(iinvalid, 10)';
+             </remarks>
+             <param name="numArgsOut">The number of output arguments to return.</param>
+             <param name="kvalid">Input argument #1</param>
+             <param name="kinvalid">Input argument #2</param>
+             <param name="y">Input argument #3</param>
+             <param name="wvalid">Input argument #4</param>
+             <param name="winvalid">Input argument #5</param>
+             <param name="fwd">Input argument #6</param>
+             <param name="atfvol">Input argument #7</param>
+             <param name="ttm">Input argument #8</param>
+             <returns>An Array of length "numArgsOut" containing the output
+             arguments.</returns>
+            
+        </member>
+        <member name="M:sabrFitNative.SabrFit.sabrFit(System.Int32,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
+             <summary>
+             Provides the standard 9-input Object interface to the sabrFit MATLAB function.
+             </summary>
+             <remarks>
+             M-Documentation:
+             clc
+             M = csvread('c:\temp\voltooltest\slice_SPY.USA_20141219_core.csv', 1);
+             i = find(M(:,1)' == 1);
+             iinvalid = find(M(:,1)' ~= 1);
+             atfvol = 0;
+             alpha = 0.25;
+             beta = 0.5;
+             nu = 0.3;
+             rho = 0.7;
+             kvalid = M(i,2)';
+             kinvalid = M(iinvalid, 2)';
+             y = M(i,8)';
+             wvalid = M(i,7)';
+             winvalid = M(iinvalid, 7)';
+             ttm = 2.011;
+             fwd = 190.8512;
+             upperBoundvalid = M(i,9)';  inf(1,n);
+             upperBoundvalid(upperBoundvalid == 1) = inf;
+             upperBoundinvalid = M(iinvalid,9)';  inf(1,n);
+             upperBoundinvalid(upperBoundinvalid == 1) = inf;
+             lowerBoundvalid = M(i,10)';  zeros(1,n);
+             lowerBoundinvalid = M(iinvalid, 10)';
+             </remarks>
+             <param name="numArgsOut">The number of output arguments to return.</param>
+             <param name="kvalid">Input argument #1</param>
+             <param name="kinvalid">Input argument #2</param>
+             <param name="y">Input argument #3</param>
+             <param name="wvalid">Input argument #4</param>
+             <param name="winvalid">Input argument #5</param>
+             <param name="fwd">Input argument #6</param>
+             <param name="atfvol">Input argument #7</param>
+             <param name="ttm">Input argument #8</param>
+             <param name="alpha_in1">Input argument #9</param>
+             <returns>An Array of length "numArgsOut" containing the output
+             arguments.</returns>
+            
+        </member>
+        <member name="M:sabrFitNative.SabrFit.sabrFit(System.Int32,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
+             <summary>
+             Provides the standard 10-input Object interface to the sabrFit MATLAB function.
+             </summary>
+             <remarks>
+             M-Documentation:
+             clc
+             M = csvread('c:\temp\voltooltest\slice_SPY.USA_20141219_core.csv', 1);
+             i = find(M(:,1)' == 1);
+             iinvalid = find(M(:,1)' ~= 1);
+             atfvol = 0;
+             alpha = 0.25;
+             beta = 0.5;
+             nu = 0.3;
+             rho = 0.7;
+             kvalid = M(i,2)';
+             kinvalid = M(iinvalid, 2)';
+             y = M(i,8)';
+             wvalid = M(i,7)';
+             winvalid = M(iinvalid, 7)';
+             ttm = 2.011;
+             fwd = 190.8512;
+             upperBoundvalid = M(i,9)';  inf(1,n);
+             upperBoundvalid(upperBoundvalid == 1) = inf;
+             upperBoundinvalid = M(iinvalid,9)';  inf(1,n);
+             upperBoundinvalid(upperBoundinvalid == 1) = inf;
+             lowerBoundvalid = M(i,10)';  zeros(1,n);
+             lowerBoundinvalid = M(iinvalid, 10)';
+             </remarks>
+             <param name="numArgsOut">The number of output arguments to return.</param>
+             <param name="kvalid">Input argument #1</param>
+             <param name="kinvalid">Input argument #2</param>
+             <param name="y">Input argument #3</param>
+             <param name="wvalid">Input argument #4</param>
+             <param name="winvalid">Input argument #5</param>
+             <param name="fwd">Input argument #6</param>
+             <param name="atfvol">Input argument #7</param>
+             <param name="ttm">Input argument #8</param>
+             <param name="alpha_in1">Input argument #9</param>
+             <param name="beta">Input argument #10</param>
+             <returns>An Array of length "numArgsOut" containing the output
+             arguments.</returns>
+            
+        </member>
+        <member name="M:sabrFitNative.SabrFit.sabrFit(System.Int32,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
+             <summary>
+             Provides the standard 11-input Object interface to the sabrFit MATLAB function.
+             </summary>
+             <remarks>
+             M-Documentation:
+             clc
+             M = csvread('c:\temp\voltooltest\slice_SPY.USA_20141219_core.csv', 1);
+             i = find(M(:,1)' == 1);
+             iinvalid = find(M(:,1)' ~= 1);
+             atfvol = 0;
+             alpha = 0.25;
+             beta = 0.5;
+             nu = 0.3;
+             rho = 0.7;
+             kvalid = M(i,2)';
+             kinvalid = M(iinvalid, 2)';
+             y = M(i,8)';
+             wvalid = M(i,7)';
+             winvalid = M(iinvalid, 7)';
+             ttm = 2.011;
+             fwd = 190.8512;
+             upperBoundvalid = M(i,9)';  inf(1,n);
+             upperBoundvalid(upperBoundvalid == 1) = inf;
+             upperBoundinvalid = M(iinvalid,9)';  inf(1,n);
+             upperBoundinvalid(upperBoundinvalid == 1) = inf;
+             lowerBoundvalid = M(i,10)';  zeros(1,n);
+             lowerBoundinvalid = M(iinvalid, 10)';
+             </remarks>
+             <param name="numArgsOut">The number of output arguments to return.</param>
+             <param name="kvalid">Input argument #1</param>
+             <param name="kinvalid">Input argument #2</param>
+             <param name="y">Input argument #3</param>
+             <param name="wvalid">Input argument #4</param>
+             <param name="winvalid">Input argument #5</param>
+             <param name="fwd">Input argument #6</param>
+             <param name="atfvol">Input argument #7</param>
+             <param name="ttm">Input argument #8</param>
+             <param name="alpha_in1">Input argument #9</param>
+             <param name="beta">Input argument #10</param>
+             <param name="nu_in1">Input argument #11</param>
+             <returns>An Array of length "numArgsOut" containing the output
+             arguments.</returns>
+            
+        </member>
+        <member name="M:sabrFitNative.SabrFit.sabrFit(System.Int32,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
+             <summary>
+             Provides the standard 12-input Object interface to the sabrFit MATLAB function.
+             </summary>
+             <remarks>
+             M-Documentation:
+             clc
+             M = csvread('c:\temp\voltooltest\slice_SPY.USA_20141219_core.csv', 1);
+             i = find(M(:,1)' == 1);
+             iinvalid = find(M(:,1)' ~= 1);
+             atfvol = 0;
+             alpha = 0.25;
+             beta = 0.5;
+             nu = 0.3;
+             rho = 0.7;
+             kvalid = M(i,2)';
+             kinvalid = M(iinvalid, 2)';
+             y = M(i,8)';
+             wvalid = M(i,7)';
+             winvalid = M(iinvalid, 7)';
+             ttm = 2.011;
+             fwd = 190.8512;
+             upperBoundvalid = M(i,9)';  inf(1,n);
+             upperBoundvalid(upperBoundvalid == 1) = inf;
+             upperBoundinvalid = M(iinvalid,9)';  inf(1,n);
+             upperBoundinvalid(upperBoundinvalid == 1) = inf;
+             lowerBoundvalid = M(i,10)';  zeros(1,n);
+             lowerBoundinvalid = M(iinvalid, 10)';
+             </remarks>
+             <param name="numArgsOut">The number of output arguments to return.</param>
+             <param name="kvalid">Input argument #1</param>
+             <param name="kinvalid">Input argument #2</param>
+             <param name="y">Input argument #3</param>
+             <param name="wvalid">Input argument #4</param>
+             <param name="winvalid">Input argument #5</param>
+             <param name="fwd">Input argument #6</param>
+             <param name="atfvol">Input argument #7</param>
+             <param name="ttm">Input argument #8</param>
+             <param name="alpha_in1">Input argument #9</param>
+             <param name="beta">Input argument #10</param>
+             <param name="nu_in1">Input argument #11</param>
+             <param name="rho_in1">Input argument #12</param>
+             <returns>An Array of length "numArgsOut" containing the output
+             arguments.</returns>
+            
+        </member>
+        <member name="M:sabrFitNative.SabrFit.sabrFit(System.Int32,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
+             <summary>
+             Provides the standard 13-input Object interface to the sabrFit MATLAB function.
+             </summary>
+             <remarks>
+             M-Documentation:
+             clc
+             M = csvread('c:\temp\voltooltest\slice_SPY.USA_20141219_core.csv', 1);
+             i = find(M(:,1)' == 1);
+             iinvalid = find(M(:,1)' ~= 1);
+             atfvol = 0;
+             alpha = 0.25;
+             beta = 0.5;
+             nu = 0.3;
+             rho = 0.7;
+             kvalid = M(i,2)';
+             kinvalid = M(iinvalid, 2)';
+             y = M(i,8)';
+             wvalid = M(i,7)';
+             winvalid = M(iinvalid, 7)';
+             ttm = 2.011;
+             fwd = 190.8512;
+             upperBoundvalid = M(i,9)';  inf(1,n);
+             upperBoundvalid(upperBoundvalid == 1) = inf;
+             upperBoundinvalid = M(iinvalid,9)';  inf(1,n);
+             upperBoundinvalid(upperBoundinvalid == 1) = inf;
+             lowerBoundvalid = M(i,10)';  zeros(1,n);
+             lowerBoundinvalid = M(iinvalid, 10)';
+             </remarks>
+             <param name="numArgsOut">The number of output arguments to return.</param>
+             <param name="kvalid">Input argument #1</param>
+             <param name="kinvalid">Input argument #2</param>
+             <param name="y">Input argument #3</param>
+             <param name="wvalid">Input argument #4</param>
+             <param name="winvalid">Input argument #5</param>
+             <param name="fwd">Input argument #6</param>
+             <param name="atfvol">Input argument #7</param>
+             <param name="ttm">Input argument #8</param>
+             <param name="alpha_in1">Input argument #9</param>
+             <param name="beta">Input argument #10</param>
+             <param name="nu_in1">Input argument #11</param>
+             <param name="rho_in1">Input argument #12</param>
+             <param name="lowerboundvalid">Input argument #13</param>
+             <returns>An Array of length "numArgsOut" containing the output
+             arguments.</returns>
+            
+        </member>
+        <member name="M:sabrFitNative.SabrFit.sabrFit(System.Int32,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
+             <summary>
+             Provides the standard 14-input Object interface to the sabrFit MATLAB function.
+             </summary>
+             <remarks>
+             M-Documentation:
+             clc
+             M = csvread('c:\temp\voltooltest\slice_SPY.USA_20141219_core.csv', 1);
+             i = find(M(:,1)' == 1);
+             iinvalid = find(M(:,1)' ~= 1);
+             atfvol = 0;
+             alpha = 0.25;
+             beta = 0.5;
+             nu = 0.3;
+             rho = 0.7;
+             kvalid = M(i,2)';
+             kinvalid = M(iinvalid, 2)';
+             y = M(i,8)';
+             wvalid = M(i,7)';
+             winvalid = M(iinvalid, 7)';
+             ttm = 2.011;
+             fwd = 190.8512;
+             upperBoundvalid = M(i,9)';  inf(1,n);
+             upperBoundvalid(upperBoundvalid == 1) = inf;
+             upperBoundinvalid = M(iinvalid,9)';  inf(1,n);
+             upperBoundinvalid(upperBoundinvalid == 1) = inf;
+             lowerBoundvalid = M(i,10)';  zeros(1,n);
+             lowerBoundinvalid = M(iinvalid, 10)';
+             </remarks>
+             <param name="numArgsOut">The number of output arguments to return.</param>
+             <param name="kvalid">Input argument #1</param>
+             <param name="kinvalid">Input argument #2</param>
+             <param name="y">Input argument #3</param>
+             <param name="wvalid">Input argument #4</param>
+             <param name="winvalid">Input argument #5</param>
+             <param name="fwd">Input argument #6</param>
+             <param name="atfvol">Input argument #7</param>
+             <param name="ttm">Input argument #8</param>
+             <param name="alpha_in1">Input argument #9</param>
+             <param name="beta">Input argument #10</param>
+             <param name="nu_in1">Input argument #11</param>
+             <param name="rho_in1">Input argument #12</param>
+             <param name="lowerboundvalid">Input argument #13</param>
+             <param name="upperboundvalid">Input argument #14</param>
+             <returns>An Array of length "numArgsOut" containing the output
+             arguments.</returns>
+            
+        </member>
+        <member name="M:sabrFitNative.SabrFit.sabrFit(System.Int32,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
+             <summary>
+             Provides the standard 15-input Object interface to the sabrFit MATLAB function.
+             </summary>
+             <remarks>
+             M-Documentation:
+             clc
+             M = csvread('c:\temp\voltooltest\slice_SPY.USA_20141219_core.csv', 1);
+             i = find(M(:,1)' == 1);
+             iinvalid = find(M(:,1)' ~= 1);
+             atfvol = 0;
+             alpha = 0.25;
+             beta = 0.5;
+             nu = 0.3;
+             rho = 0.7;
+             kvalid = M(i,2)';
+             kinvalid = M(iinvalid, 2)';
+             y = M(i,8)';
+             wvalid = M(i,7)';
+             winvalid = M(iinvalid, 7)';
+             ttm = 2.011;
+             fwd = 190.8512;
+             upperBoundvalid = M(i,9)';  inf(1,n);
+             upperBoundvalid(upperBoundvalid == 1) = inf;
+             upperBoundinvalid = M(iinvalid,9)';  inf(1,n);
+             upperBoundinvalid(upperBoundinvalid == 1) = inf;
+             lowerBoundvalid = M(i,10)';  zeros(1,n);
+             lowerBoundinvalid = M(iinvalid, 10)';
+             </remarks>
+             <param name="numArgsOut">The number of output arguments to return.</param>
+             <param name="kvalid">Input argument #1</param>
+             <param name="kinvalid">Input argument #2</param>
+             <param name="y">Input argument #3</param>
+             <param name="wvalid">Input argument #4</param>
+             <param name="winvalid">Input argument #5</param>
+             <param name="fwd">Input argument #6</param>
+             <param name="atfvol">Input argument #7</param>
+             <param name="ttm">Input argument #8</param>
+             <param name="alpha_in1">Input argument #9</param>
+             <param name="beta">Input argument #10</param>
+             <param name="nu_in1">Input argument #11</param>
+             <param name="rho_in1">Input argument #12</param>
+             <param name="lowerboundvalid">Input argument #13</param>
+             <param name="upperboundvalid">Input argument #14</param>
+             <param name="lowerboundinvalid">Input argument #15</param>
+             <returns>An Array of length "numArgsOut" containing the output
+             arguments.</returns>
+            
+        </member>
+        <member name="M:sabrFitNative.SabrFit.sabrFit(System.Int32,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
+             <summary>
+             Provides the standard 16-input Object interface to the sabrFit MATLAB function.
+             </summary>
+             <remarks>
+             M-Documentation:
+             clc
+             M = csvread('c:\temp\voltooltest\slice_SPY.USA_20141219_core.csv', 1);
+             i = find(M(:,1)' == 1);
+             iinvalid = find(M(:,1)' ~= 1);
+             atfvol = 0;
+             alpha = 0.25;
+             beta = 0.5;
+             nu = 0.3;
+             rho = 0.7;
+             kvalid = M(i,2)';
+             kinvalid = M(iinvalid, 2)';
+             y = M(i,8)';
+             wvalid = M(i,7)';
+             winvalid = M(iinvalid, 7)';
+             ttm = 2.011;
+             fwd = 190.8512;
+             upperBoundvalid = M(i,9)';  inf(1,n);
+             upperBoundvalid(upperBoundvalid == 1) = inf;
+             upperBoundinvalid = M(iinvalid,9)';  inf(1,n);
+             upperBoundinvalid(upperBoundinvalid == 1) = inf;
+             lowerBoundvalid = M(i,10)';  zeros(1,n);
+             lowerBoundinvalid = M(iinvalid, 10)';
+             </remarks>
+             <param name="numArgsOut">The number of output arguments to return.</param>
+             <param name="kvalid">Input argument #1</param>
+             <param name="kinvalid">Input argument #2</param>
+             <param name="y">Input argument #3</param>
+             <param name="wvalid">Input argument #4</param>
+             <param name="winvalid">Input argument #5</param>
+             <param name="fwd">Input argument #6</param>
+             <param name="atfvol">Input argument #7</param>
+             <param name="ttm">Input argument #8</param>
+             <param name="alpha_in1">Input argument #9</param>
+             <param name="beta">Input argument #10</param>
+             <param name="nu_in1">Input argument #11</param>
+             <param name="rho_in1">Input argument #12</param>
+             <param name="lowerboundvalid">Input argument #13</param>
+             <param name="upperboundvalid">Input argument #14</param>
+             <param name="lowerboundinvalid">Input argument #15</param>
+             <param name="upperboundinvalid">Input argument #16</param>
+             <returns>An Array of length "numArgsOut" containing the output
+             arguments.</returns>
+            
+        </member>
+        <member name="M:sabrFitNative.SabrFit.sabrFit(System.Int32,System.Object[]@,System.Object[],System.Object[])">
+             <summary>
+             Provides an interface for the sabrFit function in which the input and output
+             arguments are specified as an array of Objects.
+             </summary>
+             <remarks>
+             This method will allocate and return by reference the output argument
+             array.<newpara></newpara>
+             M-Documentation:
+             clc
+             M = csvread('c:\temp\voltooltest\slice_SPY.USA_20141219_core.csv', 1);
+             i = find(M(:,1)' == 1);
+             iinvalid = find(M(:,1)' ~= 1);
+             atfvol = 0;
+             alpha = 0.25;
+             beta = 0.5;
+             nu = 0.3;
+             rho = 0.7;
+             kvalid = M(i,2)';
+             kinvalid = M(iinvalid, 2)';
+             y = M(i,8)';
+             wvalid = M(i,7)';
+             winvalid = M(iinvalid, 7)';
+             ttm = 2.011;
+             fwd = 190.8512;
+             upperBoundvalid = M(i,9)';  inf(1,n);
+             upperBoundvalid(upperBoundvalid == 1) = inf;
+             upperBoundinvalid = M(iinvalid,9)';  inf(1,n);
+             upperBoundinvalid(upperBoundinvalid == 1) = inf;
+             lowerBoundvalid = M(i,10)';  zeros(1,n);
+             lowerBoundinvalid = M(iinvalid, 10)';
+             </remarks>
+             <param name="numArgsOut">The number of output arguments to return</param>
+             <param name= "argsOut">Array of Object output arguments</param>
+             <param name= "argsIn">Array of Object input arguments</param>
+             <param name= "varArgsIn">Array of Object representing variable input
+             arguments</param>
+            
+        </member>
+        <member name="M:sabrFitNative.SabrFit.WaitForFiguresToDie">
+             <summary>
+             This method will cause a MATLAB figure window to behave as a modal dialog box.
+             The method will not return until all the figure windows associated with this
+             component have been closed.
+             </summary>
+             <remarks>
+             An application should only call this method when required to keep the
+             MATLAB figure window from disappearing.  Other techniques, such as calling
+             Console.ReadLine() from the application should be considered where
+             possible.</remarks>
+            
+        </member>
+    </members>
+</doc>

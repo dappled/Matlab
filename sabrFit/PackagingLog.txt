@@ -1,0 +1,28 @@
+ant:
+<ant>
+  <mkdir dir="C:\Users\Dappled\OneDrive\dappled's sky\cs\matlab\convexMonotoneFit\sabrFit\for_redistribution" />
+  <mkdir dir="C:\Users\Dappled\OneDrive\dappled's sky\cs\matlab\convexMonotoneFit\sabrFit\for_testing" />
+</ant>
+mcc -W 'dotnet:sabrFit,SabrFit,0.0,private' -T link:lib -d 'C:\Users\Dappled\OneDrive\dappled's sky\cs\matlab\convexMonotoneFit\sabrFit\for_testing' -v 'C:\Program Files\MATLAB\R2014a\toolbox\javabuilder\Examples\MagicSquareExample\MagicDemoComp\sabrFit.m' 'class{SabrFit:C:\Program Files\MATLAB\R2014a\toolbox\javabuilder\Examples\MagicSquareExample\MagicDemoComp\sabrFit.m}' -a 'C:\Program Files\MATLAB\R2014a\toolbox\optim\optim\lsqnonlin.m' -a 'C:\Program Files\MATLAB\R2014a\toolbox\optim\optim\optimoptions.m' 
+Compiler version: 5.1 (R2014a)
+Dependency analysis by REQUIREMENTS.
+[Warning: Adding path "C:\Program
+Files\MATLAB\R2014a\toolbox\javabuilder\Examples\MagicSquareExample\MagicDemoComp"
+to Compiler path instance.] 
+Parsing file "C:\Program Files\MATLAB\R2014a\toolbox\javabuilder\Examples\MagicSquareExample\MagicDemoComp\sabrFit.m"
+	(Referenced from: "Compiler Command Line").
+Parsing file "C:\Program Files\MATLAB\R2014a\toolbox\compiler\deploy\deployprint.m"
+	(Referenced from: "Compiler Command Line").
+Parsing file "C:\Program Files\MATLAB\R2014a\toolbox\compiler\deploy\printdlg.m"
+	(Referenced from: "Compiler Command Line").
+Deleting 2 temporary MEX authorization files.
+Removing: 'C:\Users\Dappled\AppData\Local\Temp\mathworks_tmp_5396_26120_5396.auth'.
+Removing: 'C:\Users\Dappled\AppData\Local\Temp\mathworks_tmp_5396_548_5396.auth'.
+Generating file "C:\Users\Dappled\OneDrive\dappled's sky\cs\matlab\convexMonotoneFit\sabrFit\for_testing\SabrFitNative.cs".
+Generating file "C:\Users\Dappled\OneDrive\dappled's sky\cs\matlab\convexMonotoneFit\sabrFit\for_testing\SabrFit.cs".
+Generating file "C:\Users\Dappled\OneDrive\dappled's sky\cs\matlab\convexMonotoneFit\sabrFit\for_testing\readme.txt".
+Executing command: C:\Windows\Microsoft.NET\Framework64\v4.0.30319\csc.exe /nologo /optimize /doc:"C:\Users\Dappled\OneDrive\dappled's sky\cs\matlab\convexMonotoneFit\sabrFit\for_testing\sabrFit.xml" /t:library /r:"C:\Program Files\MATLAB\R2014a\toolbox\dotnetbuilder\bin\win64\v2.0\MWArray.dll" /resource:"C:\Users\Dappled\OneDrive\dappled's sky\cs\matlab\convexMonotoneFit\sabrFit\for_testing\sabrFit.ctf" /out:"C:\Users\Dappled\OneDrive\dappled's sky\cs\matlab\convexMonotoneFit\sabrFit\for_testing\sabrFit.dll" "C:\Users\Dappled\OneDrive\dappled's sky\cs\matlab\convexMonotoneFit\sabrFit\for_testing\SabrFit.cs"Executing command: C:\Windows\Microsoft.NET\Framework64\v4.0.30319\csc.exe /nologo /optimize /doc:"C:\Users\Dappled\OneDrive\dappled's sky\cs\matlab\convexMonotoneFit\sabrFit\for_testing\sabrFitNative.xml" /t:library /r:"C:\Program Files\MATLAB\R2014a\toolbox\dotnetbuilder\bin\win64\v2.0\MWArray.dll" /resource:"C:\Users\Dappled\OneDrive\dappled's sky\cs\matlab\convexMonotoneFit\sabrFit\for_testing\sabrFit.ctf" /out:"C:\Users\Dappled\OneDrive\dappled's sky\cs\matlab\convexMonotoneFit\sabrFit\for_testing\sabrFitNative.dll" "C:\Users\Dappled\OneDrive\dappled's sky\cs\matlab\convexMonotoneFit\sabrFit\for_testing\SabrFitNative.cs"
+Packaging...
+Creating the bundle...
+Web based installer created at C:\Users\Dappled\OneDrive\dappled's sky\cs\matlab\convexMonotoneFit\sabrFit\for_redistribution\MyAppInstaller_web.exe.
+Packaging complete.

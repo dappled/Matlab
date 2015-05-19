@@ -1,5 +1,5 @@
 <deployment-project plugin="plugin.ezdeploy" plugin-version="1.0">
-  <configuration build-checksum="3233492773" file="C:\Users\Dappled\OneDrive\dappled's sky\cs\matlab\sabrFit.prj" location="C:\Users\Dappled\OneDrive\dappled's sky\cs\matlab" name="sabrFit" preferred-package-location="C:\Users\Dappled\OneDrive\dappled's sky\cs\matlab\sabrFit\for_redistribution" preferred-package-type="package.type.exe" target="target.ezdeploy.library" target-name="MATLAB Compiler for Libraries and Classes">
+  <configuration build-checksum="2078156578" file="C:\Users\Dappled\OneDrive\dappled's sky\cs\matlab\convexMonotoneFit\sabrFit.prj" location="C:\Users\Dappled\OneDrive\dappled's sky\cs\matlab\convexMonotoneFit" name="sabrFit" preferred-package-location="C:\Users\Dappled\OneDrive\dappled's sky\cs\matlab\convexMonotoneFit\sabrFit\for_redistribution" preferred-package-type="package.type.exe" target="target.ezdeploy.library" target-name="MATLAB Compiler for Libraries and Classes">
     <param.appname>sabrFit</param.appname>
     <param.icon />
     <param.icons />
@@ -110,10 +110,10 @@
     </fileset.resources>
     <fileset.package />
     <build-deliverables>
-      <file location="${PROJECT_ROOT}\sabrFit\for_testing" name="readme.txt" optional="true">C:\Users\Dappled\OneDrive\dappled's sky\cs\matlab\sabrFit\for_testing\readme.txt</file>
-      <file location="${PROJECT_ROOT}\sabrFit\for_testing" name="sabrFit_overview.html" optional="false">C:\Users\Dappled\OneDrive\dappled's sky\cs\matlab\sabrFit\for_testing\sabrFit_overview.html</file>
-      <file location="${PROJECT_ROOT}\sabrFit\for_testing" name="sabrFitNative.dll" optional="false">C:\Users\Dappled\OneDrive\dappled's sky\cs\matlab\sabrFit\for_testing\sabrFitNative.dll</file>
-      <file location="${PROJECT_ROOT}\sabrFit\for_testing" name="sabrFit.dll" optional="false">C:\Users\Dappled\OneDrive\dappled's sky\cs\matlab\sabrFit\for_testing\sabrFit.dll</file>
+      <file location="${PROJECT_ROOT}\sabrFit\for_testing" name="sabrFit.dll" optional="false">C:\Users\Dappled\OneDrive\dappled's sky\cs\matlab\convexMonotoneFit\sabrFit\for_testing\sabrFit.dll</file>
+      <file location="${PROJECT_ROOT}\sabrFit\for_testing" name="sabrFitNative.dll" optional="false">C:\Users\Dappled\OneDrive\dappled's sky\cs\matlab\convexMonotoneFit\sabrFit\for_testing\sabrFitNative.dll</file>
+      <file location="${PROJECT_ROOT}\sabrFit\for_testing" name="sabrFit_overview.html" optional="false">C:\Users\Dappled\OneDrive\dappled's sky\cs\matlab\convexMonotoneFit\sabrFit\for_testing\sabrFit_overview.html</file>
+      <file location="${PROJECT_ROOT}\sabrFit\for_testing" name="readme.txt" optional="true">C:\Users\Dappled\OneDrive\dappled's sky\cs\matlab\convexMonotoneFit\sabrFit\for_testing\readme.txt</file>
     </build-deliverables>
     <workflow />
     <matlab>

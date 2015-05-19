@@ -13,6 +13,11 @@ classdef splineHelper
         end
         
         function [aa, bb, cc, dd] = leftPars(x, a, b, c, stationaryPoint, flat, xEnd, aMin, aMax, tailConcavity, dx, dxx, concave)
+            if ~flat && ~isempty(aMin) && (b(1) > 0) %a(1) < aMin(end) &&
+                err = 'Left need more data';
+                error('%s', err);
+            end
+            
             xEnd = xEnd(aMax ~= 0);
             aMin = aMin(aMax ~= 0);
             aMax = aMax(aMax ~= 0);
@@ -42,15 +47,15 @@ classdef splineHelper
                 right = min(alpha ./ gammaa);
                 
                 if (left > 0)
-                    err = 'Fail to interpolate with given boundary';
-                    error('error in quadprog: %s', err);
+                    err = 'Fail to extrapolate with given boundary';
+                    error('%s', err);
                 end
                 if (left > right)
-                    err = 'Fail to interpolate with given boundary';
-                    error('error in quadprog: %s', err);
+                    err = 'Fail to extrapolate with given boundary';
+                    error('%s', err);
                 end
             end
-
+            
             if flat
                 bb = 0;
             else
@@ -61,7 +66,7 @@ classdef splineHelper
                     %w = exp(t-x);
                     btmp = b(1: min(length(b),3));
                     bb = w * btmp / sum(w);
-                    if (sign(bb) ~= sign(b(1)))
+                    if (sign(bb) ~= sign(b(1)) && b(1) < 0)
                         bb = b(1);
                     end
                     % bb = b(1);
@@ -85,9 +90,13 @@ classdef splineHelper
             end
             
             if (abs(bb) > 3 * abs(originb) || abs(bb) < 0.3 * abs(originb))
-                if bb ~= 0
-                    err = 'Extrapolate will change slope a lot';
-                    error('error in quadprog: %s', err);
+                if ~flat && bb ~= 0
+                    if (bb > originb)
+                        retur
+                    else
+                        err = 'Extrapolate left will change slope a lot';
+                        error('%s', err);
+                    end
                 end
             end
             
@@ -113,8 +122,30 @@ classdef splineHelper
                 ccBoundMax = min((beta - bb * gammaa) ./ tao);
                 ccBoundMin = max((alpha - bb * gammaa) ./ tao);
                 if (ccBoundMax < ccBoundMin)
-                    err = 'Fail to interpolate with given boundary';
-                    error('error in quadprog: %s', err);
+                    if (isnan(left) || bb == 0)
+                        err = 'Fail to extrapolate with given boundary';
+                        error('%s', err);
+                    end
+                    findb = false;
+                    for ii = linspace(bb, left)
+                        ccBoundMax = min((beta - ii * gammaa) ./ tao);
+                        ccBoundMin = max((alpha - ii * gammaa) ./ tao);
+                        if (ccBoundMax >= ccBoundMin)
+                            bb = ii;
+                            findb = true;
+                            break;
+                        end
+                    end
+                    if (~findb)
+                        err = 'Fail to extrapolate with given boundary';
+                        error('%s', err);
+                    end
+                    if (abs(bb) > 3 * abs(originb) || abs(bb) < 0.3 * abs(originb))
+                        if bb ~= 0
+                            err = 'Extrapolate left will change slope a lot';
+                            error('%s', err);
+                        end
+                    end
                 end
                 maxCC = min(maxCC, ccBoundMax);
                 minCC = max(minCC, ccBoundMin);
@@ -132,11 +163,16 @@ classdef splineHelper
         end
         
         function [aa, bb, cc, dd] = rightPars(x, a, b, c, stationaryPoint, flat, xEnd, aMin, aMax, tailConcavity, dx, dxx, concave)
+            if ~flat && ~isempty(aMin) &&  b(end) < 0 %a(end) < aMin(1) &&
+                err = 'Right need more data';
+                error('%s', err);
+            end
+            
             xEnd = xEnd(aMax ~= 0);
             aMin = aMin(aMax ~= 0);
             aMax = aMax(aMax ~= 0);
             aa = a(end);
-            t = x(end);            
+            t = x(end);
             hright = stationaryPoint - t;
             h2 = hright * hright;
             if ~isempty(xEnd)
@@ -152,14 +188,14 @@ classdef splineHelper
                 
                 left = max(alpha ./ gammaa);
                 right = min(beta * hright ./ (gammaa * hright - tao));
-              
+                
                 if (right < 0)
-                    err = 'Fail to interpolate with given boundary';
-                    error('error in quadprog: %s', err);
+                    err = 'Fail to extrapolate with given boundary';
+                    error('%s', err);
                 end
                 if (left > right)
-                    err = 'Fail to interpolate with given boundary';
-                    error('error in quadprog: %s', err);
+                    err = 'Fail to extrapolate with given boundary';
+                    error('%s', err);
                 end
             end
             
@@ -173,7 +209,7 @@ classdef splineHelper
                     %w = exp(t-x);
                     btmp = b(length(b) - min(length(b),3) + 1 : end);
                     bb = w * btmp / sum(w);
-                    if (sign(bb) ~= b(end))
+                    if (sign(bb) ~= b(end) && b(end) > 0)
                         bb = b(end);
                     end
                 else
@@ -188,7 +224,7 @@ classdef splineHelper
                 else
                     bb = min(max(bb, left), right);
                 end
-            else 
+            else
                 left = -inf;
             end
             bb = max(bb, 0); %right wing should be increasing
@@ -197,9 +233,9 @@ classdef splineHelper
             end
             
             if (abs(bb) > 3 * abs(originb) || abs(bb) < 0.3 * abs(originb))
-                if bb ~= 0
-                    err = 'Extrapolate will change slope a lot';
-                    error('error in quadprog: %s', err);
+                if ~flat && bb ~= 0
+                    err = 'Extrapolate right will change slope a lot';
+                    error('%s', err);
                 end
             end
             
@@ -226,16 +262,28 @@ classdef splineHelper
                 ccBoundMin = max((alpha - bb * gammaa) ./ tao);
                 if (ccBoundMax < ccBoundMin)
                     if (isnan(right) || bb == 0)
-                        err = 'Fail to interpolate with given boundary';
-                        error('error in quadprog: %s', err);
+                        err = 'Fail to extrapolate with given boundary';
+                        error('%s', err);
                     end
-                    for ii 
-                    bb = right;
-                    ccBoundMax = min((beta - bb * gammaa) ./ tao);
-                    ccBoundMin = max((alpha - bb * gammaa) ./ tao);
-                    if (ccBoundMax < ccBoundMin)
-                        err = 'Fail to interpolate with given boundary';
-                        error('error in quadprog: %s', err);
+                    findb = false;
+                    for ii = linspace(bb, right)
+                        ccBoundMax = min((beta - ii * gammaa) ./ tao);
+                        ccBoundMin = max((alpha - ii * gammaa) ./ tao);
+                        if (ccBoundMax >= ccBoundMin)
+                            bb = ii;
+                            findb = true;
+                            break;
+                        end
+                    end
+                    if (~findb)
+                        err = 'Fail to extrapolate with given boundary';
+                        error('%s', err);
+                    end
+                    if (abs(bb) > 3 * abs(originb) || abs(bb) < 0.3 * abs(originb))
+                        if bb ~= 0
+                            err = 'Extrapolate right will change slope a lot';
+                            error('%s', err);
+                        end
                     end
                 end
                 maxCC = min(maxCC, ccBoundMax);
@@ -263,26 +311,26 @@ classdef splineHelper
                 right = min((aMax - aa - bb * delta - dd * delta3) ./ delta2);
                 
                 if (left > right)
-                    err = 'Fail to interpolate with given boundary';
-                    error('error in quadprog: %s', err);
+                    err = 'Fail to extrapolate with given boundary';
+                    error('%s', err);
                 end
             end
             
-%            tmp = 1 - x^2;
-%            ccadj = cc * tmp;
-%            ccadj = min(max(ccadj,left),right);
-%            cc = ccadj / tmp;
+            %            tmp = 1 - x^2;
+            %            ccadj = cc * tmp;
+            %            ccadj = min(max(ccadj,left),right);
+            %            cc = ccadj / tmp;
             cc = min(max(cc, left), right);
-%            
-%            % make sure after c change's a still valid
-%            aa = a - bb * x - cc * x^2 - dd * x^3;
-%            left = max((aMin - aa - bb * delta - dd * delta3) ./ delta2);
-%            right = min((aMax - aa - bb * delta - dd * delta3) ./ delta2);
-%            
-%            if (left > right)
-%                err = 'Fail to interpolate with given boundary';
-%                error('error in quadprog: %s', err);
-%            end
+            %
+            %            % make sure after c change's a still valid
+            %            aa = a - bb * x - cc * x^2 - dd * x^3;
+            %            left = max((aMin - aa - bb * delta - dd * delta3) ./ delta2);
+            %            right = min((aMax - aa - bb * delta - dd * delta3) ./ delta2);
+            %
+            %            if (left > right)
+            %                err = 'Fail to interpolate with given boundary';
+            %                error('error in quadprog: %s', err);
+            %            end
         end
         
         function [bb] = parsToFitBoundaryb(t, aa, bb, cc, dd, xEnd, aMin, aMax)
@@ -291,8 +339,8 @@ classdef splineHelper
                 delta2 = delta .^ 2;
                 delta3 = delta .^ 3;
                 
-%                 left = max((aMin - aa - bb * delta - dd * delta3) ./ delta2);
-%                 right = min((aMax - aa - bb * delta - dd * delta3) ./ delta2);
+                %                 left = max((aMin - aa - bb * delta - dd * delta3) ./ delta2);
+                %                 right = min((aMax - aa - bb * delta - dd * delta3) ./ delta2);
                 if (min(delta)) > 0
                     left = max((aMin - aa - dd * delta3 - cc * delta2) ./ delta);
                     right = min((aMax - aa - dd * delta3 - cc * delta2) ./ delta);
@@ -300,13 +348,13 @@ classdef splineHelper
                     left = max((aMax - aa - dd * delta3 - cc * delta2) ./ delta);
                     right = min((aMin - aa - dd * delta3 - cc * delta2) ./ delta);
                 else
-                    err = 'Fail to interpolate with given boundary';
-                    error('error in quadprog: %s', err);    
+                    err = 'Fail to extrapolate with given boundary';
+                    error('%s', err);
                 end
                 
                 if (left > right)
-                    err = 'Fail to interpolate with given boundary';
-                    error('error in quadprog: %s', err);
+                    err = 'Fail to extrapolate with given boundary';
+                    error('%s', err);
                 end
             end
             
@@ -314,33 +362,33 @@ classdef splineHelper
             bb = min(max(bb, left), right);
         end
         
-%         function [bb, cc, dd] = parsToFitBoundary(t, aa, bb, cc, dd, xEnd, aMin, aMax)
-%             if ~isempty(xEnd)
-%                 delta = xEnd - t;
-%                 delta2 = delta .^ 2;
-%                 delta3 = delta .^ 3;
-%                 
-% %                 left = max((aMin - aa - bb * delta - dd * delta3) ./ delta2);
-% %                 right = min((aMax - aa - bb * delta - dd * delta3) ./ delta2);
-%                 if (min(delta)) > 0
-%                     left = max((aMin - aa - dd * delta3 - cc * delta2) ./ delta);
-%                     right = min((aMax - aa - dd * delta3 - cc * delta2) ./ delta);
-%                 elseif (max(delta)) < 0
-%                     left = max((aMax - aa - dd * delta3 - cc * delta2) ./ delta);
-%                     right = min((aMin - aa - dd * delta3 - cc * delta2) ./ delta);
-%                 else
-%                     err = 'Fail to interpolate with given boundary';
-%                     error('error in quadprog: %s', err);    
-%                 end
-%                 
-%                 if (left > right)
-%                     err = 'Fail to interpolate with given boundary';
-%                     error('error in quadprog: %s', err);
-%                 end
-%             end
-%             
-%             bb = min(max(bb, left), right);
-%         end
+        %         function [bb, cc, dd] = parsToFitBoundary(t, aa, bb, cc, dd, xEnd, aMin, aMax)
+        %             if ~isempty(xEnd)
+        %                 delta = xEnd - t;
+        %                 delta2 = delta .^ 2;
+        %                 delta3 = delta .^ 3;
+        %
+        % %                 left = max((aMin - aa - bb * delta - dd * delta3) ./ delta2);
+        % %                 right = min((aMax - aa - bb * delta - dd * delta3) ./ delta2);
+        %                 if (min(delta)) > 0
+        %                     left = max((aMin - aa - dd * delta3 - cc * delta2) ./ delta);
+        %                     right = min((aMax - aa - dd * delta3 - cc * delta2) ./ delta);
+        %                 elseif (max(delta)) < 0
+        %                     left = max((aMax - aa - dd * delta3 - cc * delta2) ./ delta);
+        %                     right = min((aMin - aa - dd * delta3 - cc * delta2) ./ delta);
+        %                 else
+        %                     err = 'Fail to interpolate with given boundary';
+        %                     error('error in quadprog: %s', err);
+        %                 end
+        %
+        %                 if (left > right)
+        %                     err = 'Fail to interpolate with given boundary';
+        %                     error('error in quadprog: %s', err);
+        %                 end
+        %             end
+        %
+        %             bb = min(max(bb, left), right);
+        %         end
         
         function [concavePoints,turningPoint] = calConcavePoints(x, n, originSecD, turningPoint, leftRight, flat, usemax)
             if (leftRight == -1 && ~flat) || (leftRight == 1 && flat) % flat on right wing should be concave then convex, just like a left wing
@@ -350,11 +398,11 @@ classdef splineHelper
                         %turns concave
                         revSecD = fliplr(originSecD);
                         ss = cumsum(revSecD);
-%                         if (max(ss) < 0) % if even most convex point doesn't make the curve convex, all poinst should be concave
-%                             concavePoints = length(x)-2; % last point has 0 or fixed concavity
-%                             turningPoint = x(end-1);
-%                             return;
-%                         end
+                        %                         if (max(ss) < 0) % if even most convex point doesn't make the curve convex, all poinst should be concave
+                        %                             concavePoints = length(x)-2; % last point has 0 or fixed concavity
+                        %                             turningPoint = x(end-1);
+                        %                             return;
+                        %                         end
                         convexPeak = find(ss == max(ss));
                         if length(convexPeak) > 1
                             if convexPeak(end) == length(ss)
@@ -402,11 +450,11 @@ classdef splineHelper
                         %find the maximum convexity point, then go to the next point it
                         %turns concave
                         ss = cumsum(originSecD);
-%                         if (max(ss) < 0) % if even most convex point doesn't make the curve convex, all poinst should be concave
-%                             concavePoints = length(x)-2; % last point has 0 or fixed concavity
-%                             turningPoint = x(2);
-%                             return;
-%                         end
+                        %                         if (max(ss) < 0) % if even most convex point doesn't make the curve convex, all poinst should be concave
+                        %                             concavePoints = length(x)-2; % last point has 0 or fixed concavity
+                        %                             turningPoint = x(2);
+                        %                             return;
+                        %                         end
                         convexPeak = find(ss == max(ss));
                         if length(convexPeak) > 1
                             if convexPeak(end) == length(ss)

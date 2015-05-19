@@ -2,7 +2,7 @@
 %           4 means left side flat
 %           5 means right side flat
 %           6 means both sides flat
-function [smoothCoeff1, exitflag, g, gamma, aa, bb, cc, dd, turningPoint, x] = flexTimeFit(xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, invalidx, invalidupper, invalidlower, smoothCoeff, boundaryx, boundarydx, boundarydxx, leftright, xexl, yexl, xendl, lbendl,ubendl,xexr,yexr, xendr, lbendr, ubendr, leftincrease, rightincrease, smooth, tight, tightlb, tightub, minxrange)
+function [smoothCoeff1, exitflag, g, gamma, aa, bb, cc, dd, turningPoint, x] = flexTimeFit(xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, invalidx, invalidupper, invalidlower, smoothCoeff, boundaryx, boundarydx, boundarydxx, leftright, xexl, yexl, xendl, lbendl,ubendl,xexr,yexr, xendr, lbendr, ubendr, leftincrease, rightincrease, smooth, tight, tightlb, tightub, minxrange, allowflat)
 % %input
 % clc
 % M = csvread('c:\temp\voltooltest\slice_IWM.USZ_20150206.csv', 1);
@@ -91,101 +91,101 @@ joinedleft = false;
 joinedright = false;
 count = 0;
 while ~goodleft || ~goodright
-    %prefit
-    if isnan(leftright) || leftright == 1
-        %xl = xexl - xin(1);
-        if isempty(xexl)
-            boundarydxx(1) = nan;
-            %boundarydx(1) = nan;
-        else
-            tmpx = [xexl xin(1) xin(2)];
-            tmpy = [yexl yin(1) yin(2)];
-            if length(tmpx) < 3
-                boundarydxx(1) = nan;
-            else
-                pl = csaps(tmpx, tmpy);
-                if (pl.coefs(end,3) > 0)
-                    if all(diff(tmpy)) <= 0
-                        boundarydxx(1) = nan;
-                    else
-                        error('Invalid left polyfit');
-                    end
-                else
-                    boundarydxx(1) = pl.coefs(end,2);
-                end
-                %             else
-                %                 pl = polyfit(xl, yexl, 3);
-                %                 if pl(3) > 0 % don't want to time fit strange left wing
-                %                     if all(diff(yexl)) <= 0
-                %                         boundarydxx(1) = nan;
-                %                     else
-                %                         error('Invalid left polyfit');
-                %                     end
-                %                 else
-                %                     boundarydxx(1) = pl(2);
-                %                     %boundarydx(1) = pl(3);
-                %                 end
-            end
-        end
-    end
-    if boundarydxx(1) == 0
-        boundarydxx(1) = nan;
-    end
-    if isnan(leftright) || leftright == -1
-        if isempty(xexr)
-            boundarydxx(2) = nan;
-            %boundarydx(2) = nan;
-        else
-            tmpx = [xin(end) xexr];
-            tmpy = [yin(end) yexr];
-            if length(tmpx) < 3
-                boundarydxx(2) = nan;
-            else
-                pr = csaps(tmpx, tmpy);
-                if (pr.coefs(1,3) < 0)
-                    if all(diff(tmpy)) >= 0
-                        boundarydxx(2) = nan;
-                    else
-                        error('Invalid right polyfit');
-                    end
-                else
-                    boundarydxx(2) = pr.coefs(1,2);
-                end
-                %             else
-                %                 pr = polyfit(xr, yexr, 3);
-                %                 if pr(3) < 0 % don't want to time fit strange right wing
-                %                     if all(diff(yexr)) >= 0
-                %                         boundarydxx(2) = nan;
-                %                     else
-                %                         error('Invalid right polyfit');
-                %                     end
-                %                 else
-                %                     boundarydxx(2) = pr(2);
-                %                     %boundarydx(2) = pr(3);
-                %                 end
-            end
-        end
-    end
-    if boundarydxx(2) == 0
-        boundarydxx(2) = nan;
-    end
-    
-    %interpolation part
-    % if isnan(leftright)
-    %     [smoothCoeff1, exitflag, g, gamma, aaa, bbb, ccc, ddd, turningPoint,a, b] = flexWingFit(xin, yin, w, stationarypoint, [nan, nan], smoothCoeff, [nan, nan],  xleft, xright, dxleft, dxright, dxxleft, dxxright, nan, xinub, xinlb, [], [], [], [], [], [], invalidx, invalidupper, invalidlower, leftincrease, rightincrease, smooth, tight, tightlb, tightub, minxrange);
-    % elseif leftright == -1 %left
-    %     [smoothCoeff1, exitflag, g, gamma, aaa, bbb, ccc, ddd, turningPoint,a, b] = flexWingFit(xin, yin, w, stationarypoint, [nan, nan], smoothCoeff, [nan, nan], xleft, xright, dxleft, dxright, dxxleft, dxxright, nan, xinub, xinlb, xendl, ubendl, lbendl, [], [], [], invalidx, invalidupper, invalidlower, leftincrease, rightincrease, smooth, tight, tightlb, tightub, minxrange);
-    % else %right
-    %     [smoothCoeff1, exitflag, g, gamma, aaa, bbb, ccc, ddd, turningPoint,a, b] = flexWingFit(xin, yin, w, stationarypoint, [nan, nan], smoothCoeff, [nan, nan],  xleft, xright, dxleft, dxright, dxxleft, dxxright, nan, xinub, xinlb, [], [], [], xendr, ubendr, lbendr, invalidx, invalidupper, invalidlower, leftincrease, rightincrease, smooth, tight, tightlb, tightub, minxrange);
-    % end
-    
     try
+        %prefit
+        if isnan(leftright) || leftright == 1
+            %xl = xexl - xin(1);
+            if isempty(xexl)
+                boundarydxx(1) = nan;
+                %boundarydx(1) = nan;
+            else
+                tmpx = [xexl xin(1) xin(2)];
+                tmpy = [yexl yin(1) yin(2)];
+                if length(tmpx) < 3
+                    boundarydxx(1) = nan;
+                else
+                    pl = csaps(tmpx, tmpy);
+                    if (pl.coefs(end,3) > 0)
+                        if all(diff(tmpy)) <= 0
+                            boundarydxx(1) = nan;
+                        else
+                            error('Left need more data');
+                        end
+                    else
+                        boundarydxx(1) = pl.coefs(end,2);
+                    end
+                    %             else
+                    %                 pl = polyfit(xl, yexl, 3);
+                    %                 if pl(3) > 0 % don't want to time fit strange left wing
+                    %                     if all(diff(yexl)) <= 0
+                    %                         boundarydxx(1) = nan;
+                    %                     else
+                    %                         error('Invalid left polyfit');
+                    %                     end
+                    %                 else
+                    %                     boundarydxx(1) = pl(2);
+                    %                     %boundarydx(1) = pl(3);
+                    %                 end
+                end
+            end
+        end
+        if boundarydxx(1) == 0
+            boundarydxx(1) = nan;
+        end
+        if isnan(leftright) || leftright == -1
+            if isempty(xexr)
+                boundarydxx(2) = nan;
+                %boundarydx(2) = nan;
+            else
+                tmpx = [xin(end) xexr];
+                tmpy = [yin(end) yexr];
+                if length(tmpx) < 3
+                    boundarydxx(2) = nan;
+                else
+                    pr = csaps(tmpx, tmpy);
+                    if (pr.coefs(1,3) < 0)
+                        if all(diff(tmpy)) >= 0
+                            boundarydxx(2) = nan;
+                        else
+                            error('Right need more dat');
+                        end
+                    else
+                        boundarydxx(2) = pr.coefs(1,2);
+                    end
+                    %             else
+                    %                 pr = polyfit(xr, yexr, 3);
+                    %                 if pr(3) < 0 % don't want to time fit strange right wing
+                    %                     if all(diff(yexr)) >= 0
+                    %                         boundarydxx(2) = nan;
+                    %                     else
+                    %                         error('Invalid right polyfit');
+                    %                     end
+                    %                 else
+                    %                     boundarydxx(2) = pr(2);
+                    %                     %boundarydx(2) = pr(3);
+                    %                 end
+                end
+            end
+        end
+        if boundarydxx(2) == 0
+            boundarydxx(2) = nan;
+        end
+        
+        %interpolation part
+        % if isnan(leftright)
+        %     [smoothCoeff1, exitflag, g, gamma, aaa, bbb, ccc, ddd, turningPoint,a, b] = flexWingFit(xin, yin, w, stationarypoint, [nan, nan], smoothCoeff, [nan, nan],  xleft, xright, dxleft, dxright, dxxleft, dxxright, nan, xinub, xinlb, [], [], [], [], [], [], invalidx, invalidupper, invalidlower, leftincrease, rightincrease, smooth, tight, tightlb, tightub, minxrange);
+        % elseif leftright == -1 %left
+        %     [smoothCoeff1, exitflag, g, gamma, aaa, bbb, ccc, ddd, turningPoint,a, b] = flexWingFit(xin, yin, w, stationarypoint, [nan, nan], smoothCoeff, [nan, nan], xleft, xright, dxleft, dxright, dxxleft, dxxright, nan, xinub, xinlb, xendl, ubendl, lbendl, [], [], [], invalidx, invalidupper, invalidlower, leftincrease, rightincrease, smooth, tight, tightlb, tightub, minxrange);
+        % else %right
+        %     [smoothCoeff1, exitflag, g, gamma, aaa, bbb, ccc, ddd, turningPoint,a, b] = flexWingFit(xin, yin, w, stationarypoint, [nan, nan], smoothCoeff, [nan, nan],  xleft, xright, dxleft, dxright, dxxleft, dxxright, nan, xinub, xinlb, [], [], [], xendr, ubendr, lbendr, invalidx, invalidupper, invalidlower, leftincrease, rightincrease, smooth, tight, tightlb, tightub, minxrange);
+        % end
+        
         if isnan(leftright)
-            [smoothCoeff1, exitflag, g, gamma, aaa, bbb, ccc, ddd, turningPoint, x] = flexWingFit(xin, yin, w, stationarypoint, tailConcavity, smoothCoeff, [nan, nan], boundaryx, boundarydx, boundarydxx, nan, xinub, xinlb, xendl, ubendl, lbendl, xendr, ubendr, lbendr, invalidx, invalidupper, invalidlower, leftincrease, rightincrease, smooth, tight, tightlb, tightub, minxrange, true);
+            [smoothCoeff1, exitflag, g, gamma, aaa, bbb, ccc, ddd, turningPoint, x] = flexWingFit(xin, yin, w, stationarypoint, tailConcavity, smoothCoeff, [nan, nan], boundaryx, boundarydx, boundarydxx, nan, xinub, xinlb, xendl, ubendl, lbendl, xendr, ubendr, lbendr, invalidx, invalidupper, invalidlower, leftincrease, rightincrease, smooth, tight, tightlb, tightub, minxrange, true, allowflat);
         elseif leftright == -1 %left
-            [smoothCoeff1, exitflag, g, gamma, aaa, bbb, ccc, ddd, turningPoint, x] = flexWingFit(xin, yin, w, stationarypoint, tailConcavity, smoothCoeff, [nan, nan], boundaryx, boundarydx, boundarydxx, nan, xinub, xinlb, xendl, ubendl, lbendl, [], [], [], invalidx, invalidupper, invalidlower, leftincrease, rightincrease, smooth, tight, tightlb, tightub, minxrange, true);
+            [smoothCoeff1, exitflag, g, gamma, aaa, bbb, ccc, ddd, turningPoint, x] = flexWingFit(xin, yin, w, stationarypoint, tailConcavity, smoothCoeff, [nan, nan], boundaryx, boundarydx, boundarydxx, nan, xinub, xinlb, xendl, ubendl, lbendl, [], [], [], invalidx, invalidupper, invalidlower, leftincrease, rightincrease, smooth, tight, tightlb, tightub, minxrange, true, allowflat);
         else %right
-            [smoothCoeff1, exitflag, g, gamma, aaa, bbb, ccc, ddd, turningPoint, x] = flexWingFit(xin, yin, w, stationarypoint, tailConcavity, smoothCoeff, [nan, nan], boundaryx, boundarydx, boundarydxx, nan, xinub, xinlb, [], [], [], xendr, ubendr, lbendr, invalidx, invalidupper, invalidlower, leftincrease, rightincrease, smooth, tight, tightlb, tightub, minxrange, true);
+            [smoothCoeff1, exitflag, g, gamma, aaa, bbb, ccc, ddd, turningPoint, x] = flexWingFit(xin, yin, w, stationarypoint, tailConcavity, smoothCoeff, [nan, nan], boundaryx, boundarydx, boundarydxx, nan, xinub, xinlb, [], [], [], xendr, ubendr, lbendr, invalidx, invalidupper, invalidlower, leftincrease, rightincrease, smooth, tight, tightlb, tightub, minxrange, true, allowflat);
         end
     catch e
         if strcmp(e.message, 'Right need more data') || strcmp(e.message, 'Extrapolate right will change slope a lot')
@@ -201,7 +201,7 @@ while ~goodleft || ~goodright
     
     leftflat = false;
     rightflat = false;
-    if ~isempty(xexl) && (bbb(1) == 0) % should not be here       
+    if ~isempty(xexl) && (bbb(1) == 0) % should not be here
         if ~isempty(xexl) && ~joinedleft
             idx = find(xendl, xexl(1));
             xin = [xexl xin];
