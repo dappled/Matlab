@@ -80,13 +80,37 @@ function [smoothCoeff1, exitflag, g, gamma, aa, bb, cc, dd, turningPoint, x] = f
 % leftincrease = -inf;
 % rightincrease = inf;
 
-op.x = x;
-op.y = y;
-op.w = weight;
-op.sp = stationaryPoint;
-op.tc = tailConcavity;
-op.sc = smoothCoeff;
-oringinPar = [x, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, leftincrease, rightincrease, smooth, tight, tightlb, tightub, minxrange, concave, allowflat];
+% op.x = x;
+% op.y = y;
+% op.w = weight;
+% op.sp = stationaryPoint;
+% op.tc = tailConcavity;
+% op.sc = smoothCoeff;
+% op.tp = turningPoint;
+% op.bx = boundaryx;
+% op.bdx = boundarydx;
+% op.bdxx = boundarydxx;
+% op.lr = leftright;
+% op.ub = upperLimitG;
+% op.lb = lowerLimitG;
+% op.xel = xEndl;
+% op.amaxl = aMaxl;
+% op.aminl = aMinl;
+% op.xer = xEndr;
+% op.amaxr = aMaxr;
+% op.aminr = aMinr;
+% op.ix = invalidx;
+% op.iub = invalidupper;
+% op.ilb = invalidlower;
+% op.li = leftincrease;
+% op.ri = rightincrease;
+% op.sm = smooth;
+% op.t = tight;
+% op.tlb = tightlb;
+% op.tub = tightub;
+% op.mx = minxrange;
+% op.c = concave;
+% op.a = allowflat;
 
 h = x(2:end) - x(1:end-1);
 n = length(x);
@@ -97,6 +121,27 @@ originSecD = ((y(3:n) - y(2:n-1))./h(2:end) - (y(2:n-1) - y(1:n-2))./ h(1:end-1)
 % if have huggge dxx, we want to loose convex/concave requirement in that region
 avg = mean(abs(originSecD));
 hugedxxregion = find(abs(originSecD) > avg * 5);
+
+[increaseregion, decreaseregion] = findIDRegion(lowerLimitG, upperLimitG);
+% if length(increaseregion) == 1
+%     minincrease = x(increaseregion);
+% else
+if length(increaseregion) == 1
+    minincrease = x(increaseregion);
+else
+    minincrease = [];
+end
+if length(decreaseregion) == 1
+    maxdecrease = x(decreaseregion);
+elseif ~isempty(decreaseregion)
+    maxdecrease = x(decreaseregion(end));
+else
+    maxdecrease = [];
+end
+
+if ~isempty(minincrease) && ~isempty(maxdecrease) && minincrease <= maxdecrease
+    error('cannot make monotone b/c of boundary');
+end
 
 goodboundary = false;
 boundarydchanged = false;
@@ -417,20 +462,28 @@ c = gamma/2; % 0.5*gamma(line) - abcd(line,6)
 %plot(x', y', x', g)
 
 %update left/right flat (just in case, should not be here)
-if ~leftflat && b(1) == 0
+if ~leftflat && abs(b(1)) < 1e-5
     leftflat = true;
 end
-if ~rightflat && b(end) == 0
+if ~rightflat && abs(b(end)) < 1e-5
     rightflat = true;
 end
 
-if (~allowflat && ((isnan(leftright) && leftflat) || (leftright == -1 && leftflat)))
-    err = 'Left need more data';
-    error('%s', err);
+leftneedsmoredata = false;
+rightneedsmoredata = false;
+if (~allowflat(1) && ((isnan(leftright) && leftflat) || (leftright == -1 && leftflat)))
+    leftneedsmoredata = true;
 end
-if (~allowflat && ((isnan(leftright) && rightflat) || (leftright == 1 && rightflat)))
-    err = 'Right need more data';
-    error('%s', err);
+if (~allowflat(2) && ((isnan(leftright) && rightflat) || (leftright == 1 && rightflat)))
+    rightneedsmoredata = true;
+end
+
+if leftneedsmoredata && rightneedsmoredata
+    error('LR need more data');
+elseif leftneedsmoredata
+    error('Left needs more data');
+elseif rightneedsmoredata
+    error('Right needs more data');
 end
 
 % extrapolate
@@ -442,22 +495,46 @@ if dxxright == 0
     dxxright = nan;
 end
 
-if isnan(leftright) || leftright == -1
-    [aal, bbl, ccl, ddl] = splineHelper.leftPars(x, a, b, c, stationaryPoint(1), leftflat, xEndl, aMinl, aMaxl, tailConcavity(1), dxleft, dxxleft, concave);
-else
-    aal = 0; bbl = 0; ccl = 0; ddl = 0;
+try
+    if ~leftneedsmoredata
+        if isnan(leftright) || leftright == -1
+            [aal, bbl, ccl, ddl] = splineHelper.leftPars(x, a, b, c, stationaryPoint(1), leftflat, xEndl, aMinl, aMaxl, tailConcavity(1), dxleft, dxxleft, concave);
+        else
+            aal = 0; bbl = 0; ccl = 0; ddl = 0;
+        end
+    end
+catch e
+    if strcmp(e.message, 'Left needs more data') || strcmp(e.message, 'Extrapolate left will change slope a lot')
+        leftneedsmoredata = true;
+    else
+        rethrow(e);
+    end
 end
-if aal == -inf
-    boundarydx(1) = bbl;
-    [smoothCoeff1, exitflag, g, gamma, aa, bb, cc, dd, turningPoint, x] = flexWingFit(x, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, leftincrease, rightincrease, smooth, tight, tightlb, tightub, minxrange, concave, allowflat);
-    return;
+
+try
+    if ~rightneedsmoredata
+        if isnan(leftright)
+            [aar, bbr, ccr, ddr] = splineHelper.rightPars(x, a, b, c, stationaryPoint(2), rightflat, xEndr, aMinr, aMaxr, tailConcavity(2), dxright, dxxright, concave);
+        elseif leftright == 1
+            [aar, bbr, ccr, ddr] = splineHelper.rightPars(x, a, b, c, stationaryPoint(1), rightflat, xEndr, aMinr, aMaxr, tailConcavity(1), dxright, dxxright, concave);
+        else
+            aar = 0; bbr = 0; ccr = 0; ddr = 0;
+        end
+    end
+catch e
+    if strcmp(e.message, 'Right needs more data') || strcmp(e.message, 'Extrapolate right will change slope a lot')
+        rightneedsmoredata = true;
+    else
+        rethrow(e);
+    end
 end
-if isnan(leftright)
-    [aar, bbr, ccr, ddr] = splineHelper.rightPars(x, a, b, c, stationaryPoint(2), rightflat, xEndr, aMinr, aMaxr, tailConcavity(2), dxright, dxxright, concave);
-elseif leftright == 1
-    [aar, bbr, ccr, ddr] = splineHelper.rightPars(x, a, b, c, stationaryPoint(1), rightflat, xEndr, aMinr, aMaxr, tailConcavity(1), dxright, dxxright, concave);
-else
-    aar = 0; bbr = 0; ccr = 0; ddr = 0;
+
+if leftneedsmoredata && rightneedsmoredata
+    error('LR need more data');
+elseif leftneedsmoredata
+    error('Left needs more data');
+elseif rightneedsmoredata
+    error('Right needs more data');
 end
 
 aa = [aal, aar];
@@ -732,6 +809,35 @@ x
                 changedMin = true;
             else
                 minleftright = 0;
+            end
+            
+            if ~isempty(minincrease)
+                if minincrease < minx
+                    if (minincrease == x(1))
+                        minx = x(1);
+                    else
+                        minx = minincrease - 0.001;
+                    end
+                    minleftright = 0;
+                    changedMin = true;
+                    needRefit = true;
+                end
+            end
+            if ~isempty(maxdecrease)
+                if (minx <= maxdecrease)
+                    if maxdecrease == x(end)
+                        minx = x(end);
+                    else
+                        minx = maxdecrease + 0.001;
+                    end
+                    minleftright = 0;
+                    changedMin = true;
+                    needRefit = true;
+                end
+            end
+            
+            if (minx < minxrange(1) || minx > minxrange(2))
+                minxrange = [nan; nan];
             end
             
             % if not monotone need refit
@@ -1439,14 +1545,16 @@ x
         if isnan(minx)
             xinc = [];
         else
-            if minleftright == 0 && ~isnan(minxrange(2))
+            if minleftright ~= 0 && ~isnan(minxrange(2))
                 xinc = x(x>=minxrange(2));
+            elseif minleftright == 0
+                xinc = x(x>minx);
             else
-                xinc = x(x>=minx);
-            end
-            if (length(xinc) == 1)
                 xinc = [];
             end
+            %             if (length(xinc) == 1)
+            %                 xinc = [];
+            %             end
         end
         if minleftright == 1 || (minleftright == 0 && isnan(minxrange(2)))
             range = 2:length(xinc);
@@ -1491,14 +1599,16 @@ x
         if isnan(minx)
             xdec = [];
         else
-            if minleftright == 0 && ~isnan(minxrange(1))
+            if minleftright ~= 0 && ~isnan(minxrange(1))
                 xdec = x(x<=minxrange(1));
+            elseif minleftright == 0
+                xdec = x(x<minx);
             else
-                xdec = x(x<=minx);
-            end
-            if (length(xdec) == 1)
                 xdec = [];
             end
+            %             if (length(xdec) == 1)
+            %                 xdec = [];
+            %             end
         end
         if minleftright == -1 || (minleftright == 0 && isnan(minxrange(1)))
             range = 1:length(xdec) - 1;
@@ -1896,6 +2006,28 @@ x
             g = re(1:n);
         else
             g = [];
+        end
+    end
+
+    function [increaseregion, decreaseregion] = findIDRegion(lowerLimitG, upperLimitG)
+        decreaseregion = [];
+        for idx = length(lowerLimitG)-1 : -1 : 1
+            l = lowerLimitG(idx);
+            for idxx = idx+1:1:length(upperLimitG)
+                u = upperLimitG(idxx);
+                if (u <= l)
+                    decreaseregion = idx;
+                    break;
+                end
+            end
+            if ~isempty(decreaseregion)
+                break;
+            end
+        end
+        
+        increaseregion = find(upperLimitG(1:end-1) < lowerLimitG(2:end));
+        if ~isempty(increaseregion)
+            increaseregion = increaseregion(1);
         end
     end
 end

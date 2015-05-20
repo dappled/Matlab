@@ -14,7 +14,7 @@ classdef splineHelper
         
         function [aa, bb, cc, dd] = leftPars(x, a, b, c, stationaryPoint, flat, xEnd, aMin, aMax, tailConcavity, dx, dxx, concave)
             if ~flat && ~isempty(aMin) && (b(1) > 0) %a(1) < aMin(end) &&
-                err = 'Left need more data';
+                err = 'Left needs more data';
                 error('%s', err);
             end
             
@@ -167,7 +167,7 @@ classdef splineHelper
         
         function [aa, bb, cc, dd] = rightPars(x, a, b, c, stationaryPoint, flat, xEnd, aMin, aMax, tailConcavity, dx, dxx, concave)
             if ~flat && ~isempty(aMin) &&  b(end) < 0 %a(end) < aMin(1) &&
-                err = 'Right need more data';
+                err = 'Right needs more data';
                 error('%s', err);
             end
             

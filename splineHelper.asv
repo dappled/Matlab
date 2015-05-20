@@ -14,7 +14,7 @@ classdef splineHelper
         
         function [aa, bb, cc, dd] = leftPars(x, a, b, c, stationaryPoint, flat, xEnd, aMin, aMax, tailConcavity, dx, dxx, concave)
             if ~flat && ~isempty(aMin) && (b(1) > 0) %a(1) < aMin(end) &&
-                err = 'Left need more data';
+                err = 'Left needs more data';
                 error('%s', err);
             end
             
@@ -73,7 +73,6 @@ classdef splineHelper
                 else
                     bb = dx;
                 end
-            end
             originb = bb;
             if ~isempty(aMax)
                 if concave & bb < left & right < 0
@@ -91,13 +90,17 @@ classdef splineHelper
             
             if (abs(bb) > 3 * abs(originb) || abs(bb) < 0.3 * abs(originb))
                 if ~flat && bb ~= 0
-                    if (bb > originb)
-                        retur
-                    else
-                        err = 'Extrapolate left will change slope a lot';
-                        error('%s', err);
-                    end
+                    %                     if (bb > originb)
+                    %                         aa = -inf;
+                    %                         cc = -inf;
+                    %                         dd = -inf;
+                    %                         return;
+                    %                     else
+                    err = 'Extrapolate left will change slope a lot';
+                    error('%s', err);
+                    %                     end
                 end
+            end
             end
             
             if flat
@@ -164,7 +167,7 @@ classdef splineHelper
         
         function [aa, bb, cc, dd] = rightPars(x, a, b, c, stationaryPoint, flat, xEnd, aMin, aMax, tailConcavity, dx, dxx, concave)
             if ~flat && ~isempty(aMin) &&  b(end) < 0 %a(end) < aMin(1) &&
-                err = 'Right need more data';
+                err = 'Right needs more data';
                 error('%s', err);
             end
             

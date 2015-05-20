@@ -2,7 +2,7 @@
 %           4 means left side flat
 %           5 means right side flat
 %           6 means both sides flat
-function [smoothCoeff1, exitflag, g, gamma, aa, bb, cc, dd, turningPoint, x] = flexTimeFit(xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, invalidx, invalidupper, invalidlower, smoothCoeff, boundaryx, boundarydx, boundarydxx, leftright, xexl, yexl, xendl, lbendl,ubendl,xexr,yexr, xendr, lbendr, ubendr, leftincrease, rightincrease, smooth, tight, tightlb, tightub, minxrange, allowflat)
+function [smoothCoeff1, exitflag, g, gamma, aa, bb, cc, dd, turningPoint, x] = flexTimeFit(xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, invalidx, invalidupper, invalidlower, smoothCoeff, boundaryx, boundarydx, boundarydxx, leftright, xexl, yexl, xendl, lbendl,ubendl,xexr,yexr, xendr, lbendr, ubendr, leftincrease, rightincrease, smooth, tight, tightlb, tightub, minxrange)
 % %input
 % clc
 % M = csvread('c:\temp\voltooltest\slice_IWM.USZ_20150206.csv', 1);
@@ -87,90 +87,115 @@ function [smoothCoeff1, exitflag, g, gamma, aa, bb, cc, dd, turningPoint, x] = f
 
 goodleft = false;
 goodright = false;
-joinedleft = false;
-joinedright = false;
 count = 0;
+leftneedsmoredata = false;
+leftmoredatamode = 0;
+rightneedsmoredata = false;
+rightmoredatamode = 0;
+bbb = [inf -inf];
+allowflat = [false; false];
+changedsmooth = true;
 while ~goodleft || ~goodright
     try
         %prefit
-        if isnan(leftright) || leftright == 1
-            %xl = xexl - xin(1);
-            if isempty(xexl)
-                boundarydxx(1) = nan;
-                %boundarydx(1) = nan;
-            else
-                tmpx = [xexl xin(1) xin(2)];
-                tmpy = [yexl yin(1) yin(2)];
-                if length(tmpx) < 3
+        while (true)
+            if isnan(leftright) || leftright == 1
+                %xl = xexl - xin(1);
+                if isempty(xexl)
                     boundarydxx(1) = nan;
+                    %boundarydx(1) = nan;
                 else
-                    pl = csaps(tmpx, tmpy);
-                    if (pl.coefs(end,3) > 0)
-                        if all(diff(tmpy)) <= 0
-                            boundarydxx(1) = nan;
-                        else
-                            error('Left need more data');
-                        end
-                    else
-                        boundarydxx(1) = pl.coefs(end,2);
+                    if (yin(1) < yin(2))
+                        leftneedsmoredata = true;
+                        leftmoredatamode = 2;
+                        break;
                     end
-                    %             else
-                    %                 pl = polyfit(xl, yexl, 3);
-                    %                 if pl(3) > 0 % don't want to time fit strange left wing
-                    %                     if all(diff(yexl)) <= 0
-                    %                         boundarydxx(1) = nan;
-                    %                     else
-                    %                         error('Invalid left polyfit');
-                    %                     end
-                    %                 else
-                    %                     boundarydxx(1) = pl(2);
-                    %                     %boundarydx(1) = pl(3);
-                    %                 end
+                    tmpx = [xexl xin(1) xin(2)];
+                    tmpy = [yexl yin(1) yin(2)];
+                    if length(tmpx) < 3
+                        boundarydxx(1) = nan;
+                    else
+                        pl = csaps(tmpx, tmpy);
+                        if (pl.coefs(end,3) > 0)
+                            if all(diff(tmpy)) <= 0
+                                boundarydxx(1) = nan;
+                            else
+                                leftneedsmoredata = true;
+                                leftmoredatamode = 1;
+                                break;
+                            end
+                        else
+                            boundarydxx(1) = pl.coefs(end,2);
+                        end
+                        %             else
+                        %                 pl = polyfit(xl, yexl, 3);
+                        %                 if pl(3) > 0 % don't want to time fit strange left wing
+                        %                     if all(diff(yexl)) <= 0
+                        %                         boundarydxx(1) = nan;
+                        %                     else
+                        %                         error('Invalid left polyfit');
+                        %                     end
+                        %                 else
+                        %                     boundarydxx(1) = pl(2);
+                        %                     %boundarydx(1) = pl(3);
+                        %                 end
+                    end
                 end
             end
-        end
-        if boundarydxx(1) == 0
-            boundarydxx(1) = nan;
-        end
-        if isnan(leftright) || leftright == -1
-            if isempty(xexr)
-                boundarydxx(2) = nan;
-                %boundarydx(2) = nan;
-            else
-                tmpx = [xin(end) xexr];
-                tmpy = [yin(end) yexr];
-                if length(tmpx) < 3
-                    boundarydxx(2) = nan;
-                else
-                    pr = csaps(tmpx, tmpy);
-                    if (pr.coefs(1,3) < 0)
-                        if all(diff(tmpy)) >= 0
-                            boundarydxx(2) = nan;
-                        else
-                            error('Right need more dat');
-                        end
-                    else
-                        boundarydxx(2) = pr.coefs(1,2);
-                    end
-                    %             else
-                    %                 pr = polyfit(xr, yexr, 3);
-                    %                 if pr(3) < 0 % don't want to time fit strange right wing
-                    %                     if all(diff(yexr)) >= 0
-                    %                         boundarydxx(2) = nan;
-                    %                     else
-                    %                         error('Invalid right polyfit');
-                    %                     end
-                    %                 else
-                    %                     boundarydxx(2) = pr(2);
-                    %                     %boundarydx(2) = pr(3);
-                    %                 end
-                end
+            if boundarydxx(1) == 0
+                boundarydxx(1) = nan;
             end
-        end
-        if boundarydxx(2) == 0
-            boundarydxx(2) = nan;
+            break;
         end
         
+        while(true)
+            if isnan(leftright) || leftright == -1
+                if isempty(xexr)
+                    boundarydxx(2) = nan;
+                    %boundarydx(2) = nan;
+                else
+                    if (yin(end) < yin(end-1))
+                        rightneedsmoredata = true;
+                        rightmoredatamode = 2;
+                        break;
+                    end
+                    tmpx = [xin(end) xexr];
+                    tmpy = [yin(end) yexr];
+                    if length(tmpx) < 3
+                        boundarydxx(2) = nan;
+                    else
+                        pr = csaps(tmpx, tmpy);
+                        if (pr.coefs(1,3) < 0)
+                            if all(diff(tmpy)) >= 0
+                                boundarydxx(2) = nan;
+                            else
+                                rightneedsmoredata = true;
+                                rightmoredatamode = 1;
+                                break;
+                            end
+                        else
+                            boundarydxx(2) = pr.coefs(1,2);
+                        end
+                        %             else
+                        %                 pr = polyfit(xr, yexr, 3);
+                        %                 if pr(3) < 0 % don't want to time fit strange right wing
+                        %                     if all(diff(yexr)) >= 0
+                        %                         boundarydxx(2) = nan;
+                        %                     else
+                        %                         error('Invalid right polyfit');
+                        %                     end
+                        %                 else
+                        %                     boundarydxx(2) = pr(2);
+                        %                     %boundarydx(2) = pr(3);
+                        %                 end
+                    end
+                end
+            end
+            if boundarydxx(2) == 0
+                boundarydxx(2) = nan;
+            end
+            break;
+        end
         %interpolation part
         % if isnan(leftright)
         %     [smoothCoeff1, exitflag, g, gamma, aaa, bbb, ccc, ddd, turningPoint,a, b] = flexWingFit(xin, yin, w, stationarypoint, [nan, nan], smoothCoeff, [nan, nan],  xleft, xright, dxleft, dxright, dxxleft, dxxright, nan, xinub, xinlb, [], [], [], [], [], [], invalidx, invalidupper, invalidlower, leftincrease, rightincrease, smooth, tight, tightlb, tightub, minxrange);
@@ -180,20 +205,64 @@ while ~goodleft || ~goodright
         %     [smoothCoeff1, exitflag, g, gamma, aaa, bbb, ccc, ddd, turningPoint,a, b] = flexWingFit(xin, yin, w, stationarypoint, [nan, nan], smoothCoeff, [nan, nan],  xleft, xright, dxleft, dxright, dxxleft, dxxright, nan, xinub, xinlb, [], [], [], xendr, ubendr, lbendr, invalidx, invalidupper, invalidlower, leftincrease, rightincrease, smooth, tight, tightlb, tightub, minxrange);
         % end
         
-        if isnan(leftright)
-            [smoothCoeff1, exitflag, g, gamma, aaa, bbb, ccc, ddd, turningPoint, x] = flexWingFit(xin, yin, w, stationarypoint, tailConcavity, smoothCoeff, [nan, nan], boundaryx, boundarydx, boundarydxx, nan, xinub, xinlb, xendl, ubendl, lbendl, xendr, ubendr, lbendr, invalidx, invalidupper, invalidlower, leftincrease, rightincrease, smooth, tight, tightlb, tightub, minxrange, true, allowflat);
-        elseif leftright == -1 %left
-            [smoothCoeff1, exitflag, g, gamma, aaa, bbb, ccc, ddd, turningPoint, x] = flexWingFit(xin, yin, w, stationarypoint, tailConcavity, smoothCoeff, [nan, nan], boundaryx, boundarydx, boundarydxx, nan, xinub, xinlb, xendl, ubendl, lbendl, [], [], [], invalidx, invalidupper, invalidlower, leftincrease, rightincrease, smooth, tight, tightlb, tightub, minxrange, true, allowflat);
-        else %right
-            [smoothCoeff1, exitflag, g, gamma, aaa, bbb, ccc, ddd, turningPoint, x] = flexWingFit(xin, yin, w, stationarypoint, tailConcavity, smoothCoeff, [nan, nan], boundaryx, boundarydx, boundarydxx, nan, xinub, xinlb, [], [], [], xendr, ubendr, lbendr, invalidx, invalidupper, invalidlower, leftincrease, rightincrease, smooth, tight, tightlb, tightub, minxrange, true, allowflat);
+        if (leftneedsmoredata || rightneedsmoredata)
+            if leftmoredatamode == 1 || rightmoredatamode == 1
+                if leftmoredatamode == 1
+                    allowflat(1) = true;
+                end
+                if rightmoredatamode == 1
+                    allowflat(2) = true;
+                end
+                if ~changedsmooth
+                    smooth = max(0, smooth - 1);
+                    changedsmooth = true;
+                end
+            end
+        else
+            if isnan(leftright)
+                [smoothCoeff1, exitflag, g, gamma, aaa, bbb, ccc, ddd, turningPoint, x] = flexWingFit(xin, yin, w, stationarypoint, tailConcavity, smoothCoeff, [nan, nan], boundaryx, boundarydx, boundarydxx, nan, xinub, xinlb, xendl, ubendl, lbendl, xendr, ubendr, lbendr, invalidx, invalidupper, invalidlower, leftincrease, rightincrease, smooth, tight, tightlb, tightub, minxrange, true, allowflat);
+            elseif leftright == -1 %left
+                [smoothCoeff1, exitflag, g, gamma, aaa, bbb, ccc, ddd, turningPoint, x] = flexWingFit(xin, yin, w, stationarypoint, tailConcavity, smoothCoeff, [nan, nan], boundaryx, boundarydx, boundarydxx, nan, xinub, xinlb, xendl, ubendl, lbendl, [], [], [], invalidx, invalidupper, invalidlower, leftincrease, rightincrease, smooth, tight, tightlb, tightub, minxrange, true, allowflat);
+            else %right
+                [smoothCoeff1, exitflag, g, gamma, aaa, bbb, ccc, ddd, turningPoint, x] = flexWingFit(xin, yin, w, stationarypoint, tailConcavity, smoothCoeff, [nan, nan], boundaryx, boundarydx, boundarydxx, nan, xinub, xinlb, [], [], [], xendr, ubendr, lbendr, invalidx, invalidupper, invalidlower, leftincrease, rightincrease, smooth, tight, tightlb, tightub, minxrange, true, allowflat);
+            end
         end
     catch e
-        if strcmp(e.message, 'Right need more data') || strcmp(e.message, 'Extrapolate right will change slope a lot')
-            bbb(1) = inf;
-            bbb(2) = 0;
-        elseif strcmp(e.message, 'Left need more data') || strcmp(e.message, 'Extrapolate left will change slope a lot')
-            bbb(1) = 0;
-            bbb(2) = inf;
+        if strcmp(e.message, 'LR need more data')
+            if (leftmoredatamode == 1 || rightmoredatamode == 1)
+                error('Fail to time fit');
+            end
+            leftneedsmoredata = true;
+            rightneedsmoredata = true;
+            leftmoredatamode = 1;
+            rightmoredatamode = 1;
+            if ~changedsmooth
+                smooth = max(0, smooth - 1);
+                changedsmooth = true;
+            end
+            allowflat = [true; true];
+        elseif strcmp(e.message, 'Left needs more data') || strcmp(e.message, 'Extrapolate left will change slope a lot')
+            if (leftmoredatamode == 1)
+                error('Fail to time fit');
+            end
+            leftneedsmoredata = true;
+            leftmoredatamode = 1;
+            if ~changedsmooth
+                smooth = max(0, smooth - 1);
+                changedsmooth = true;
+            end
+            allowflat(1) = true;
+        elseif strcmp(e.message, 'Right needs more data') || strcmp(e.message, 'Extrapolate right will change slope a lot')
+            if (rightmoredatamode == 1)
+                error('Fail to time fit');
+            end
+            rightneedsmoredata = true;
+            rightmoredatamode = 1;
+            if ~changedsmooth
+                smooth = max(0, smooth - 1);
+                changedsmooth = true;
+            end
+            allowflat(2) = true;
         else
             rethrow(e)
         end
@@ -201,24 +270,38 @@ while ~goodleft || ~goodright
     
     leftflat = false;
     rightflat = false;
-    if ~isempty(xexl) && (bbb(1) == 0) % should not be here
-        if ~isempty(xexl) && ~joinedleft
-            idx = find(xendl, xexl(1));
-            xin = [xexl xin];
-            yin = [yexl yin];
-            w = [ones(1, length(xexl)) * min(w) w];
-            boundaryx = [nan nan];
-            boundarydx = [nan nan];
-            boundarydxx = [nan nan];
-            xexl = [];
-            yexl = [];
-            xinlb = [lbendl(idx:end) xinlb];
-            xinub = [ubendl(idx:end) xinub];
-            xendl = xendl(1:idx-1);
-            ubendl = ubendl(1:idx-1);
-            lbendl = lbendl(1:idx-1);
-            joinedleft = true;
+    if ~isempty(xexl) && (leftneedsmoredata || (bbb(1) == 0))
+        if ~isempty(xexl)
+            allowflat(1) = true;
+            if leftmoredatamode == 1
+                xl = 1;
+            elseif leftmoredatamode == 2
+                xl = find(yexl > yin(1));
+                allowflat(1) = false;
+            end
+            if (isempty(xl))
+                error('Fail to time fit');
+            else
+                xl = xl(end);
+                xll = xl : length(xexl);
+                xlll = 1:xl-1;
+                idx = find(xendl == xexl(xl));
+                xin = [xexl(xll) xin];
+                yin = [yexl(xll) yin];
+                w = [ones(1, length(xll)) * min(w) w];
+                boundaryx = [nan nan];
+                boundarydx = [nan nan];
+                boundarydxx = [nan nan];
+                xexl = xexl(xlll);
+                yexl = yexl(xlll);
+                xinlb = [lbendl(xll) xinlb];
+                xinub = [ubendl(xll) xinub];
+                xendl = xendl(1:idx-1);
+                ubendl = ubendl(1:idx-1);
+                lbendl = lbendl(1:idx-1);
+            end
             goodleft = false;
+            leftneedsmoredata = false;
         else
             %error('Invalid left polyfit');
             goodleft = true;
@@ -226,24 +309,38 @@ while ~goodleft || ~goodright
     else
         goodleft = true;
     end
-    if ~isempty(xexr) && (bbb(2) == 0) % should not be here
-        if ~isempty(xexr) && ~joinedright
-            idx = length(xexr);
-            xin = [xin xexr];
-            yin = [yin yexr];
-            w = [w ones(1, length(xexr)) * min(w)];
-            boundaryx = [nan nan];
-            boundarydx = [nan nan];
-            boundarydxx = [nan nan];
-            xexr = [];
-            yexr = [];
-            xinlb = [xinlb lbendr(1:idx)];
-            xinub = [xinub ubendr(1:idx)];
-            xendr = xendr(idx+1:end);
-            ubendr = ubendr(idx+1:end);
-            lbendr = lbendr(idx+1:end);
-            joinedright = true;
-            goodright = false;
+    if ~isempty(xexr) && ((bbb(2) == 0) || rightneedsmoredata)
+        if ~isempty(xexr)
+            allowflat(2) = true;
+            if rightmoredatamode == 1
+                xr = length(xexr);
+            elseif rightmoredatamode == 2
+                xr = find(yexr > yin(end-1));
+                allowflat(2) = false;
+            end
+            if (isempty(xr))
+                error('Fail to time fit');
+            else
+                xr = xr(1);
+                xrr = 1 : xr;
+                xrrr = xr + 1 : length(xexr);
+                idx = xr;
+                xin = [xin xexr(xrr)];
+                yin = [yin yexr(xrr)];
+                w = [w ones(1, xr) * min(w)];
+                boundaryx = [nan nan];
+                boundarydx = [nan nan];
+                boundarydxx = [nan nan];
+                xexr = xexr(xrrr);
+                yexr = yexr(xrrr);
+                xinlb = [xinlb lbendr(1:idx)];
+                xinub = [xinub ubendr(1:idx)];
+                xendr = xendr(idx+1:end);
+                ubendr = ubendr(idx+1:end);
+                lbendr = lbendr(idx+1:end);
+                goodright = false;
+                rightneedsmoredata = false;
+            end
         else
             %error('Invalid right polyfit');
             goodright = true;
@@ -253,7 +350,7 @@ while ~goodleft || ~goodright
     end
     
     count = count + 1;
-    if (count > 3)
+    if (count > 4)
         err = 'Fail to time fit';
         error('%s', err);
     end
