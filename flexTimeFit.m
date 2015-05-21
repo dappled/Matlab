@@ -2,7 +2,7 @@
 %           4 means left side flat
 %           5 means right side flat
 %           6 means both sides flat
-function [smoothCoeff1, exitflag, g, gamma, aa, bb, cc, dd, turningPoint, x] = flexTimeFit(xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, invalidx, invalidupper, invalidlower, smoothCoeff, boundaryx, boundarydx, boundarydxx, leftright, xexl, yexl, xendl, lbendl,ubendl,xexr,yexr, xendr, lbendr, ubendr, leftincrease, rightincrease, smooth, tight, tightlb, tightub, minxrange)
+function [smoothCoeff1, exitflag, g, gamma, aa, bb, cc, dd, turningPoint, x] = flexTimeFit(xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, invalidx, invalidupper, invalidlower, smoothCoeff, boundaryx, boundarydx, boundarydxx, leftright, xexl, yexl, xendl, lbendl,ubendl,xexr,yexr, xendr, lbendr, ubendr, leftincrease, rightincrease, smooth, tight, tightlb, tightub, minxrange, allowflat)
 % %input
 % clc
 % M = csvread('c:\temp\voltooltest\slice_IWM.USZ_20150206.csv', 1);
@@ -93,7 +93,6 @@ leftmoredatamode = 0;
 rightneedsmoredata = false;
 rightmoredatamode = 0;
 bbb = [inf -inf];
-allowflat = [false; false];
 changedsmooth = true;
 while ~goodleft || ~goodright
     try
@@ -207,12 +206,6 @@ while ~goodleft || ~goodright
         
         if (leftneedsmoredata || rightneedsmoredata)
             if leftmoredatamode == 1 || rightmoredatamode == 1
-                if leftmoredatamode == 1
-                    allowflat(1) = true;
-                end
-                if rightmoredatamode == 1
-                    allowflat(2) = true;
-                end
                 if ~changedsmooth
                     smooth = max(0, smooth - 1);
                     changedsmooth = true;
@@ -229,6 +222,7 @@ while ~goodleft || ~goodright
         end
     catch e
         if strcmp(e.message, 'LR need more data')
+            exitflag = -1;
             if (leftmoredatamode == 1 || rightmoredatamode == 1)
                 error('Fail to time fit');
             end
@@ -240,8 +234,8 @@ while ~goodleft || ~goodright
                 smooth = max(0, smooth - 1);
                 changedsmooth = true;
             end
-            allowflat = [true; true];
         elseif strcmp(e.message, 'Left needs more data') || strcmp(e.message, 'Extrapolate left will change slope a lot')
+            exitflag = -1;
             if (leftmoredatamode == 1)
                 error('Fail to time fit');
             end
@@ -251,8 +245,8 @@ while ~goodleft || ~goodright
                 smooth = max(0, smooth - 1);
                 changedsmooth = true;
             end
-            allowflat(1) = true;
         elseif strcmp(e.message, 'Right needs more data') || strcmp(e.message, 'Extrapolate right will change slope a lot')
+            exitflag = -1;
             if (rightmoredatamode == 1)
                 error('Fail to time fit');
             end
@@ -262,7 +256,6 @@ while ~goodleft || ~goodright
                 smooth = max(0, smooth - 1);
                 changedsmooth = true;
             end
-            allowflat(2) = true;
         else
             rethrow(e)
         end
@@ -272,34 +265,32 @@ while ~goodleft || ~goodright
     rightflat = false;
     if ~isempty(xexl) && (leftneedsmoredata || (bbb(1) == 0))
         if ~isempty(xexl)
-            allowflat(1) = true;
+            if leftmoredatamode == 2
+                xl = find(yexl > yin(2));
+                if isempty(xl)
+                    leftmoredatamode = 1;
+                end
+            end
             if leftmoredatamode == 1
                 xl = 1;
-            elseif leftmoredatamode == 2
-                xl = find(yexl > yin(1));
-                allowflat(1) = false;
             end
-            if (isempty(xl))
-                error('Fail to time fit');
-            else
-                xl = xl(end);
-                xll = xl : length(xexl);
-                xlll = 1:xl-1;
-                idx = find(xendl == xexl(xl));
-                xin = [xexl(xll) xin];
-                yin = [yexl(xll) yin];
-                w = [ones(1, length(xll)) * min(w) w];
-                boundaryx = [nan nan];
-                boundarydx = [nan nan];
-                boundarydxx = [nan nan];
-                xexl = xexl(xlll);
-                yexl = yexl(xlll);
-                xinlb = [lbendl(xll) xinlb];
-                xinub = [ubendl(xll) xinub];
-                xendl = xendl(1:idx-1);
-                ubendl = ubendl(1:idx-1);
-                lbendl = lbendl(1:idx-1);
-            end
+            xl = xl(end);
+            xll = xl : length(xexl);
+            xlll = 1:xl-1;
+            idx = find(xendl == xexl(xl));
+            xin = [xexl(xll) xin];
+            yin = [yexl(xll) yin];
+            w = [ones(1, length(xll)) * min(w) w];
+            boundaryx = [nan nan];
+            boundarydx = [nan nan];
+            boundarydxx = [nan nan];
+            xexl = xexl(xlll);
+            yexl = yexl(xlll);
+            xinlb = [lbendl(xll) xinlb];
+            xinub = [ubendl(xll) xinub];
+            xendl = xendl(1:idx-1);
+            ubendl = ubendl(1:idx-1);
+            lbendl = lbendl(1:idx-1);
             goodleft = false;
             leftneedsmoredata = false;
         else
@@ -311,36 +302,34 @@ while ~goodleft || ~goodright
     end
     if ~isempty(xexr) && ((bbb(2) == 0) || rightneedsmoredata)
         if ~isempty(xexr)
-            allowflat(2) = true;
+            if rightmoredatamode == 2
+                xr = find(yexr > yin(end-1));
+                if isempty(xr)
+                    rightmoredatamode = 1;
+                end
+            end
             if rightmoredatamode == 1
                 xr = length(xexr);
-            elseif rightmoredatamode == 2
-                xr = find(yexr > yin(end-1));
-                allowflat(2) = false;
             end
-            if (isempty(xr))
-                error('Fail to time fit');
-            else
-                xr = xr(1);
-                xrr = 1 : xr;
-                xrrr = xr + 1 : length(xexr);
-                idx = xr;
-                xin = [xin xexr(xrr)];
-                yin = [yin yexr(xrr)];
-                w = [w ones(1, xr) * min(w)];
-                boundaryx = [nan nan];
-                boundarydx = [nan nan];
-                boundarydxx = [nan nan];
-                xexr = xexr(xrrr);
-                yexr = yexr(xrrr);
-                xinlb = [xinlb lbendr(1:idx)];
-                xinub = [xinub ubendr(1:idx)];
-                xendr = xendr(idx+1:end);
-                ubendr = ubendr(idx+1:end);
-                lbendr = lbendr(idx+1:end);
-                goodright = false;
-                rightneedsmoredata = false;
-            end
+            xr = xr(1);
+            xrr = 1 : xr;
+            xrrr = xr + 1 : length(xexr);
+            idx = xr;
+            xin = [xin xexr(xrr)];
+            yin = [yin yexr(xrr)];
+            w = [w ones(1, xr) * min(w)];
+            boundaryx = [nan nan];
+            boundarydx = [nan nan];
+            boundarydxx = [nan nan];
+            xexr = xexr(xrrr);
+            yexr = yexr(xrrr);
+            xinlb = [xinlb lbendr(1:idx)];
+            xinub = [xinub ubendr(1:idx)];
+            xendr = xendr(idx+1:end);
+            ubendr = ubendr(idx+1:end);
+            lbendr = lbendr(idx+1:end);
+            goodright = false;
+            rightneedsmoredata = false;
         else
             %error('Invalid right polyfit');
             goodright = true;
@@ -356,6 +345,9 @@ while ~goodleft || ~goodright
     end
 end
 
+if (exitflag < 0)
+    error('Fail to time fit')
+end
 
 % leftincrease = max(leftincrease, minxrange);
 % rightincrease = min(rightincrease, minxrange);

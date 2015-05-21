@@ -371,15 +371,30 @@ while ~goodBdr
             end
         end
         
-        if (exitflag == -2 && (~all(isnan(boundarydxx)) || ~all(isnan(boundarydx))) && ~boundarydchanged)
-            boundarydx = [nan, nan];
-            boundarydxx = [nan, nan];
-            boundarydchanged = true;
-            goodboundary = false;
-        else
-            goodboundary = true;
+        if exitFlagg ~= 0
+            exitflag = exitFlagg;
         end
-        if exitflag == -8 && smooth ~= 0 && ~scchanged
+        if isnan(dxxleft)
+            dxxleft = 0;
+        end
+        if isnan(dxxright)
+            dxxright = 0;
+        end
+        
+        if exitflag > 0
+            gamma = [dxxleft; re(n+1:end); dxxright];
+            firstDx = [(g(2:n) - g(1:n-1))./h' - (2*gamma(1:n-1) + gamma(2:n))/6.*h'; (g(n) - g(n-1))/h(n-1) + h(n-1) / 6 * (gamma(n-1) + 2* gamma(n))];
+            a = g(1:end); % g(line) - abcd(line,4)
+            b = firstDx(1:end); % (g(line+1) - g(line))/h(line) - (gamma(line+1) + 2*gamma(line))/6*h(line) - abcd(line,5)
+            c = gamma/2; % 0.5*gamma(line) - abcd(line,6)
+            %d = [(gamma(2:end) - gamma(1:end-1))/ 6 ./ h'; 0]; % (gamma(line+1) - gamma(line))/6/h(line) - abcd(line,7)
+        end
+        
+        if exitflag > 0 &&((y(1) > y(2) && b(1) > 0) || (y(end-1) < y(end) && b(end) < 0))
+            smooth = 2;
+            scchanged = true;
+            goodSc = false;
+        elseif exitflag < 0 && smooth ~= 0 && ~scchanged
             if (smooth == 2)
                 smooth = 1;
             else
@@ -390,6 +405,15 @@ while ~goodBdr
             goodSc = false;
         else
             goodSc = true;
+        end
+        
+        if (exitflag == -2 && (~all(isnan(boundarydxx)) || ~all(isnan(boundarydx))) && ~boundarydchanged)
+            boundarydx = [nan, nan];
+            boundarydxx = [nan, nan];
+            boundarydchanged = true;
+            goodboundary = false;
+        else
+            goodboundary = true;
         end
     end
     if exitflag < 0 && ~boundarychanged
@@ -438,23 +462,6 @@ if exitflag <= 0
     end
     error('error in quadprog: %s', err);
 end
-if exitFlagg ~= 0
-    exitflag = exitFlagg;
-end
-if isnan(dxxleft)
-    dxxleft = 0;
-end
-if isnan(dxxright)
-    dxxright = 0;
-end
-
-gamma = [dxxleft; re(n+1:end); dxxright];
-
-firstDx = [(g(2:n) - g(1:n-1))./h' - (2*gamma(1:n-1) + gamma(2:n))/6.*h'; (g(n) - g(n-1))/h(n-1) + h(n-1) * (gamma(n-1) + 2* gamma(n))/6];
-a = g(1:end); % g(line) - abcd(line,4)
-b = firstDx(1:end); % (g(line+1) - g(line))/h(line) - (gamma(line+1) + 2*gamma(line))/6*h(line) - abcd(line,5)
-c = gamma/2; % 0.5*gamma(line) - abcd(line,6)
-%d = [(gamma(2:end) - gamma(1:end-1))/ 6 ./ h'; 0]; % (gamma(line+1) - gamma(line))/6/h(line) - abcd(line,7)
 
 % interpolation
 %a. abcd(line,4) + abcd(line,5) * (t - abcd(line,2)) + abcd(line,6) * (t -abcd(line,2)) * (t - abcd(line,2)) + abcd(1,7) * (t - abcd(line,2)) * (t -abcd(line,2)) *(t - abcd(line,2))
@@ -503,7 +510,7 @@ try
         end
     end
 catch e
-    if strcmp(e.message, 'Left needs more data') || strcmp(e.message, 'Extrapolate left will change slope a lot')
+    if strcmp(e.message, 'Left needs more data') || strcmp(e.message, 'Extrapolate left will change slope a lot') % || strcmp(e.message, 'Left fail to extrapolate with given boundary')
         leftneedsmoredata = true;
     else
         rethrow(e);
@@ -521,8 +528,8 @@ try
         end
     end
 catch e
-    if strcmp(e.message, 'Right needs more data') || strcmp(e.message, 'Extrapolate right will change slope a lot')
-        rightneedsmoredata = true;
+    if strcmp(e.message, 'Right needs more data') || strcmp(e.message, 'Extrapolate right will change slope a lot')% || strcmp(e.message, 'Right fail to extrapolate with given boundary')
+        leftneedsmoredata = true;
     else
         rethrow(e);
     end
@@ -1403,67 +1410,67 @@ end
                 end
             end
             
-            if (isnan(leftright))
-                if changed
-                    if isnan(method) || method == 1
-                        lb = [zeros(n, 1); -inf(concavePointsl1, 1); -6e-4 * ones(n - 2 - concavePointsl1 - concavePointsr1, 1); -inf(concavePointsr1, 1)];
-                        ub = [inf(n, 1); 6e-4 * ones(concavePointsl1, 1); inf(n-2 - concavePointsl1 - concavePointsr1, 1); 6e-4 * ones(concavePointsr1, 1)];
-                    end
-                    if isnan(method) || method == 2
-                        lb2 = [zeros(n, 1); -inf(concavePointsl2, 1); -6e-4 * ones(n - 2 - concavePointsl2 - concavePointsr2, 1); -inf(concavePointsr2, 1)];
-                        ub2 = [inf(n, 1); 6e-4 * ones(concavePointsl2, 1); inf(n-2 - concavePointsl2 - concavePointsr2, 1); 6e-4 * ones(concavePointsr2, 1)];
-                    end
-                else
-                    if isnan(method) || method == 1
-                        lb = [zeros(n, 1); -inf(concavePointsl1, 1); zeros(n - 2 - concavePointsl1 - concavePointsr1, 1); -inf(concavePointsr1, 1)];
-                        ub = [inf(n, 1); zeros(concavePointsl1, 1); inf(n-2 - concavePointsl1 - concavePointsr1, 1); zeros(concavePointsr1, 1)];
-                    end
-                    if isnan(method) || method == 2
-                        lb2 = [zeros(n, 1); -inf(concavePointsl2, 1); zeros(n - 2 - concavePointsl2 - concavePointsr2, 1); -inf(concavePointsr2, 1)];
-                        ub2 = [inf(n, 1); zeros(concavePointsl2, 1); inf(n-2 - concavePointsl2 - concavePointsr2, 1); zeros(concavePointsr2, 1)];
-                    end
-                end
-            elseif (leftright == -1 && ~flat) || (leftright == 1 && flat)
-                if changed
-                    if isnan(method) || method == 1
-                        lb = vertcat(zeros(n, 1), -inf(concavePoints, 1), -6e-4 * ones(n - 2 - concavePoints, 1));
-                        ub = vertcat(inf(n, 1), 6e-4 * ones(concavePoints, 1), inf(n-2 - concavePoints, 1));
-                    end
-                    if isnan(method) || method == 2
-                        lb2 = vertcat(zeros(n, 1), -inf(concavePoints2, 1), -6e-4 * ones(n - 2 - concavePoints2, 1));
-                        ub2 = vertcat(inf(n, 1), 6e-4 * ones(concavePoints2, 1), inf(n-2 - concavePoints2, 1));
-                    end
-                else
-                    if isnan(method) || method == 1
-                        lb = [zeros(n, 1); -inf(concavePoints, 1); zeros(n - 2 - concavePoints, 1)];
-                        ub = [inf(n, 1); zeros(concavePoints, 1); inf(n-2 - concavePoints, 1)];
-                    end
-                    if isnan(method) || method == 2
-                        lb2 = [zeros(n, 1); -inf(concavePoints2, 1); zeros(n - 2 - concavePoints2, 1)];
-                        ub2 = [inf(n, 1); zeros(concavePoints2, 1); inf(n-2 - concavePoints2, 1)];
-                    end
-                end
-            else
-                if changed
-                    if isnan(method) || method == 1
-                        lb = vertcat(zeros(n, 1), -6e-4 * ones(n-2 - concavePoints, 1), -inf(concavePoints, 1));
-                        ub = vertcat(inf(n, 1), inf(n-2-concavePoints,1), 6e-4 * ones(concavePoints,1));
-                    end
-                    if isnan(method) || method == 2
-                        lb2 = vertcat(zeros(n, 1), -6e-4 * ones(n-2 - concavePoints2, 1), -inf(concavePoints2, 1));
-                        ub2 = vertcat(inf(n, 1), inf(n-2-concavePoints2,1), 6e-4 * ones(concavePoints2,1));
-                    end
-                else
-                    if isnan(method) || method == 1
-                        lb = [zeros(n, 1); zeros(n-2 - concavePoints, 1); -inf(concavePoints, 1)];
-                        ub = [inf(n, 1); inf(n-2-concavePoints,1); zeros(concavePoints,1)];
-                    end
-                    if isnan(method) || method == 2
-                        lb2 = [zeros(n, 1); zeros(n-2 - concavePoints2, 1); -inf(concavePoints2, 1)];
-                        ub2 = [inf(n, 1); inf(n-2-concavePoints2,1); zeros(concavePoints2,1)];
-                    end
-                end
-            end
+%             if (isnan(leftright))
+%                 if changed
+%                     if isnan(method) || method == 1
+%                         lb = [zeros(n, 1); -inf(concavePointsl1, 1); -6e-4 * ones(n - 2 - concavePointsl1 - concavePointsr1, 1); -inf(concavePointsr1, 1)];
+%                         ub = [inf(n, 1); 6e-4 * ones(concavePointsl1, 1); inf(n-2 - concavePointsl1 - concavePointsr1, 1); 6e-4 * ones(concavePointsr1, 1)];
+%                     end
+%                     if isnan(method) || method == 2
+%                         lb2 = [zeros(n, 1); -inf(concavePointsl2, 1); -6e-4 * ones(n - 2 - concavePointsl2 - concavePointsr2, 1); -inf(concavePointsr2, 1)];
+%                         ub2 = [inf(n, 1); 6e-4 * ones(concavePointsl2, 1); inf(n-2 - concavePointsl2 - concavePointsr2, 1); 6e-4 * ones(concavePointsr2, 1)];
+%                     end
+%                 else
+%                     if isnan(method) || method == 1
+%                         lb = [zeros(n, 1); -inf(concavePointsl1, 1); zeros(n - 2 - concavePointsl1 - concavePointsr1, 1); -inf(concavePointsr1, 1)];
+%                         ub = [inf(n, 1); zeros(concavePointsl1, 1); inf(n-2 - concavePointsl1 - concavePointsr1, 1); zeros(concavePointsr1, 1)];
+%                     end
+%                     if isnan(method) || method == 2
+%                         lb2 = [zeros(n, 1); -inf(concavePointsl2, 1); zeros(n - 2 - concavePointsl2 - concavePointsr2, 1); -inf(concavePointsr2, 1)];
+%                         ub2 = [inf(n, 1); zeros(concavePointsl2, 1); inf(n-2 - concavePointsl2 - concavePointsr2, 1); zeros(concavePointsr2, 1)];
+%                     end
+%                 end
+%             elseif (leftright == -1 && ~flat) || (leftright == 1 && flat)
+%                 if changed
+%                     if isnan(method) || method == 1
+%                         lb = vertcat(zeros(n, 1), -inf(concavePoints, 1), -6e-4 * ones(n - 2 - concavePoints, 1));
+%                         ub = vertcat(inf(n, 1), 6e-4 * ones(concavePoints, 1), inf(n-2 - concavePoints, 1));
+%                     end
+%                     if isnan(method) || method == 2
+%                         lb2 = vertcat(zeros(n, 1), -inf(concavePoints2, 1), -6e-4 * ones(n - 2 - concavePoints2, 1));
+%                         ub2 = vertcat(inf(n, 1), 6e-4 * ones(concavePoints2, 1), inf(n-2 - concavePoints2, 1));
+%                     end
+%                 else
+%                     if isnan(method) || method == 1
+%                         lb = [zeros(n, 1); -inf(concavePoints, 1); zeros(n - 2 - concavePoints, 1)];
+%                         ub = [inf(n, 1); zeros(concavePoints, 1); inf(n-2 - concavePoints, 1)];
+%                     end
+%                     if isnan(method) || method == 2
+%                         lb2 = [zeros(n, 1); -inf(concavePoints2, 1); zeros(n - 2 - concavePoints2, 1)];
+%                         ub2 = [inf(n, 1); zeros(concavePoints2, 1); inf(n-2 - concavePoints2, 1)];
+%                     end
+%                 end
+%             else
+%                 if changed
+%                     if isnan(method) || method == 1
+%                         lb = vertcat(zeros(n, 1), -6e-4 * ones(n-2 - concavePoints, 1), -inf(concavePoints, 1));
+%                         ub = vertcat(inf(n, 1), inf(n-2-concavePoints,1), 6e-4 * ones(concavePoints,1));
+%                     end
+%                     if isnan(method) || method == 2
+%                         lb2 = vertcat(zeros(n, 1), -6e-4 * ones(n-2 - concavePoints2, 1), -inf(concavePoints2, 1));
+%                         ub2 = vertcat(inf(n, 1), inf(n-2-concavePoints2,1), 6e-4 * ones(concavePoints2,1));
+%                     end
+%                 else
+%                     if isnan(method) || method == 1
+%                         lb = [zeros(n, 1); zeros(n-2 - concavePoints, 1); -inf(concavePoints, 1)];
+%                         ub = [inf(n, 1); inf(n-2-concavePoints,1); zeros(concavePoints,1)];
+%                     end
+%                     if isnan(method) || method == 2
+%                         lb2 = [zeros(n, 1); zeros(n-2 - concavePoints2, 1); -inf(concavePoints2, 1)];
+%                         ub2 = [inf(n, 1); inf(n-2-concavePoints2,1); zeros(concavePoints2,1)];
+%                     end
+%                 end
+%             end
         end
         
         if ~isempty(lowerLimitG)
@@ -1753,7 +1760,22 @@ end
                 hi = xp1-xm1;
                 
                 if (minleftright  == -1) % should be left of this
-                    if (xp1 == x(end - 1))
+                    %bj + 2cj*deltaj + 3dj*deltaj^2 > 0
+                    if (xp1 == x(2))
+                        Ales = [Ales; 1/hi, -1/hi, zeros(1, n-2), -(-hi/6 + delta2/2/hi), zeros(1, n-3)];
+                        if ~isnan(dxxleft)
+                            bles = [bles; (-hi/3 + delta - delta2/2/hi) * dxxleft];
+                        else
+                            bles = [bles; 0];
+                        end
+                    elseif (xp1 == x(end))
+                        Ales = [Ales; zeros(1, xm1idx-1),  1/hi, -1/hi, zeros(1, n-2-(xm1idx-1)), zeros(1, n-3), -(hi/6)];
+                        if ~isnan(dxxright)
+                            bles = [bles; (hi/3 + delta - delta2/2/hi) * dxxright];
+                        else
+                            bles = [bles; 0];
+                        end
+                    elseif (xp1 == x(end - 1))
                         Ales = [Ales; zeros(1, xm1idx-1),  1/hi, -1/hi, zeros(1, n-2-(xm1idx-1)), zeros(1, xm1idx - 2), -(-hi/3 + delta - delta2/2/hi), zeros(1, n-4-(xm1idx-2))];
                         if ~isnan(dxxright)
                             bles = [bles; (-hi/6 + delta2/2/hi) * dxxright];
@@ -1761,12 +1783,26 @@ end
                             bles = [bles; 0];
                         end
                     else
-                        %bj + 2cj*deltaj + 3dj*deltaj^2 > 0
                         Ales = [Ales; zeros(1, xm1idx-1),  1/hi, -1/hi, zeros(1, n-2-(xm1idx-1)), zeros(1, xm1idx - 2), -(-hi/3 + delta - delta2/2/hi), -(-hi/6 + delta2/2/hi), zeros(1, n-4-(xm1idx-2))];
                         bles = [bles; 0];
                     end
                 else
-                    if (xp1 == x(end - 1))
+                    %bj + 2cj*deltaj + 3dj*deltaj^2 < 0
+                    if (xp1 == x(1))
+                        Ales = [Ales; -1/hi, 1/hi, zeros(1, n-2), (-hi/6 + delta2/2/hi), zeros(1, n-3)];
+                        if ~isnan(dxxleft)
+                            bles = [bles; -(-hi/3 + delta - delta2/2/hi) * dxxleft];
+                        else
+                            bles = [bles; 0];
+                        end
+                    elseif (xp1 == x(end))
+                        Ales = [Ales; zeros(1, xm1idx-1), -1/hi, 1/hi, zeros(1, n-2-(xm1idx-1)), zeros(1, n-3), (hi/6)];
+                        if ~isnan(dxxright)
+                            bles = [bles; -(hi/3 + delta - delta2/2/hi) * dxxright];
+                        else
+                            bles = [bles; 0];
+                        end
+                    elseif (xp1 == x(end - 1))
                         Ales = [Ales; zeros(1, xm1idx-1),  -1/hi, 1/hi, zeros(1, n-2-(xm1idx-1)), zeros(1, xm1idx - 2), (-hi/3 + delta - delta2/2/hi), zeros(1, n-4-(xm1idx-2))];
                         if ~isnan(dxxright)
                             bles = [bles; -(-hi/6 + delta2/2/hi) * dxxright];
@@ -1774,26 +1810,35 @@ end
                             bles = [bles; 0];
                         end
                     else
-                        %bj + 2cj*deltaj + 3dj*deltaj^2 < 0
                         Ales = [Ales; zeros(1, xm1idx-1),  -1/hi, 1/hi, zeros(1, n-2-(xm1idx-1)), zeros(1, xm1idx - 2), (-hi/3 + delta - delta2/2/hi), (-hi/6 + delta2/2/hi), zeros(1, n-4-(xm1idx-2))];
                         bles = [bles; 0];
                     end
                 end
                 
-                if (xp1 == x(end - 1))
+                
+                %2cj+6dj*deltaj > 0
+                if (xp1 == x(1))
+                    Ales = [Ales; zeros(1, n), -(delta/hi), zeros(1, n-3)];
+                    if ~isnan(dxxleft)
+                        bles = [bles; (1-delta/hi) * dxxleft];
+                    else
+                        bles = [bles; 0];
+                    end
+                elseif (xp1 == x(end))
+                    %nothing
+                elseif (xp1 == x(end - 1))
                     Ales = [Ales; zeros(1, n), zeros(1, xm1idx -2), -(1-delta/hi), zeros(1, n-4-(xm1idx-2))];
                     if ~isnan(dxxright)
-                        bles = [bles; 1/hi * dxxright];
+                        bles = [bles; delta/hi * dxxright];
                     else
                         bles = [bles; 0];
                     end
                 else
-                    %2cj+6dj*deltaj > 0
                     Ales = [Ales; zeros(1, n), zeros(1, xm1idx -2), -(1-delta/hi), -1/hi, zeros(1, n-4-(xm1idx-2))];
                     bles = [bles; 0];
                 end
             catch
-                % at here if minx is leftmost(so xm1 is x(0)) or minx is rightmost(so xp1 is x(end))
+                % at here if minx is leftmost or minx is rightmost
             end
         end
         

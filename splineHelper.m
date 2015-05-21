@@ -47,11 +47,11 @@ classdef splineHelper
                 right = min(alpha ./ gammaa);
                 
                 if (left > 0)
-                    err = 'Fail to extrapolate with given boundary';
+                    err = 'Left fail to extrapolate with given boundary';
                     error('%s', err);
                 end
                 if (left > right)
-                    err = 'Fail to extrapolate with given boundary';
+                    err = 'Left fail to extrapolate with given boundary';
                     error('%s', err);
                 end
             end
@@ -126,7 +126,7 @@ classdef splineHelper
                 ccBoundMin = max((alpha - bb * gammaa) ./ tao);
                 if (ccBoundMax < ccBoundMin)
                     if (isnan(left) || bb == 0)
-                        err = 'Fail to extrapolate with given boundary';
+                        err = 'Left fail to extrapolate with given boundary';
                         error('%s', err);
                     end
                     findb = false;
@@ -140,7 +140,7 @@ classdef splineHelper
                         end
                     end
                     if (~findb)
-                        err = 'Fail to extrapolate with given boundary';
+                        err = 'Left fail to extrapolate with given boundary';
                         error('%s', err);
                     end
                     if (abs(bb) > 3 * abs(originb) || abs(bb) < 0.3 * abs(originb))
@@ -193,11 +193,11 @@ classdef splineHelper
                 right = min(beta * hright ./ (gammaa * hright - tao));
                 
                 if (right < 0)
-                    err = 'Fail to extrapolate with given boundary';
+                    err = 'Right fail to extrapolate with given boundary';
                     error('%s', err);
                 end
                 if (left > right)
-                    err = 'Fail to extrapolate with given boundary';
+                    err = 'Right fail to extrapolate with given boundary';
                     error('%s', err);
                 end
             end
@@ -265,7 +265,7 @@ classdef splineHelper
                 ccBoundMin = max((alpha - bb * gammaa) ./ tao);
                 if (ccBoundMax < ccBoundMin)
                     if (isnan(right) || bb == 0)
-                        err = 'Fail to extrapolate with given boundary';
+                        err = 'Right fail to extrapolate with given boundary';
                         error('%s', err);
                     end
                     findb = false;
@@ -279,7 +279,7 @@ classdef splineHelper
                         end
                     end
                     if (~findb)
-                        err = 'Fail to extrapolate with given boundary';
+                        err = 'Right fail to extrapolate with given boundary';
                         error('%s', err);
                     end
                     if (abs(bb) > 3 * abs(originb) || abs(bb) < 0.3 * abs(originb))
@@ -314,7 +314,7 @@ classdef splineHelper
                 right = min((aMax - aa - bb * delta - dd * delta3) ./ delta2);
                 
                 if (left > right)
-                    err = 'Fail to extrapolate with given boundary';
+                    err = 'Right fail to extrapolate with given boundary';
                     error('%s', err);
                 end
             end
@@ -351,12 +351,12 @@ classdef splineHelper
                     left = max((aMax - aa - dd * delta3 - cc * delta2) ./ delta);
                     right = min((aMin - aa - dd * delta3 - cc * delta2) ./ delta);
                 else
-                    err = 'Fail to extrapolate with given boundary';
+                    err = 'Right fail to extrapolate with given boundary';
                     error('%s', err);
                 end
                 
                 if (left > right)
-                    err = 'Fail to extrapolate with given boundary';
+                    err = 'Right fail to extrapolate with given boundary';
                     error('%s', err);
                 end
             end
