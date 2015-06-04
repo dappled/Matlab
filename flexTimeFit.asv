@@ -2,7 +2,7 @@
 %           4 means left side flat
 %           5 means right side flat
 %           6 means both sides flat
-function [smoothCoeff1, exitflag, g, gamma, aa, bb, cc, dd, turningPoint, x] = flexTimeFit(xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, invalidx, invalidupper, invalidlower, smoothCoeff, boundaryx, boundarydx, boundarydxx, leftright, xexl, yexl, xendl, lbendl,ubendl,xexr,yexr, xendr, lbendr, ubendr, leftincrease, rightincrease, smooth, tight, minxrange)
+function [smoothCoeff1, exitflag, g, gamma, aa, bb, cc, dd, turningPoint, x] = flexTimeFit(xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, invalidx, invalidupper, invalidlower, smoothCoeff, boundaryx, boundarydx, boundarydxx, leftright, xexl, yexl, xendl, lbendl,ubendl,xexr,yexr, xendr, lbendr, ubendr, leftincrease, rightincrease, smooth, tight, tightlb, tightub, minxrange)
 % %input
 % clc
 % M = csvread('c:\temp\voltooltest\slice_IWM.USZ_20150206.csv', 1);
@@ -94,9 +94,9 @@ rightneedsmoredata = false;
 rightmoredatamode = 0;
 bbb = [inf -inf];
 changedsmooth = true;
+allowflat = [0, 0];
 originalx = length(xin);
 while ~goodleft || ~goodright
-    allowflat = [isempty(xexl), isempty(xexr)];
     try
         %prefit
         while (true)
@@ -215,11 +215,11 @@ while ~goodleft || ~goodright
             end
         else
             if isnan(leftright)
-                [smoothCoeff1, exitflag, g, gamma, aaa, bbb, ccc, ddd, turningPoint, x] = flexWingFit(xin, yin, w, stationarypoint, tailConcavity, smoothCoeff, [nan, nan], boundaryx, boundarydx, boundarydxx, nan, xinub, xinlb, xendl, ubendl, lbendl, xendr, ubendr, lbendr, invalidx, invalidupper, invalidlower, leftincrease, rightincrease, smooth, tight, minxrange, true, allowflat, true, originalx);
+                [smoothCoeff1, exitflag, g, gamma, aaa, bbb, ccc, ddd, turningPoint, x] = flexWingFit(xin, yin, w, stationarypoint, tailConcavity, smoothCoeff, [nan, nan], boundaryx, boundarydx, boundarydxx, nan, xinub, xinlb, xendl, ubendl, lbendl, xendr, ubendr, lbendr, invalidx, invalidupper, invalidlower, leftincrease, rightincrease, smooth, tight, tightlb, tightub, minxrange, true, allowflat, true, originalx);
             elseif leftright == -1 %left
-                [smoothCoeff1, exitflag, g, gamma, aaa, bbb, ccc, ddd, turningPoint, x] = flexWingFit(xin, yin, w, stationarypoint, tailConcavity, smoothCoeff, [nan, nan], boundaryx, boundarydx, boundarydxx, nan, xinub, xinlb, xendl, ubendl, lbendl, [], [], [], invalidx, invalidupper, invalidlower, leftincrease, rightincrease, smooth, tight, minxrange, true, true, allowflat, true, originalx);
+                [smoothCoeff1, exitflag, g, gamma, aaa, bbb, ccc, ddd, turningPoint, x] = flexWingFit(xin, yin, w, stationarypoint, tailConcavity, smoothCoeff, [nan, nan], boundaryx, boundarydx, boundarydxx, nan, xinub, xinlb, xendl, ubendl, lbendl, [], [], [], invalidx, invalidupper, invalidlower, leftincrease, rightincrease, smooth, tight, tightlb, tightub, minxrange, true, true, allowflat, true, originalx);
             else %right
-                [smoothCoeff1, exitflag, g, gamma, aaa, bbb, ccc, ddd, turningPoint, x] = flexWingFit(xin, yin, w, stationarypoint, tailConcavity, smoothCoeff, [nan, nan], boundaryx, boundarydx, boundarydxx, nan, xinub, xinlb, [], [], [], xendr, ubendr, lbendr, invalidx, invalidupper, invalidlower, leftincrease, rightincrease, smooth, tight, minxrange, true, true, allowflat, true, originalx);
+                [smoothCoeff1, exitflag, g, gamma, aaa, bbb, ccc, ddd, turningPoint, x] = flexWingFit(xin, yin, w, stationarypoint, tailConcavity, smoothCoeff, [nan, nan], boundaryx, boundarydx, boundarydxx, nan, xinub, xinlb, [], [], [], xendr, ubendr, lbendr, invalidx, invalidupper, invalidlower, leftincrease, rightincrease, smooth, tight, tightlb, tightub, minxrange, true, true, allowflat, true, originalx);
             end
         end
     catch e
@@ -287,25 +287,17 @@ while ~goodleft || ~goodright
             boundaryx = [nan nan];
             boundarydx = [nan nan];
             boundarydxx = [nan nan];
-            xvalididx = arrayfun(@(x)find(xendl==x,1),xexl(xll));
+            xvalidx = arryfun(@(x)find(xendl==x,1),xexl(xll));
+            
             xexl = xexl(xlll);
             yexl = yexl(xlll);
-            xinlb = [lbendl(xvalididx) xinlb];
-            xinub = [ubendl(xvalididx) xinub];
-            xinvalididx = find(xendl >= xin(1));
-            xinvalididx = xinvalididx(~ismember(xinvalididx, xvalididx));
-            invalidx = [invalidx xendl(xinvalididx)];
-            invalidupper = [invalidupper ubendl(xinvalididx)];
-            invalidlower = [invalidlower lbendl(xinvalididx)];
-            xendlidx = find(xendl < xin(1));
-            xendl = xendl(xendlidx);
-            ubendl = ubendl(xendlidx);
-            lbendl = lbendl(xendlidx);
+            xinlb = [lbendl(xll) xinlb];
+            xinub = [ubendl(xll) xinub];
+            xendl = xendl(1:idx-1);
+            ubendl = ubendl(1:idx-1);
+            lbendl = lbendl(1:idx-1);
             goodleft = false;
             leftneedsmoredata = false;
-            if smooth == 2
-                smooth = 1;
-            end
         else
             %error('Invalid left polyfit');
             goodleft = true;
@@ -351,9 +343,6 @@ while ~goodleft || ~goodright
             lbendr = lbendr(xendridx);
             goodright = false;
             rightneedsmoredata = false;
-            if smooth == 2
-                smooth = 1;
-            end
         else
             %error('Invalid right polyfit');
             goodright = true;

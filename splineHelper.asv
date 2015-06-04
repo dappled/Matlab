@@ -82,12 +82,11 @@ classdef splineHelper
                     bb = min(max(bb, left), right);
                 end
             else
-                right = inf;
                 left = -inf;
             end
             bb = min(0, bb); % left wing should be decreasing
             if ~isnan(tailConcavity) && bb ~=0
-                re = bb * 0.85 + bb * 0.15 * tailConcavity;
+                re = bb * 0.9 + bb * 0.1 * tailConcavity;
                 if (re < 0 && re < right && re > left)
                     bb = re;
                 end
@@ -232,12 +231,11 @@ classdef splineHelper
                     bb = min(max(bb, left), right);
                 end
             else
-                right = inf;
                 left = -inf;
             end
             bb = max(bb, 0); %right wing should be increasing
             if ~isnan(tailConcavity) && bb ~= 0 
-                re = bb * 0.85 + bb * 0.15 * tailConcavity;
+                re = bb * 0.9 + bb * 0.1 * tailConcavity;
                 if (re < right && re > left && re > 0)
                     bb = re;
                 end

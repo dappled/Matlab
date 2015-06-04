@@ -4,7 +4,7 @@
 %           4 means left side flat
 %           5 means right side flat
 %           6 means both sides flat
-function [smoothCoeff1, exitflag, g, gamma, aa, bb, cc, dd, turningPoint, x] = flexWingFit(x, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, leftincrease, rightincrease, smooth, tight, tightlb, tightub, minxrange, concave, allowflat)
+function [smoothCoeff1, exitflag, g, gamma, aa, bb, cc, dd, turningPoint, x] = flexWingFit(x, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, leftincrease, rightincrease, smooth, tight, minxrange, concave, allowflat, fromtime, originalx)
 % clc
 % M = csvread('c:\temp\voltooltest\sampledata.csv', 2, 0);
 % MM = M(M(:,5)<=0.5, :);
@@ -150,10 +150,11 @@ scchanged = false;
 goodSc = false;
 goodBdr = false;
 ignoreconvexconcave =false;
+countc = 0;
 while ~goodBdr
     while ~goodSc || ~goodboundary
         if smooth == 2
-            smoothCoeff = 10 * exp(-50/length(x));
+            smoothCoeff = 10 * exp(-30/originalx);
         end
         xleft = boundaryx(1);
         xright = boundaryx(2);
@@ -382,6 +383,9 @@ while ~goodBdr
         end
         
         if exitflag > 0
+            if isempty(g)
+               error('fail wing fit'); 
+            end
             gamma = [dxxleft; re(n+1:end); dxxright];
             firstDx = [(g(2:n) - g(1:n-1))./h' - (2*gamma(1:n-1) + gamma(2:n))/6.*h'; (g(n) - g(n-1))/h(n-1) + h(n-1) / 6 * (gamma(n-1) + 2* gamma(n))];
             a = g(1:end); % g(line) - abcd(line,4)
@@ -390,11 +394,11 @@ while ~goodBdr
             %d = [(gamma(2:end) - gamma(1:end-1))/ 6 ./ h'; 0]; % (gamma(line+1) - gamma(line))/6/h(line) - abcd(line,7)
         end
         
-        if exitflag > 0 &&((y(1) > y(2) && b(1) > 0) || (y(end-1) < y(end) && b(end) < 0))
+        if fromtime && (exitflag > 0 &&((y(1) > y(2) && b(1) > -1e-5) || (y(end-1) < y(end) && b(end) < 1e-5)) && ~scchanged)
             smooth = 2;
             scchanged = true;
             goodSc = false;
-        elseif exitflag < 0 && smooth ~= 0 && ~scchanged
+        elseif exitflag == -8 && smooth ~= 0 && ~scchanged
             if (smooth == 2)
                 smooth = 1;
             else
@@ -403,6 +407,20 @@ while ~goodBdr
                 scchanged = true;
             end
             goodSc = false;
+        elseif smooth == 0 && exitflag > 0 && ~scchanged
+            window = 3;
+            mask = ones(window,1)/window;
+            mavg = conv(b, mask,'same');
+            ratio = 0.5;
+            mavgr = [mavg*ratio mavg/ratio];
+            mavgmin = min(mavgr(:,1), mavgr(:,2));
+            mavgmax = max(mavgr(:,1), mavgr(:,2));
+            if ~all((b<mavgmax) & (b > mavgmin))
+                smoothCoeff = 100;
+                scchanged = true;
+            else
+                goodSc = true;
+            end
         else
             goodSc = true;
         end
@@ -415,15 +433,19 @@ while ~goodBdr
         else
             goodboundary = true;
         end
+        
+        countc = countc + 1;
+        if countc > 4
+            error('Fail to fit');
+        end
     end
     if exitflag < 0 && ~boundarychanged
-        %         lowerLimitG = ones(1, length(lowerLimitG)) * -inf;
-        %         upperLimitG = ones(1, length(lowerLimitG)) * inf;
+        lowerLimitG = ones(1, length(lowerLimitG)) * -inf;
+        upperLimitG = ones(1, length(lowerLimitG)) * inf;
         goodSc = false;
         goodboundary = false;
         boundarychanged = true;
-        ignoreconvexconcave = true;
-        minxrange = [nan nan];
+        %ignoreconvexconcave = true;
         goodBdr = false;
     else
         goodBdr = true;
@@ -469,11 +491,13 @@ end
 %plot(x', y', x', g)
 
 %update left/right flat (just in case, should not be here)
-if ~leftflat && abs(b(1)) < 1e-5
+if ~allowflat(1) && (~leftflat && abs(b(1)) < 1.2e-5) %fromTime && 
     leftflat = true;
+    b(1) = 0;
 end
-if ~rightflat && abs(b(end)) < 1e-5
+if ~allowflat(2) && (~rightflat && abs(b(end)) < 1.2e-5)
     rightflat = true;
+    b(end) = 0;
 end
 
 if allowflat(1) && b(1) > 0
@@ -529,7 +553,7 @@ try
     end
 catch e
     if strcmp(e.message, 'Right needs more data') || strcmp(e.message, 'Extrapolate right will change slope a lot')% || strcmp(e.message, 'Right fail to extrapolate with given boundary')
-        leftneedsmoredata = true;
+        rightneedsmoredata = true;
     else
         rethrow(e);
     end
@@ -568,67 +592,67 @@ elseif leftright == 1
 end
 % end
 
-% %print
-% disp('1:n; x; y; g; upper; lower; dx; dxx')
-% [(1:1:n)' x' y' g ub(1:n) lb(1:n) firstDx gamma]
-% if isnan(leftright)
-%     disp('x; g; dx; dxx;')
-%     tl = x(1);
-%     tr = x(end);
-%     if ~isempty(xEndl)
-%         xxl = xEndl; %stationaryPoint(1) : 1 : tl-1;
-%         yyl = aal + bbl .* (xxl-tl) + ccl .* (xxl-tl).^2 + ddl .* (xxl-tl).^3;
-%     else
-%         xxl = [];
-%         yyl = [];
-%     end
-%     if ~isempty(xEndr)
-%         xxr = xEndr; %tr + 1 : 1 : stationaryPoint(2);
-%         yyr = aar + bbr .* (xxr-tr) + ccr .* (xxr-tr).^2 + ddr .* (xxr-tr).^3;
-%     else
-%         xxr = [];
-%         yyr = [];
-%     end
-%     xx = [xxl x xxr];
-%     yy = [yyl g' yyr];
-%     
-%     h = xx(2:end) - xx(1:end-1);
-%     dx = (yy(2:end) - yy(1:end-1))./h;
-%     dxx = ((yy(1:end-2) - yy(2:end-1))./h(1:end-1) - (yy(2:end-1) - yy(3:end))./h(2:end))./((h(1:end-1) + h(2:end))/2);
-%     [xx' yy' [dxleft; dx(2:end)'; dxright] [dxxleft; dxx'; dxxright]]
-%     plot(xx', yy', x', y')
-% elseif leftright == -1
-%     t = x(1);
-%     xx = xEndl;
-%     disp('x; g; dx; dxx;')
-%     yy = aal + bbl .* (xx-t) + ccl .* (xx-t).^2 + ddl .* (xx-t).^3;
-%     xx = [xx x];
-%     yy = [yy g'];
-%     
-%     h = xx(2:end) - xx(1:end-1);
-%     dx = (yy(2:end) - yy(1:end-1))./h;
-%     dxx = ((yy(1:end-2) - yy(2:end-1))./h(1:end-1) - (yy(2:end-1) - yy(3:end))./h(2:end))./((h(1:end-1) + h(2:end))/2);
-%     [xx' yy' [dxleft; dx(2:end)'; dxright] [dxxleft; dxx'; dxxright]]
-%     plot(xx', yy', x', y')
-% else
-%     t = x(end);
-%     xx = xEndr;
-%     disp('x; g; dx; dxx;')
-%     yy = aar + bbr .* (xx-t) + ccr .* (xx-t).^2 + ddr .* (xx-t).^3;
-%     xx = [x xx];
-%     yy = [g' yy];
-%     h = xx(2:end) - xx(1:end-1);
-%     dx = (yy(2:end) - yy(1:end-1))./ h;
-%     dxx = ((yy(1:end-2) - yy(2:end-1))./h(1:end-1) - (yy(2:end-1) - yy(3:end))./h(2:end))./((h(1:end-1) + h(2:end))/2);
-%     [xx' yy' [dxleft; dx(2:end)'; dxright] [dxxleft; dxx'; dxxright]]
-%     plot(xx', yy', x', y')
-% end
-% % disp('x,a,b,c,d')
-% % [x' a b c d]
-% disp('aa,bb,cc,dd');
-% [aa' bb' cc' dd']
-% smoothCoeff
-% x
+%print
+disp('1:n; x; y; g; upper; lower; dx; dxx')
+[(1:1:n)' x' y' g ub(1:n) lb(1:n) firstDx gamma]
+if isnan(leftright)
+    disp('x; g; dx; dxx;')
+    tl = x(1);
+    tr = x(end);
+    if ~isempty(xEndl)
+        xxl = sort(xEndl); %stationaryPoint(1) : 1 : tl-1;
+        yyl = aal + bbl .* (xxl-tl) + ccl .* (xxl-tl).^2 + ddl .* (xxl-tl).^3;
+    else
+        xxl = [];
+        yyl = [];
+    end
+    if ~isempty(xEndr)
+        xxr = sort(xEndr); %tr + 1 : 1 : stationaryPoint(2);
+        yyr = aar + bbr .* (xxr-tr) + ccr .* (xxr-tr).^2 + ddr .* (xxr-tr).^3;
+    else
+        xxr = [];
+        yyr = [];
+    end
+    xx = [xxl x xxr];
+    yy = [yyl g' yyr];
+    
+    h = xx(2:end) - xx(1:end-1);
+    dx = (yy(2:end) - yy(1:end-1))./h;
+    dxx = ((yy(1:end-2) - yy(2:end-1))./h(1:end-1) - (yy(2:end-1) - yy(3:end))./h(2:end))./((h(1:end-1) + h(2:end))/2);
+    [xx' yy' [dxleft; dx(2:end)'; dxright] [dxxleft; dxx'; dxxright]]
+    plot(xx', yy', x', y')
+elseif leftright == -1
+    t = x(1);
+    xx = sort(xEndl);
+    disp('x; g; dx; dxx;')
+    yy = aal + bbl .* (xx-t) + ccl .* (xx-t).^2 + ddl .* (xx-t).^3;
+    xx = [xx x];
+    yy = [yy g'];
+    
+    h = xx(2:end) - xx(1:end-1);
+    dx = (yy(2:end) - yy(1:end-1))./h;
+    dxx = ((yy(1:end-2) - yy(2:end-1))./h(1:end-1) - (yy(2:end-1) - yy(3:end))./h(2:end))./((h(1:end-1) + h(2:end))/2);
+    [xx' yy' [dxleft; dx(2:end)'; dxright] [dxxleft; dxx'; dxxright]]
+    plot(xx', yy', x', y')
+else
+    t = x(end);
+    xx = sort(xEndr);
+    disp('x; g; dx; dxx;')
+    yy = aar + bbr .* (xx-t) + ccr .* (xx-t).^2 + ddr .* (xx-t).^3;
+    xx = [x xx];
+    yy = [g' yy];
+    h = xx(2:end) - xx(1:end-1);
+    dx = (yy(2:end) - yy(1:end-1))./ h;
+    dxx = ((yy(1:end-2) - yy(2:end-1))./h(1:end-1) - (yy(2:end-1) - yy(3:end))./h(2:end))./((h(1:end-1) + h(2:end))/2);
+    [xx' yy' [dxleft; dx(2:end)'; dxright] [dxxleft; dxx'; dxxright]]
+    plot(xx', yy', x', y')
+end
+% disp('x,a,b,c,d')
+% [x' a b c d]
+disp('aa,bb,cc,dd');
+[aa' bb' cc' dd']
+smoothCoeff
+x
 
     function [xf, fval, re, g, exitflag] = naiveSearch(smooth)
         %         [f, re1, gg1, exitflag1] = gcv(1e-7);
@@ -659,7 +683,7 @@ end
         
         if smooth
             options = optimset('TolX', 0.1); %,'Display', 'iter'
-            xf = fminbnd(@gcv, 0, 10, options);
+            xf = fminbnd(@gcv, 0, 20, options);
         else
             options = optimset('TolX', 0.5); %,'Display', 'iter'
             xf = fminbnd(@gcv, 0, 100, options);
@@ -842,10 +866,23 @@ end
                 end
             end
             
-            if (minx < minxrange(1) || minx > minxrange(2))
-                minxrange = [nan; nan];
+            if count == 0 && (minx == x(end) && y(end-1) < y(end))
+                minx = x(y == min(y));
+                changedMin = true;
+                needRefit = true;
+                %minleftright = -1;
+            end
+            if count == 0 && ((minx == x(1) && y(2) < y(1)))
+                minx = x(y==min(y));
+                changedMin = true;
+                needRefit = true;
+                %minleftright = 1;
             end
             
+%             if (minx < minxrange(1) || minx > minxrange(2))
+%                 minxrange = [nan; nan];
+%             end
+           
             % if not monotone need refit
             if ~needRefit
                 if ~all(diff(g(x<=minx)) <= 0) || ~all(diff(g(x>=minx)) >= 0)
@@ -1489,22 +1526,22 @@ end
                 ub2(1:n) = upperLimitG';
             end
         end
-        if ~isempty(tightlb) % we might be able to cross the very tight market
-            if isnan(method) || method == 1
-                lb(tightlb == 1) = 0;
-            end
-            if isnan(method) || method == 2
-                lb2(tightlb == 1) =0;
-            end
-        end
-        if ~isempty(tightub)
-            if isnan(method) || method == 1
-                ub(tightub == 1) = inf;
-            end
-            if isnan(method) || method == 2
-                ub2(tightub == 1) = inf;
-            end
-        end
+%         if ~isempty(tightlb) % we might be able to cross the very tight market
+%             if isnan(method) || method == 1
+%                 lb(tightlb == 1) = 0;
+%             end
+%             if isnan(method) || method == 2
+%                 lb2(tightlb == 1) =0;
+%             end
+%         end
+%         if ~isempty(tightub)
+%             if isnan(method) || method == 1
+%                 ub(tightub == 1) = inf;
+%             end
+%             if isnan(method) || method == 2
+%                 ub2(tightub == 1) = inf;
+%             end
+%         end
         if ~isempty(hugedxxregion)
             hdr = hugedxxregion + n;
             if isnan(method) || method == 1
@@ -1553,16 +1590,16 @@ end
         else
             if minleftright ~= 0 && ~isnan(minxrange(2))
                 xinc = x(x>=minxrange(2));
-            elseif minleftright == 0
-                xinc = x(x>minx);
+            elseif minleftright == -1
+                xinc = x(x>=minx);
             else
-                xinc = [];
+                xinc = x(x>minx);
             end
             %             if (length(xinc) == 1)
             %                 xinc = [];
             %             end
         end
-        if minleftright == 1 || (minleftright == 0 && isnan(minxrange(2)))
+        if minleftright == 1 %|| (minleftright == 0 && isnan(minxrange(2)))
             range = 2:length(xinc);
         else
             range = 1:length(xinc);
@@ -1571,13 +1608,12 @@ end
             xx = xinc(ii);
             idxx = find(x == xx);
             if xx == x(end)
-                % normal right wing end, bn + dxxright*hi/3 > 1e-7, -bn < -1e-7 +
-                % dxxright * hi/3
+                % normal right wing end, bn + dxxright*hi/3 > 1e-7, -bn < -1e-7 + dxxright * hi/3
                 Ales = [Ales; zeros(1, n-2), 1/h(n-1), -1/h(n-1), zeros(1, n-3), -h(n-1)/6];
                 if isnan(dxxright)
-                    bles = [bles; -1e-7];
+                    bles = [bles; -1e-5];
                 else
-                    bles = [bles; -1e-7 + dxxright * h(n-1)/3];
+                    bles = [bles; -1e-5 + dxxright * h(n-1)/3];
                 end
             elseif xx == x(1)
                 % (this might include leftflat so we allow 0) b1 - dxxleft*h1/3>= 0 (-b1 <= dxxleft*h1/3)
@@ -1591,14 +1627,14 @@ end
                 % bn-1  - dxxright*hn-1/6 > 1e-7, -bn-1 <= -1e-7 - dxxright*hn-1/6
                 Ales = [Ales; zeros(1, n-2), 1/h(n-1), -1/h(n-1), zeros(1,n-3), +h(n-1)/3];
                 if isnan(dxxright)
-                    bles = [bles; -1e-7];
+                    bles = [bles; -1e-5];
                 else
-                    bles = [bles; -1e-7 - dxxright * h(n-1)/6];
+                    bles = [bles; -1e-5 - dxxright * h(n-1)/6];
                 end
             else
                 % in increase part bi > 1e-7, -bi <= -1e-7
                 Ales = [Ales; zeros(1, idxx-1),  1/h(idxx), -1/h(idxx), zeros(1, n-2-(idxx-1)), zeros(1, idxx - 2), h(idxx)/3, h(idxx)/6, zeros(1, n-4-(idxx-2))];
-                bles = [bles; -1e-7];
+                bles = [bles; -1e-5];
             end
         end
         % dec part simple constraint
@@ -1607,16 +1643,16 @@ end
         else
             if minleftright ~= 0 && ~isnan(minxrange(1))
                 xdec = x(x<=minxrange(1));
-            elseif minleftright == 0
-                xdec = x(x<minx);
+            elseif minleftright == 1 
+                xdec = x(x<=minx);
             else
-                xdec = [];
+                xdec = x(x<minx);
             end
             %             if (length(xdec) == 1)
             %                 xdec = [];
             %             end
         end
-        if minleftright == -1 || (minleftright == 0 && isnan(minxrange(1)))
+        if minleftright == -1 %|| (minleftright == 0 && isnan(minxrange(1)))
             range = 1:length(xdec) - 1;
         else
             range = 1:length(xdec);
@@ -1628,9 +1664,9 @@ end
                 % normal left wing start, b1 - dxxleft*h1/3 < -1e-7
                 Ales = [Ales; -1/h(1), +1/h(1), zeros(1, n-2), -h(1)/6, zeros(1, n-3)];
                 if isnan(dxxleft)
-                    bles = [bles; -1e-7];
+                    bles = [bles; -1e-5];
                 else
-                    bles = [bles; -1e-7 + dxxleft*h(1)/3];
+                    bles = [bles; -1e-5 + dxxleft*h(1)/3];
                 end
             elseif xx == x(end)
                 % (this might include rightflat so we allow 0) bn + dxxright *hn-1/3<=0,
@@ -1645,14 +1681,14 @@ end
                 % bn-1 < -1e-7 + dxxright * hi/6
                 Ales = [Ales; zeros(1, n-2), -1/h(n-1), 1/h(n-1),zeros(1,n-3), -h(n-1)/3];
                 if isnan(dxxright)
-                    bles = [bles; -1e-7];
+                    bles = [bles; -1e-5];
                 else
-                    bles = [bles; -1e-7 + dxxright * h(n-1)/6];
+                    bles = [bles; -1e-5 + dxxright * h(n-1)/6];
                 end
             else
                 % in decrease part bi < -1e-7
                 Ales = [Ales; zeros(1, idxx-1), -1/h(idxx), 1/h(idxx), zeros(1, n-2-(idxx-1)), zeros(1, idxx - 2), -h(idxx)/3, -h(idxx)/6, zeros(1, n-4-(idxx-2))];
-                bles = [bles; -1e-7];
+                bles = [bles; -1e-5];
             end
         end
         
