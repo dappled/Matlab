@@ -22,13 +22,19 @@ function [exitflag, alpha, nu, rho] = sabrFit(kvalid,kinvalid, y, wvalid, winval
 %     lowerBoundvalid = M(i,10)';%zeros(1,n);
 %     lowerBoundinvalid = M(iinvalid, 10)';
 
+displayOn = false;
+if displayOn
+    options = optimoptions(@lsqnonlin, 'MaxFunEvals', 500);
+else
+    options = optimoptions(@lsqnonlin, 'MaxFunEvals', 500, 'Display', 'off');
+end
+
 if (atfvol == 0)
     method = 1;
 else
     method = 2;
 end
 
-options = optimoptions(@lsqnonlin, 'MaxFunEvals', 500);
 if method == 1
     objFun = @(x) calerror1(x, beta, kvalid, kinvalid, y, wvalid, winvalid, fwd, ttm, lowerboundvalid, upperboundvalid, lowerboundinvalid, upperboundinvalid);
     [x,~,~,exitflag] = lsqnonlin(objFun, [alpha, nu, rho], [0 0 -1], [inf, inf, 1], options);
@@ -45,22 +51,24 @@ else
     alpha = findAlpha(atfvol, fwd, ttm, beta, nu, rho);
 end
 
-disp('alpha nu rho');
-[alpha nu rho]
-
-% if method == 1
+if displayOn
+    disp('alpha nu rho');
+    [alpha nu rho]
+    
+    % if method == 1
     gvalid = sabr(kvalid, fwd, ttm, alpha, beta, nu, rho);
     ginvalid = sabr(kinvalid, fwd, ttm, alpha, beta, nu, rho);
-% else
-%     gvalid = sabrimplied(kvalid, atfvol, fwd, ttm, beta, nu, rho);
-%     ginvalid = sabrimplied(kinvalid, atfvol, fwd, ttm, beta, nu, rho);
-% end
-disp('valid: k y g lower upper');
-[kvalid' y' gvalid' lowerboundvalid' upperboundvalid']
-disp('invalid: k g lower upper');
-[kinvalid' ginvalid' lowerboundinvalid' upperboundinvalid']
-
-plot(kvalid,y,kvalid,gvalid);
+    % else
+    %     gvalid = sabrimplied(kvalid, atfvol, fwd, ttm, beta, nu, rho);
+    %     ginvalid = sabrimplied(kinvalid, atfvol, fwd, ttm, beta, nu, rho);
+    % end
+    disp('valid: k y g lower upper');
+    [kvalid' y' gvalid' lowerboundvalid' upperboundvalid']
+    disp('invalid: k g lower upper');
+    [kinvalid' ginvalid' lowerboundinvalid' upperboundinvalid']
+    
+    plot(kvalid,y,kvalid,gvalid);
+end
 end
 
 

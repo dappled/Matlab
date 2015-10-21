@@ -4,10 +4,12 @@
 %           4 means left side flat
 %           5 means right side flat
 %           6 means both sides flat
-function [smoothCoeff1, exitflag, g, gamma, aa, bb, cc, dd, turningPoint, x] = flexWingFit(x, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, leftincrease, rightincrease, smooth, tight, minxrange, concave, allowflat, fromtime, originalx)
+function [smooth1, smoothCoeff1, exitflag, g, gamma, aa, bb, cc, dd, turningPoint, x] = flexWingFit(x, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, ...
+    upperLimitGmax, lowerLimitGmin, xEndl, aubl, albl, aublmax, alblmin, xEndr, aubr, albr, aubrmax, albrmin, invalidx, invalidupper, invalidlower, invaliduppermax, invalidlowermin, leftincrease, rightincrease, smooth, tight, minxrange, concave, allowflat,...
+    fromtime, originalx, breakBoundary, forcesmooth)
 % clc
 % M = csvread('c:\temp\voltooltest\sampledata.csv', 2, 0);
-% MM = M(M(:,5)<=0.5, :);
+% % % MM = M(M(:,5)<=0.5, :);
 % leftright = 1;
 % IV = MM(MM(:,3)~=0 & MM(:,4)~=0,:);
 % IV = [IV (IV(:,3)+IV(:,4))./2];
@@ -112,6 +114,15 @@ function [smoothCoeff1, exitflag, g, gamma, aa, bb, cc, dd, turningPoint, x] = f
 % op.c = concave;
 % op.a = allowflat;
 
+displayOn = false;
+if displayOn
+    optfminbnd = optimset('Display', 'iter');
+    optquad = optimoptions('quadprog','Display', 'iter');
+else
+    optfminbnd = optimset('Display', 'off');
+    optquad = optimoptions('quadprog','Display', 'off');
+end
+
 h = x(2:end) - x(1:end-1);
 n = length(x);
 
@@ -122,27 +133,6 @@ originSecD = ((y(3:n) - y(2:n-1))./h(2:end) - (y(2:n-1) - y(1:n-2))./ h(1:end-1)
 avg = mean(abs(originSecD));
 hugedxxregion = find(abs(originSecD) > avg * 5);
 
-[increaseregion, decreaseregion] = findIDRegion(lowerLimitG, upperLimitG);
-% if length(increaseregion) == 1
-%     minincrease = x(increaseregion);
-% else
-if length(increaseregion) == 1
-    minincrease = x(increaseregion);
-else
-    minincrease = [];
-end
-if length(decreaseregion) == 1
-    maxdecrease = x(decreaseregion);
-elseif ~isempty(decreaseregion)
-    maxdecrease = x(decreaseregion(end));
-else
-    maxdecrease = [];
-end
-
-if ~isempty(minincrease) && ~isempty(maxdecrease) && minincrease <= maxdecrease
-    error('cannot make monotone b/c of boundary');
-end
-
 goodboundary = false;
 boundarydchanged = false;
 boundarychanged = false;
@@ -151,320 +141,373 @@ goodSc = false;
 goodBdr = false;
 ignoreconvexconcave =false;
 countc = 0;
+allowignorelbub = breakBoundary;
 while ~goodBdr
-    while ~goodSc || ~goodboundary
-        if smooth == 2
-            smoothCoeff = 10 * exp(-30/originalx);
-        end
-        xleft = boundaryx(1);
-        xright = boundaryx(2);
-        dxleft = boundarydx(1);
-        dxright = boundarydx(2);
-        dxxleft = boundarydxx(1);
-        dxxright = boundarydxx(2);
-        
-        % if ~isnan(xleft)
-        %     upperLimitG(1) = inf;
-        %     lowerLimitG(1) = 0;
-        % end
-        if ~isnan(dxleft)
-            inRegionDx = (y(2) - y(1)) /h(1);
-            dxleft = (dxleft + inRegionDx)/2;
-        end
-        
-        if ~isnan(dxright)
-            inRegionDx = (y(end) - y(end-1)) / h(end);
-            dxright = (dxright + inRegionDx)/2;
-        end
-        
-        Q = zeros(n, n-2);
-        
-        for i = 1 : n
-            for j = 1: n-2
-                if i == j
-                    Q(i,j) = 1/h(i);
-                elseif i-1 == j
-                    Q(i,j) = - 1/h(i-1) - 1/h(i);
-                elseif i-2 == j
-                    Q(i,j) = 1/h(i-1);
-                end
-            end
-        end
-        
-        R = zeros(n-2,n-2);
-        
-        for i = 1:n-2
-            for j = 1:n-2
-                if i-1 == j
-                    R(i,j) = h(j+1)/6;
-                elseif i == j
-                    R(i,j) = (h(i) + h(i+1))/3;
-                elseif i+1 == j
-                    R(i,j) = h(i+1)/6;
-                end
-            end
-        end
-        
-        A = [Q; -R'];
-        % A'g = 0, and set boundary x/dx if exists
-        Aeq = A';
-        Beq = zeros(n-2, 1);
-        if smoothCoeff ~= 0
-            if ~isnan(xright)
-                ABoundx = [zeros(1, n-1), 1, zeros(1,n-2)];
-                Aeq = [Aeq; ABoundx];
-                Beq = [Beq; xright];
-            end
-            if ~isnan(xleft)
-                ABoundx = [1, zeros(1, 2*n-3)];
-                Aeq = [Aeq; ABoundx];
-                Beq = [Beq; xleft];
-            end
-            if ~isnan(dxright)
-                ABounddx = [zeros(1, n-2), -1/h(n-1), +1/h(n-1), zeros(1, n-3), +h(n-1)/6];
-                if ~isnan(dxxright)
-                    Beq = [Beq; dxright - h(n-1)/3 * dxxright];
-                else
-                    Beq = [Beq; dxright];
-                end
-                Aeq = [Aeq; ABounddx];
-            end
-            if ~isnan(dxleft)
-                ABounddx = [-1/h(1), +1/h(1), zeros(1, n-2), -h(1)/6, zeros(1, n-3)];
-                if ~isnan(dxxleft)
-                    Beq = [Beq; dxleft + h(1)/3 * dxxleft];
-                else
-                    Beq = [Beq; dxleft];
-                end
-                Aeq = [Aeq; ABounddx];
-            end
-        end
-        
-        Ales = [];
-        bles = [];
-        
-        %         %add the boundary b/c of extrapolating part boundaries
-        %         %loose approach
-        %         if ~isempty(xEndl) && ~isnan(dxxleft)
-        %             if ~isnan(stationaryPoint(1))
-        %                 lidx = find(aMinl > y(1));
-        %                 if ~isempty(lidx)
-        %                     t = x(1);
-        %                     hleft = stationaryPoint(1) - t;
-        %                     h2 = hleft * hleft;
-        %                     for lidxi = lidx
-        %                         %h3 = h2 * hleft;
-        %                         deltaa = xEndl(lidxi) - t;
-        %                         %deltaa2 = deltaa .^ 2;
-        %                         deltaa3 = deltaa .^ 3;
-        %
-        %                         alpha = 3 * h2 * (aMinl(lidxi));
-        %                         %beta = 3 * h2 * (aMaxl);
-        %
-        %                         %tao = 3 * deltaa2 * h2 - 2 * deltaa3 * hleft;
-        %                         gammaaa = 3 * deltaa * h2 - deltaa3;
-        %
-        %                         %b - adj <= min() + dxxleft*h1/3
-        %                         %tmp = gammaaa;
-        %                         rightt = alpha / gammaaa + dxxleft*h(1)/3;
-        %                         righttadj = 3 * h2 ./ gammaaa;
-        %                         Ales = [Ales; (-1/h(1) + righttadj),  1/h(1), zeros(1,n-2), -h(1)/6, zeros(1,n-3)];
-        %                         bles = [bles; rightt];
-        %                         %                 %b -adj >= max() + dxleft*h1/3 => -b <= -(..)
-        %                         %                 tmp = (gammaaa * hleft - tao);
-        %                         %                 leftt = max(beta * hleft ./ tmp) + dxxleft*h(1)/3;
-        %                         %                 lefttadj = min(-3 * h3 ./tmp);
-        %                         %                 Ales = [Ales; -(-1/h(1) - lefttadj), -1/h(1), zeros(1,n-2), h(1)/6, zeros(1,n-3)];
-        %                         %                 bles = [bles; -leftt];
-        %                     end
-        %                 end
-        %             end
-        %         end
-        % if ~isempty(xEndr) && ~isnan(dxxright)
-        %     if ~isnan(stationaryPoint(2))
-        %         t = x(end);
-        %         hright = stationaryPoint(2) - t;
-        %         h2 = hright * hright;
-        %         h3 = h2 * hright;
-        %         deltaa = xEndr - t;
-        %         deltaa2 = deltaa .^ 2;
-        %         deltaa3 = deltaa .^ 3;
-        %
-        %         alpha = 3 * h2 * (aMinr);
-        %         beta = 3 * h2 * (aMaxr);
-        %
-        %         tao = 3 * deltaa2 * h2 - 2 * deltaa3 * hright;
-        %         gammaaa = 3 * deltaa * h2 - deltaa3;
-        %
-        %         %b - adj <= min() - dxleft*h1/3
-        %         tmp = (gammaaa * hright - tao);
-        %         rightt = min(beta * hright ./ tmp) - dxxright*h(n-1)/3;
-        %         righttadj = max(-3 * h3./tmp);
-        %         Ales = [Ales; zeros(1,n-2), -1/h(n-1), (1/h(n-1) - righttadj),  zeros(1,n-3), h(n-1)/6];
-        %         bles = [bles; rightt];
-        %         %b - adj >= max() - dxleft*h1/3 => -(b - adj) <= -(..)
-        %         tmp = gammaaa;
-        %         leftt = max(alpha ./ tmp) - dxxright*h(n-1)/3;
-        %         lefttadj = min(-3 * h2./tmp);
-        %         Ales = [Ales; zeros(1,n-2), 1/h(n-1) , -(-1/h(n-1) - lefttadj), zeros(1,n-3), -h(n-1)/6];
-        %         bles = [bles; -leftt];
-        %     end
-        % end
-        
-        changed = false;
-        minx = x(y == min(y));
-        if (length(minx) > 1)
-            minx = minx(end);
-        end
-        
-        [lb, lb2, ub, ub2, flat] = calculateConcavePoints(originSecD, nan);
-        
-        method = 1;
-        smoothNan =false;
-        if isnan(smoothCoeff)
-            smoothNan = true;
-            %     smoothCoeff = 6;
-            
-            %opt = optimset('Display', 'iter','TolX', 0.6); %'Display', 'iter',
-            %[smoothCoeff, gcvScore, exitflag] = fminbndWithStartPoint(@gcv, 1e-7, 0, 6, opt);% fmincon(@gcv, 1e-7, [], [], [], [], 0, 6, [],opt);
-            [smoothCoeff, gcvScore, re, g, exitflag] = naiveSearch(smooth);
-            %     if exitflag <= 0
-            %         if exitflag == 0
-            %             err = 'Maximum number of function evaluations or iterations was reached';
-            %         elseif exitflag == -1
-            %             err = 'Algorithm was terminated by the output function';
-            %         elseif exitflag == -2
-            %             err = sprintf('Bounds are inconsistent : (%g > %g)', 0, 6);
-            %         else
-            %             err = num2str(exitflag);
-            %         end
-            %         error('error in optimal smoothcoeff search: %s', err);
-            %     end
+    if (allowignorelbub)
+        invalidlower = invalidlowermin;
+        invalidupper = invaliduppermax;
+        lowerLimitG = lowerLimitGmin;
+        upperLimitG = upperLimitGmax;
+    end
+    [increaseregion, decreaseregion] = findIDRegion(lowerLimitG, upperLimitG);
+    % if length(increaseregion) == 1
+    %     minincrease = x(increaseregion);
+    % else
+    if length(increaseregion) == 1
+        minincrease = x(increaseregion);
+    else
+        minincrease = [];
+    end
+    if length(decreaseregion) == 1
+        maxdecrease = x(decreaseregion);
+    elseif ~isempty(decreaseregion)
+        maxdecrease = x(decreaseregion(end));
+    else
+        maxdecrease = [];
+    end
+    
+    if ~isempty(minincrease) && ~isempty(maxdecrease) && minincrease <= maxdecrease
+        if (~boundarychanged && ~allowignorelbub)
+            allowignorelbub = true;
+            goodSc = false;
+            goodboundary = false;
+            boundarychanged = true;
+            goodBdr = false;
         else
-            [gcvScore, re, g, exitflag] = gcv(smoothCoeff);
+            error('cannot make monotone b/c of boundary');
         end
-        
-        if (isnan(leftright) && (concavePointsl1 ~= concavePointsl2 || concavePointsr1 ~= concavePointsr2)) || (~isnan(leftright) && (concavePoints ~= concavePoints2))
-            method = 2;
-            if exitflag == -1
-                if smoothNan
-                    smoothCoeff = NaN;
+    else
+        while ~goodSc || ~goodboundary
+            if smooth == 2
+                smoothCoeff = 10 * exp(-50/originalx);
+            end
+            xleft = boundaryx(1);
+            xright = boundaryx(2);
+            dxleft = boundarydx(1);
+            dxright = boundarydx(2);
+            dxxleft = boundarydxx(1);
+            dxxright = boundarydxx(2);
+            
+            % if ~isnan(xleft)
+            %     upperLimitG(1) = inf;
+            %     lowerLimitG(1) = 0;
+            % end
+            if ~isnan(dxleft)
+                inRegionDx = (y(2) - y(1)) /h(1);
+                dxleft = (dxleft + inRegionDx)/2;
+            end
+            
+            if ~isnan(dxright)
+                inRegionDx = (y(end) - y(end-1)) / h(end);
+                dxright = (dxright + inRegionDx)/2;
+            end
+            
+            Q = zeros(n, n-2);
+            
+            for i = 1 : n
+                for j = 1: n-2
+                    if i == j
+                        Q(i,j) = 1/h(i);
+                    elseif i-1 == j
+                        Q(i,j) = - 1/h(i-1) - 1/h(i);
+                    elseif i-2 == j
+                        Q(i,j) = 1/h(i-1);
+                    end
                 end
-                if isnan(smoothCoeff)
-                    [smoothCoeff, ~, re, g, exitflag] = naiveSearch(smooth);
-                else
-                    [~, re, g, exitflag] = gcv(smoothCoeff);
+            end
+            
+            R = zeros(n-2,n-2);
+            
+            for i = 1:n-2
+                for j = 1:n-2
+                    if i-1 == j
+                        R(i,j) = h(j+1)/6;
+                    elseif i == j
+                        R(i,j) = (h(i) + h(i+1))/3;
+                    elseif i+1 == j
+                        R(i,j) = h(i+1)/6;
+                    end
                 end
-            else
-                %         if isnan(smoothCoeff)
-                %             [smoothCoeff, gcvScore2, ree, gg, exitflagg] = naiveSearch(smooth);
+            end
+            
+            A = [Q; -R'];
+            % A'g = 0, and set boundary x/dx if exists
+            Aeq = A';
+            Beq = zeros(n-2, 1);
+            if smoothCoeff ~= 0
+                if ~isnan(xright)
+                    ABoundx = [zeros(1, n-1), 1, zeros(1,n-2)];
+                    Aeq = [Aeq; ABoundx];
+                    Beq = [Beq; xright];
+                end
+                if ~isnan(xleft)
+                    ABoundx = [1, zeros(1, 2*n-3)];
+                    Aeq = [Aeq; ABoundx];
+                    Beq = [Beq; xleft];
+                end
+                if ~isnan(dxright)
+                    ABounddx = [zeros(1, n-2), -1/h(n-1), +1/h(n-1), zeros(1, n-3), +h(n-1)/6];
+                    if ~isnan(dxxright)
+                        Beq = [Beq; dxright - h(n-1)/3 * dxxright];
+                    else
+                        Beq = [Beq; dxright];
+                    end
+                    Aeq = [Aeq; ABounddx];
+                end
+                if ~isnan(dxleft)
+                    ABounddx = [-1/h(1), +1/h(1), zeros(1, n-2), -h(1)/6, zeros(1, n-3)];
+                    if ~isnan(dxxleft)
+                        Beq = [Beq; dxleft + h(1)/3 * dxxleft];
+                    else
+                        Beq = [Beq; dxleft];
+                    end
+                    Aeq = [Aeq; ABounddx];
+                end
+            end
+            
+            Ales = [];
+            bles = [];
+            
+            %         %add the boundary b/c of extrapolating part boundaries
+            %         %loose approach
+            %         if ~isempty(xEndl) && ~isnan(dxxleft)
+            %             if ~isnan(stationaryPoint(1))
+            %                 lidx = find(aMinl > y(1));
+            %                 if ~isempty(lidx)
+            %                     t = x(1);
+            %                     hleft = stationaryPoint(1) - t;
+            %                     h2 = hleft * hleft;
+            %                     for lidxi = lidx
+            %                         %h3 = h2 * hleft;
+            %                         deltaa = xEndl(lidxi) - t;
+            %                         %deltaa2 = deltaa .^ 2;
+            %                         deltaa3 = deltaa .^ 3;
+            %
+            %                         alpha = 3 * h2 * (aMinl(lidxi));
+            %                         %beta = 3 * h2 * (aMaxl);
+            %
+            %                         %tao = 3 * deltaa2 * h2 - 2 * deltaa3 * hleft;
+            %                         gammaaa = 3 * deltaa * h2 - deltaa3;
+            %
+            %                         %b - adj <= min() + dxxleft*h1/3
+            %                         %tmp = gammaaa;
+            %                         rightt = alpha / gammaaa + dxxleft*h(1)/3;
+            %                         righttadj = 3 * h2 ./ gammaaa;
+            %                         Ales = [Ales; (-1/h(1) + righttadj),  1/h(1), zeros(1,n-2), -h(1)/6, zeros(1,n-3)];
+            %                         bles = [bles; rightt];
+            %                         %                 %b -adj >= max() + dxleft*h1/3 => -b <= -(..)
+            %                         %                 tmp = (gammaaa * hleft - tao);
+            %                         %                 leftt = max(beta * hleft ./ tmp) + dxxleft*h(1)/3;
+            %                         %                 lefttadj = min(-3 * h3 ./tmp);
+            %                         %                 Ales = [Ales; -(-1/h(1) - lefttadj), -1/h(1), zeros(1,n-2), h(1)/6, zeros(1,n-3)];
+            %                         %                 bles = [bles; -leftt];
+            %                     end
+            %                 end
+            %             end
+            %         end
+            % if ~isempty(xEndr) && ~isnan(dxxright)
+            %     if ~isnan(stationaryPoint(2))
+            %         t = x(end);
+            %         hright = stationaryPoint(2) - t;
+            %         h2 = hright * hright;
+            %         h3 = h2 * hright;
+            %         deltaa = xEndr - t;
+            %         deltaa2 = deltaa .^ 2;
+            %         deltaa3 = deltaa .^ 3;
+            %
+            %         alpha = 3 * h2 * (aMinr);
+            %         beta = 3 * h2 * (aMaxr);
+            %
+            %         tao = 3 * deltaa2 * h2 - 2 * deltaa3 * hright;
+            %         gammaaa = 3 * deltaa * h2 - deltaa3;
+            %
+            %         %b - adj <= min() - dxleft*h1/3
+            %         tmp = (gammaaa * hright - tao);
+            %         rightt = min(beta * hright ./ tmp) - dxxright*h(n-1)/3;
+            %         righttadj = max(-3 * h3./tmp);
+            %         Ales = [Ales; zeros(1,n-2), -1/h(n-1), (1/h(n-1) - righttadj),  zeros(1,n-3), h(n-1)/6];
+            %         bles = [bles; rightt];
+            %         %b - adj >= max() - dxleft*h1/3 => -(b - adj) <= -(..)
+            %         tmp = gammaaa;
+            %         leftt = max(alpha ./ tmp) - dxxright*h(n-1)/3;
+            %         lefttadj = min(-3 * h2./tmp);
+            %         Ales = [Ales; zeros(1,n-2), 1/h(n-1) , -(-1/h(n-1) - lefttadj), zeros(1,n-3), -h(n-1)/6];
+            %         bles = [bles; -leftt];
+            %     end
+            % end
+            
+            changed = false;
+            minx = x(y == min(y));
+            if (length(minx) > 1)
+                minx = minx(end);
+            end
+            
+            [lb, lb2, ub, ub2, flat] = calculateConcavePoints(originSecD, nan);
+            
+            method = 1;
+            smoothNan =false;
+            if isnan(smoothCoeff)
+                smoothNan = true;
+                %     smoothCoeff = 6;
+                
+                %opt = optimset('Display', 'iter','TolX', 0.6); %'Display', 'iter',
+                %[smoothCoeff, gcvScore, exitflag] = fminbndWithStartPoint(@gcv, 1e-7, 0, 6, opt);% fmincon(@gcv, 1e-7, [], [], [], [], 0, 6, [],opt);
+                [smoothCoeff, gcvScore, re, g, exitflag] = naiveSearch(smooth);
+                %     if exitflag <= 0
+                %         if exitflag == 0
+                %             err = 'Maximum number of function evaluations or iterations was reached';
+                %         elseif exitflag == -1
+                %             err = 'Algorithm was terminated by the output function';
+                %         elseif exitflag == -2
+                %             err = sprintf('Bounds are inconsistent : (%g > %g)', 0, 6);
                 %         else
-                %             [gcvScore2, ree, gg, exitflagg] = gcv(smoothCoeff);
+                %             err = num2str(exitflag);
                 %         end
-                [gcvScore2, ree, gg, exitflagg] = gcv(smoothCoeff);
-                if exitflagg < 0 || gcvScore2 >= gcvScore
-                    method = 1;
-                else
-                    re = ree;
-                    g = gg;
-                    exitflag = exitflagg;
-                end
-            end
-        end
-        
-        if exitFlagg ~= 0
-            exitflag = exitFlagg;
-        end
-        if isnan(dxxleft)
-            dxxleft = 0;
-        end
-        if isnan(dxxright)
-            dxxright = 0;
-        end
-        
-        if exitflag > 0
-            if isempty(g)
-               error('fail wing fit'); 
-            end
-            gamma = [dxxleft; re(n+1:end); dxxright];
-            firstDx = [(g(2:n) - g(1:n-1))./h' - (2*gamma(1:n-1) + gamma(2:n))/6.*h'; (g(n) - g(n-1))/h(n-1) + h(n-1) / 6 * (gamma(n-1) + 2* gamma(n))];
-            a = g(1:end); % g(line) - abcd(line,4)
-            b = firstDx(1:end); % (g(line+1) - g(line))/h(line) - (gamma(line+1) + 2*gamma(line))/6*h(line) - abcd(line,5)
-            c = gamma/2; % 0.5*gamma(line) - abcd(line,6)
-            %d = [(gamma(2:end) - gamma(1:end-1))/ 6 ./ h'; 0]; % (gamma(line+1) - gamma(line))/6/h(line) - abcd(line,7)
-        end
-        
-        if fromtime && (exitflag > 0 &&((y(1) > y(2) && b(1) > -1e-5) || (y(end-1) < y(end) && b(end) < 1e-5)) && ~scchanged)
-            smooth = 2;
-            scchanged = true;
-            goodSc = false;
-        elseif exitflag == -8 && smooth ~= 0 && ~scchanged
-            if (smooth == 2)
-                smooth = 1;
+                %         error('error in optimal smoothcoeff search: %s', err);
+                %     end
             else
-                smooth = 0;
-                smoothCoeff = nan;
-                scchanged = true;
+                [gcvScore, re, g, exitflag] = gcv(smoothCoeff);
             end
-            goodSc = false;
-        elseif smooth == 0 && exitflag > 0 && ~scchanged
-            window = 3;
-            mask = ones(window,1)/window;
-            mavg = conv(b, mask,'same');
-            ratio = 0.5;
-            mavgr = [mavg*ratio mavg/ratio];
-            mavgmin = min(mavgr(:,1), mavgr(:,2));
-            mavgmax = max(mavgr(:,1), mavgr(:,2));
-            if ~all((b<mavgmax) & (b > mavgmin))
-                smoothCoeff = 100;
+            
+            if (isnan(leftright) && ~ignoreconvexconcave && (concavePointsl1 ~= concavePointsl2 || concavePointsr1 ~= concavePointsr2)) || (~isnan(leftright) && (concavePoints ~= concavePoints2))
+                method = 2;
+                if exitflag == -1
+                    if smoothNan
+                        smoothCoeff = NaN;
+                    end
+                    if isnan(smoothCoeff)
+                        [smoothCoeff, ~, re, g, exitflag] = naiveSearch(smooth);
+                    else
+                        [~, re, g, exitflag] = gcv(smoothCoeff);
+                    end
+                else
+                    %         if isnan(smoothCoeff)
+                    %             [smoothCoeff, gcvScore2, ree, gg, exitflagg] = naiveSearch(smooth);
+                    %         else
+                    %             [gcvScore2, ree, gg, exitflagg] = gcv(smoothCoeff);
+                    %         end
+                    [gcvScore2, ree, gg, exitflagg] = gcv(smoothCoeff);
+                    if exitflagg < 0 || gcvScore2 >= gcvScore
+                        method = 1;
+                    else
+                        re = ree;
+                        g = gg;
+                        exitflag = exitflagg;
+                    end
+                end
+            else
+                exitFlagg = 0;
+            end
+            
+            if exitFlagg ~= 0
+                exitflag = exitFlagg;
+            end
+            if isnan(dxxleft)
+                dxxleft = 0;
+            end
+            if isnan(dxxright)
+                dxxright = 0;
+            end
+            
+            if exitflag > 0
+                if isempty(g)
+                    error('fail wing fit');
+                end
+                gamma = [dxxleft; re(n+1:end); dxxright];
+                firstDx = [(g(2:n) - g(1:n-1))./h' - (2*gamma(1:n-1) + gamma(2:n))/6.*h'; (g(n) - g(n-1))/h(n-1) + h(n-1) / 6 * (gamma(n-1) + 2* gamma(n))];
+                a = g(1:end); % g(line) - abcd(line,4)
+                b = firstDx(1:end); % (g(line+1) - g(line))/h(line) - (gamma(line+1) + 2*gamma(line))/6*h(line) - abcd(line,5)
+                c = gamma/2; % 0.5*gamma(line) - abcd(line,6)
+                d = [(gamma(2:end) - gamma(1:end-1))/ 6 ./ h'; 0]; % (gamma(line+1) - gamma(line))/6/h(line) - abcd(line,7)
+            end
+            
+            if fromtime && ~forcesmooth && (exitflag > 0 &&((y(1) > y(2) && b(1) > -1e-5) || (y(end-1) < y(end) && b(end) < 1e-5)) && ~scchanged)
+                smooth = 2;
                 scchanged = true;
+                goodSc = false;
+            elseif exitflag == 0
+                if (smooth ~= 0)
+                    smooth = 0;
+                else
+                    smoothCoeff = 100;
+                end
+                scchanged = true;
+                goodSc = false;
+            elseif exitflag == -8 && smooth ~= 0 && ~scchanged && ~forcesmooth
+                if (smooth == 2)
+                    smooth = 1;
+                else
+                    smooth = 0;
+                    smoothCoeff = nan;
+                    scchanged = true;
+                end
+                goodSc = false;
+            elseif smooth == 0 && exitflag > 0 && ~scchanged && ~forcesmooth
+                window = 3;
+                mask = ones(window,1)/window;
+                mavg = conv(b, mask,'same');
+                ratio = 0.5;
+                mavgr = [(abs(mavg) <= 1e-4) .* -1e-3 + (abs(mavg) > 1e-4) .* mavg * ratio ...
+                    (abs(mavg) <= 1e-4) .* 1e-3 + (abs(mavg) > 1e-4) .* mavg /ratio];
+                mavgmin = min(mavgr(:,1), mavgr(:,2));
+                mavgmax = max(mavgr(:,1), mavgr(:,2));
+                if ~all((b<mavgmax) & (b > mavgmin))
+                    smoothCoeff = 100;
+                    scchanged = true;
+                else
+                    goodSc = true;
+                end
             else
                 goodSc = true;
             end
-        else
-            goodSc = true;
+            
+            if (exitflag == -2 && (~all(isnan(boundarydxx)) || ~all(isnan(boundarydx))) && ~boundarydchanged)
+                boundarydx = [nan, nan];
+                boundarydxx = [nan, nan];
+                boundarydchanged = true;
+                goodboundary = false;
+            else
+                goodboundary = true;
+            end
+            
+            countc = countc + 1;
+            if countc > 4
+                error('Fail to fit');
+            end
         end
-        
-        if (exitflag == -2 && (~all(isnan(boundarydxx)) || ~all(isnan(boundarydx))) && ~boundarydchanged)
-            boundarydx = [nan, nan];
-            boundarydxx = [nan, nan];
-            boundarydchanged = true;
+        if exitflag < 0 && ~boundarychanged
+            allowignorelbub = true;
+            %lowerLimitG = ones(1, length(lowerLimitG)) * -inf;
+            %upperLimitG = ones(1, length(lowerLimitG)) * inf;
+            goodSc = false;
             goodboundary = false;
+            boundarychanged = true;
+            %ignoreconvexconcave = true;
+            goodBdr = false;
         else
-            goodboundary = true;
+            goodBdr = true;
         end
-        
-        countc = countc + 1;
-        if countc > 4
-            error('Fail to fit');
-        end
-    end
-    if exitflag < 0 && ~boundarychanged
-        lowerLimitG = ones(1, length(lowerLimitG)) * -inf;
-        upperLimitG = ones(1, length(lowerLimitG)) * inf;
-        goodSc = false;
-        goodboundary = false;
-        boundarychanged = true;
-        %ignoreconvexconcave = true;
-        goodBdr = false;
-    else
-        goodBdr = true;
     end
 end
 
-if isnan(leftright)
-    if method == 1
-        turningPoint(1) = tpl1;
-        turningPoint(2) = tpr1;
-    else
-        turningPoint(1) = tpl2;
-        turningPoint(2) = tpr2;
-    end
+if ~ignoreconvexconcave
+    turningPoint(1) = tpl1;
+    turningPoint(2) = tpr1;
 else
-    if method == 1
-        turningPoint(1) = tp;
+    if isnan(leftright)
+        if method == 1         
+            turningPoint(1) = nan;
+            turningPoint(2) = nan;
+        else
+            turningPoint(1) = tpl2;
+            turningPoint(2) = tpr2;
+        end
     else
-        turningPoint(1) = tp2;
+        if method == 1
+            turningPoint(1) = tp;
+        else
+            turningPoint(1) = tp2;
+        end
     end
 end
 
@@ -528,13 +571,13 @@ end
 try
     if ~leftneedsmoredata
         if isnan(leftright) || leftright == -1
-            [aal, bbl, ccl, ddl] = splineHelper.leftPars(x, a, b, c, stationaryPoint(1), leftflat, xEndl, aMinl, aMaxl, tailConcavity(1), dxleft, dxxleft, concave);
+            [aal, bbl, ccl, ddl] = splineHelper.leftPars(x, a, b, c, stationaryPoint(1), leftflat, xEndl, albl, aubl, alblmin, aublmax, tailConcavity(1), dxleft, dxxleft, concave);%, dontCareWingShape);
         else
             aal = 0; bbl = 0; ccl = 0; ddl = 0;
         end
     end
 catch e
-    if strcmp(e.message, 'Left needs more data') || strcmp(e.message, 'Extrapolate left will change slope a lot') % || strcmp(e.message, 'Left fail to extrapolate with given boundary')
+    if strcmp(e.message, 'Left needs more data') || strcmp(e.message, 'Extrapolate left will change slope a lot') || strcmp(e.message, 'Left fail to extrapolate with given boundary')
         leftneedsmoredata = true;
     else
         rethrow(e);
@@ -544,15 +587,15 @@ end
 try
     if ~rightneedsmoredata
         if isnan(leftright)
-            [aar, bbr, ccr, ddr] = splineHelper.rightPars(x, a, b, c, stationaryPoint(2), rightflat, xEndr, aMinr, aMaxr, tailConcavity(2), dxright, dxxright, concave);
+            [aar, bbr, ccr, ddr] = splineHelper.rightPars(x, a, b, c, stationaryPoint(2), rightflat, xEndr, albr, aubr, albrmin, aubrmax, tailConcavity(2), dxright, dxxright, concave);%, dontCareWingShape);
         elseif leftright == 1
-            [aar, bbr, ccr, ddr] = splineHelper.rightPars(x, a, b, c, stationaryPoint(1), rightflat, xEndr, aMinr, aMaxr, tailConcavity(1), dxright, dxxright, concave);
+            [aar, bbr, ccr, ddr] = splineHelper.rightPars(x, a, b, c, stationaryPoint(1), rightflat, xEndr, albr, aubr, albrmin, aubrmax, tailConcavity(1), dxright, dxxright, concave);%, dontCareWingShape);
         else
             aar = 0; bbr = 0; ccr = 0; ddr = 0;
         end
     end
 catch e
-    if strcmp(e.message, 'Right needs more data') || strcmp(e.message, 'Extrapolate right will change slope a lot')% || strcmp(e.message, 'Right fail to extrapolate with given boundary')
+    if strcmp(e.message, 'Right needs more data') || strcmp(e.message, 'Extrapolate right will change slope a lot') || strcmp(e.message, 'Right fail to extrapolate with given boundary')
         rightneedsmoredata = true;
     else
         rethrow(e);
@@ -573,6 +616,7 @@ cc = [ccl, ccr];
 dd = [ddl, ddr];
 
 smoothCoeff1 = smoothCoeff;
+smooth1 = smooth;
 
 % if ~isnan(stationaryPoint(1))
 if isnan(leftright)
@@ -593,66 +637,68 @@ end
 % end
 
 %print
-disp('1:n; x; y; g; upper; lower; dx; dxx')
-[(1:1:n)' x' y' g ub(1:n) lb(1:n) firstDx gamma]
-if isnan(leftright)
-    disp('x; g; dx; dxx;')
-    tl = x(1);
-    tr = x(end);
-    if ~isempty(xEndl)
-        xxl = sort(xEndl); %stationaryPoint(1) : 1 : tl-1;
-        yyl = aal + bbl .* (xxl-tl) + ccl .* (xxl-tl).^2 + ddl .* (xxl-tl).^3;
+if (displayOn)
+    disp('1:n; x; y; g; upper; lower; dx; dxx')
+    [(1:1:n)' x' y' g ub(1:n) lb(1:n) firstDx gamma]
+    if isnan(leftright)
+        disp('x; g; dx; dxx;')
+        tl = x(1);
+        tr = x(end);
+        if ~isempty(xEndl)
+            xxl = sort(xEndl); %stationaryPoint(1) : 1 : tl-1;
+            yyl = aal + bbl .* (xxl-tl) + ccl .* (xxl-tl).^2 + ddl .* (xxl-tl).^3;
+        else
+            xxl = [];
+            yyl = [];
+        end
+        if ~isempty(xEndr)
+            xxr = sort(xEndr); %tr + 1 : 1 : stationaryPoint(2);
+            yyr = aar + bbr .* (xxr-tr) + ccr .* (xxr-tr).^2 + ddr .* (xxr-tr).^3;
+        else
+            xxr = [];
+            yyr = [];
+        end
+        xx = [xxl x xxr];
+        yy = [yyl g' yyr];
+        
+        h = xx(2:end) - xx(1:end-1);
+        dx = (yy(2:end) - yy(1:end-1))./h;
+        dxx = ((yy(1:end-2) - yy(2:end-1))./h(1:end-1) - (yy(2:end-1) - yy(3:end))./h(2:end))./((h(1:end-1) + h(2:end))/2);
+        [xx' yy' [dxleft; dx(2:end)'; dxright] [dxxleft; dxx'; dxxright]]
+        plot(xx', yy', x', y', x', lb(1:n), x', ub(1:n))
+    elseif leftright == -1
+        t = x(1);
+        xx = sort(xEndl);
+        disp('x; g; dx; dxx;')
+        yy = aal + bbl .* (xx-t) + ccl .* (xx-t).^2 + ddl .* (xx-t).^3;
+        xx = [xx x];
+        yy = [yy g'];
+        
+        h = xx(2:end) - xx(1:end-1);
+        dx = (yy(2:end) - yy(1:end-1))./h;
+        dxx = ((yy(1:end-2) - yy(2:end-1))./h(1:end-1) - (yy(2:end-1) - yy(3:end))./h(2:end))./((h(1:end-1) + h(2:end))/2);
+        [xx' yy' [dxleft; dx(2:end)'; dxright] [dxxleft; dxx'; dxxright]]
+        plot(xx', yy', x', y', x', lb(1:n), x', ub(1:n))
     else
-        xxl = [];
-        yyl = [];
+        t = x(end);
+        xx = sort(xEndr);
+        disp('x; g; dx; dxx;')
+        yy = aar + bbr .* (xx-t) + ccr .* (xx-t).^2 + ddr .* (xx-t).^3;
+        xx = [x xx];
+        yy = [g' yy];
+        h = xx(2:end) - xx(1:end-1);
+        dx = (yy(2:end) - yy(1:end-1))./ h;
+        dxx = ((yy(1:end-2) - yy(2:end-1))./h(1:end-1) - (yy(2:end-1) - yy(3:end))./h(2:end))./((h(1:end-1) + h(2:end))/2);
+        [xx' yy' [dxleft; dx(2:end)'; dxright] [dxxleft; dxx'; dxxright]]
+        plot(xx', yy', x', y', x', lb(1:n), x', ub(1:n))
     end
-    if ~isempty(xEndr)
-        xxr = sort(xEndr); %tr + 1 : 1 : stationaryPoint(2);
-        yyr = aar + bbr .* (xxr-tr) + ccr .* (xxr-tr).^2 + ddr .* (xxr-tr).^3;
-    else
-        xxr = [];
-        yyr = [];
-    end
-    xx = [xxl x xxr];
-    yy = [yyl g' yyr];
-    
-    h = xx(2:end) - xx(1:end-1);
-    dx = (yy(2:end) - yy(1:end-1))./h;
-    dxx = ((yy(1:end-2) - yy(2:end-1))./h(1:end-1) - (yy(2:end-1) - yy(3:end))./h(2:end))./((h(1:end-1) + h(2:end))/2);
-    [xx' yy' [dxleft; dx(2:end)'; dxright] [dxxleft; dxx'; dxxright]]
-    plot(xx', yy', x', y')
-elseif leftright == -1
-    t = x(1);
-    xx = sort(xEndl);
-    disp('x; g; dx; dxx;')
-    yy = aal + bbl .* (xx-t) + ccl .* (xx-t).^2 + ddl .* (xx-t).^3;
-    xx = [xx x];
-    yy = [yy g'];
-    
-    h = xx(2:end) - xx(1:end-1);
-    dx = (yy(2:end) - yy(1:end-1))./h;
-    dxx = ((yy(1:end-2) - yy(2:end-1))./h(1:end-1) - (yy(2:end-1) - yy(3:end))./h(2:end))./((h(1:end-1) + h(2:end))/2);
-    [xx' yy' [dxleft; dx(2:end)'; dxright] [dxxleft; dxx'; dxxright]]
-    plot(xx', yy', x', y')
-else
-    t = x(end);
-    xx = sort(xEndr);
-    disp('x; g; dx; dxx;')
-    yy = aar + bbr .* (xx-t) + ccr .* (xx-t).^2 + ddr .* (xx-t).^3;
-    xx = [x xx];
-    yy = [g' yy];
-    h = xx(2:end) - xx(1:end-1);
-    dx = (yy(2:end) - yy(1:end-1))./ h;
-    dxx = ((yy(1:end-2) - yy(2:end-1))./h(1:end-1) - (yy(2:end-1) - yy(3:end))./h(2:end))./((h(1:end-1) + h(2:end))/2);
-    [xx' yy' [dxleft; dx(2:end)'; dxright] [dxxleft; dxx'; dxxright]]
-    plot(xx', yy', x', y')
+    disp('x,a,b,c,d')
+    [x' a b c d]
+    disp('aa,bb,cc,dd');
+    [aa' bb' cc' dd']
+    smoothCoeff
+    x
 end
-% disp('x,a,b,c,d')
-% [x' a b c d]
-disp('aa,bb,cc,dd');
-[aa' bb' cc' dd']
-smoothCoeff
-x
 
     function [xf, fval, re, g, exitflag] = naiveSearch(smooth)
         %         [f, re1, gg1, exitflag1] = gcv(1e-7);
@@ -682,11 +728,9 @@ x
         %         end
         
         if smooth
-            options = optimset('TolX', 0.1); %,'Display', 'iter'
-            xf = fminbnd(@gcv, 0, 20, options);
+            xf = fminbnd(@gcv, 0, 20, optimset(optfminbnd, 'TolX', 0.1));
         else
-            options = optimset('TolX', 0.5); %,'Display', 'iter'
-            xf = fminbnd(@gcv, 0, 100, options);
+            xf = fminbnd(@gcv, 0, 100, optimset(optfminbnd, 'TolX', 0.1));
         end
         
         [fval, re, g, exitflag] = gcv(xf);
@@ -718,23 +762,23 @@ x
         %             ignoremin = true;
         %         else
         ignoremin = false;
-        if isempty(x(x<=minxrange(2) & x>=minxrange(1)))
-            firstafter = x(x>=minxrange(2));
-            if isempty(firstafter)
-                firstafter = inf;
-            else
-                firstafter = firstafter(1);
-            end
-            lastbefore = x(x<=minxrange(1));
-            if isempty(lastbefore)
-                lastbefore = -inf;
-            else
-                lastbefore = lastbefore(end);
-            end
-        else
-            firstafter = inf;
-            lastbefore = -inf;
-        end
+%         if isempty(x(x<=minxrange(2) & x>=minxrange(1)))
+%             firstafter = x(x>=minxrange(2));
+%             if isempty(firstafter)
+%                 firstafter = inf;
+%             else
+%                 firstafter = firstafter(1);
+%             end
+%             lastbefore = x(x<=minxrange(1));
+%             if isempty(lastbefore)
+%                 lastbefore = -inf;
+%             else
+%                 lastbefore = lastbefore(end);
+%             end
+%         else
+%             firstafter = inf;
+%             lastbefore = -inf;
+%         end
         %         end
         
         minx = x(y == min(y));
@@ -761,17 +805,19 @@ x
         end
         
         relbub = false;
-        if isnan(leftright)
-            if (method == 1 && (minx > tpr1 || minx < tpl1)) || (method == 2 && (minx > tpr2 || minx < tpl2))
-                relbub = true;
-            end
-        elseif (leftright == -1 && ~flat) || (leftright == 1 && flat)
-            if (method == 1 && tp > minx) || (method == 2 && tp2 > minx)
-                relbub = true;
-            end
-        else
-            if (method == 1 && tp < minx) || (method == 2 && tp2 < minx)
-                relbub = true;
+        if ~ignoreconvexconcave
+            if isnan(leftright)
+                if (method == 1 && (minx > tpr1 || minx < tpl1)) || (method == 2 && (minx > tpr2 || minx < tpl2))
+                    relbub = true;
+                end
+            elseif (leftright == -1 && ~flat) || (leftright == 1 && flat)
+                if (method == 1 && tp > minx) || (method == 2 && tp2 > minx)
+                    relbub = true;
+                end
+            else
+                if (method == 1 && tp < minx) || (method == 2 && tp2 < minx)
+                    relbub = true;
+                end
             end
         end
         
@@ -785,6 +831,12 @@ x
         
         [xinc, xdec, Aless, bless, Aeqq, Beqq, ubb, ubb2] = dealWithMin(minx, Ales, bles, Aeq, Beq, ub, ub2, minleftright);
         
+%         Aless = Ales;
+%         bless = bles;
+%         Aeqq = Aeq;
+%         Beqq = Beq;
+%         ubb = ub;
+%         ubb2 = ub2;
         [re, g, exitflag] = calculationImp(smoothCoeff, Aless, bless, Aeqq, Beqq, lb, lb2, ubb, ubb2);
         if (exitflag < 1)
             return
@@ -792,6 +844,7 @@ x
         needRefit = true;
         count = 0;
         linesofeq = 0;
+        prevminisrange = false;
         
         while exitflag >= 0 && needRefit
             needRefit = false;
@@ -825,30 +878,36 @@ x
             changedMin = false;
             % if count == 0 we always want to make sure minx inside
             % minxrange
-            % else we allow to be the firstafter or lastbefore b/c i trust
-            % the fitter
-            if ~ignoremin && ((count == 0 && (minx > minxrange(2) || (minx == minxrange(2) && minx ~= x(end)))) || (count > 0 && minx > firstafter))
+            % else if 
+            if ~ignoremin && ((count == 0 && (minx > minxrange(2) || (minx == minxrange(2) && minx ~= x(end)))))
                 minx = minxrange(2);
                 minleftright = -1;
                 needRefit = true;
                 changedMin = true;
-            elseif ~ignoremin && ((count == 0 && (minx < minxrange(1) || (minx == minxrange(1) && minx ~= minxrange(1)))) || (count > 0 && minx < lastbefore))
+                prevminisrange = true;
+            elseif ~ignoremin && ((count == 0 && (minx < minxrange(1) || (minx == minxrange(1) && minx ~= minxrange(1)))))
                 minx = minxrange(1);
                 minleftright = 1;
                 needRefit = true;
                 changedMin = true;
+                prevminisrange = true;
             else
+                if (count > 0 && prevminisrange)
+                   changedMin = true; 
+                end
                 minleftright = 0;
+                prevminisrange = false;
             end
             
             if ~isempty(minincrease)
                 if minincrease < minx
                     if (minincrease == x(1))
                         minx = x(1);
+                        minleftright = 0;
                     else
-                        minx = minincrease - 0.001;
+                        minx = minincrease;
+                        minleftright = -1;
                     end
-                    minleftright = 0;
                     changedMin = true;
                     needRefit = true;
                 end
@@ -857,10 +916,11 @@ x
                 if (minx <= maxdecrease)
                     if maxdecrease == x(end)
                         minx = x(end);
+                        minleftright = 0;
                     else
-                        minx = maxdecrease + 0.001;
+                        minx = maxdecrease;
+                        minleftright = 1;
                     end
-                    minleftright = 0;
                     changedMin = true;
                     needRefit = true;
                 end
@@ -868,21 +928,27 @@ x
             
             if count == 0 && (minx == x(end) && y(end-1) < y(end))
                 minx = x(y == min(y));
+                if (length(minx) > 1)
+                    minx = minx(end);
+                end
                 changedMin = true;
                 needRefit = true;
                 %minleftright = -1;
             end
             if count == 0 && ((minx == x(1) && y(2) < y(1)))
                 minx = x(y==min(y));
+                if (length(minx) > 1)
+                    minx = minx(1);
+                end
                 changedMin = true;
                 needRefit = true;
                 %minleftright = 1;
             end
             
-%             if (minx < minxrange(1) || minx > minxrange(2))
-%                 minxrange = [nan; nan];
-%             end
-           
+            %             if (minx < minxrange(1) || minx > minxrange(2))
+            %                 minxrange = [nan; nan];
+            %             end
+            
             % if not monotone need refit
             if ~needRefit
                 if ~all(diff(g(x<=minx)) <= 0) || ~all(diff(g(x>=minx)) >= 0)
@@ -891,17 +957,19 @@ x
             end
             
             relbub = false;
-            if isnan(leftright)
-                if (method == 1 && (minx > tpr1 || minx < tpl1)) || (method == 2 && (minx > tpr2 || minx < tpl2))
-                    relbub = true;
-                end
-            elseif (leftright == -1 && ~flat) || (leftright == 1 && flat)
-                if (method == 1 && tp > minx) || (method == 2 && tp2 > minx)
-                    relbub = true;
-                end
-            else
-                if (method == 1 && tp < minx) || (method == 2 && tp2 < minx)
-                    relbub = true;
+            if ~ignoreconvexconcave
+                if isnan(leftright)
+                    if (method == 1 && (minx > tpr1 || minx < tpl1)) || (method == 2 && (minx > tpr2 || minx < tpl2))
+                        relbub = true;
+                    end
+                elseif (leftright == -1 && ~flat) || (leftright == 1 && flat)
+                    if (method == 1 && tp > minx) || (method == 2 && tp2 > minx)
+                        relbub = true;
+                    end
+                else
+                    if (method == 1 && tp < minx) || (method == 2 && tp2 < minx)
+                        relbub = true;
+                    end
                 end
             end
             
@@ -922,10 +990,12 @@ x
                 needRefit = true;
             end
             
+            [re, g, exitflag] = calculationImp(smoothCoeff, Aless, bless, Aeqq, Beqq, lb, lb2, ubb, ubb2);
+            
             % check monotone increasing after minx
             if ~changedMin || count == 0
                 if ~isempty(xinc)
-                    if minleftright ~= -1 || (minleftright == 0 && isnan(minxrange(2)))
+                    if minleftright == 1 %|| (minleftright == 0 && isnan(minxrange(2)))
                         range = 2 : length(xinc);
                     else
                         range = 1 : length(xinc);
@@ -1042,7 +1112,7 @@ x
                 end
                 % check monotone decreasing before minx
                 if ~isempty(xdec)
-                    if minleftright ~= 1 || (minleftright == 0 && isnan(minxrange(1)))
+                    if minleftright == -1 %|| (minleftright == 0 && isnan(minxrange(1)))
                         range = 1 : length(xdec) - 1;
                     else
                         range = 1 : length(xdec);
@@ -1508,6 +1578,9 @@ x
 %                     end
 %                 end
 %             end
+        else
+            leftflat =false;
+            rightflat = false;
         end
         
         if ~isempty(lowerLimitG)
@@ -1526,20 +1599,20 @@ x
                 ub2(1:n) = upperLimitG';
             end
         end
-%         if ~isempty(tightlb) % we might be able to cross the very tight market
+%         if allowignorelbub && ~isempty(tightlb) % we might be able to cross the very tight market
 %             if isnan(method) || method == 1
-%                 lb(tightlb == 1) = 0;
+%                 lb(tightlb == 1) = lowerLimitGmin(tightlb == 1);
 %             end
 %             if isnan(method) || method == 2
-%                 lb2(tightlb == 1) =0;
+%                 lb2(tightlb == 1) =lowerLimitGmin(tightlb == 1);
 %             end
 %         end
-%         if ~isempty(tightub)
+%         if allowignorelbub && ~isempty(tightub)
 %             if isnan(method) || method == 1
-%                 ub(tightub == 1) = inf;
+%                 ub(tightub == 1) = upperLimitGmax(tightub == 1);
 %             end
 %             if isnan(method) || method == 2
-%                 ub2(tightub == 1) = inf;
+%                 ub2(tightub == 1) = upperLimitGmax(tightub == 1);
 %             end
 %         end
         if ~isempty(hugedxxregion)
@@ -1785,7 +1858,7 @@ x
         %             end
         %         end
         
-        if minleftright ~= 0
+        if minleftright ~= 0 %&& (~isempty(maxdecrease) && minx ~= maxdecrease) && (~isempty(minincrease) && minx ~= minincrease)
             try
                 xp1idx = find(x>minx,1);
                 xm1idx = xp1idx - 1;
@@ -1812,7 +1885,7 @@ x
                             bles = [bles; 0];
                         end
                     elseif (xp1 == x(end - 1))
-                        Ales = [Ales; zeros(1, xm1idx-1),  1/hi, -1/hi, zeros(1, n-2-(xm1idx-1)), zeros(1, xm1idx - 2), -(-hi/3 + delta - delta2/2/hi), zeros(1, n-4-(xm1idx-2))];
+                        Ales = [Ales; zeros(1, xm1idx-1),  1/hi, -1/hi, zeros(1, n-2-(xm1idx-1)), zeros(1, xm1idx - 1), -(-hi/3 + delta - delta2/2/hi)];
                         if ~isnan(dxxright)
                             bles = [bles; (-hi/6 + delta2/2/hi) * dxxright];
                         else
@@ -1824,7 +1897,7 @@ x
                     end
                 else
                     %bj + 2cj*deltaj + 3dj*deltaj^2 < 0
-                    if (xp1 == x(1))
+                    if (xp1 == x(2))
                         Ales = [Ales; -1/hi, 1/hi, zeros(1, n-2), (-hi/6 + delta2/2/hi), zeros(1, n-3)];
                         if ~isnan(dxxleft)
                             bles = [bles; -(-hi/3 + delta - delta2/2/hi) * dxxleft];
@@ -1839,7 +1912,7 @@ x
                             bles = [bles; 0];
                         end
                     elseif (xp1 == x(end - 1))
-                        Ales = [Ales; zeros(1, xm1idx-1),  -1/hi, 1/hi, zeros(1, n-2-(xm1idx-1)), zeros(1, xm1idx - 2), (-hi/3 + delta - delta2/2/hi), zeros(1, n-4-(xm1idx-2))];
+                        Ales = [Ales; zeros(1, xm1idx-1),  -1/hi, 1/hi, zeros(1, n-2-(xm1idx-1)), zeros(1, xm1idx - 1), (-hi/3 + delta - delta2/2/hi)];
                         if ~isnan(dxxright)
                             bles = [bles; -(-hi/6 + delta2/2/hi) * dxxright];
                         else
@@ -1851,9 +1924,8 @@ x
                     end
                 end
                 
-                
                 %2cj+6dj*deltaj > 0
-                if (xp1 == x(1))
+                if (xp1 == x(2))
                     Ales = [Ales; zeros(1, n), -(delta/hi), zeros(1, n-3)];
                     if ~isnan(dxxleft)
                         bles = [bles; (1-delta/hi) * dxxleft];
@@ -1863,7 +1935,7 @@ x
                 elseif (xp1 == x(end))
                     %nothing
                 elseif (xp1 == x(end - 1))
-                    Ales = [Ales; zeros(1, n), zeros(1, xm1idx -2), -(1-delta/hi), zeros(1, n-4-(xm1idx-2))];
+                    Ales = [Ales; zeros(1, n), zeros(1, xm1idx -1), -(1-delta/hi)];
                     if ~isnan(dxxright)
                         bles = [bles; delta/hi * dxxright];
                     else
@@ -2025,15 +2097,15 @@ x
         % boundary lb/ub should consider ex part boundary if minx is here
         if ~isnan(minx)
             if minx ~= x(1) % if letf part is decreasing, leftmost node cannot be greater than the upper bound of left extrapolate
-                if ~isempty(aMaxl)
-                    ub(1)= min(ub(1), min(aMaxl));
-                    ub2(1) = min(ub2(1), min(aMaxl));
+                if ~isempty(aubl)
+                    ub(1)= min(ub(1), min(aubl));
+                    ub2(1) = min(ub2(1), min(aubl));
                 end
             end
             if minx ~= x(end) % if right part is increasing, rightmost node cannot be greater than the upper bound of the right extrapolate
-                if ~isempty(aMaxr)
-                    ub(n) = min(ub(n), min(aMaxr));
-                    ub2(n) = min(ub2(n), min(aMaxr));
+                if ~isempty(aubr)
+                    ub(n) = min(ub(n), min(aubr));
+                    ub2(n) = min(ub2(n), min(aubr));
                 end
             end
         end
@@ -2064,22 +2136,22 @@ x
     function [re, g, exitflag] = calculationImp(smoothCoeff, Ales, bles, Aeq, Beq, lb, lb2, ub, ub2)
         D = blkdiag(diag(weight), smoothCoeff*R);
         eta = [weight.*y zeros(1, n-2)]';
-        %         D = blkdiag(diag(ones(1,n)), smoothCoeff*R);
-        %         eta = [y zeros(1, n-2)]';
+%                 D = blkdiag(diag(ones(1,n)), smoothCoeff*R);
+%                 eta = [y zeros(1, n-2)]';
         if ~isnan(dxxleft)
             eta = eta + [zeros(1, n-2) (-0.5 * smoothCoeff * dxxleft/h(end)) (0.5 * smoothCoeff * dxxleft/h(end)) zeros(1, n-2)]';
         end
         if ~isnan(dxxright)
             eta = eta + [(0.5 * smoothCoeff * dxxright/h(1)) (-0.5 * smoothCoeff * dxxright/h(1)) zeros(1, 2 * n-4)]';
         end
-        
+
         if smoothCoeff == 0
-            [re,~,exitflag]= quadprog(D, -eta, [], [], Aeq, Beq, [], []);
+            [re,~,exitflag]= quadprog(D, -eta, [], [], Aeq, Beq, [], [], [], optquad);
         else
             if method == 1
-                [re,~,exitflag]= quadprog(D, -eta, Ales, bles, Aeq, Beq, lb, ub);
+                [re,~,exitflag]= quadprog(D, -eta, Ales, bles, Aeq, Beq, lb, ub, [], optquad);
             else
-                [re,~,exitflag]= quadprog(D, -eta, Ales, bles, Aeq, Beq, lb2, ub2);
+                [re,~,exitflag]= quadprog(D, -eta, Ales, bles, Aeq, Beq, lb2, ub2, [], optquad);
             end
         end
         if (exitflag > 0)
@@ -2095,7 +2167,7 @@ x
             l = lowerLimitG(idx);
             for idxx = idx+1:1:length(upperLimitG)
                 u = upperLimitG(idxx);
-                if (u <= l)
+                if (u < l)
                     decreaseregion = idx;
                     break;
                 end
@@ -2105,9 +2177,24 @@ x
             end
         end
         
-        increaseregion = find(upperLimitG(1:end-1) < lowerLimitG(2:end));
-        if ~isempty(increaseregion)
-            increaseregion = increaseregion(1);
+        increaseregion = [];
+        for idx = 2: 1: length(lowerLimitG)
+            l = lowerLimitG(idx);
+            for idxx = 1 : 1: idx-1
+               u = upperLimitG(idxx);
+               if (u < l)
+                   increaseregion = idx;
+                   break;
+               end
+            end
+            if ~isempty(increaseregion)
+                break;
+            end
         end
+            
+%         increaseregion = find(upperLimitG(1:end-1) < lowerLimitG(2:end));
+%         if ~isempty(increaseregion)
+%             increaseregion = increaseregion(1);
+%         end
     end
 end

@@ -1,87 +1,71 @@
-MATLAB Builder NE (.NET Component)
+MATLAB Production Server
 
+Before you can use the functions packaged by the compiler, you need to do the following:
+. Deploy flexFit.ctf to a server instance
+. Develop a client application to access the functions.
 
-1. Prerequisites for Deployment 
+1. Deploy flexFit.ctf
 
-. Verify the MATLAB Compiler Runtime (MCR) is installed and ensure you    
-  have installed version 8.3 (R2014a).   
+1.1 Prerequisites to Deployment
+Before you can deploy flexFit.ctf you need a server instance to host it. The server 
+instance must be configured to have access to MATLAB runtime 8.5.
+* If you do not have a server instance created see [Server 
+  Creation](http://mathworks.com/help/mps/creating_a_server.html).
+* If you do not have version 8.5 of the MATLAB runtime installed download the installer 
+  from the MATLAB runtime 
+  page(http://www.mathworks.com/products/compiler/mcr/index.html). For more information 
+  see [Working with the MATLAB 
+  runtime](http://www.mathworks.com/help/compiler/working_with_the_mcr.html).
+* If you need to configure the server instance to use the version 8.5 of the MATLAB 
+  runtime see [Configuration File 
+  Customization](http://www.mathworks.com/help/mps/customize-the-configuration-file.html).
 
-. If the MCR is not installed, do the following:
-  (1) enter
-  
-      >>mcrinstaller
-      
-      at MATLAB prompt. The MCRINSTALLER command displays the 
-      location of the MCR Installer.
+1.2 flexFit.ctf Deployment
+To deploy flexFit.ctf copy it into the server instance's `auto_deploy` folder. The server 
+instance will automatically deploy it and make it available to interested clients.
 
-  (2) run the MCR Installer.
+2. Develop Client Applications
+MATLAB Production Server officially supports the following clients:
+* C/C++(http://www.mathworks.com/help/mps/cxx-client-programming.html)
+* .NET(http://www.mathworks.com/help/mps/dotnet-client-programming.html)
+* Java(http://www.mathworks.com/help/mps/java-client-programming.html)
+* Python(http://www.mathworks.com/help/mps/python-client-programming.html)
 
-Or download the Windows 64-bit version of the MCR for R2014a 
-from the MathWorks Web site by navigating to
+2.1 C/C++ 
+The C/C++ client libraries are located in a platform specific folder at `MPS_INSTALL/client/c`.
+The header files are locatated in `MPS_INSTALL/client/c/include 
+For information about developing C/C++ clients see: 
+* [C/C++ Client Programming](http://www.mathworks.com/help/mps/cxx-client-programming.html)
+* example code at `MPS_INSTALL/client/c/examples' 
+* included C/C++ client documentation at `MPS_INSTALL/client/c/doc/index.html'
 
-   http://www.mathworks.com/products/compiler/mcr/index.html
-   
+2.2 .NET
+The .NET client libraries are located at 
+`MPS_INSTALL/client/dotnet/MathWorks.MATLAB.ProductionServer.Client.dll`.
+For information about developing .NET clients see:
+* [.NET Client Programming](http://www.mathworks.com/help/mps/dotnet-client-programming.html)
+* example code at `MPS_INSTALL/client/dotnet/examples'
+* included .NET client documentation at 
+`MPS_INSTALL/client/dotnet/doc/MathWorks.MATLAB.ProductionServer.Client.chm`)
 
-For more information about the MCR and the MCR Installer, see 
-Distribution to End Users in the MATLAB Compiler documentation  
-in the MathWorks Documentation Center.  
-      
-NOTE: You will need administrator rights to run MCRInstaller.
+2.3 Java
+The Java client libraries are located at `MPS_INSTALL/client/java/mps_client.jar`.
+For information about developing Java clients see:
+* [Java Client Programming](http://www.mathworks.com/help/mps/java-client-programming.html)
+* example code at `MPS_INSTALL/client/java/examples'
+* included Javadoc at `MPS_INSTALL/client/java/doc/index.html`
 
-2. Files to Deploy and Package
+2.4 Python 
+The Python client package includes the following: 
+* mlarray - a set of classes for creating multi-dimensional MATLAB arrays 
+* production_server - API for evaluating functions on a remote MATLAB Production Server 
+  instance
 
--flexFit.dll
-   -contains the generated component using MWArray API. 
--flexFitNative.dll
-   -contains the generated component using native API.
--This readme file
+The Python client installer is located at `MPS_INSTALL/client/python/setup.py`. To 
+install the client go to the python folder and execute:
+ 
+python setup.py install 
 
-. If the target machine does not have the version 8.3 of the MCR installed, and the end 
-  users are unable to download the MCR using the above link, include MCRInstaller.exe.
-
-
-
-Auto-generated Documentation Templates:
-
-MWArray.xml - This file contains the code comments for the MWArray data conversion 
-              classes and their methods. This file can be found in either the component 
-              distrib directory or in
-              <mcr_root>*\toolbox\dotnetbuilder\bin\win64\v2.0
-
-flexFit_overview.html - HTML overview documentation file for the generated component. It 
-                        contains the requirements for accessing the component and for 
-                        generating arguments using the MWArray class hierarchy.
-
-flexFit.xml - This file contains the code comments for the flexFit component classes and 
-                        methods. Using a third party documentation tool, this file can be 
-                        combined with either or both of the previous files to generate 
-                        online documentation for the flexFit component.
-
-                 
-
-
-3. Resources
-
-To learn more about:               See:
-===================================================================
-MWArray classes                    <matlab_root>*\help\toolbox\
-                                   dotnetbuilder\MWArrayAPI\
-                                   MWArrayAPI.chm  
-Examples of .NET Web Applications  Web Deployment in the MATLAB   
-                                   Builder NE documentation in the  
-                                   MathWorks Documentation Center
-
-
-4. Definitions
-
-For information on deployment terminology, go to 
-http://www.mathworks.com/help. Select MATLAB Compiler >   
-Getting Started > About Application Deployment > 
-Application Deployment Terms in the MathWorks Documentation 
-Center.
-
-
-
-* NOTE: <mcr_root> is the directory where MCR is installed on the target machine.
-        <matlab_root> is the directory where MATLAB is installed on the target machine.
-
+For information about developing Python clients see: 
+* [Python Client Programming](http://www.mathworks.com/help/mps/python-client-programming.html)
+* example code at `MPS_INSTALL/client/python/examples'

@@ -2,7 +2,8 @@
 %           4 means left side flat
 %           5 means right side flat
 %           6 means both sides flat
-function [smoothCoeff1, exitflag, g, gamma, aa, bb, cc, dd, turningPoint, x] = flexTimeFit(xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, invalidx, invalidupper, invalidlower, smoothCoeff, boundaryx, boundarydx, boundarydxx, leftright, xexl, yexl, xendl, lbendl,ubendl,xexr,yexr, xendr, lbendr, ubendr, leftincrease, rightincrease, smooth, tight, minxrange)
+function [smooth1, smoothCoeff1, exitflag, g, gamma, aa, bb, cc, dd, turningPoint, x] = flexTimeFit(xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, xinlbmin, xinubmax, invalidx, invalidupper, invalidlower, invaliduppermax, invalidlowermin, smoothCoeff, boundaryx, boundarydx, boundarydxx, ...
+leftright, xexl, yexl, xendl, lbendl,ubendl, lbendlmin, ubendlmax, xexr,yexr, xendr, lbendr, ubendr, lbendrmin, ubendrmax, leftincrease, rightincrease, smooth, tight, minxrange, breakBoundary)
 % %input
 % clc
 % M = csvread('c:\temp\voltooltest\slice_IWM.USZ_20150206.csv', 1);
@@ -95,6 +96,12 @@ rightmoredatamode = 0;
 bbb = [inf -inf];
 changedsmooth = true;
 originalx = length(xin);
+smooth2tried = false;
+forcesmooth = false;
+
+% invalidupper(invalidx>115 & invalidx<118) = inf;
+% invaliduppermax(invalidx>115 & invalidx<118) = inf;
+
 while ~goodleft || ~goodright
     allowflat = [isempty(xexl), isempty(xexr)];
     try
@@ -128,18 +135,6 @@ while ~goodleft || ~goodright
                         else
                             boundarydxx(1) = pl.coefs(end,2);
                         end
-                        %             else
-                        %                 pl = polyfit(xl, yexl, 3);
-                        %                 if pl(3) > 0 % don't want to time fit strange left wing
-                        %                     if all(diff(yexl)) <= 0
-                        %                         boundarydxx(1) = nan;
-                        %                     else
-                        %                         error('Invalid left polyfit');
-                        %                     end
-                        %                 else
-                        %                     boundarydxx(1) = pl(2);
-                        %                     %boundarydx(1) = pl(3);
-                        %                 end
                     end
                 end
             end
@@ -153,7 +148,6 @@ while ~goodleft || ~goodright
             if isnan(leftright) || leftright == -1
                 if isempty(xexr)
                     boundarydxx(2) = nan;
-                    %boundarydx(2) = nan;
                 else
                     if (yin(end) < yin(end-1))
                         rightneedsmoredata = true;
@@ -177,18 +171,6 @@ while ~goodleft || ~goodright
                         else
                             boundarydxx(2) = pr.coefs(1,2);
                         end
-                        %             else
-                        %                 pr = polyfit(xr, yexr, 3);
-                        %                 if pr(3) < 0 % don't want to time fit strange right wing
-                        %                     if all(diff(yexr)) >= 0
-                        %                         boundarydxx(2) = nan;
-                        %                     else
-                        %                         error('Invalid right polyfit');
-                        %                     end
-                        %                 else
-                        %                     boundarydxx(2) = pr(2);
-                        %                     %boundarydx(2) = pr(3);
-                        %                 end
                     end
                 end
             end
@@ -197,14 +179,6 @@ while ~goodleft || ~goodright
             end
             break;
         end
-        %interpolation part
-        % if isnan(leftright)
-        %     [smoothCoeff1, exitflag, g, gamma, aaa, bbb, ccc, ddd, turningPoint,a, b] = flexWingFit(xin, yin, w, stationarypoint, [nan, nan], smoothCoeff, [nan, nan],  xleft, xright, dxleft, dxright, dxxleft, dxxright, nan, xinub, xinlb, [], [], [], [], [], [], invalidx, invalidupper, invalidlower, leftincrease, rightincrease, smooth, tight, tightlb, tightub, minxrange);
-        % elseif leftright == -1 %left
-        %     [smoothCoeff1, exitflag, g, gamma, aaa, bbb, ccc, ddd, turningPoint,a, b] = flexWingFit(xin, yin, w, stationarypoint, [nan, nan], smoothCoeff, [nan, nan], xleft, xright, dxleft, dxright, dxxleft, dxxright, nan, xinub, xinlb, xendl, ubendl, lbendl, [], [], [], invalidx, invalidupper, invalidlower, leftincrease, rightincrease, smooth, tight, tightlb, tightub, minxrange);
-        % else %right
-        %     [smoothCoeff1, exitflag, g, gamma, aaa, bbb, ccc, ddd, turningPoint,a, b] = flexWingFit(xin, yin, w, stationarypoint, [nan, nan], smoothCoeff, [nan, nan],  xleft, xright, dxleft, dxright, dxxleft, dxxright, nan, xinub, xinlb, [], [], [], xendr, ubendr, lbendr, invalidx, invalidupper, invalidlower, leftincrease, rightincrease, smooth, tight, tightlb, tightub, minxrange);
-        % end
         
         if (leftneedsmoredata || rightneedsmoredata)
             if leftmoredatamode == 1 || rightmoredatamode == 1
@@ -214,18 +188,25 @@ while ~goodleft || ~goodright
                 end
             end
         else
+            smooth2tried = smooth == 2;
             if isnan(leftright)
-                [smoothCoeff1, exitflag, g, gamma, aaa, bbb, ccc, ddd, turningPoint, x] = flexWingFit(xin, yin, w, stationarypoint, tailConcavity, smoothCoeff, [nan, nan], boundaryx, boundarydx, boundarydxx, nan, xinub, xinlb, xendl, ubendl, lbendl, xendr, ubendr, lbendr, invalidx, invalidupper, invalidlower, leftincrease, rightincrease, smooth, tight, minxrange, true, allowflat, true, originalx);
+                [smooth1, smoothCoeff1, exitflag, g, gamma, aaa, bbb, ccc, ddd, turningPoint, x] = flexWingFit(xin, yin, w, stationarypoint, tailConcavity, smoothCoeff,...
+                    [nan, nan], boundaryx, boundarydx, boundarydxx, nan, xinub, xinlb, xinubmax, xinlbmin, xendl, ubendl, lbendl, ubendlmax, lbendlmin, xendr, ubendr, lbendr, ubendrmax, lbendrmin, invalidx, invalidupper, invalidlower, invaliduppermax, invalidlowermin,...
+                    leftincrease, rightincrease, smooth, tight, minxrange, true, allowflat, true, originalx, breakBoundary, forcesmooth);
             elseif leftright == -1 %left
-                [smoothCoeff1, exitflag, g, gamma, aaa, bbb, ccc, ddd, turningPoint, x] = flexWingFit(xin, yin, w, stationarypoint, tailConcavity, smoothCoeff, [nan, nan], boundaryx, boundarydx, boundarydxx, nan, xinub, xinlb, xendl, ubendl, lbendl, [], [], [], invalidx, invalidupper, invalidlower, leftincrease, rightincrease, smooth, tight, minxrange, true, true, allowflat, true, originalx);
+                [smooth1, smoothCoeff1, exitflag, g, gamma, aaa, bbb, ccc, ddd, turningPoint, x] = flexWingFit(xin, yin, w, stationarypoint, tailConcavity, smoothCoeff, ...
+                    [nan, nan], boundaryx, boundarydx, boundarydxx, nan, xinub, xinlb, xinubmax, xinlbmin, xendl, ubendl, lbendl, ubendlmax, lbendlmin, [], [], [], [], [], invalidx, invalidupper, invalidlower, invaliduppermax, invalidlowermin,...
+                    leftincrease, rightincrease, smooth, tight, minxrange, true, true, allowflat, true, originalx, breakBoundary, forcesmooth);
             else %right
-                [smoothCoeff1, exitflag, g, gamma, aaa, bbb, ccc, ddd, turningPoint, x] = flexWingFit(xin, yin, w, stationarypoint, tailConcavity, smoothCoeff, [nan, nan], boundaryx, boundarydx, boundarydxx, nan, xinub, xinlb, [], [], [], xendr, ubendr, lbendr, invalidx, invalidupper, invalidlower, leftincrease, rightincrease, smooth, tight, minxrange, true, true, allowflat, true, originalx);
+                [smooth1, smoothCoeff1, exitflag, g, gamma, aaa, bbb, ccc, ddd, turningPoint, x] = flexWingFit(xin, yin, w, stationarypoint, tailConcavity, smoothCoeff, ...
+                    [nan, nan], boundaryx, boundarydx, boundarydxx, nan, xinub, xinlb, xinubmax, xinlbmin, [], [], [], [], [], xendr, ubendr, lbendr, ubendrmax, lbendrmin, invalidx, invalidupper, invalidlower, invaliduppermax, invalidlowermin,...
+                    leftincrease, rightincrease, smooth, tight, minxrange, true, true, allowflat, true, originalx, breakBoundary, forcesmooth);
             end
         end
     catch e
         if strcmp(e.message, 'LR need more data')
             exitflag = -1;
-            if (leftmoredatamode == 1 || rightmoredatamode == 1)
+            if (leftmoredatamode == 1 || rightmoredatamode == 1) && smooth2tried
                 error('Fail to time fit');
             end
             leftneedsmoredata = true;
@@ -238,7 +219,7 @@ while ~goodleft || ~goodright
             end
         elseif strcmp(e.message, 'Left needs more data') || strcmp(e.message, 'Extrapolate left will change slope a lot')
             exitflag = -1;
-            if (leftmoredatamode == 1)
+            if (leftmoredatamode == 1) && smooth2tried
                 error('Fail to time fit');
             end
             leftneedsmoredata = true;
@@ -249,8 +230,8 @@ while ~goodleft || ~goodright
             end
         elseif strcmp(e.message, 'Right needs more data') || strcmp(e.message, 'Extrapolate right will change slope a lot')
             exitflag = -1;
-            if (rightmoredatamode == 1)
-                error('Fail to time fit');
+            if (rightmoredatamode == 1) && smooth2tried
+                    error('Fail to time fit');
             end
             rightneedsmoredata = true;
             rightmoredatamode = 1;
@@ -266,100 +247,122 @@ while ~goodleft || ~goodright
     leftflat = false;
     rightflat = false;
     if ~isempty(xexl) && (leftneedsmoredata || (bbb(1) == 0))
-        if ~isempty(xexl)
-            if leftmoredatamode == 2
-                xl = find(yexl > yin(2));
-                if isempty(xl)
-                    leftmoredatamode = 1;
-                end
+        if leftmoredatamode == 2
+            xl = find(yexl > yin(2) * 1.1);
+            if isempty(xl)
+                leftmoredatamode = 1;
             end
-            if leftmoredatamode == 1
-                xl = 1;
-                allowflat(1) = true;
-            end
-            xl = xl(end);
-            xll = xl : length(xexl);
-            xlll = 1:xl-1;
-            idx = find(xendl == xexl(xl));
-            xin = [xexl(xll) xin];
-            yin = [yexl(xll) yin];
-            w = [ones(1, length(xll)) * min(w) w];
-            boundaryx = [nan nan];
-            boundarydx = [nan nan];
-            boundarydxx = [nan nan];
-            xvalididx = arrayfun(@(x)find(xendl==x,1),xexl(xll));
-            xexl = xexl(xlll);
-            yexl = yexl(xlll);
-            xinlb = [lbendl(xvalididx) xinlb];
-            xinub = [ubendl(xvalididx) xinub];
-            xinvalididx = find(xendl >= xin(1));
-            xinvalididx = xinvalididx(~ismember(xinvalididx, xvalididx));
-            invalidx = [invalidx xendl(xinvalididx)];
-            invalidupper = [invalidupper ubendl(xinvalididx)];
-            invalidlower = [invalidlower lbendl(xinvalididx)];
-            xendlidx = find(xendl < xin(1));
-            xendl = xendl(xendlidx);
-            ubendl = ubendl(xendlidx);
-            lbendl = lbendl(xendlidx);
-            goodleft = false;
-            leftneedsmoredata = false;
-            if smooth == 2
-                smooth = 1;
+        end
+        if leftmoredatamode == 1
+            xl = 1;
+        end
+        xl = xl(end);
+        xll = xl : length(xexl);
+        xlll = 1:xl-1;
+        idx = find(xendl == xexl(xl));
+        xin = [xexl(xll) xin];
+        yin = [yexl(xll) yin];
+        w = [ones(1, length(xll)) * min(w) w];
+        boundaryx = [nan nan];
+        boundarydx = [nan nan];
+        boundarydxx = [nan nan];
+        xvalididx = arrayfun(@(x)find(xendl==x,1),xexl(xll));
+        xexl = xexl(xlll);
+        yexl = yexl(xlll);
+        xinlb = [lbendl(xvalididx) xinlb];
+        xinlbmin = [lbendlmin(xvalididx) xinlbmin];
+        xinub = [ubendl(xvalididx) xinub];
+        xinubmax = [ubendlmax(xvalididx) xinubmax];
+        xinvalididx = find(xendl >= xin(1));
+        xinvalididx = xinvalididx(~ismember(xinvalididx, xvalididx));
+        invalidx = [invalidx xendl(xinvalididx)];
+        invalidupper = [invalidupper ubendl(xinvalididx)];
+        invaliduppermax = [invaliduppermax ubendlmax(xinvalididx)];
+        invalidlower = [invalidlower lbendl(xinvalididx)];
+        invalidlowermin = [invalidlowermin lbendlmin(xinvalididx)];
+        xendlidx = find(xendl < xin(1));
+        xendl = xendl(xendlidx);
+        ubendl = ubendl(xendlidx);
+        lbendl = lbendl(xendlidx);
+        goodleft = false;
+        leftneedsmoredata = false;
+        if smooth == 2
+            smooth = 1;
+            changedsmooth = true;
+        end
+    else
+        if (leftneedsmoredata)
+            if smooth2tried
+                error('Fail to time fit');
+            else
+                smooth = 2;
+                changedsmooth = true;
+                goodleft = false;
+                leftneedsmoredata = false;
+                forcesmooth = true;
             end
         else
-            %error('Invalid left polyfit');
             goodleft = true;
         end
-    else
-        goodleft = true;
     end
     if ~isempty(xexr) && ((bbb(2) == 0) || rightneedsmoredata)
-        if ~isempty(xexr)
-            if rightmoredatamode == 2
-                xr = find(yexr > yin(end-1));
-                if isempty(xr)
-                    rightmoredatamode = 1;
-                end
+        if rightmoredatamode == 2
+            xr = find(yexr > yin(end-1) * 1.1);
+            if isempty(xr)
+                rightmoredatamode = 1;
             end
-            if rightmoredatamode == 1
-                xr = length(xexr);
-                allowflat(2) = true;
-            end
-            xr = xr(1);
-            xrr = 1 : xr;
-            xrrr = xr + 1 : length(xexr);
-            idx = xr;
-            xin = [xin xexr(xrr)];
-            yin = [yin yexr(xrr)];
-            w = [w ones(1, xr) * min(w)];
-            boundaryx = [nan nan];
-            boundarydx = [nan nan];
-            boundarydxx = [nan nan];
-            xvalididx = arrayfun(@(x)find(xendr==x,1),xexr(xrr));
-            xexr = xexr(xrrr);
-            yexr = yexr(xrrr);
-            xinlb = [xinlb lbendr(xvalididx)];
-            xinub = [xinub ubendr(xvalididx)];
-            xinvalididx = find(xendr <= xin(end));
-            xinvalididx = xinvalididx(~ismember(xinvalididx, xvalididx));
-            invalidx = [invalidx xendr(xinvalididx)];
-            invalidupper = [invalidupper ubendr(xinvalididx)];
-            invalidlower = [invalidlower lbendr(xinvalididx)];
-            xendridx = find(xendr > xin(end));
-            xendr = xendr(xendridx);
-            ubendr = ubendr(xendridx);
-            lbendr = lbendr(xendridx);
-            goodright = false;
-            rightneedsmoredata = false;
-            if smooth == 2
-                smooth = 1;
-            end
-        else
-            %error('Invalid right polyfit');
-            goodright = true;
+        end
+        if rightmoredatamode == 1
+            xr = length(xexr);
+        end
+        xr = xr(1);
+        xrr = 1 : xr;
+        xrrr = xr + 1 : length(xexr);
+        idx = xr;
+        xin = [xin xexr(xrr)];
+        yin = [yin yexr(xrr)];
+        w = [w ones(1, xr) * min(w)];
+        boundaryx = [nan nan];
+        boundarydx = [nan nan];
+        boundarydxx = [nan nan];
+        xvalididx = arrayfun(@(x)find(xendr==x,1),xexr(xrr));
+        xexr = xexr(xrrr);
+        yexr = yexr(xrrr);
+        xinlb = [xinlb lbendr(xvalididx)];
+        xinlbmin = [xinlbmin lbendrmin(xvalididx)];
+        xinub = [xinub ubendr(xvalididx)];
+        xinubmax = [xinubmax ubendrmax(xvalididx)];
+        xinvalididx = find(xendr <= xin(end));
+        xinvalididx = xinvalididx(~ismember(xinvalididx, xvalididx));
+        invalidx = [invalidx xendr(xinvalididx)];
+        invalidupper = [invalidupper ubendr(xinvalididx)];
+        invaliduppermax = [invaliduppermax ubendrmax(xinvalididx)];
+        invalidlower = [invalidlower lbendr(xinvalididx)];
+        invalidlowermin = [invalidlowermin lbendrmin(xinvalididx)];
+        xendridx = find(xendr > xin(end));
+        xendr = xendr(xendridx);
+        ubendr = ubendr(xendridx);
+        lbendr = lbendr(xendridx);
+        goodright = false;
+        rightneedsmoredata = false;
+        if smooth == 2
+            smooth = 1;
+            changedsmooth = true;
         end
     else
-        goodright = true;
+        if (rightneedsmoredata)
+            if smooth2tried
+                error('Fail to time fit');
+            else
+                smooth = 2;
+                changedsmooth = true;
+                goodright = false;
+                rightneedsmoredata = false;
+                forcesmooth = true;
+            end
+        else
+            goodright = true;
+        end
     end
     
     count = count + 1;
@@ -1015,18 +1018,10 @@ dd = [ddl, ddr];
 
 if leftflat && rightflat
     exitflag = 6;
-elseif leftflat
-    if leftright == -1
-        exitflag = 3;
-    else
-        exitflag = 4;
-    end
-elseif rightflat
-    if leftright == 1
-        exitflag = 3;
-    else
-        exitflag = 5;
-    end
+elseif leftflat && ~rightflat
+    exitflag = 4;
+elseif rightflat && ~leftflat
+    exitflag = 5;
 end
 
 % %print

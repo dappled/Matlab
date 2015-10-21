@@ -1,0 +1,33 @@
+ant:
+<ant>
+  <mkdir dir="C:\Users\Dappled\OneDrive\dappled's sky\cs\matlab\convexMonotoneFit\flexFit\for_redistribution" />
+  <mkdir dir="C:\Users\Dappled\OneDrive\dappled's sky\cs\matlab\convexMonotoneFit\flexFit\for_testing" />
+</ant>
+mcc -W CTF:flexFit -U -d 'C:\Users\Dappled\OneDrive\dappled's sky\cs\matlab\convexMonotoneFit\flexFit\for_testing' -v 'C:\Users\Dappled\OneDrive\dappled's sky\cs\matlab\convexMonotoneFit\flexTimeFit.m' 'C:\Users\Dappled\OneDrive\dappled's sky\cs\matlab\convexMonotoneFit\flexWingFit.m' 'C:\Users\Dappled\OneDrive\dappled's sky\cs\matlab\convexMonotoneFit\sabrFit.m' -a 'C:\Users\Dappled\OneDrive\dappled's sky\cs\matlab\convexMonotoneFit\splineHelper.m' 
+Compiler version: 6.0 (R2015a)
+Dependency analysis by REQUIREMENTS.
+[Warning: Adding path "C:\Users\Dappled\OneDrive\dappled's
+sky\cs\matlab\convexMonotoneFit" to Compiler path instance.] 
+[Warning: Adding path "C:\Users\Dappled\OneDrive\dappled's
+sky\cs\matlab\convexMonotoneFit" to Compiler path instance.] 
+[Warning: Duplicate directory name: C:\Users\Dappled\OneDrive\dappled's
+sky\cs\matlab\convexMonotoneFit] 
+[Warning: Adding path "C:\Users\Dappled\OneDrive\dappled's
+sky\cs\matlab\convexMonotoneFit" to Compiler path instance.] 
+[Warning: Duplicate directory name: C:\Users\Dappled\OneDrive\dappled's
+sky\cs\matlab\convexMonotoneFit] 
+Parsing file "C:\Users\Dappled\OneDrive\dappled's sky\cs\matlab\convexMonotoneFit\flexTimeFit.m"
+	(Referenced from: "Compiler Command Line").
+Parsing file "C:\Users\Dappled\OneDrive\dappled's sky\cs\matlab\convexMonotoneFit\flexWingFit.m"
+	(Referenced from: "Compiler Command Line").
+Parsing file "C:\Users\Dappled\OneDrive\dappled's sky\cs\matlab\convexMonotoneFit\sabrFit.m"
+	(Referenced from: "Compiler Command Line").
+Deleting 5 temporary MEX authorization files.
+Removing: 'C:\Users\Dappled\AppData\Local\Temp\mathworks_tmp_00c0425161_3076.auth'.
+Removing: 'C:\Users\Dappled\AppData\Local\Temp\mathworks_tmp_00c0428818_3076.auth'.
+Removing: 'C:\Users\Dappled\AppData\Local\Temp\mathworks_tmp_00c0418725_3076.auth'.
+Removing: 'C:\Users\Dappled\AppData\Local\Temp\mathworks_tmp_00c045847_3076.auth'.
+Removing: 'C:\Users\Dappled\AppData\Local\Temp\mathworks_tmp_00c0417010_3076.auth'.
+Generating file "C:\Users\Dappled\OneDrive\dappled's sky\cs\matlab\convexMonotoneFit\flexFit\for_testing\readme.txt".
+com.mathworks.toolbox.compiler.plugin.DeployableArchivePackageCommand@1a1b25ca
+Elapsed packaging time was: 4 minutes and 23 seconds.

@@ -1,5 +1,5 @@
 <deployment-project plugin="plugin.ezdeploy" plugin-version="1.0">
-  <configuration build-checksum="2078156578" file="C:\Users\Dappled\OneDrive\dappled's sky\cs\matlab\convexMonotoneFit\sabrFit.prj" location="C:\Users\Dappled\OneDrive\dappled's sky\cs\matlab\convexMonotoneFit" name="sabrFit" preferred-package-location="C:\Users\Dappled\OneDrive\dappled's sky\cs\matlab\convexMonotoneFit\sabrFit\for_redistribution" preferred-package-type="package.type.exe" target="target.ezdeploy.library" target-name="MATLAB Compiler for Libraries and Classes">
+  <configuration build-checksum="2078156578" file="C:\Users\Dappled\OneDrive\dappled's sky\cs\matlab\convexMonotoneFit\sabrFit.prj" location="C:\Users\Dappled\OneDrive\dappled's sky\cs\matlab\convexMonotoneFit" name="sabrFit" preferred-package-location="C:\Users\Dappled\OneDrive\dappled's sky\cs\matlab\convexMonotoneFit\sabrFit\for_redistribution" preferred-package-type="package.type.exe" target="target.ezdeploy.library" target-name="Library Compiler">
     <param.appname>sabrFit</param.appname>
     <param.icon />
     <param.icons />
@@ -11,21 +11,22 @@
     <param.description />
     <param.screenshot />
     <param.guid />
+    <param.net.saved.interface />
     <param.installpath.string>\sabrFit\</param.installpath.string>
     <param.installpath.combo>option.installpath.programfiles</param.installpath.combo>
     <param.logo />
     <param.install.notes />
     <param.intermediate>${PROJECT_ROOT}\sabrFit\for_testing</param.intermediate>
+    <param.files.only>${PROJECT_ROOT}\sabrFit\for_redistribution_files_only</param.files.only>
     <param.output>${PROJECT_ROOT}\sabrFit\for_redistribution</param.output>
+    <param.enable.clean.build>false</param.enable.clean.build>
     <param.user.defined.mcr.options />
     <param.embed.ctf>true</param.embed.ctf>
-    <param.server.ctf>${PROJECT_ROOT}\sabrFit\for_testing\sabrFit.ctf</param.server.ctf>
-    <param.server.readme>${PROJECT_ROOT}\sabrFit\for_testing\readme.txt</param.server.readme>
     <param.target.type>subtarget.net.component</param.target.type>
     <param.support.packages />
+    <param.required.mcr.products />
     <param.namespace>sabrFit</param.namespace>
     <param.classorg />
-    <param.function.data />
     <param.web.mcr>true</param.web.mcr>
     <param.package.mcr>false</param.package.mcr>
     <param.no.mcr>false</param.no.mcr>
@@ -58,20 +59,20 @@
       <param.description />
       <param.screenshot />
       <param.guid />
+      <param.net.saved.interface />
       <param.installpath.string />
       <param.installpath.combo />
       <param.logo />
-      <param.install.notes />
       <param.intermediate />
+      <param.files.only />
       <param.output />
+      <param.enable.clean.build />
       <param.user.defined.mcr.options />
       <param.embed.ctf />
-      <param.server.ctf />
-      <param.server.readme />
       <param.support.packages />
+      <param.required.mcr.products />
       <param.namespace />
       <param.classorg />
-      <param.function.data />
       <param.web.mcr />
       <param.package.mcr />
       <param.no.mcr />
@@ -94,14 +95,10 @@
       <param.net.tsa.metadata />
       <param.net.tsa.metadata.assembly />
     </unset>
-    <fileset.exports>
-      <file>${MATLAB_ROOT}\toolbox\javabuilder\Examples\MagicSquareExample\MagicDemoComp\sabrFit.m</file>
-    </fileset.exports>
+    <fileset.exports />
     <fileset.classes>
       <entity.package name="">
-        <entity.class name="SabrFit">
-          <file>${MATLAB_ROOT}\toolbox\javabuilder\Examples\MagicSquareExample\MagicDemoComp\sabrFit.m</file>
-        </entity.class>
+        <entity.class name="SabrFit" />
       </entity.package>
     </fileset.classes>
     <fileset.resources>
@@ -117,7 +114,7 @@
     </build-deliverables>
     <workflow />
     <matlab>
-      <root>C:\Program Files\MATLAB\R2014a</root>
+      <root>C:\Program Files\MATLAB\R2015a</root>
       <toolboxes>
         <toolbox name="matlabhdlcoder" />
         <toolbox name="fixedpoint" />

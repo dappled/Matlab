@@ -1,6 +1,6 @@
 /*
 * MATLAB Compiler: 5.1 (R2014a)
-* Date: Wed Jun 03 10:27:58 2015
+* Date: Wed Jul 01 12:29:56 2015
 * Arguments: "-B" "macro_default" "-W" "dotnet:flexFit,FlexFit,0.0,private" "-T"
 * "link:lib" "-d" "C:\Users\Dappled\OneDrive\dappled's
 * sky\cs\matlab\convexMonotoneFit\flexFit\for_testing" "-v" "C:\Program
@@ -1054,13 +1054,13 @@ namespace flexFitNative
     /// <param name="tailConcavity">Input argument #5</param>
     /// <param name="xinlb">Input argument #6</param>
     /// <param name="xinub">Input argument #7</param>
-    /// <param name="invalidx">Input argument #8</param>
+    /// <param name="xinlbmin">Input argument #8</param>
     /// <returns>An Object containing the first output argument.</returns>
     ///
     public Object flexTimeFit(Object xin, Object yin, Object w, Object stationarypoint, 
-                        Object tailConcavity, Object xinlb, Object xinub, Object invalidx)
+                        Object tailConcavity, Object xinlb, Object xinub, Object xinlbmin)
     {
-      return mcr.EvaluateFunction("flexTimeFit", xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, invalidx);
+      return mcr.EvaluateFunction("flexTimeFit", xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, xinlbmin);
     }
 
 
@@ -1159,15 +1159,15 @@ namespace flexFitNative
     /// <param name="tailConcavity">Input argument #5</param>
     /// <param name="xinlb">Input argument #6</param>
     /// <param name="xinub">Input argument #7</param>
-    /// <param name="invalidx">Input argument #8</param>
-    /// <param name="invalidupper">Input argument #9</param>
+    /// <param name="xinlbmin">Input argument #8</param>
+    /// <param name="xinubmax">Input argument #9</param>
     /// <returns>An Object containing the first output argument.</returns>
     ///
     public Object flexTimeFit(Object xin, Object yin, Object w, Object stationarypoint, 
                         Object tailConcavity, Object xinlb, Object xinub, Object 
-                        invalidx, Object invalidupper)
+                        xinlbmin, Object xinubmax)
     {
-      return mcr.EvaluateFunction("flexTimeFit", xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, invalidx, invalidupper);
+      return mcr.EvaluateFunction("flexTimeFit", xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, xinlbmin, xinubmax);
     }
 
 
@@ -1266,16 +1266,16 @@ namespace flexFitNative
     /// <param name="tailConcavity">Input argument #5</param>
     /// <param name="xinlb">Input argument #6</param>
     /// <param name="xinub">Input argument #7</param>
-    /// <param name="invalidx">Input argument #8</param>
-    /// <param name="invalidupper">Input argument #9</param>
-    /// <param name="invalidlower">Input argument #10</param>
+    /// <param name="xinlbmin">Input argument #8</param>
+    /// <param name="xinubmax">Input argument #9</param>
+    /// <param name="invalidx">Input argument #10</param>
     /// <returns>An Object containing the first output argument.</returns>
     ///
     public Object flexTimeFit(Object xin, Object yin, Object w, Object stationarypoint, 
                         Object tailConcavity, Object xinlb, Object xinub, Object 
-                        invalidx, Object invalidupper, Object invalidlower)
+                        xinlbmin, Object xinubmax, Object invalidx)
     {
-      return mcr.EvaluateFunction("flexTimeFit", xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, invalidx, invalidupper, invalidlower);
+      return mcr.EvaluateFunction("flexTimeFit", xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, xinlbmin, xinubmax, invalidx);
     }
 
 
@@ -1374,18 +1374,17 @@ namespace flexFitNative
     /// <param name="tailConcavity">Input argument #5</param>
     /// <param name="xinlb">Input argument #6</param>
     /// <param name="xinub">Input argument #7</param>
-    /// <param name="invalidx">Input argument #8</param>
-    /// <param name="invalidupper">Input argument #9</param>
-    /// <param name="invalidlower">Input argument #10</param>
-    /// <param name="smoothCoeff">Input argument #11</param>
+    /// <param name="xinlbmin">Input argument #8</param>
+    /// <param name="xinubmax">Input argument #9</param>
+    /// <param name="invalidx">Input argument #10</param>
+    /// <param name="invalidupper">Input argument #11</param>
     /// <returns>An Object containing the first output argument.</returns>
     ///
     public Object flexTimeFit(Object xin, Object yin, Object w, Object stationarypoint, 
                         Object tailConcavity, Object xinlb, Object xinub, Object 
-                        invalidx, Object invalidupper, Object invalidlower, Object 
-                        smoothCoeff)
+                        xinlbmin, Object xinubmax, Object invalidx, Object invalidupper)
     {
-      return mcr.EvaluateFunction("flexTimeFit", xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, invalidx, invalidupper, invalidlower, smoothCoeff);
+      return mcr.EvaluateFunction("flexTimeFit", xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, xinlbmin, xinubmax, invalidx, invalidupper);
     }
 
 
@@ -1484,19 +1483,19 @@ namespace flexFitNative
     /// <param name="tailConcavity">Input argument #5</param>
     /// <param name="xinlb">Input argument #6</param>
     /// <param name="xinub">Input argument #7</param>
-    /// <param name="invalidx">Input argument #8</param>
-    /// <param name="invalidupper">Input argument #9</param>
-    /// <param name="invalidlower">Input argument #10</param>
-    /// <param name="smoothCoeff">Input argument #11</param>
-    /// <param name="boundaryx">Input argument #12</param>
+    /// <param name="xinlbmin">Input argument #8</param>
+    /// <param name="xinubmax">Input argument #9</param>
+    /// <param name="invalidx">Input argument #10</param>
+    /// <param name="invalidupper">Input argument #11</param>
+    /// <param name="invalidlower">Input argument #12</param>
     /// <returns>An Object containing the first output argument.</returns>
     ///
     public Object flexTimeFit(Object xin, Object yin, Object w, Object stationarypoint, 
                         Object tailConcavity, Object xinlb, Object xinub, Object 
-                        invalidx, Object invalidupper, Object invalidlower, Object 
-                        smoothCoeff, Object boundaryx)
+                        xinlbmin, Object xinubmax, Object invalidx, Object invalidupper, 
+                        Object invalidlower)
     {
-      return mcr.EvaluateFunction("flexTimeFit", xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, invalidx, invalidupper, invalidlower, smoothCoeff, boundaryx);
+      return mcr.EvaluateFunction("flexTimeFit", xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, xinlbmin, xinubmax, invalidx, invalidupper, invalidlower);
     }
 
 
@@ -1595,20 +1594,20 @@ namespace flexFitNative
     /// <param name="tailConcavity">Input argument #5</param>
     /// <param name="xinlb">Input argument #6</param>
     /// <param name="xinub">Input argument #7</param>
-    /// <param name="invalidx">Input argument #8</param>
-    /// <param name="invalidupper">Input argument #9</param>
-    /// <param name="invalidlower">Input argument #10</param>
-    /// <param name="smoothCoeff">Input argument #11</param>
-    /// <param name="boundaryx">Input argument #12</param>
-    /// <param name="boundarydx">Input argument #13</param>
+    /// <param name="xinlbmin">Input argument #8</param>
+    /// <param name="xinubmax">Input argument #9</param>
+    /// <param name="invalidx">Input argument #10</param>
+    /// <param name="invalidupper">Input argument #11</param>
+    /// <param name="invalidlower">Input argument #12</param>
+    /// <param name="invaliduppermax">Input argument #13</param>
     /// <returns>An Object containing the first output argument.</returns>
     ///
     public Object flexTimeFit(Object xin, Object yin, Object w, Object stationarypoint, 
                         Object tailConcavity, Object xinlb, Object xinub, Object 
-                        invalidx, Object invalidupper, Object invalidlower, Object 
-                        smoothCoeff, Object boundaryx, Object boundarydx)
+                        xinlbmin, Object xinubmax, Object invalidx, Object invalidupper, 
+                        Object invalidlower, Object invaliduppermax)
     {
-      return mcr.EvaluateFunction("flexTimeFit", xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, invalidx, invalidupper, invalidlower, smoothCoeff, boundaryx, boundarydx);
+      return mcr.EvaluateFunction("flexTimeFit", xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, xinlbmin, xinubmax, invalidx, invalidupper, invalidlower, invaliduppermax);
     }
 
 
@@ -1707,22 +1706,22 @@ namespace flexFitNative
     /// <param name="tailConcavity">Input argument #5</param>
     /// <param name="xinlb">Input argument #6</param>
     /// <param name="xinub">Input argument #7</param>
-    /// <param name="invalidx">Input argument #8</param>
-    /// <param name="invalidupper">Input argument #9</param>
-    /// <param name="invalidlower">Input argument #10</param>
-    /// <param name="smoothCoeff">Input argument #11</param>
-    /// <param name="boundaryx">Input argument #12</param>
-    /// <param name="boundarydx">Input argument #13</param>
-    /// <param name="boundarydxx">Input argument #14</param>
+    /// <param name="xinlbmin">Input argument #8</param>
+    /// <param name="xinubmax">Input argument #9</param>
+    /// <param name="invalidx">Input argument #10</param>
+    /// <param name="invalidupper">Input argument #11</param>
+    /// <param name="invalidlower">Input argument #12</param>
+    /// <param name="invaliduppermax">Input argument #13</param>
+    /// <param name="invalidlowermin">Input argument #14</param>
     /// <returns>An Object containing the first output argument.</returns>
     ///
     public Object flexTimeFit(Object xin, Object yin, Object w, Object stationarypoint, 
                         Object tailConcavity, Object xinlb, Object xinub, Object 
-                        invalidx, Object invalidupper, Object invalidlower, Object 
-                        smoothCoeff, Object boundaryx, Object boundarydx, Object 
-                        boundarydxx)
+                        xinlbmin, Object xinubmax, Object invalidx, Object invalidupper, 
+                        Object invalidlower, Object invaliduppermax, Object 
+                        invalidlowermin)
     {
-      return mcr.EvaluateFunction("flexTimeFit", xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, invalidx, invalidupper, invalidlower, smoothCoeff, boundaryx, boundarydx, boundarydxx);
+      return mcr.EvaluateFunction("flexTimeFit", xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, xinlbmin, xinubmax, invalidx, invalidupper, invalidlower, invaliduppermax, invalidlowermin);
     }
 
 
@@ -1821,23 +1820,23 @@ namespace flexFitNative
     /// <param name="tailConcavity">Input argument #5</param>
     /// <param name="xinlb">Input argument #6</param>
     /// <param name="xinub">Input argument #7</param>
-    /// <param name="invalidx">Input argument #8</param>
-    /// <param name="invalidupper">Input argument #9</param>
-    /// <param name="invalidlower">Input argument #10</param>
-    /// <param name="smoothCoeff">Input argument #11</param>
-    /// <param name="boundaryx">Input argument #12</param>
-    /// <param name="boundarydx">Input argument #13</param>
-    /// <param name="boundarydxx">Input argument #14</param>
-    /// <param name="leftright">Input argument #15</param>
+    /// <param name="xinlbmin">Input argument #8</param>
+    /// <param name="xinubmax">Input argument #9</param>
+    /// <param name="invalidx">Input argument #10</param>
+    /// <param name="invalidupper">Input argument #11</param>
+    /// <param name="invalidlower">Input argument #12</param>
+    /// <param name="invaliduppermax">Input argument #13</param>
+    /// <param name="invalidlowermin">Input argument #14</param>
+    /// <param name="smoothCoeff">Input argument #15</param>
     /// <returns>An Object containing the first output argument.</returns>
     ///
     public Object flexTimeFit(Object xin, Object yin, Object w, Object stationarypoint, 
                         Object tailConcavity, Object xinlb, Object xinub, Object 
-                        invalidx, Object invalidupper, Object invalidlower, Object 
-                        smoothCoeff, Object boundaryx, Object boundarydx, Object 
-                        boundarydxx, Object leftright)
+                        xinlbmin, Object xinubmax, Object invalidx, Object invalidupper, 
+                        Object invalidlower, Object invaliduppermax, Object 
+                        invalidlowermin, Object smoothCoeff)
     {
-      return mcr.EvaluateFunction("flexTimeFit", xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, invalidx, invalidupper, invalidlower, smoothCoeff, boundaryx, boundarydx, boundarydxx, leftright);
+      return mcr.EvaluateFunction("flexTimeFit", xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, xinlbmin, xinubmax, invalidx, invalidupper, invalidlower, invaliduppermax, invalidlowermin, smoothCoeff);
     }
 
 
@@ -1936,24 +1935,24 @@ namespace flexFitNative
     /// <param name="tailConcavity">Input argument #5</param>
     /// <param name="xinlb">Input argument #6</param>
     /// <param name="xinub">Input argument #7</param>
-    /// <param name="invalidx">Input argument #8</param>
-    /// <param name="invalidupper">Input argument #9</param>
-    /// <param name="invalidlower">Input argument #10</param>
-    /// <param name="smoothCoeff">Input argument #11</param>
-    /// <param name="boundaryx">Input argument #12</param>
-    /// <param name="boundarydx">Input argument #13</param>
-    /// <param name="boundarydxx">Input argument #14</param>
-    /// <param name="leftright">Input argument #15</param>
-    /// <param name="xexl">Input argument #16</param>
+    /// <param name="xinlbmin">Input argument #8</param>
+    /// <param name="xinubmax">Input argument #9</param>
+    /// <param name="invalidx">Input argument #10</param>
+    /// <param name="invalidupper">Input argument #11</param>
+    /// <param name="invalidlower">Input argument #12</param>
+    /// <param name="invaliduppermax">Input argument #13</param>
+    /// <param name="invalidlowermin">Input argument #14</param>
+    /// <param name="smoothCoeff">Input argument #15</param>
+    /// <param name="boundaryx">Input argument #16</param>
     /// <returns>An Object containing the first output argument.</returns>
     ///
     public Object flexTimeFit(Object xin, Object yin, Object w, Object stationarypoint, 
                         Object tailConcavity, Object xinlb, Object xinub, Object 
-                        invalidx, Object invalidupper, Object invalidlower, Object 
-                        smoothCoeff, Object boundaryx, Object boundarydx, Object 
-                        boundarydxx, Object leftright, Object xexl)
+                        xinlbmin, Object xinubmax, Object invalidx, Object invalidupper, 
+                        Object invalidlower, Object invaliduppermax, Object 
+                        invalidlowermin, Object smoothCoeff, Object boundaryx)
     {
-      return mcr.EvaluateFunction("flexTimeFit", xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, invalidx, invalidupper, invalidlower, smoothCoeff, boundaryx, boundarydx, boundarydxx, leftright, xexl);
+      return mcr.EvaluateFunction("flexTimeFit", xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, xinlbmin, xinubmax, invalidx, invalidupper, invalidlower, invaliduppermax, invalidlowermin, smoothCoeff, boundaryx);
     }
 
 
@@ -2052,25 +2051,26 @@ namespace flexFitNative
     /// <param name="tailConcavity">Input argument #5</param>
     /// <param name="xinlb">Input argument #6</param>
     /// <param name="xinub">Input argument #7</param>
-    /// <param name="invalidx">Input argument #8</param>
-    /// <param name="invalidupper">Input argument #9</param>
-    /// <param name="invalidlower">Input argument #10</param>
-    /// <param name="smoothCoeff">Input argument #11</param>
-    /// <param name="boundaryx">Input argument #12</param>
-    /// <param name="boundarydx">Input argument #13</param>
-    /// <param name="boundarydxx">Input argument #14</param>
-    /// <param name="leftright">Input argument #15</param>
-    /// <param name="xexl">Input argument #16</param>
-    /// <param name="yexl">Input argument #17</param>
+    /// <param name="xinlbmin">Input argument #8</param>
+    /// <param name="xinubmax">Input argument #9</param>
+    /// <param name="invalidx">Input argument #10</param>
+    /// <param name="invalidupper">Input argument #11</param>
+    /// <param name="invalidlower">Input argument #12</param>
+    /// <param name="invaliduppermax">Input argument #13</param>
+    /// <param name="invalidlowermin">Input argument #14</param>
+    /// <param name="smoothCoeff">Input argument #15</param>
+    /// <param name="boundaryx">Input argument #16</param>
+    /// <param name="boundarydx">Input argument #17</param>
     /// <returns>An Object containing the first output argument.</returns>
     ///
     public Object flexTimeFit(Object xin, Object yin, Object w, Object stationarypoint, 
                         Object tailConcavity, Object xinlb, Object xinub, Object 
-                        invalidx, Object invalidupper, Object invalidlower, Object 
-                        smoothCoeff, Object boundaryx, Object boundarydx, Object 
-                        boundarydxx, Object leftright, Object xexl, Object yexl)
+                        xinlbmin, Object xinubmax, Object invalidx, Object invalidupper, 
+                        Object invalidlower, Object invaliduppermax, Object 
+                        invalidlowermin, Object smoothCoeff, Object boundaryx, Object 
+                        boundarydx)
     {
-      return mcr.EvaluateFunction("flexTimeFit", xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, invalidx, invalidupper, invalidlower, smoothCoeff, boundaryx, boundarydx, boundarydxx, leftright, xexl, yexl);
+      return mcr.EvaluateFunction("flexTimeFit", xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, xinlbmin, xinubmax, invalidx, invalidupper, invalidlower, invaliduppermax, invalidlowermin, smoothCoeff, boundaryx, boundarydx);
     }
 
 
@@ -2169,27 +2169,27 @@ namespace flexFitNative
     /// <param name="tailConcavity">Input argument #5</param>
     /// <param name="xinlb">Input argument #6</param>
     /// <param name="xinub">Input argument #7</param>
-    /// <param name="invalidx">Input argument #8</param>
-    /// <param name="invalidupper">Input argument #9</param>
-    /// <param name="invalidlower">Input argument #10</param>
-    /// <param name="smoothCoeff">Input argument #11</param>
-    /// <param name="boundaryx">Input argument #12</param>
-    /// <param name="boundarydx">Input argument #13</param>
-    /// <param name="boundarydxx">Input argument #14</param>
-    /// <param name="leftright">Input argument #15</param>
-    /// <param name="xexl">Input argument #16</param>
-    /// <param name="yexl">Input argument #17</param>
-    /// <param name="xendl">Input argument #18</param>
+    /// <param name="xinlbmin">Input argument #8</param>
+    /// <param name="xinubmax">Input argument #9</param>
+    /// <param name="invalidx">Input argument #10</param>
+    /// <param name="invalidupper">Input argument #11</param>
+    /// <param name="invalidlower">Input argument #12</param>
+    /// <param name="invaliduppermax">Input argument #13</param>
+    /// <param name="invalidlowermin">Input argument #14</param>
+    /// <param name="smoothCoeff">Input argument #15</param>
+    /// <param name="boundaryx">Input argument #16</param>
+    /// <param name="boundarydx">Input argument #17</param>
+    /// <param name="boundarydxx">Input argument #18</param>
     /// <returns>An Object containing the first output argument.</returns>
     ///
     public Object flexTimeFit(Object xin, Object yin, Object w, Object stationarypoint, 
                         Object tailConcavity, Object xinlb, Object xinub, Object 
-                        invalidx, Object invalidupper, Object invalidlower, Object 
-                        smoothCoeff, Object boundaryx, Object boundarydx, Object 
-                        boundarydxx, Object leftright, Object xexl, Object yexl, Object 
-                        xendl)
+                        xinlbmin, Object xinubmax, Object invalidx, Object invalidupper, 
+                        Object invalidlower, Object invaliduppermax, Object 
+                        invalidlowermin, Object smoothCoeff, Object boundaryx, Object 
+                        boundarydx, Object boundarydxx)
     {
-      return mcr.EvaluateFunction("flexTimeFit", xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, invalidx, invalidupper, invalidlower, smoothCoeff, boundaryx, boundarydx, boundarydxx, leftright, xexl, yexl, xendl);
+      return mcr.EvaluateFunction("flexTimeFit", xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, xinlbmin, xinubmax, invalidx, invalidupper, invalidlower, invaliduppermax, invalidlowermin, smoothCoeff, boundaryx, boundarydx, boundarydxx);
     }
 
 
@@ -2288,28 +2288,28 @@ namespace flexFitNative
     /// <param name="tailConcavity">Input argument #5</param>
     /// <param name="xinlb">Input argument #6</param>
     /// <param name="xinub">Input argument #7</param>
-    /// <param name="invalidx">Input argument #8</param>
-    /// <param name="invalidupper">Input argument #9</param>
-    /// <param name="invalidlower">Input argument #10</param>
-    /// <param name="smoothCoeff">Input argument #11</param>
-    /// <param name="boundaryx">Input argument #12</param>
-    /// <param name="boundarydx">Input argument #13</param>
-    /// <param name="boundarydxx">Input argument #14</param>
-    /// <param name="leftright">Input argument #15</param>
-    /// <param name="xexl">Input argument #16</param>
-    /// <param name="yexl">Input argument #17</param>
-    /// <param name="xendl">Input argument #18</param>
-    /// <param name="lbendl">Input argument #19</param>
+    /// <param name="xinlbmin">Input argument #8</param>
+    /// <param name="xinubmax">Input argument #9</param>
+    /// <param name="invalidx">Input argument #10</param>
+    /// <param name="invalidupper">Input argument #11</param>
+    /// <param name="invalidlower">Input argument #12</param>
+    /// <param name="invaliduppermax">Input argument #13</param>
+    /// <param name="invalidlowermin">Input argument #14</param>
+    /// <param name="smoothCoeff">Input argument #15</param>
+    /// <param name="boundaryx">Input argument #16</param>
+    /// <param name="boundarydx">Input argument #17</param>
+    /// <param name="boundarydxx">Input argument #18</param>
+    /// <param name="leftright">Input argument #19</param>
     /// <returns>An Object containing the first output argument.</returns>
     ///
     public Object flexTimeFit(Object xin, Object yin, Object w, Object stationarypoint, 
                         Object tailConcavity, Object xinlb, Object xinub, Object 
-                        invalidx, Object invalidupper, Object invalidlower, Object 
-                        smoothCoeff, Object boundaryx, Object boundarydx, Object 
-                        boundarydxx, Object leftright, Object xexl, Object yexl, Object 
-                        xendl, Object lbendl)
+                        xinlbmin, Object xinubmax, Object invalidx, Object invalidupper, 
+                        Object invalidlower, Object invaliduppermax, Object 
+                        invalidlowermin, Object smoothCoeff, Object boundaryx, Object 
+                        boundarydx, Object boundarydxx, Object leftright)
     {
-      return mcr.EvaluateFunction("flexTimeFit", xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, invalidx, invalidupper, invalidlower, smoothCoeff, boundaryx, boundarydx, boundarydxx, leftright, xexl, yexl, xendl, lbendl);
+      return mcr.EvaluateFunction("flexTimeFit", xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, xinlbmin, xinubmax, invalidx, invalidupper, invalidlower, invaliduppermax, invalidlowermin, smoothCoeff, boundaryx, boundarydx, boundarydxx, leftright);
     }
 
 
@@ -2408,29 +2408,29 @@ namespace flexFitNative
     /// <param name="tailConcavity">Input argument #5</param>
     /// <param name="xinlb">Input argument #6</param>
     /// <param name="xinub">Input argument #7</param>
-    /// <param name="invalidx">Input argument #8</param>
-    /// <param name="invalidupper">Input argument #9</param>
-    /// <param name="invalidlower">Input argument #10</param>
-    /// <param name="smoothCoeff">Input argument #11</param>
-    /// <param name="boundaryx">Input argument #12</param>
-    /// <param name="boundarydx">Input argument #13</param>
-    /// <param name="boundarydxx">Input argument #14</param>
-    /// <param name="leftright">Input argument #15</param>
-    /// <param name="xexl">Input argument #16</param>
-    /// <param name="yexl">Input argument #17</param>
-    /// <param name="xendl">Input argument #18</param>
-    /// <param name="lbendl">Input argument #19</param>
-    /// <param name="ubendl">Input argument #20</param>
+    /// <param name="xinlbmin">Input argument #8</param>
+    /// <param name="xinubmax">Input argument #9</param>
+    /// <param name="invalidx">Input argument #10</param>
+    /// <param name="invalidupper">Input argument #11</param>
+    /// <param name="invalidlower">Input argument #12</param>
+    /// <param name="invaliduppermax">Input argument #13</param>
+    /// <param name="invalidlowermin">Input argument #14</param>
+    /// <param name="smoothCoeff">Input argument #15</param>
+    /// <param name="boundaryx">Input argument #16</param>
+    /// <param name="boundarydx">Input argument #17</param>
+    /// <param name="boundarydxx">Input argument #18</param>
+    /// <param name="leftright">Input argument #19</param>
+    /// <param name="xexl">Input argument #20</param>
     /// <returns>An Object containing the first output argument.</returns>
     ///
     public Object flexTimeFit(Object xin, Object yin, Object w, Object stationarypoint, 
                         Object tailConcavity, Object xinlb, Object xinub, Object 
-                        invalidx, Object invalidupper, Object invalidlower, Object 
-                        smoothCoeff, Object boundaryx, Object boundarydx, Object 
-                        boundarydxx, Object leftright, Object xexl, Object yexl, Object 
-                        xendl, Object lbendl, Object ubendl)
+                        xinlbmin, Object xinubmax, Object invalidx, Object invalidupper, 
+                        Object invalidlower, Object invaliduppermax, Object 
+                        invalidlowermin, Object smoothCoeff, Object boundaryx, Object 
+                        boundarydx, Object boundarydxx, Object leftright, Object xexl)
     {
-      return mcr.EvaluateFunction("flexTimeFit", xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, invalidx, invalidupper, invalidlower, smoothCoeff, boundaryx, boundarydx, boundarydxx, leftright, xexl, yexl, xendl, lbendl, ubendl);
+      return mcr.EvaluateFunction("flexTimeFit", xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, xinlbmin, xinubmax, invalidx, invalidupper, invalidlower, invaliduppermax, invalidlowermin, smoothCoeff, boundaryx, boundarydx, boundarydxx, leftright, xexl);
     }
 
 
@@ -2529,30 +2529,31 @@ namespace flexFitNative
     /// <param name="tailConcavity">Input argument #5</param>
     /// <param name="xinlb">Input argument #6</param>
     /// <param name="xinub">Input argument #7</param>
-    /// <param name="invalidx">Input argument #8</param>
-    /// <param name="invalidupper">Input argument #9</param>
-    /// <param name="invalidlower">Input argument #10</param>
-    /// <param name="smoothCoeff">Input argument #11</param>
-    /// <param name="boundaryx">Input argument #12</param>
-    /// <param name="boundarydx">Input argument #13</param>
-    /// <param name="boundarydxx">Input argument #14</param>
-    /// <param name="leftright">Input argument #15</param>
-    /// <param name="xexl">Input argument #16</param>
-    /// <param name="yexl">Input argument #17</param>
-    /// <param name="xendl">Input argument #18</param>
-    /// <param name="lbendl">Input argument #19</param>
-    /// <param name="ubendl">Input argument #20</param>
-    /// <param name="xexr">Input argument #21</param>
+    /// <param name="xinlbmin">Input argument #8</param>
+    /// <param name="xinubmax">Input argument #9</param>
+    /// <param name="invalidx">Input argument #10</param>
+    /// <param name="invalidupper">Input argument #11</param>
+    /// <param name="invalidlower">Input argument #12</param>
+    /// <param name="invaliduppermax">Input argument #13</param>
+    /// <param name="invalidlowermin">Input argument #14</param>
+    /// <param name="smoothCoeff">Input argument #15</param>
+    /// <param name="boundaryx">Input argument #16</param>
+    /// <param name="boundarydx">Input argument #17</param>
+    /// <param name="boundarydxx">Input argument #18</param>
+    /// <param name="leftright">Input argument #19</param>
+    /// <param name="xexl">Input argument #20</param>
+    /// <param name="yexl">Input argument #21</param>
     /// <returns>An Object containing the first output argument.</returns>
     ///
     public Object flexTimeFit(Object xin, Object yin, Object w, Object stationarypoint, 
                         Object tailConcavity, Object xinlb, Object xinub, Object 
-                        invalidx, Object invalidupper, Object invalidlower, Object 
-                        smoothCoeff, Object boundaryx, Object boundarydx, Object 
-                        boundarydxx, Object leftright, Object xexl, Object yexl, Object 
-                        xendl, Object lbendl, Object ubendl, Object xexr)
+                        xinlbmin, Object xinubmax, Object invalidx, Object invalidupper, 
+                        Object invalidlower, Object invaliduppermax, Object 
+                        invalidlowermin, Object smoothCoeff, Object boundaryx, Object 
+                        boundarydx, Object boundarydxx, Object leftright, Object xexl, 
+                        Object yexl)
     {
-      return mcr.EvaluateFunction("flexTimeFit", xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, invalidx, invalidupper, invalidlower, smoothCoeff, boundaryx, boundarydx, boundarydxx, leftright, xexl, yexl, xendl, lbendl, ubendl, xexr);
+      return mcr.EvaluateFunction("flexTimeFit", xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, xinlbmin, xinubmax, invalidx, invalidupper, invalidlower, invaliduppermax, invalidlowermin, smoothCoeff, boundaryx, boundarydx, boundarydxx, leftright, xexl, yexl);
     }
 
 
@@ -2651,31 +2652,32 @@ namespace flexFitNative
     /// <param name="tailConcavity">Input argument #5</param>
     /// <param name="xinlb">Input argument #6</param>
     /// <param name="xinub">Input argument #7</param>
-    /// <param name="invalidx">Input argument #8</param>
-    /// <param name="invalidupper">Input argument #9</param>
-    /// <param name="invalidlower">Input argument #10</param>
-    /// <param name="smoothCoeff">Input argument #11</param>
-    /// <param name="boundaryx">Input argument #12</param>
-    /// <param name="boundarydx">Input argument #13</param>
-    /// <param name="boundarydxx">Input argument #14</param>
-    /// <param name="leftright">Input argument #15</param>
-    /// <param name="xexl">Input argument #16</param>
-    /// <param name="yexl">Input argument #17</param>
-    /// <param name="xendl">Input argument #18</param>
-    /// <param name="lbendl">Input argument #19</param>
-    /// <param name="ubendl">Input argument #20</param>
-    /// <param name="xexr">Input argument #21</param>
-    /// <param name="yexr">Input argument #22</param>
+    /// <param name="xinlbmin">Input argument #8</param>
+    /// <param name="xinubmax">Input argument #9</param>
+    /// <param name="invalidx">Input argument #10</param>
+    /// <param name="invalidupper">Input argument #11</param>
+    /// <param name="invalidlower">Input argument #12</param>
+    /// <param name="invaliduppermax">Input argument #13</param>
+    /// <param name="invalidlowermin">Input argument #14</param>
+    /// <param name="smoothCoeff">Input argument #15</param>
+    /// <param name="boundaryx">Input argument #16</param>
+    /// <param name="boundarydx">Input argument #17</param>
+    /// <param name="boundarydxx">Input argument #18</param>
+    /// <param name="leftright">Input argument #19</param>
+    /// <param name="xexl">Input argument #20</param>
+    /// <param name="yexl">Input argument #21</param>
+    /// <param name="xendl">Input argument #22</param>
     /// <returns>An Object containing the first output argument.</returns>
     ///
     public Object flexTimeFit(Object xin, Object yin, Object w, Object stationarypoint, 
                         Object tailConcavity, Object xinlb, Object xinub, Object 
-                        invalidx, Object invalidupper, Object invalidlower, Object 
-                        smoothCoeff, Object boundaryx, Object boundarydx, Object 
-                        boundarydxx, Object leftright, Object xexl, Object yexl, Object 
-                        xendl, Object lbendl, Object ubendl, Object xexr, Object yexr)
+                        xinlbmin, Object xinubmax, Object invalidx, Object invalidupper, 
+                        Object invalidlower, Object invaliduppermax, Object 
+                        invalidlowermin, Object smoothCoeff, Object boundaryx, Object 
+                        boundarydx, Object boundarydxx, Object leftright, Object xexl, 
+                        Object yexl, Object xendl)
     {
-      return mcr.EvaluateFunction("flexTimeFit", xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, invalidx, invalidupper, invalidlower, smoothCoeff, boundaryx, boundarydx, boundarydxx, leftright, xexl, yexl, xendl, lbendl, ubendl, xexr, yexr);
+      return mcr.EvaluateFunction("flexTimeFit", xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, xinlbmin, xinubmax, invalidx, invalidupper, invalidlower, invaliduppermax, invalidlowermin, smoothCoeff, boundaryx, boundarydx, boundarydxx, leftright, xexl, yexl, xendl);
     }
 
 
@@ -2774,33 +2776,33 @@ namespace flexFitNative
     /// <param name="tailConcavity">Input argument #5</param>
     /// <param name="xinlb">Input argument #6</param>
     /// <param name="xinub">Input argument #7</param>
-    /// <param name="invalidx">Input argument #8</param>
-    /// <param name="invalidupper">Input argument #9</param>
-    /// <param name="invalidlower">Input argument #10</param>
-    /// <param name="smoothCoeff">Input argument #11</param>
-    /// <param name="boundaryx">Input argument #12</param>
-    /// <param name="boundarydx">Input argument #13</param>
-    /// <param name="boundarydxx">Input argument #14</param>
-    /// <param name="leftright">Input argument #15</param>
-    /// <param name="xexl">Input argument #16</param>
-    /// <param name="yexl">Input argument #17</param>
-    /// <param name="xendl">Input argument #18</param>
-    /// <param name="lbendl">Input argument #19</param>
-    /// <param name="ubendl">Input argument #20</param>
-    /// <param name="xexr">Input argument #21</param>
-    /// <param name="yexr">Input argument #22</param>
-    /// <param name="xendr">Input argument #23</param>
+    /// <param name="xinlbmin">Input argument #8</param>
+    /// <param name="xinubmax">Input argument #9</param>
+    /// <param name="invalidx">Input argument #10</param>
+    /// <param name="invalidupper">Input argument #11</param>
+    /// <param name="invalidlower">Input argument #12</param>
+    /// <param name="invaliduppermax">Input argument #13</param>
+    /// <param name="invalidlowermin">Input argument #14</param>
+    /// <param name="smoothCoeff">Input argument #15</param>
+    /// <param name="boundaryx">Input argument #16</param>
+    /// <param name="boundarydx">Input argument #17</param>
+    /// <param name="boundarydxx">Input argument #18</param>
+    /// <param name="leftright">Input argument #19</param>
+    /// <param name="xexl">Input argument #20</param>
+    /// <param name="yexl">Input argument #21</param>
+    /// <param name="xendl">Input argument #22</param>
+    /// <param name="lbendl">Input argument #23</param>
     /// <returns>An Object containing the first output argument.</returns>
     ///
     public Object flexTimeFit(Object xin, Object yin, Object w, Object stationarypoint, 
                         Object tailConcavity, Object xinlb, Object xinub, Object 
-                        invalidx, Object invalidupper, Object invalidlower, Object 
-                        smoothCoeff, Object boundaryx, Object boundarydx, Object 
-                        boundarydxx, Object leftright, Object xexl, Object yexl, Object 
-                        xendl, Object lbendl, Object ubendl, Object xexr, Object yexr, 
-                        Object xendr)
+                        xinlbmin, Object xinubmax, Object invalidx, Object invalidupper, 
+                        Object invalidlower, Object invaliduppermax, Object 
+                        invalidlowermin, Object smoothCoeff, Object boundaryx, Object 
+                        boundarydx, Object boundarydxx, Object leftright, Object xexl, 
+                        Object yexl, Object xendl, Object lbendl)
     {
-      return mcr.EvaluateFunction("flexTimeFit", xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, invalidx, invalidupper, invalidlower, smoothCoeff, boundaryx, boundarydx, boundarydxx, leftright, xexl, yexl, xendl, lbendl, ubendl, xexr, yexr, xendr);
+      return mcr.EvaluateFunction("flexTimeFit", xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, xinlbmin, xinubmax, invalidx, invalidupper, invalidlower, invaliduppermax, invalidlowermin, smoothCoeff, boundaryx, boundarydx, boundarydxx, leftright, xexl, yexl, xendl, lbendl);
     }
 
 
@@ -2899,34 +2901,34 @@ namespace flexFitNative
     /// <param name="tailConcavity">Input argument #5</param>
     /// <param name="xinlb">Input argument #6</param>
     /// <param name="xinub">Input argument #7</param>
-    /// <param name="invalidx">Input argument #8</param>
-    /// <param name="invalidupper">Input argument #9</param>
-    /// <param name="invalidlower">Input argument #10</param>
-    /// <param name="smoothCoeff">Input argument #11</param>
-    /// <param name="boundaryx">Input argument #12</param>
-    /// <param name="boundarydx">Input argument #13</param>
-    /// <param name="boundarydxx">Input argument #14</param>
-    /// <param name="leftright">Input argument #15</param>
-    /// <param name="xexl">Input argument #16</param>
-    /// <param name="yexl">Input argument #17</param>
-    /// <param name="xendl">Input argument #18</param>
-    /// <param name="lbendl">Input argument #19</param>
-    /// <param name="ubendl">Input argument #20</param>
-    /// <param name="xexr">Input argument #21</param>
-    /// <param name="yexr">Input argument #22</param>
-    /// <param name="xendr">Input argument #23</param>
-    /// <param name="lbendr">Input argument #24</param>
+    /// <param name="xinlbmin">Input argument #8</param>
+    /// <param name="xinubmax">Input argument #9</param>
+    /// <param name="invalidx">Input argument #10</param>
+    /// <param name="invalidupper">Input argument #11</param>
+    /// <param name="invalidlower">Input argument #12</param>
+    /// <param name="invaliduppermax">Input argument #13</param>
+    /// <param name="invalidlowermin">Input argument #14</param>
+    /// <param name="smoothCoeff">Input argument #15</param>
+    /// <param name="boundaryx">Input argument #16</param>
+    /// <param name="boundarydx">Input argument #17</param>
+    /// <param name="boundarydxx">Input argument #18</param>
+    /// <param name="leftright">Input argument #19</param>
+    /// <param name="xexl">Input argument #20</param>
+    /// <param name="yexl">Input argument #21</param>
+    /// <param name="xendl">Input argument #22</param>
+    /// <param name="lbendl">Input argument #23</param>
+    /// <param name="ubendl">Input argument #24</param>
     /// <returns>An Object containing the first output argument.</returns>
     ///
     public Object flexTimeFit(Object xin, Object yin, Object w, Object stationarypoint, 
                         Object tailConcavity, Object xinlb, Object xinub, Object 
-                        invalidx, Object invalidupper, Object invalidlower, Object 
-                        smoothCoeff, Object boundaryx, Object boundarydx, Object 
-                        boundarydxx, Object leftright, Object xexl, Object yexl, Object 
-                        xendl, Object lbendl, Object ubendl, Object xexr, Object yexr, 
-                        Object xendr, Object lbendr)
+                        xinlbmin, Object xinubmax, Object invalidx, Object invalidupper, 
+                        Object invalidlower, Object invaliduppermax, Object 
+                        invalidlowermin, Object smoothCoeff, Object boundaryx, Object 
+                        boundarydx, Object boundarydxx, Object leftright, Object xexl, 
+                        Object yexl, Object xendl, Object lbendl, Object ubendl)
     {
-      return mcr.EvaluateFunction("flexTimeFit", xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, invalidx, invalidupper, invalidlower, smoothCoeff, boundaryx, boundarydx, boundarydxx, leftright, xexl, yexl, xendl, lbendl, ubendl, xexr, yexr, xendr, lbendr);
+      return mcr.EvaluateFunction("flexTimeFit", xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, xinlbmin, xinubmax, invalidx, invalidupper, invalidlower, invaliduppermax, invalidlowermin, smoothCoeff, boundaryx, boundarydx, boundarydxx, leftright, xexl, yexl, xendl, lbendl, ubendl);
     }
 
 
@@ -3025,35 +3027,36 @@ namespace flexFitNative
     /// <param name="tailConcavity">Input argument #5</param>
     /// <param name="xinlb">Input argument #6</param>
     /// <param name="xinub">Input argument #7</param>
-    /// <param name="invalidx">Input argument #8</param>
-    /// <param name="invalidupper">Input argument #9</param>
-    /// <param name="invalidlower">Input argument #10</param>
-    /// <param name="smoothCoeff">Input argument #11</param>
-    /// <param name="boundaryx">Input argument #12</param>
-    /// <param name="boundarydx">Input argument #13</param>
-    /// <param name="boundarydxx">Input argument #14</param>
-    /// <param name="leftright">Input argument #15</param>
-    /// <param name="xexl">Input argument #16</param>
-    /// <param name="yexl">Input argument #17</param>
-    /// <param name="xendl">Input argument #18</param>
-    /// <param name="lbendl">Input argument #19</param>
-    /// <param name="ubendl">Input argument #20</param>
-    /// <param name="xexr">Input argument #21</param>
-    /// <param name="yexr">Input argument #22</param>
-    /// <param name="xendr">Input argument #23</param>
-    /// <param name="lbendr">Input argument #24</param>
-    /// <param name="ubendr">Input argument #25</param>
+    /// <param name="xinlbmin">Input argument #8</param>
+    /// <param name="xinubmax">Input argument #9</param>
+    /// <param name="invalidx">Input argument #10</param>
+    /// <param name="invalidupper">Input argument #11</param>
+    /// <param name="invalidlower">Input argument #12</param>
+    /// <param name="invaliduppermax">Input argument #13</param>
+    /// <param name="invalidlowermin">Input argument #14</param>
+    /// <param name="smoothCoeff">Input argument #15</param>
+    /// <param name="boundaryx">Input argument #16</param>
+    /// <param name="boundarydx">Input argument #17</param>
+    /// <param name="boundarydxx">Input argument #18</param>
+    /// <param name="leftright">Input argument #19</param>
+    /// <param name="xexl">Input argument #20</param>
+    /// <param name="yexl">Input argument #21</param>
+    /// <param name="xendl">Input argument #22</param>
+    /// <param name="lbendl">Input argument #23</param>
+    /// <param name="ubendl">Input argument #24</param>
+    /// <param name="xexr">Input argument #25</param>
     /// <returns>An Object containing the first output argument.</returns>
     ///
     public Object flexTimeFit(Object xin, Object yin, Object w, Object stationarypoint, 
                         Object tailConcavity, Object xinlb, Object xinub, Object 
-                        invalidx, Object invalidupper, Object invalidlower, Object 
-                        smoothCoeff, Object boundaryx, Object boundarydx, Object 
-                        boundarydxx, Object leftright, Object xexl, Object yexl, Object 
-                        xendl, Object lbendl, Object ubendl, Object xexr, Object yexr, 
-                        Object xendr, Object lbendr, Object ubendr)
+                        xinlbmin, Object xinubmax, Object invalidx, Object invalidupper, 
+                        Object invalidlower, Object invaliduppermax, Object 
+                        invalidlowermin, Object smoothCoeff, Object boundaryx, Object 
+                        boundarydx, Object boundarydxx, Object leftright, Object xexl, 
+                        Object yexl, Object xendl, Object lbendl, Object ubendl, Object 
+                        xexr)
     {
-      return mcr.EvaluateFunction("flexTimeFit", xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, invalidx, invalidupper, invalidlower, smoothCoeff, boundaryx, boundarydx, boundarydxx, leftright, xexl, yexl, xendl, lbendl, ubendl, xexr, yexr, xendr, lbendr, ubendr);
+      return mcr.EvaluateFunction("flexTimeFit", xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, xinlbmin, xinubmax, invalidx, invalidupper, invalidlower, invaliduppermax, invalidlowermin, smoothCoeff, boundaryx, boundarydx, boundarydxx, leftright, xexl, yexl, xendl, lbendl, ubendl, xexr);
     }
 
 
@@ -3152,36 +3155,37 @@ namespace flexFitNative
     /// <param name="tailConcavity">Input argument #5</param>
     /// <param name="xinlb">Input argument #6</param>
     /// <param name="xinub">Input argument #7</param>
-    /// <param name="invalidx">Input argument #8</param>
-    /// <param name="invalidupper">Input argument #9</param>
-    /// <param name="invalidlower">Input argument #10</param>
-    /// <param name="smoothCoeff">Input argument #11</param>
-    /// <param name="boundaryx">Input argument #12</param>
-    /// <param name="boundarydx">Input argument #13</param>
-    /// <param name="boundarydxx">Input argument #14</param>
-    /// <param name="leftright">Input argument #15</param>
-    /// <param name="xexl">Input argument #16</param>
-    /// <param name="yexl">Input argument #17</param>
-    /// <param name="xendl">Input argument #18</param>
-    /// <param name="lbendl">Input argument #19</param>
-    /// <param name="ubendl">Input argument #20</param>
-    /// <param name="xexr">Input argument #21</param>
-    /// <param name="yexr">Input argument #22</param>
-    /// <param name="xendr">Input argument #23</param>
-    /// <param name="lbendr">Input argument #24</param>
-    /// <param name="ubendr">Input argument #25</param>
-    /// <param name="leftincrease">Input argument #26</param>
+    /// <param name="xinlbmin">Input argument #8</param>
+    /// <param name="xinubmax">Input argument #9</param>
+    /// <param name="invalidx">Input argument #10</param>
+    /// <param name="invalidupper">Input argument #11</param>
+    /// <param name="invalidlower">Input argument #12</param>
+    /// <param name="invaliduppermax">Input argument #13</param>
+    /// <param name="invalidlowermin">Input argument #14</param>
+    /// <param name="smoothCoeff">Input argument #15</param>
+    /// <param name="boundaryx">Input argument #16</param>
+    /// <param name="boundarydx">Input argument #17</param>
+    /// <param name="boundarydxx">Input argument #18</param>
+    /// <param name="leftright">Input argument #19</param>
+    /// <param name="xexl">Input argument #20</param>
+    /// <param name="yexl">Input argument #21</param>
+    /// <param name="xendl">Input argument #22</param>
+    /// <param name="lbendl">Input argument #23</param>
+    /// <param name="ubendl">Input argument #24</param>
+    /// <param name="xexr">Input argument #25</param>
+    /// <param name="yexr">Input argument #26</param>
     /// <returns>An Object containing the first output argument.</returns>
     ///
     public Object flexTimeFit(Object xin, Object yin, Object w, Object stationarypoint, 
                         Object tailConcavity, Object xinlb, Object xinub, Object 
-                        invalidx, Object invalidupper, Object invalidlower, Object 
-                        smoothCoeff, Object boundaryx, Object boundarydx, Object 
-                        boundarydxx, Object leftright, Object xexl, Object yexl, Object 
-                        xendl, Object lbendl, Object ubendl, Object xexr, Object yexr, 
-                        Object xendr, Object lbendr, Object ubendr, Object leftincrease)
+                        xinlbmin, Object xinubmax, Object invalidx, Object invalidupper, 
+                        Object invalidlower, Object invaliduppermax, Object 
+                        invalidlowermin, Object smoothCoeff, Object boundaryx, Object 
+                        boundarydx, Object boundarydxx, Object leftright, Object xexl, 
+                        Object yexl, Object xendl, Object lbendl, Object ubendl, Object 
+                        xexr, Object yexr)
     {
-      return mcr.EvaluateFunction("flexTimeFit", xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, invalidx, invalidupper, invalidlower, smoothCoeff, boundaryx, boundarydx, boundarydxx, leftright, xexl, yexl, xendl, lbendl, ubendl, xexr, yexr, xendr, lbendr, ubendr, leftincrease);
+      return mcr.EvaluateFunction("flexTimeFit", xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, xinlbmin, xinubmax, invalidx, invalidupper, invalidlower, invaliduppermax, invalidlowermin, smoothCoeff, boundaryx, boundarydx, boundarydxx, leftright, xexl, yexl, xendl, lbendl, ubendl, xexr, yexr);
     }
 
 
@@ -3280,38 +3284,38 @@ namespace flexFitNative
     /// <param name="tailConcavity">Input argument #5</param>
     /// <param name="xinlb">Input argument #6</param>
     /// <param name="xinub">Input argument #7</param>
-    /// <param name="invalidx">Input argument #8</param>
-    /// <param name="invalidupper">Input argument #9</param>
-    /// <param name="invalidlower">Input argument #10</param>
-    /// <param name="smoothCoeff">Input argument #11</param>
-    /// <param name="boundaryx">Input argument #12</param>
-    /// <param name="boundarydx">Input argument #13</param>
-    /// <param name="boundarydxx">Input argument #14</param>
-    /// <param name="leftright">Input argument #15</param>
-    /// <param name="xexl">Input argument #16</param>
-    /// <param name="yexl">Input argument #17</param>
-    /// <param name="xendl">Input argument #18</param>
-    /// <param name="lbendl">Input argument #19</param>
-    /// <param name="ubendl">Input argument #20</param>
-    /// <param name="xexr">Input argument #21</param>
-    /// <param name="yexr">Input argument #22</param>
-    /// <param name="xendr">Input argument #23</param>
-    /// <param name="lbendr">Input argument #24</param>
-    /// <param name="ubendr">Input argument #25</param>
-    /// <param name="leftincrease">Input argument #26</param>
-    /// <param name="rightincrease">Input argument #27</param>
+    /// <param name="xinlbmin">Input argument #8</param>
+    /// <param name="xinubmax">Input argument #9</param>
+    /// <param name="invalidx">Input argument #10</param>
+    /// <param name="invalidupper">Input argument #11</param>
+    /// <param name="invalidlower">Input argument #12</param>
+    /// <param name="invaliduppermax">Input argument #13</param>
+    /// <param name="invalidlowermin">Input argument #14</param>
+    /// <param name="smoothCoeff">Input argument #15</param>
+    /// <param name="boundaryx">Input argument #16</param>
+    /// <param name="boundarydx">Input argument #17</param>
+    /// <param name="boundarydxx">Input argument #18</param>
+    /// <param name="leftright">Input argument #19</param>
+    /// <param name="xexl">Input argument #20</param>
+    /// <param name="yexl">Input argument #21</param>
+    /// <param name="xendl">Input argument #22</param>
+    /// <param name="lbendl">Input argument #23</param>
+    /// <param name="ubendl">Input argument #24</param>
+    /// <param name="xexr">Input argument #25</param>
+    /// <param name="yexr">Input argument #26</param>
+    /// <param name="xendr">Input argument #27</param>
     /// <returns>An Object containing the first output argument.</returns>
     ///
     public Object flexTimeFit(Object xin, Object yin, Object w, Object stationarypoint, 
                         Object tailConcavity, Object xinlb, Object xinub, Object 
-                        invalidx, Object invalidupper, Object invalidlower, Object 
-                        smoothCoeff, Object boundaryx, Object boundarydx, Object 
-                        boundarydxx, Object leftright, Object xexl, Object yexl, Object 
-                        xendl, Object lbendl, Object ubendl, Object xexr, Object yexr, 
-                        Object xendr, Object lbendr, Object ubendr, Object leftincrease, 
-                        Object rightincrease)
+                        xinlbmin, Object xinubmax, Object invalidx, Object invalidupper, 
+                        Object invalidlower, Object invaliduppermax, Object 
+                        invalidlowermin, Object smoothCoeff, Object boundaryx, Object 
+                        boundarydx, Object boundarydxx, Object leftright, Object xexl, 
+                        Object yexl, Object xendl, Object lbendl, Object ubendl, Object 
+                        xexr, Object yexr, Object xendr)
     {
-      return mcr.EvaluateFunction("flexTimeFit", xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, invalidx, invalidupper, invalidlower, smoothCoeff, boundaryx, boundarydx, boundarydxx, leftright, xexl, yexl, xendl, lbendl, ubendl, xexr, yexr, xendr, lbendr, ubendr, leftincrease, rightincrease);
+      return mcr.EvaluateFunction("flexTimeFit", xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, xinlbmin, xinubmax, invalidx, invalidupper, invalidlower, invaliduppermax, invalidlowermin, smoothCoeff, boundaryx, boundarydx, boundarydxx, leftright, xexl, yexl, xendl, lbendl, ubendl, xexr, yexr, xendr);
     }
 
 
@@ -3410,39 +3414,39 @@ namespace flexFitNative
     /// <param name="tailConcavity">Input argument #5</param>
     /// <param name="xinlb">Input argument #6</param>
     /// <param name="xinub">Input argument #7</param>
-    /// <param name="invalidx">Input argument #8</param>
-    /// <param name="invalidupper">Input argument #9</param>
-    /// <param name="invalidlower">Input argument #10</param>
-    /// <param name="smoothCoeff">Input argument #11</param>
-    /// <param name="boundaryx">Input argument #12</param>
-    /// <param name="boundarydx">Input argument #13</param>
-    /// <param name="boundarydxx">Input argument #14</param>
-    /// <param name="leftright">Input argument #15</param>
-    /// <param name="xexl">Input argument #16</param>
-    /// <param name="yexl">Input argument #17</param>
-    /// <param name="xendl">Input argument #18</param>
-    /// <param name="lbendl">Input argument #19</param>
-    /// <param name="ubendl">Input argument #20</param>
-    /// <param name="xexr">Input argument #21</param>
-    /// <param name="yexr">Input argument #22</param>
-    /// <param name="xendr">Input argument #23</param>
-    /// <param name="lbendr">Input argument #24</param>
-    /// <param name="ubendr">Input argument #25</param>
-    /// <param name="leftincrease">Input argument #26</param>
-    /// <param name="rightincrease">Input argument #27</param>
-    /// <param name="smooth">Input argument #28</param>
+    /// <param name="xinlbmin">Input argument #8</param>
+    /// <param name="xinubmax">Input argument #9</param>
+    /// <param name="invalidx">Input argument #10</param>
+    /// <param name="invalidupper">Input argument #11</param>
+    /// <param name="invalidlower">Input argument #12</param>
+    /// <param name="invaliduppermax">Input argument #13</param>
+    /// <param name="invalidlowermin">Input argument #14</param>
+    /// <param name="smoothCoeff">Input argument #15</param>
+    /// <param name="boundaryx">Input argument #16</param>
+    /// <param name="boundarydx">Input argument #17</param>
+    /// <param name="boundarydxx">Input argument #18</param>
+    /// <param name="leftright">Input argument #19</param>
+    /// <param name="xexl">Input argument #20</param>
+    /// <param name="yexl">Input argument #21</param>
+    /// <param name="xendl">Input argument #22</param>
+    /// <param name="lbendl">Input argument #23</param>
+    /// <param name="ubendl">Input argument #24</param>
+    /// <param name="xexr">Input argument #25</param>
+    /// <param name="yexr">Input argument #26</param>
+    /// <param name="xendr">Input argument #27</param>
+    /// <param name="lbendr">Input argument #28</param>
     /// <returns>An Object containing the first output argument.</returns>
     ///
     public Object flexTimeFit(Object xin, Object yin, Object w, Object stationarypoint, 
                         Object tailConcavity, Object xinlb, Object xinub, Object 
-                        invalidx, Object invalidupper, Object invalidlower, Object 
-                        smoothCoeff, Object boundaryx, Object boundarydx, Object 
-                        boundarydxx, Object leftright, Object xexl, Object yexl, Object 
-                        xendl, Object lbendl, Object ubendl, Object xexr, Object yexr, 
-                        Object xendr, Object lbendr, Object ubendr, Object leftincrease, 
-                        Object rightincrease, Object smooth)
+                        xinlbmin, Object xinubmax, Object invalidx, Object invalidupper, 
+                        Object invalidlower, Object invaliduppermax, Object 
+                        invalidlowermin, Object smoothCoeff, Object boundaryx, Object 
+                        boundarydx, Object boundarydxx, Object leftright, Object xexl, 
+                        Object yexl, Object xendl, Object lbendl, Object ubendl, Object 
+                        xexr, Object yexr, Object xendr, Object lbendr)
     {
-      return mcr.EvaluateFunction("flexTimeFit", xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, invalidx, invalidupper, invalidlower, smoothCoeff, boundaryx, boundarydx, boundarydxx, leftright, xexl, yexl, xendl, lbendl, ubendl, xexr, yexr, xendr, lbendr, ubendr, leftincrease, rightincrease, smooth);
+      return mcr.EvaluateFunction("flexTimeFit", xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, xinlbmin, xinubmax, invalidx, invalidupper, invalidlower, invaliduppermax, invalidlowermin, smoothCoeff, boundaryx, boundarydx, boundarydxx, leftright, xexl, yexl, xendl, lbendl, ubendl, xexr, yexr, xendr, lbendr);
     }
 
 
@@ -3541,40 +3545,40 @@ namespace flexFitNative
     /// <param name="tailConcavity">Input argument #5</param>
     /// <param name="xinlb">Input argument #6</param>
     /// <param name="xinub">Input argument #7</param>
-    /// <param name="invalidx">Input argument #8</param>
-    /// <param name="invalidupper">Input argument #9</param>
-    /// <param name="invalidlower">Input argument #10</param>
-    /// <param name="smoothCoeff">Input argument #11</param>
-    /// <param name="boundaryx">Input argument #12</param>
-    /// <param name="boundarydx">Input argument #13</param>
-    /// <param name="boundarydxx">Input argument #14</param>
-    /// <param name="leftright">Input argument #15</param>
-    /// <param name="xexl">Input argument #16</param>
-    /// <param name="yexl">Input argument #17</param>
-    /// <param name="xendl">Input argument #18</param>
-    /// <param name="lbendl">Input argument #19</param>
-    /// <param name="ubendl">Input argument #20</param>
-    /// <param name="xexr">Input argument #21</param>
-    /// <param name="yexr">Input argument #22</param>
-    /// <param name="xendr">Input argument #23</param>
-    /// <param name="lbendr">Input argument #24</param>
-    /// <param name="ubendr">Input argument #25</param>
-    /// <param name="leftincrease">Input argument #26</param>
-    /// <param name="rightincrease">Input argument #27</param>
-    /// <param name="smooth">Input argument #28</param>
-    /// <param name="tight">Input argument #29</param>
+    /// <param name="xinlbmin">Input argument #8</param>
+    /// <param name="xinubmax">Input argument #9</param>
+    /// <param name="invalidx">Input argument #10</param>
+    /// <param name="invalidupper">Input argument #11</param>
+    /// <param name="invalidlower">Input argument #12</param>
+    /// <param name="invaliduppermax">Input argument #13</param>
+    /// <param name="invalidlowermin">Input argument #14</param>
+    /// <param name="smoothCoeff">Input argument #15</param>
+    /// <param name="boundaryx">Input argument #16</param>
+    /// <param name="boundarydx">Input argument #17</param>
+    /// <param name="boundarydxx">Input argument #18</param>
+    /// <param name="leftright">Input argument #19</param>
+    /// <param name="xexl">Input argument #20</param>
+    /// <param name="yexl">Input argument #21</param>
+    /// <param name="xendl">Input argument #22</param>
+    /// <param name="lbendl">Input argument #23</param>
+    /// <param name="ubendl">Input argument #24</param>
+    /// <param name="xexr">Input argument #25</param>
+    /// <param name="yexr">Input argument #26</param>
+    /// <param name="xendr">Input argument #27</param>
+    /// <param name="lbendr">Input argument #28</param>
+    /// <param name="ubendr">Input argument #29</param>
     /// <returns>An Object containing the first output argument.</returns>
     ///
     public Object flexTimeFit(Object xin, Object yin, Object w, Object stationarypoint, 
                         Object tailConcavity, Object xinlb, Object xinub, Object 
-                        invalidx, Object invalidupper, Object invalidlower, Object 
-                        smoothCoeff, Object boundaryx, Object boundarydx, Object 
-                        boundarydxx, Object leftright, Object xexl, Object yexl, Object 
-                        xendl, Object lbendl, Object ubendl, Object xexr, Object yexr, 
-                        Object xendr, Object lbendr, Object ubendr, Object leftincrease, 
-                        Object rightincrease, Object smooth, Object tight)
+                        xinlbmin, Object xinubmax, Object invalidx, Object invalidupper, 
+                        Object invalidlower, Object invaliduppermax, Object 
+                        invalidlowermin, Object smoothCoeff, Object boundaryx, Object 
+                        boundarydx, Object boundarydxx, Object leftright, Object xexl, 
+                        Object yexl, Object xendl, Object lbendl, Object ubendl, Object 
+                        xexr, Object yexr, Object xendr, Object lbendr, Object ubendr)
     {
-      return mcr.EvaluateFunction("flexTimeFit", xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, invalidx, invalidupper, invalidlower, smoothCoeff, boundaryx, boundarydx, boundarydxx, leftright, xexl, yexl, xendl, lbendl, ubendl, xexr, yexr, xendr, lbendr, ubendr, leftincrease, rightincrease, smooth, tight);
+      return mcr.EvaluateFunction("flexTimeFit", xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, xinlbmin, xinubmax, invalidx, invalidupper, invalidlower, invaliduppermax, invalidlowermin, smoothCoeff, boundaryx, boundarydx, boundarydxx, leftright, xexl, yexl, xendl, lbendl, ubendl, xexr, yexr, xendr, lbendr, ubendr);
     }
 
 
@@ -3673,42 +3677,1014 @@ namespace flexFitNative
     /// <param name="tailConcavity">Input argument #5</param>
     /// <param name="xinlb">Input argument #6</param>
     /// <param name="xinub">Input argument #7</param>
-    /// <param name="invalidx">Input argument #8</param>
-    /// <param name="invalidupper">Input argument #9</param>
-    /// <param name="invalidlower">Input argument #10</param>
-    /// <param name="smoothCoeff">Input argument #11</param>
-    /// <param name="boundaryx">Input argument #12</param>
-    /// <param name="boundarydx">Input argument #13</param>
-    /// <param name="boundarydxx">Input argument #14</param>
-    /// <param name="leftright">Input argument #15</param>
-    /// <param name="xexl">Input argument #16</param>
-    /// <param name="yexl">Input argument #17</param>
-    /// <param name="xendl">Input argument #18</param>
-    /// <param name="lbendl">Input argument #19</param>
-    /// <param name="ubendl">Input argument #20</param>
-    /// <param name="xexr">Input argument #21</param>
-    /// <param name="yexr">Input argument #22</param>
-    /// <param name="xendr">Input argument #23</param>
-    /// <param name="lbendr">Input argument #24</param>
-    /// <param name="ubendr">Input argument #25</param>
-    /// <param name="leftincrease">Input argument #26</param>
-    /// <param name="rightincrease">Input argument #27</param>
-    /// <param name="smooth">Input argument #28</param>
-    /// <param name="tight">Input argument #29</param>
-    /// <param name="minxrange">Input argument #30</param>
+    /// <param name="xinlbmin">Input argument #8</param>
+    /// <param name="xinubmax">Input argument #9</param>
+    /// <param name="invalidx">Input argument #10</param>
+    /// <param name="invalidupper">Input argument #11</param>
+    /// <param name="invalidlower">Input argument #12</param>
+    /// <param name="invaliduppermax">Input argument #13</param>
+    /// <param name="invalidlowermin">Input argument #14</param>
+    /// <param name="smoothCoeff">Input argument #15</param>
+    /// <param name="boundaryx">Input argument #16</param>
+    /// <param name="boundarydx">Input argument #17</param>
+    /// <param name="boundarydxx">Input argument #18</param>
+    /// <param name="leftright">Input argument #19</param>
+    /// <param name="xexl">Input argument #20</param>
+    /// <param name="yexl">Input argument #21</param>
+    /// <param name="xendl">Input argument #22</param>
+    /// <param name="lbendl">Input argument #23</param>
+    /// <param name="ubendl">Input argument #24</param>
+    /// <param name="xexr">Input argument #25</param>
+    /// <param name="yexr">Input argument #26</param>
+    /// <param name="xendr">Input argument #27</param>
+    /// <param name="lbendr">Input argument #28</param>
+    /// <param name="ubendr">Input argument #29</param>
+    /// <param name="leftincrease">Input argument #30</param>
     /// <returns>An Object containing the first output argument.</returns>
     ///
     public Object flexTimeFit(Object xin, Object yin, Object w, Object stationarypoint, 
                         Object tailConcavity, Object xinlb, Object xinub, Object 
-                        invalidx, Object invalidupper, Object invalidlower, Object 
-                        smoothCoeff, Object boundaryx, Object boundarydx, Object 
-                        boundarydxx, Object leftright, Object xexl, Object yexl, Object 
-                        xendl, Object lbendl, Object ubendl, Object xexr, Object yexr, 
-                        Object xendr, Object lbendr, Object ubendr, Object leftincrease, 
-                        Object rightincrease, Object smooth, Object tight, Object 
-                        minxrange)
+                        xinlbmin, Object xinubmax, Object invalidx, Object invalidupper, 
+                        Object invalidlower, Object invaliduppermax, Object 
+                        invalidlowermin, Object smoothCoeff, Object boundaryx, Object 
+                        boundarydx, Object boundarydxx, Object leftright, Object xexl, 
+                        Object yexl, Object xendl, Object lbendl, Object ubendl, Object 
+                        xexr, Object yexr, Object xendr, Object lbendr, Object ubendr, 
+                        Object leftincrease)
     {
-      return mcr.EvaluateFunction("flexTimeFit", xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, invalidx, invalidupper, invalidlower, smoothCoeff, boundaryx, boundarydx, boundarydxx, leftright, xexl, yexl, xendl, lbendl, ubendl, xexr, yexr, xendr, lbendr, ubendr, leftincrease, rightincrease, smooth, tight, minxrange);
+      return mcr.EvaluateFunction("flexTimeFit", xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, xinlbmin, xinubmax, invalidx, invalidupper, invalidlower, invaliduppermax, invalidlowermin, smoothCoeff, boundaryx, boundarydx, boundarydxx, leftright, xexl, yexl, xendl, lbendl, ubendl, xexr, yexr, xendr, lbendr, ubendr, leftincrease);
+    }
+
+
+    /// <summary>
+    /// Provides a single output, 31-input Objectinterface to the flexTimeFit MATLAB
+    /// function.
+    /// </summary>
+    /// <remarks>
+    /// M-Documentation:
+    /// input
+    /// clc
+    /// M = csvread('c:\temp\voltooltest\slice_IWM.USZ_20150206.csv', 1);
+    /// leftright = nan;
+    /// smoothCoeff = nan;
+    /// stationarypoint = nan;
+    /// i = find(M(:,1)==1);
+    /// boundaryx = [nan; nan];
+    /// boundarydx = [nan; nan];
+    /// boundarydxx = [nan; nan];
+    /// if isnan(leftright)
+    /// intropart = i(1) : i(end);
+    /// iEndl = 1 : i(1) - 1;
+    /// iEndr = (i(end) + 1) : size(M,1);
+    /// iEndlvalid = find(~isnan(M(iEndl, 4)));
+    /// iEndrvalid = i(end) + find(~isnan(M(iEndr, 4)));
+    /// ivalid = i(1) + find(~isnan(M(intropart, 4))) - 1;
+    /// iinvalid = i(1) + find(isnan(M(intropart, 4))) - 1;
+    /// elseif leftright == -1
+    /// intropart = i(1) : size(M,1);
+    /// iEndl = 1 : (i(1) - 1);
+    /// iEndlvalid = find(~isnan(M(iEndl, 4)));
+    /// ivalid = i(1) + find(~isnan(M(intropart, 4))) - 1;
+    /// iinvalid = i(1) + find(isnan(M(intropart, 4))) - 1;
+    /// else
+    /// intropart = 1: i(end);
+    /// iEndr = (i(end) + 1) : size(M,1);
+    /// iEndrvalid = i(end) + find(~isnan(M(iEndr, 4)));
+    /// ivalid = find(~isnan(M(intropart, 4)));
+    /// iinvalid = find(isnan(M(intropart, 4)));
+    /// end
+    /// xin = M(ivalid,2)';
+    /// invalidx = M(iinvalid,2)';
+    /// yin = M(ivalid,4)';
+    /// w = M(ivalid,5)';
+    /// xinub = M(ivalid,7)';  inf(1,n);
+    /// xinub(xinub == 1) = inf;
+    /// invalidupper = M(iinvalid, 7)';
+    /// invalidupper(invalidupper == 1) = inf;
+    /// invalidlower = M(iinvalid, 6);
+    /// xinlb = M(ivalid,6)';  zeros(1,n);
+    /// if isnan(leftright)
+    /// xexl = M(iEndlvalid, 2)';
+    /// yexl = M(iEndlvalid, 4)';
+    /// xendl = M(iEndl,2)';
+    /// xexr = M(iEndrvalid, 2)';
+    /// yexr = M(iEndrvalid, 4)';
+    /// xendr = M(iEndr,2)';
+    /// ubendl = M(iEndl, 7)';
+    /// ubendl(ubendl == 1) = inf;
+    /// ubendr = M(iEndr, 7)';
+    /// ubendr(ubendr == 1) = inf;
+    /// lbendl = M(iEndl, 6)';
+    /// lbendr = M(iEndr, 6)';
+    /// elseif leftright == -1
+    /// xexl = M(iEndlvalid,2)';
+    /// xexr = [];
+    /// yexl = M(iEndlvalid,4)';
+    /// yexr = [];
+    /// xendl = M(iEndl,2)';
+    /// xendr = [];
+    /// ubendl = M(iEndl,7)';
+    /// ubendl(ubendl == 1) = inf;
+    /// ubendr = [];
+    /// lbendl = M(iEndl,6)';
+    /// lbendr = [];
+    /// else
+    /// xexl = [];
+    /// xexr = M(iEndrvalid,2)';
+    /// yexl = [];
+    /// yexr = M(iEndrvalid,4)';
+    /// xendl = [];
+    /// xendr = M(iEndr,2)';
+    /// ubendl = [];
+    /// ubendr = M(iEndr,7)';
+    /// ubendr(ubendr == 1) = inf;
+    /// lbendl = [];
+    /// lbendr = M(iEndr,6)';
+    /// end
+    /// leftincrease = -inf;
+    /// rightincrease = inf;
+    /// </remarks>
+    /// <param name="xin">Input argument #1</param>
+    /// <param name="yin">Input argument #2</param>
+    /// <param name="w">Input argument #3</param>
+    /// <param name="stationarypoint">Input argument #4</param>
+    /// <param name="tailConcavity">Input argument #5</param>
+    /// <param name="xinlb">Input argument #6</param>
+    /// <param name="xinub">Input argument #7</param>
+    /// <param name="xinlbmin">Input argument #8</param>
+    /// <param name="xinubmax">Input argument #9</param>
+    /// <param name="invalidx">Input argument #10</param>
+    /// <param name="invalidupper">Input argument #11</param>
+    /// <param name="invalidlower">Input argument #12</param>
+    /// <param name="invaliduppermax">Input argument #13</param>
+    /// <param name="invalidlowermin">Input argument #14</param>
+    /// <param name="smoothCoeff">Input argument #15</param>
+    /// <param name="boundaryx">Input argument #16</param>
+    /// <param name="boundarydx">Input argument #17</param>
+    /// <param name="boundarydxx">Input argument #18</param>
+    /// <param name="leftright">Input argument #19</param>
+    /// <param name="xexl">Input argument #20</param>
+    /// <param name="yexl">Input argument #21</param>
+    /// <param name="xendl">Input argument #22</param>
+    /// <param name="lbendl">Input argument #23</param>
+    /// <param name="ubendl">Input argument #24</param>
+    /// <param name="xexr">Input argument #25</param>
+    /// <param name="yexr">Input argument #26</param>
+    /// <param name="xendr">Input argument #27</param>
+    /// <param name="lbendr">Input argument #28</param>
+    /// <param name="ubendr">Input argument #29</param>
+    /// <param name="leftincrease">Input argument #30</param>
+    /// <param name="rightincrease">Input argument #31</param>
+    /// <returns>An Object containing the first output argument.</returns>
+    ///
+    public Object flexTimeFit(Object xin, Object yin, Object w, Object stationarypoint, 
+                        Object tailConcavity, Object xinlb, Object xinub, Object 
+                        xinlbmin, Object xinubmax, Object invalidx, Object invalidupper, 
+                        Object invalidlower, Object invaliduppermax, Object 
+                        invalidlowermin, Object smoothCoeff, Object boundaryx, Object 
+                        boundarydx, Object boundarydxx, Object leftright, Object xexl, 
+                        Object yexl, Object xendl, Object lbendl, Object ubendl, Object 
+                        xexr, Object yexr, Object xendr, Object lbendr, Object ubendr, 
+                        Object leftincrease, Object rightincrease)
+    {
+      return mcr.EvaluateFunction("flexTimeFit", xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, xinlbmin, xinubmax, invalidx, invalidupper, invalidlower, invaliduppermax, invalidlowermin, smoothCoeff, boundaryx, boundarydx, boundarydxx, leftright, xexl, yexl, xendl, lbendl, ubendl, xexr, yexr, xendr, lbendr, ubendr, leftincrease, rightincrease);
+    }
+
+
+    /// <summary>
+    /// Provides a single output, 32-input Objectinterface to the flexTimeFit MATLAB
+    /// function.
+    /// </summary>
+    /// <remarks>
+    /// M-Documentation:
+    /// input
+    /// clc
+    /// M = csvread('c:\temp\voltooltest\slice_IWM.USZ_20150206.csv', 1);
+    /// leftright = nan;
+    /// smoothCoeff = nan;
+    /// stationarypoint = nan;
+    /// i = find(M(:,1)==1);
+    /// boundaryx = [nan; nan];
+    /// boundarydx = [nan; nan];
+    /// boundarydxx = [nan; nan];
+    /// if isnan(leftright)
+    /// intropart = i(1) : i(end);
+    /// iEndl = 1 : i(1) - 1;
+    /// iEndr = (i(end) + 1) : size(M,1);
+    /// iEndlvalid = find(~isnan(M(iEndl, 4)));
+    /// iEndrvalid = i(end) + find(~isnan(M(iEndr, 4)));
+    /// ivalid = i(1) + find(~isnan(M(intropart, 4))) - 1;
+    /// iinvalid = i(1) + find(isnan(M(intropart, 4))) - 1;
+    /// elseif leftright == -1
+    /// intropart = i(1) : size(M,1);
+    /// iEndl = 1 : (i(1) - 1);
+    /// iEndlvalid = find(~isnan(M(iEndl, 4)));
+    /// ivalid = i(1) + find(~isnan(M(intropart, 4))) - 1;
+    /// iinvalid = i(1) + find(isnan(M(intropart, 4))) - 1;
+    /// else
+    /// intropart = 1: i(end);
+    /// iEndr = (i(end) + 1) : size(M,1);
+    /// iEndrvalid = i(end) + find(~isnan(M(iEndr, 4)));
+    /// ivalid = find(~isnan(M(intropart, 4)));
+    /// iinvalid = find(isnan(M(intropart, 4)));
+    /// end
+    /// xin = M(ivalid,2)';
+    /// invalidx = M(iinvalid,2)';
+    /// yin = M(ivalid,4)';
+    /// w = M(ivalid,5)';
+    /// xinub = M(ivalid,7)';  inf(1,n);
+    /// xinub(xinub == 1) = inf;
+    /// invalidupper = M(iinvalid, 7)';
+    /// invalidupper(invalidupper == 1) = inf;
+    /// invalidlower = M(iinvalid, 6);
+    /// xinlb = M(ivalid,6)';  zeros(1,n);
+    /// if isnan(leftright)
+    /// xexl = M(iEndlvalid, 2)';
+    /// yexl = M(iEndlvalid, 4)';
+    /// xendl = M(iEndl,2)';
+    /// xexr = M(iEndrvalid, 2)';
+    /// yexr = M(iEndrvalid, 4)';
+    /// xendr = M(iEndr,2)';
+    /// ubendl = M(iEndl, 7)';
+    /// ubendl(ubendl == 1) = inf;
+    /// ubendr = M(iEndr, 7)';
+    /// ubendr(ubendr == 1) = inf;
+    /// lbendl = M(iEndl, 6)';
+    /// lbendr = M(iEndr, 6)';
+    /// elseif leftright == -1
+    /// xexl = M(iEndlvalid,2)';
+    /// xexr = [];
+    /// yexl = M(iEndlvalid,4)';
+    /// yexr = [];
+    /// xendl = M(iEndl,2)';
+    /// xendr = [];
+    /// ubendl = M(iEndl,7)';
+    /// ubendl(ubendl == 1) = inf;
+    /// ubendr = [];
+    /// lbendl = M(iEndl,6)';
+    /// lbendr = [];
+    /// else
+    /// xexl = [];
+    /// xexr = M(iEndrvalid,2)';
+    /// yexl = [];
+    /// yexr = M(iEndrvalid,4)';
+    /// xendl = [];
+    /// xendr = M(iEndr,2)';
+    /// ubendl = [];
+    /// ubendr = M(iEndr,7)';
+    /// ubendr(ubendr == 1) = inf;
+    /// lbendl = [];
+    /// lbendr = M(iEndr,6)';
+    /// end
+    /// leftincrease = -inf;
+    /// rightincrease = inf;
+    /// </remarks>
+    /// <param name="xin">Input argument #1</param>
+    /// <param name="yin">Input argument #2</param>
+    /// <param name="w">Input argument #3</param>
+    /// <param name="stationarypoint">Input argument #4</param>
+    /// <param name="tailConcavity">Input argument #5</param>
+    /// <param name="xinlb">Input argument #6</param>
+    /// <param name="xinub">Input argument #7</param>
+    /// <param name="xinlbmin">Input argument #8</param>
+    /// <param name="xinubmax">Input argument #9</param>
+    /// <param name="invalidx">Input argument #10</param>
+    /// <param name="invalidupper">Input argument #11</param>
+    /// <param name="invalidlower">Input argument #12</param>
+    /// <param name="invaliduppermax">Input argument #13</param>
+    /// <param name="invalidlowermin">Input argument #14</param>
+    /// <param name="smoothCoeff">Input argument #15</param>
+    /// <param name="boundaryx">Input argument #16</param>
+    /// <param name="boundarydx">Input argument #17</param>
+    /// <param name="boundarydxx">Input argument #18</param>
+    /// <param name="leftright">Input argument #19</param>
+    /// <param name="xexl">Input argument #20</param>
+    /// <param name="yexl">Input argument #21</param>
+    /// <param name="xendl">Input argument #22</param>
+    /// <param name="lbendl">Input argument #23</param>
+    /// <param name="ubendl">Input argument #24</param>
+    /// <param name="xexr">Input argument #25</param>
+    /// <param name="yexr">Input argument #26</param>
+    /// <param name="xendr">Input argument #27</param>
+    /// <param name="lbendr">Input argument #28</param>
+    /// <param name="ubendr">Input argument #29</param>
+    /// <param name="leftincrease">Input argument #30</param>
+    /// <param name="rightincrease">Input argument #31</param>
+    /// <param name="smooth">Input argument #32</param>
+    /// <returns>An Object containing the first output argument.</returns>
+    ///
+    public Object flexTimeFit(Object xin, Object yin, Object w, Object stationarypoint, 
+                        Object tailConcavity, Object xinlb, Object xinub, Object 
+                        xinlbmin, Object xinubmax, Object invalidx, Object invalidupper, 
+                        Object invalidlower, Object invaliduppermax, Object 
+                        invalidlowermin, Object smoothCoeff, Object boundaryx, Object 
+                        boundarydx, Object boundarydxx, Object leftright, Object xexl, 
+                        Object yexl, Object xendl, Object lbendl, Object ubendl, Object 
+                        xexr, Object yexr, Object xendr, Object lbendr, Object ubendr, 
+                        Object leftincrease, Object rightincrease, Object smooth)
+    {
+      return mcr.EvaluateFunction("flexTimeFit", xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, xinlbmin, xinubmax, invalidx, invalidupper, invalidlower, invaliduppermax, invalidlowermin, smoothCoeff, boundaryx, boundarydx, boundarydxx, leftright, xexl, yexl, xendl, lbendl, ubendl, xexr, yexr, xendr, lbendr, ubendr, leftincrease, rightincrease, smooth);
+    }
+
+
+    /// <summary>
+    /// Provides a single output, 33-input Objectinterface to the flexTimeFit MATLAB
+    /// function.
+    /// </summary>
+    /// <remarks>
+    /// M-Documentation:
+    /// input
+    /// clc
+    /// M = csvread('c:\temp\voltooltest\slice_IWM.USZ_20150206.csv', 1);
+    /// leftright = nan;
+    /// smoothCoeff = nan;
+    /// stationarypoint = nan;
+    /// i = find(M(:,1)==1);
+    /// boundaryx = [nan; nan];
+    /// boundarydx = [nan; nan];
+    /// boundarydxx = [nan; nan];
+    /// if isnan(leftright)
+    /// intropart = i(1) : i(end);
+    /// iEndl = 1 : i(1) - 1;
+    /// iEndr = (i(end) + 1) : size(M,1);
+    /// iEndlvalid = find(~isnan(M(iEndl, 4)));
+    /// iEndrvalid = i(end) + find(~isnan(M(iEndr, 4)));
+    /// ivalid = i(1) + find(~isnan(M(intropart, 4))) - 1;
+    /// iinvalid = i(1) + find(isnan(M(intropart, 4))) - 1;
+    /// elseif leftright == -1
+    /// intropart = i(1) : size(M,1);
+    /// iEndl = 1 : (i(1) - 1);
+    /// iEndlvalid = find(~isnan(M(iEndl, 4)));
+    /// ivalid = i(1) + find(~isnan(M(intropart, 4))) - 1;
+    /// iinvalid = i(1) + find(isnan(M(intropart, 4))) - 1;
+    /// else
+    /// intropart = 1: i(end);
+    /// iEndr = (i(end) + 1) : size(M,1);
+    /// iEndrvalid = i(end) + find(~isnan(M(iEndr, 4)));
+    /// ivalid = find(~isnan(M(intropart, 4)));
+    /// iinvalid = find(isnan(M(intropart, 4)));
+    /// end
+    /// xin = M(ivalid,2)';
+    /// invalidx = M(iinvalid,2)';
+    /// yin = M(ivalid,4)';
+    /// w = M(ivalid,5)';
+    /// xinub = M(ivalid,7)';  inf(1,n);
+    /// xinub(xinub == 1) = inf;
+    /// invalidupper = M(iinvalid, 7)';
+    /// invalidupper(invalidupper == 1) = inf;
+    /// invalidlower = M(iinvalid, 6);
+    /// xinlb = M(ivalid,6)';  zeros(1,n);
+    /// if isnan(leftright)
+    /// xexl = M(iEndlvalid, 2)';
+    /// yexl = M(iEndlvalid, 4)';
+    /// xendl = M(iEndl,2)';
+    /// xexr = M(iEndrvalid, 2)';
+    /// yexr = M(iEndrvalid, 4)';
+    /// xendr = M(iEndr,2)';
+    /// ubendl = M(iEndl, 7)';
+    /// ubendl(ubendl == 1) = inf;
+    /// ubendr = M(iEndr, 7)';
+    /// ubendr(ubendr == 1) = inf;
+    /// lbendl = M(iEndl, 6)';
+    /// lbendr = M(iEndr, 6)';
+    /// elseif leftright == -1
+    /// xexl = M(iEndlvalid,2)';
+    /// xexr = [];
+    /// yexl = M(iEndlvalid,4)';
+    /// yexr = [];
+    /// xendl = M(iEndl,2)';
+    /// xendr = [];
+    /// ubendl = M(iEndl,7)';
+    /// ubendl(ubendl == 1) = inf;
+    /// ubendr = [];
+    /// lbendl = M(iEndl,6)';
+    /// lbendr = [];
+    /// else
+    /// xexl = [];
+    /// xexr = M(iEndrvalid,2)';
+    /// yexl = [];
+    /// yexr = M(iEndrvalid,4)';
+    /// xendl = [];
+    /// xendr = M(iEndr,2)';
+    /// ubendl = [];
+    /// ubendr = M(iEndr,7)';
+    /// ubendr(ubendr == 1) = inf;
+    /// lbendl = [];
+    /// lbendr = M(iEndr,6)';
+    /// end
+    /// leftincrease = -inf;
+    /// rightincrease = inf;
+    /// </remarks>
+    /// <param name="xin">Input argument #1</param>
+    /// <param name="yin">Input argument #2</param>
+    /// <param name="w">Input argument #3</param>
+    /// <param name="stationarypoint">Input argument #4</param>
+    /// <param name="tailConcavity">Input argument #5</param>
+    /// <param name="xinlb">Input argument #6</param>
+    /// <param name="xinub">Input argument #7</param>
+    /// <param name="xinlbmin">Input argument #8</param>
+    /// <param name="xinubmax">Input argument #9</param>
+    /// <param name="invalidx">Input argument #10</param>
+    /// <param name="invalidupper">Input argument #11</param>
+    /// <param name="invalidlower">Input argument #12</param>
+    /// <param name="invaliduppermax">Input argument #13</param>
+    /// <param name="invalidlowermin">Input argument #14</param>
+    /// <param name="smoothCoeff">Input argument #15</param>
+    /// <param name="boundaryx">Input argument #16</param>
+    /// <param name="boundarydx">Input argument #17</param>
+    /// <param name="boundarydxx">Input argument #18</param>
+    /// <param name="leftright">Input argument #19</param>
+    /// <param name="xexl">Input argument #20</param>
+    /// <param name="yexl">Input argument #21</param>
+    /// <param name="xendl">Input argument #22</param>
+    /// <param name="lbendl">Input argument #23</param>
+    /// <param name="ubendl">Input argument #24</param>
+    /// <param name="xexr">Input argument #25</param>
+    /// <param name="yexr">Input argument #26</param>
+    /// <param name="xendr">Input argument #27</param>
+    /// <param name="lbendr">Input argument #28</param>
+    /// <param name="ubendr">Input argument #29</param>
+    /// <param name="leftincrease">Input argument #30</param>
+    /// <param name="rightincrease">Input argument #31</param>
+    /// <param name="smooth">Input argument #32</param>
+    /// <param name="tight">Input argument #33</param>
+    /// <returns>An Object containing the first output argument.</returns>
+    ///
+    public Object flexTimeFit(Object xin, Object yin, Object w, Object stationarypoint, 
+                        Object tailConcavity, Object xinlb, Object xinub, Object 
+                        xinlbmin, Object xinubmax, Object invalidx, Object invalidupper, 
+                        Object invalidlower, Object invaliduppermax, Object 
+                        invalidlowermin, Object smoothCoeff, Object boundaryx, Object 
+                        boundarydx, Object boundarydxx, Object leftright, Object xexl, 
+                        Object yexl, Object xendl, Object lbendl, Object ubendl, Object 
+                        xexr, Object yexr, Object xendr, Object lbendr, Object ubendr, 
+                        Object leftincrease, Object rightincrease, Object smooth, Object 
+                        tight)
+    {
+      return mcr.EvaluateFunction("flexTimeFit", xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, xinlbmin, xinubmax, invalidx, invalidupper, invalidlower, invaliduppermax, invalidlowermin, smoothCoeff, boundaryx, boundarydx, boundarydxx, leftright, xexl, yexl, xendl, lbendl, ubendl, xexr, yexr, xendr, lbendr, ubendr, leftincrease, rightincrease, smooth, tight);
+    }
+
+
+    /// <summary>
+    /// Provides a single output, 34-input Objectinterface to the flexTimeFit MATLAB
+    /// function.
+    /// </summary>
+    /// <remarks>
+    /// M-Documentation:
+    /// input
+    /// clc
+    /// M = csvread('c:\temp\voltooltest\slice_IWM.USZ_20150206.csv', 1);
+    /// leftright = nan;
+    /// smoothCoeff = nan;
+    /// stationarypoint = nan;
+    /// i = find(M(:,1)==1);
+    /// boundaryx = [nan; nan];
+    /// boundarydx = [nan; nan];
+    /// boundarydxx = [nan; nan];
+    /// if isnan(leftright)
+    /// intropart = i(1) : i(end);
+    /// iEndl = 1 : i(1) - 1;
+    /// iEndr = (i(end) + 1) : size(M,1);
+    /// iEndlvalid = find(~isnan(M(iEndl, 4)));
+    /// iEndrvalid = i(end) + find(~isnan(M(iEndr, 4)));
+    /// ivalid = i(1) + find(~isnan(M(intropart, 4))) - 1;
+    /// iinvalid = i(1) + find(isnan(M(intropart, 4))) - 1;
+    /// elseif leftright == -1
+    /// intropart = i(1) : size(M,1);
+    /// iEndl = 1 : (i(1) - 1);
+    /// iEndlvalid = find(~isnan(M(iEndl, 4)));
+    /// ivalid = i(1) + find(~isnan(M(intropart, 4))) - 1;
+    /// iinvalid = i(1) + find(isnan(M(intropart, 4))) - 1;
+    /// else
+    /// intropart = 1: i(end);
+    /// iEndr = (i(end) + 1) : size(M,1);
+    /// iEndrvalid = i(end) + find(~isnan(M(iEndr, 4)));
+    /// ivalid = find(~isnan(M(intropart, 4)));
+    /// iinvalid = find(isnan(M(intropart, 4)));
+    /// end
+    /// xin = M(ivalid,2)';
+    /// invalidx = M(iinvalid,2)';
+    /// yin = M(ivalid,4)';
+    /// w = M(ivalid,5)';
+    /// xinub = M(ivalid,7)';  inf(1,n);
+    /// xinub(xinub == 1) = inf;
+    /// invalidupper = M(iinvalid, 7)';
+    /// invalidupper(invalidupper == 1) = inf;
+    /// invalidlower = M(iinvalid, 6);
+    /// xinlb = M(ivalid,6)';  zeros(1,n);
+    /// if isnan(leftright)
+    /// xexl = M(iEndlvalid, 2)';
+    /// yexl = M(iEndlvalid, 4)';
+    /// xendl = M(iEndl,2)';
+    /// xexr = M(iEndrvalid, 2)';
+    /// yexr = M(iEndrvalid, 4)';
+    /// xendr = M(iEndr,2)';
+    /// ubendl = M(iEndl, 7)';
+    /// ubendl(ubendl == 1) = inf;
+    /// ubendr = M(iEndr, 7)';
+    /// ubendr(ubendr == 1) = inf;
+    /// lbendl = M(iEndl, 6)';
+    /// lbendr = M(iEndr, 6)';
+    /// elseif leftright == -1
+    /// xexl = M(iEndlvalid,2)';
+    /// xexr = [];
+    /// yexl = M(iEndlvalid,4)';
+    /// yexr = [];
+    /// xendl = M(iEndl,2)';
+    /// xendr = [];
+    /// ubendl = M(iEndl,7)';
+    /// ubendl(ubendl == 1) = inf;
+    /// ubendr = [];
+    /// lbendl = M(iEndl,6)';
+    /// lbendr = [];
+    /// else
+    /// xexl = [];
+    /// xexr = M(iEndrvalid,2)';
+    /// yexl = [];
+    /// yexr = M(iEndrvalid,4)';
+    /// xendl = [];
+    /// xendr = M(iEndr,2)';
+    /// ubendl = [];
+    /// ubendr = M(iEndr,7)';
+    /// ubendr(ubendr == 1) = inf;
+    /// lbendl = [];
+    /// lbendr = M(iEndr,6)';
+    /// end
+    /// leftincrease = -inf;
+    /// rightincrease = inf;
+    /// </remarks>
+    /// <param name="xin">Input argument #1</param>
+    /// <param name="yin">Input argument #2</param>
+    /// <param name="w">Input argument #3</param>
+    /// <param name="stationarypoint">Input argument #4</param>
+    /// <param name="tailConcavity">Input argument #5</param>
+    /// <param name="xinlb">Input argument #6</param>
+    /// <param name="xinub">Input argument #7</param>
+    /// <param name="xinlbmin">Input argument #8</param>
+    /// <param name="xinubmax">Input argument #9</param>
+    /// <param name="invalidx">Input argument #10</param>
+    /// <param name="invalidupper">Input argument #11</param>
+    /// <param name="invalidlower">Input argument #12</param>
+    /// <param name="invaliduppermax">Input argument #13</param>
+    /// <param name="invalidlowermin">Input argument #14</param>
+    /// <param name="smoothCoeff">Input argument #15</param>
+    /// <param name="boundaryx">Input argument #16</param>
+    /// <param name="boundarydx">Input argument #17</param>
+    /// <param name="boundarydxx">Input argument #18</param>
+    /// <param name="leftright">Input argument #19</param>
+    /// <param name="xexl">Input argument #20</param>
+    /// <param name="yexl">Input argument #21</param>
+    /// <param name="xendl">Input argument #22</param>
+    /// <param name="lbendl">Input argument #23</param>
+    /// <param name="ubendl">Input argument #24</param>
+    /// <param name="xexr">Input argument #25</param>
+    /// <param name="yexr">Input argument #26</param>
+    /// <param name="xendr">Input argument #27</param>
+    /// <param name="lbendr">Input argument #28</param>
+    /// <param name="ubendr">Input argument #29</param>
+    /// <param name="leftincrease">Input argument #30</param>
+    /// <param name="rightincrease">Input argument #31</param>
+    /// <param name="smooth">Input argument #32</param>
+    /// <param name="tight">Input argument #33</param>
+    /// <param name="tightlb">Input argument #34</param>
+    /// <returns>An Object containing the first output argument.</returns>
+    ///
+    public Object flexTimeFit(Object xin, Object yin, Object w, Object stationarypoint, 
+                        Object tailConcavity, Object xinlb, Object xinub, Object 
+                        xinlbmin, Object xinubmax, Object invalidx, Object invalidupper, 
+                        Object invalidlower, Object invaliduppermax, Object 
+                        invalidlowermin, Object smoothCoeff, Object boundaryx, Object 
+                        boundarydx, Object boundarydxx, Object leftright, Object xexl, 
+                        Object yexl, Object xendl, Object lbendl, Object ubendl, Object 
+                        xexr, Object yexr, Object xendr, Object lbendr, Object ubendr, 
+                        Object leftincrease, Object rightincrease, Object smooth, Object 
+                        tight, Object tightlb)
+    {
+      return mcr.EvaluateFunction("flexTimeFit", xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, xinlbmin, xinubmax, invalidx, invalidupper, invalidlower, invaliduppermax, invalidlowermin, smoothCoeff, boundaryx, boundarydx, boundarydxx, leftright, xexl, yexl, xendl, lbendl, ubendl, xexr, yexr, xendr, lbendr, ubendr, leftincrease, rightincrease, smooth, tight, tightlb);
+    }
+
+
+    /// <summary>
+    /// Provides a single output, 35-input Objectinterface to the flexTimeFit MATLAB
+    /// function.
+    /// </summary>
+    /// <remarks>
+    /// M-Documentation:
+    /// input
+    /// clc
+    /// M = csvread('c:\temp\voltooltest\slice_IWM.USZ_20150206.csv', 1);
+    /// leftright = nan;
+    /// smoothCoeff = nan;
+    /// stationarypoint = nan;
+    /// i = find(M(:,1)==1);
+    /// boundaryx = [nan; nan];
+    /// boundarydx = [nan; nan];
+    /// boundarydxx = [nan; nan];
+    /// if isnan(leftright)
+    /// intropart = i(1) : i(end);
+    /// iEndl = 1 : i(1) - 1;
+    /// iEndr = (i(end) + 1) : size(M,1);
+    /// iEndlvalid = find(~isnan(M(iEndl, 4)));
+    /// iEndrvalid = i(end) + find(~isnan(M(iEndr, 4)));
+    /// ivalid = i(1) + find(~isnan(M(intropart, 4))) - 1;
+    /// iinvalid = i(1) + find(isnan(M(intropart, 4))) - 1;
+    /// elseif leftright == -1
+    /// intropart = i(1) : size(M,1);
+    /// iEndl = 1 : (i(1) - 1);
+    /// iEndlvalid = find(~isnan(M(iEndl, 4)));
+    /// ivalid = i(1) + find(~isnan(M(intropart, 4))) - 1;
+    /// iinvalid = i(1) + find(isnan(M(intropart, 4))) - 1;
+    /// else
+    /// intropart = 1: i(end);
+    /// iEndr = (i(end) + 1) : size(M,1);
+    /// iEndrvalid = i(end) + find(~isnan(M(iEndr, 4)));
+    /// ivalid = find(~isnan(M(intropart, 4)));
+    /// iinvalid = find(isnan(M(intropart, 4)));
+    /// end
+    /// xin = M(ivalid,2)';
+    /// invalidx = M(iinvalid,2)';
+    /// yin = M(ivalid,4)';
+    /// w = M(ivalid,5)';
+    /// xinub = M(ivalid,7)';  inf(1,n);
+    /// xinub(xinub == 1) = inf;
+    /// invalidupper = M(iinvalid, 7)';
+    /// invalidupper(invalidupper == 1) = inf;
+    /// invalidlower = M(iinvalid, 6);
+    /// xinlb = M(ivalid,6)';  zeros(1,n);
+    /// if isnan(leftright)
+    /// xexl = M(iEndlvalid, 2)';
+    /// yexl = M(iEndlvalid, 4)';
+    /// xendl = M(iEndl,2)';
+    /// xexr = M(iEndrvalid, 2)';
+    /// yexr = M(iEndrvalid, 4)';
+    /// xendr = M(iEndr,2)';
+    /// ubendl = M(iEndl, 7)';
+    /// ubendl(ubendl == 1) = inf;
+    /// ubendr = M(iEndr, 7)';
+    /// ubendr(ubendr == 1) = inf;
+    /// lbendl = M(iEndl, 6)';
+    /// lbendr = M(iEndr, 6)';
+    /// elseif leftright == -1
+    /// xexl = M(iEndlvalid,2)';
+    /// xexr = [];
+    /// yexl = M(iEndlvalid,4)';
+    /// yexr = [];
+    /// xendl = M(iEndl,2)';
+    /// xendr = [];
+    /// ubendl = M(iEndl,7)';
+    /// ubendl(ubendl == 1) = inf;
+    /// ubendr = [];
+    /// lbendl = M(iEndl,6)';
+    /// lbendr = [];
+    /// else
+    /// xexl = [];
+    /// xexr = M(iEndrvalid,2)';
+    /// yexl = [];
+    /// yexr = M(iEndrvalid,4)';
+    /// xendl = [];
+    /// xendr = M(iEndr,2)';
+    /// ubendl = [];
+    /// ubendr = M(iEndr,7)';
+    /// ubendr(ubendr == 1) = inf;
+    /// lbendl = [];
+    /// lbendr = M(iEndr,6)';
+    /// end
+    /// leftincrease = -inf;
+    /// rightincrease = inf;
+    /// </remarks>
+    /// <param name="xin">Input argument #1</param>
+    /// <param name="yin">Input argument #2</param>
+    /// <param name="w">Input argument #3</param>
+    /// <param name="stationarypoint">Input argument #4</param>
+    /// <param name="tailConcavity">Input argument #5</param>
+    /// <param name="xinlb">Input argument #6</param>
+    /// <param name="xinub">Input argument #7</param>
+    /// <param name="xinlbmin">Input argument #8</param>
+    /// <param name="xinubmax">Input argument #9</param>
+    /// <param name="invalidx">Input argument #10</param>
+    /// <param name="invalidupper">Input argument #11</param>
+    /// <param name="invalidlower">Input argument #12</param>
+    /// <param name="invaliduppermax">Input argument #13</param>
+    /// <param name="invalidlowermin">Input argument #14</param>
+    /// <param name="smoothCoeff">Input argument #15</param>
+    /// <param name="boundaryx">Input argument #16</param>
+    /// <param name="boundarydx">Input argument #17</param>
+    /// <param name="boundarydxx">Input argument #18</param>
+    /// <param name="leftright">Input argument #19</param>
+    /// <param name="xexl">Input argument #20</param>
+    /// <param name="yexl">Input argument #21</param>
+    /// <param name="xendl">Input argument #22</param>
+    /// <param name="lbendl">Input argument #23</param>
+    /// <param name="ubendl">Input argument #24</param>
+    /// <param name="xexr">Input argument #25</param>
+    /// <param name="yexr">Input argument #26</param>
+    /// <param name="xendr">Input argument #27</param>
+    /// <param name="lbendr">Input argument #28</param>
+    /// <param name="ubendr">Input argument #29</param>
+    /// <param name="leftincrease">Input argument #30</param>
+    /// <param name="rightincrease">Input argument #31</param>
+    /// <param name="smooth">Input argument #32</param>
+    /// <param name="tight">Input argument #33</param>
+    /// <param name="tightlb">Input argument #34</param>
+    /// <param name="tightub">Input argument #35</param>
+    /// <returns>An Object containing the first output argument.</returns>
+    ///
+    public Object flexTimeFit(Object xin, Object yin, Object w, Object stationarypoint, 
+                        Object tailConcavity, Object xinlb, Object xinub, Object 
+                        xinlbmin, Object xinubmax, Object invalidx, Object invalidupper, 
+                        Object invalidlower, Object invaliduppermax, Object 
+                        invalidlowermin, Object smoothCoeff, Object boundaryx, Object 
+                        boundarydx, Object boundarydxx, Object leftright, Object xexl, 
+                        Object yexl, Object xendl, Object lbendl, Object ubendl, Object 
+                        xexr, Object yexr, Object xendr, Object lbendr, Object ubendr, 
+                        Object leftincrease, Object rightincrease, Object smooth, Object 
+                        tight, Object tightlb, Object tightub)
+    {
+      return mcr.EvaluateFunction("flexTimeFit", xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, xinlbmin, xinubmax, invalidx, invalidupper, invalidlower, invaliduppermax, invalidlowermin, smoothCoeff, boundaryx, boundarydx, boundarydxx, leftright, xexl, yexl, xendl, lbendl, ubendl, xexr, yexr, xendr, lbendr, ubendr, leftincrease, rightincrease, smooth, tight, tightlb, tightub);
+    }
+
+
+    /// <summary>
+    /// Provides a single output, 36-input Objectinterface to the flexTimeFit MATLAB
+    /// function.
+    /// </summary>
+    /// <remarks>
+    /// M-Documentation:
+    /// input
+    /// clc
+    /// M = csvread('c:\temp\voltooltest\slice_IWM.USZ_20150206.csv', 1);
+    /// leftright = nan;
+    /// smoothCoeff = nan;
+    /// stationarypoint = nan;
+    /// i = find(M(:,1)==1);
+    /// boundaryx = [nan; nan];
+    /// boundarydx = [nan; nan];
+    /// boundarydxx = [nan; nan];
+    /// if isnan(leftright)
+    /// intropart = i(1) : i(end);
+    /// iEndl = 1 : i(1) - 1;
+    /// iEndr = (i(end) + 1) : size(M,1);
+    /// iEndlvalid = find(~isnan(M(iEndl, 4)));
+    /// iEndrvalid = i(end) + find(~isnan(M(iEndr, 4)));
+    /// ivalid = i(1) + find(~isnan(M(intropart, 4))) - 1;
+    /// iinvalid = i(1) + find(isnan(M(intropart, 4))) - 1;
+    /// elseif leftright == -1
+    /// intropart = i(1) : size(M,1);
+    /// iEndl = 1 : (i(1) - 1);
+    /// iEndlvalid = find(~isnan(M(iEndl, 4)));
+    /// ivalid = i(1) + find(~isnan(M(intropart, 4))) - 1;
+    /// iinvalid = i(1) + find(isnan(M(intropart, 4))) - 1;
+    /// else
+    /// intropart = 1: i(end);
+    /// iEndr = (i(end) + 1) : size(M,1);
+    /// iEndrvalid = i(end) + find(~isnan(M(iEndr, 4)));
+    /// ivalid = find(~isnan(M(intropart, 4)));
+    /// iinvalid = find(isnan(M(intropart, 4)));
+    /// end
+    /// xin = M(ivalid,2)';
+    /// invalidx = M(iinvalid,2)';
+    /// yin = M(ivalid,4)';
+    /// w = M(ivalid,5)';
+    /// xinub = M(ivalid,7)';  inf(1,n);
+    /// xinub(xinub == 1) = inf;
+    /// invalidupper = M(iinvalid, 7)';
+    /// invalidupper(invalidupper == 1) = inf;
+    /// invalidlower = M(iinvalid, 6);
+    /// xinlb = M(ivalid,6)';  zeros(1,n);
+    /// if isnan(leftright)
+    /// xexl = M(iEndlvalid, 2)';
+    /// yexl = M(iEndlvalid, 4)';
+    /// xendl = M(iEndl,2)';
+    /// xexr = M(iEndrvalid, 2)';
+    /// yexr = M(iEndrvalid, 4)';
+    /// xendr = M(iEndr,2)';
+    /// ubendl = M(iEndl, 7)';
+    /// ubendl(ubendl == 1) = inf;
+    /// ubendr = M(iEndr, 7)';
+    /// ubendr(ubendr == 1) = inf;
+    /// lbendl = M(iEndl, 6)';
+    /// lbendr = M(iEndr, 6)';
+    /// elseif leftright == -1
+    /// xexl = M(iEndlvalid,2)';
+    /// xexr = [];
+    /// yexl = M(iEndlvalid,4)';
+    /// yexr = [];
+    /// xendl = M(iEndl,2)';
+    /// xendr = [];
+    /// ubendl = M(iEndl,7)';
+    /// ubendl(ubendl == 1) = inf;
+    /// ubendr = [];
+    /// lbendl = M(iEndl,6)';
+    /// lbendr = [];
+    /// else
+    /// xexl = [];
+    /// xexr = M(iEndrvalid,2)';
+    /// yexl = [];
+    /// yexr = M(iEndrvalid,4)';
+    /// xendl = [];
+    /// xendr = M(iEndr,2)';
+    /// ubendl = [];
+    /// ubendr = M(iEndr,7)';
+    /// ubendr(ubendr == 1) = inf;
+    /// lbendl = [];
+    /// lbendr = M(iEndr,6)';
+    /// end
+    /// leftincrease = -inf;
+    /// rightincrease = inf;
+    /// </remarks>
+    /// <param name="xin">Input argument #1</param>
+    /// <param name="yin">Input argument #2</param>
+    /// <param name="w">Input argument #3</param>
+    /// <param name="stationarypoint">Input argument #4</param>
+    /// <param name="tailConcavity">Input argument #5</param>
+    /// <param name="xinlb">Input argument #6</param>
+    /// <param name="xinub">Input argument #7</param>
+    /// <param name="xinlbmin">Input argument #8</param>
+    /// <param name="xinubmax">Input argument #9</param>
+    /// <param name="invalidx">Input argument #10</param>
+    /// <param name="invalidupper">Input argument #11</param>
+    /// <param name="invalidlower">Input argument #12</param>
+    /// <param name="invaliduppermax">Input argument #13</param>
+    /// <param name="invalidlowermin">Input argument #14</param>
+    /// <param name="smoothCoeff">Input argument #15</param>
+    /// <param name="boundaryx">Input argument #16</param>
+    /// <param name="boundarydx">Input argument #17</param>
+    /// <param name="boundarydxx">Input argument #18</param>
+    /// <param name="leftright">Input argument #19</param>
+    /// <param name="xexl">Input argument #20</param>
+    /// <param name="yexl">Input argument #21</param>
+    /// <param name="xendl">Input argument #22</param>
+    /// <param name="lbendl">Input argument #23</param>
+    /// <param name="ubendl">Input argument #24</param>
+    /// <param name="xexr">Input argument #25</param>
+    /// <param name="yexr">Input argument #26</param>
+    /// <param name="xendr">Input argument #27</param>
+    /// <param name="lbendr">Input argument #28</param>
+    /// <param name="ubendr">Input argument #29</param>
+    /// <param name="leftincrease">Input argument #30</param>
+    /// <param name="rightincrease">Input argument #31</param>
+    /// <param name="smooth">Input argument #32</param>
+    /// <param name="tight">Input argument #33</param>
+    /// <param name="tightlb">Input argument #34</param>
+    /// <param name="tightub">Input argument #35</param>
+    /// <param name="minxrange">Input argument #36</param>
+    /// <returns>An Object containing the first output argument.</returns>
+    ///
+    public Object flexTimeFit(Object xin, Object yin, Object w, Object stationarypoint, 
+                        Object tailConcavity, Object xinlb, Object xinub, Object 
+                        xinlbmin, Object xinubmax, Object invalidx, Object invalidupper, 
+                        Object invalidlower, Object invaliduppermax, Object 
+                        invalidlowermin, Object smoothCoeff, Object boundaryx, Object 
+                        boundarydx, Object boundarydxx, Object leftright, Object xexl, 
+                        Object yexl, Object xendl, Object lbendl, Object ubendl, Object 
+                        xexr, Object yexr, Object xendr, Object lbendr, Object ubendr, 
+                        Object leftincrease, Object rightincrease, Object smooth, Object 
+                        tight, Object tightlb, Object tightub, Object minxrange)
+    {
+      return mcr.EvaluateFunction("flexTimeFit", xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, xinlbmin, xinubmax, invalidx, invalidupper, invalidlower, invaliduppermax, invalidlowermin, smoothCoeff, boundaryx, boundarydx, boundarydxx, leftright, xexl, yexl, xendl, lbendl, ubendl, xexr, yexr, xendr, lbendr, ubendr, leftincrease, rightincrease, smooth, tight, tightlb, tightub, minxrange);
+    }
+
+
+    /// <summary>
+    /// Provides a single output, 37-input Objectinterface to the flexTimeFit MATLAB
+    /// function.
+    /// </summary>
+    /// <remarks>
+    /// M-Documentation:
+    /// input
+    /// clc
+    /// M = csvread('c:\temp\voltooltest\slice_IWM.USZ_20150206.csv', 1);
+    /// leftright = nan;
+    /// smoothCoeff = nan;
+    /// stationarypoint = nan;
+    /// i = find(M(:,1)==1);
+    /// boundaryx = [nan; nan];
+    /// boundarydx = [nan; nan];
+    /// boundarydxx = [nan; nan];
+    /// if isnan(leftright)
+    /// intropart = i(1) : i(end);
+    /// iEndl = 1 : i(1) - 1;
+    /// iEndr = (i(end) + 1) : size(M,1);
+    /// iEndlvalid = find(~isnan(M(iEndl, 4)));
+    /// iEndrvalid = i(end) + find(~isnan(M(iEndr, 4)));
+    /// ivalid = i(1) + find(~isnan(M(intropart, 4))) - 1;
+    /// iinvalid = i(1) + find(isnan(M(intropart, 4))) - 1;
+    /// elseif leftright == -1
+    /// intropart = i(1) : size(M,1);
+    /// iEndl = 1 : (i(1) - 1);
+    /// iEndlvalid = find(~isnan(M(iEndl, 4)));
+    /// ivalid = i(1) + find(~isnan(M(intropart, 4))) - 1;
+    /// iinvalid = i(1) + find(isnan(M(intropart, 4))) - 1;
+    /// else
+    /// intropart = 1: i(end);
+    /// iEndr = (i(end) + 1) : size(M,1);
+    /// iEndrvalid = i(end) + find(~isnan(M(iEndr, 4)));
+    /// ivalid = find(~isnan(M(intropart, 4)));
+    /// iinvalid = find(isnan(M(intropart, 4)));
+    /// end
+    /// xin = M(ivalid,2)';
+    /// invalidx = M(iinvalid,2)';
+    /// yin = M(ivalid,4)';
+    /// w = M(ivalid,5)';
+    /// xinub = M(ivalid,7)';  inf(1,n);
+    /// xinub(xinub == 1) = inf;
+    /// invalidupper = M(iinvalid, 7)';
+    /// invalidupper(invalidupper == 1) = inf;
+    /// invalidlower = M(iinvalid, 6);
+    /// xinlb = M(ivalid,6)';  zeros(1,n);
+    /// if isnan(leftright)
+    /// xexl = M(iEndlvalid, 2)';
+    /// yexl = M(iEndlvalid, 4)';
+    /// xendl = M(iEndl,2)';
+    /// xexr = M(iEndrvalid, 2)';
+    /// yexr = M(iEndrvalid, 4)';
+    /// xendr = M(iEndr,2)';
+    /// ubendl = M(iEndl, 7)';
+    /// ubendl(ubendl == 1) = inf;
+    /// ubendr = M(iEndr, 7)';
+    /// ubendr(ubendr == 1) = inf;
+    /// lbendl = M(iEndl, 6)';
+    /// lbendr = M(iEndr, 6)';
+    /// elseif leftright == -1
+    /// xexl = M(iEndlvalid,2)';
+    /// xexr = [];
+    /// yexl = M(iEndlvalid,4)';
+    /// yexr = [];
+    /// xendl = M(iEndl,2)';
+    /// xendr = [];
+    /// ubendl = M(iEndl,7)';
+    /// ubendl(ubendl == 1) = inf;
+    /// ubendr = [];
+    /// lbendl = M(iEndl,6)';
+    /// lbendr = [];
+    /// else
+    /// xexl = [];
+    /// xexr = M(iEndrvalid,2)';
+    /// yexl = [];
+    /// yexr = M(iEndrvalid,4)';
+    /// xendl = [];
+    /// xendr = M(iEndr,2)';
+    /// ubendl = [];
+    /// ubendr = M(iEndr,7)';
+    /// ubendr(ubendr == 1) = inf;
+    /// lbendl = [];
+    /// lbendr = M(iEndr,6)';
+    /// end
+    /// leftincrease = -inf;
+    /// rightincrease = inf;
+    /// </remarks>
+    /// <param name="xin">Input argument #1</param>
+    /// <param name="yin">Input argument #2</param>
+    /// <param name="w">Input argument #3</param>
+    /// <param name="stationarypoint">Input argument #4</param>
+    /// <param name="tailConcavity">Input argument #5</param>
+    /// <param name="xinlb">Input argument #6</param>
+    /// <param name="xinub">Input argument #7</param>
+    /// <param name="xinlbmin">Input argument #8</param>
+    /// <param name="xinubmax">Input argument #9</param>
+    /// <param name="invalidx">Input argument #10</param>
+    /// <param name="invalidupper">Input argument #11</param>
+    /// <param name="invalidlower">Input argument #12</param>
+    /// <param name="invaliduppermax">Input argument #13</param>
+    /// <param name="invalidlowermin">Input argument #14</param>
+    /// <param name="smoothCoeff">Input argument #15</param>
+    /// <param name="boundaryx">Input argument #16</param>
+    /// <param name="boundarydx">Input argument #17</param>
+    /// <param name="boundarydxx">Input argument #18</param>
+    /// <param name="leftright">Input argument #19</param>
+    /// <param name="xexl">Input argument #20</param>
+    /// <param name="yexl">Input argument #21</param>
+    /// <param name="xendl">Input argument #22</param>
+    /// <param name="lbendl">Input argument #23</param>
+    /// <param name="ubendl">Input argument #24</param>
+    /// <param name="xexr">Input argument #25</param>
+    /// <param name="yexr">Input argument #26</param>
+    /// <param name="xendr">Input argument #27</param>
+    /// <param name="lbendr">Input argument #28</param>
+    /// <param name="ubendr">Input argument #29</param>
+    /// <param name="leftincrease">Input argument #30</param>
+    /// <param name="rightincrease">Input argument #31</param>
+    /// <param name="smooth">Input argument #32</param>
+    /// <param name="tight">Input argument #33</param>
+    /// <param name="tightlb">Input argument #34</param>
+    /// <param name="tightub">Input argument #35</param>
+    /// <param name="minxrange">Input argument #36</param>
+    /// <param name="breakBoundary">Input argument #37</param>
+    /// <returns>An Object containing the first output argument.</returns>
+    ///
+    public Object flexTimeFit(Object xin, Object yin, Object w, Object stationarypoint, 
+                        Object tailConcavity, Object xinlb, Object xinub, Object 
+                        xinlbmin, Object xinubmax, Object invalidx, Object invalidupper, 
+                        Object invalidlower, Object invaliduppermax, Object 
+                        invalidlowermin, Object smoothCoeff, Object boundaryx, Object 
+                        boundarydx, Object boundarydxx, Object leftright, Object xexl, 
+                        Object yexl, Object xendl, Object lbendl, Object ubendl, Object 
+                        xexr, Object yexr, Object xendr, Object lbendr, Object ubendr, 
+                        Object leftincrease, Object rightincrease, Object smooth, Object 
+                        tight, Object tightlb, Object tightub, Object minxrange, Object 
+                        breakBoundary)
+    {
+      return mcr.EvaluateFunction("flexTimeFit", xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, xinlbmin, xinubmax, invalidx, invalidupper, invalidlower, invaliduppermax, invalidlowermin, smoothCoeff, boundaryx, boundarydx, boundarydxx, leftright, xexl, yexl, xendl, lbendl, ubendl, xexr, yexr, xendr, lbendr, ubendr, leftincrease, rightincrease, smooth, tight, tightlb, tightub, minxrange, breakBoundary);
     }
 
 
@@ -4625,15 +5601,15 @@ namespace flexFitNative
     /// <param name="tailConcavity">Input argument #5</param>
     /// <param name="xinlb">Input argument #6</param>
     /// <param name="xinub">Input argument #7</param>
-    /// <param name="invalidx">Input argument #8</param>
+    /// <param name="xinlbmin">Input argument #8</param>
     /// <returns>An Array of length "numArgsOut" containing the output
     /// arguments.</returns>
     ///
     public Object[] flexTimeFit(int numArgsOut, Object xin, Object yin, Object w, Object 
                           stationarypoint, Object tailConcavity, Object xinlb, Object 
-                          xinub, Object invalidx)
+                          xinub, Object xinlbmin)
     {
-      return mcr.EvaluateFunction(numArgsOut, "flexTimeFit", xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, invalidx);
+      return mcr.EvaluateFunction(numArgsOut, "flexTimeFit", xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, xinlbmin);
     }
 
 
@@ -4733,16 +5709,16 @@ namespace flexFitNative
     /// <param name="tailConcavity">Input argument #5</param>
     /// <param name="xinlb">Input argument #6</param>
     /// <param name="xinub">Input argument #7</param>
-    /// <param name="invalidx">Input argument #8</param>
-    /// <param name="invalidupper">Input argument #9</param>
+    /// <param name="xinlbmin">Input argument #8</param>
+    /// <param name="xinubmax">Input argument #9</param>
     /// <returns>An Array of length "numArgsOut" containing the output
     /// arguments.</returns>
     ///
     public Object[] flexTimeFit(int numArgsOut, Object xin, Object yin, Object w, Object 
                           stationarypoint, Object tailConcavity, Object xinlb, Object 
-                          xinub, Object invalidx, Object invalidupper)
+                          xinub, Object xinlbmin, Object xinubmax)
     {
-      return mcr.EvaluateFunction(numArgsOut, "flexTimeFit", xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, invalidx, invalidupper);
+      return mcr.EvaluateFunction(numArgsOut, "flexTimeFit", xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, xinlbmin, xinubmax);
     }
 
 
@@ -4842,18 +5818,17 @@ namespace flexFitNative
     /// <param name="tailConcavity">Input argument #5</param>
     /// <param name="xinlb">Input argument #6</param>
     /// <param name="xinub">Input argument #7</param>
-    /// <param name="invalidx">Input argument #8</param>
-    /// <param name="invalidupper">Input argument #9</param>
-    /// <param name="invalidlower">Input argument #10</param>
+    /// <param name="xinlbmin">Input argument #8</param>
+    /// <param name="xinubmax">Input argument #9</param>
+    /// <param name="invalidx">Input argument #10</param>
     /// <returns>An Array of length "numArgsOut" containing the output
     /// arguments.</returns>
     ///
     public Object[] flexTimeFit(int numArgsOut, Object xin, Object yin, Object w, Object 
                           stationarypoint, Object tailConcavity, Object xinlb, Object 
-                          xinub, Object invalidx, Object invalidupper, Object 
-                          invalidlower)
+                          xinub, Object xinlbmin, Object xinubmax, Object invalidx)
     {
-      return mcr.EvaluateFunction(numArgsOut, "flexTimeFit", xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, invalidx, invalidupper, invalidlower);
+      return mcr.EvaluateFunction(numArgsOut, "flexTimeFit", xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, xinlbmin, xinubmax, invalidx);
     }
 
 
@@ -4953,19 +5928,19 @@ namespace flexFitNative
     /// <param name="tailConcavity">Input argument #5</param>
     /// <param name="xinlb">Input argument #6</param>
     /// <param name="xinub">Input argument #7</param>
-    /// <param name="invalidx">Input argument #8</param>
-    /// <param name="invalidupper">Input argument #9</param>
-    /// <param name="invalidlower">Input argument #10</param>
-    /// <param name="smoothCoeff">Input argument #11</param>
+    /// <param name="xinlbmin">Input argument #8</param>
+    /// <param name="xinubmax">Input argument #9</param>
+    /// <param name="invalidx">Input argument #10</param>
+    /// <param name="invalidupper">Input argument #11</param>
     /// <returns>An Array of length "numArgsOut" containing the output
     /// arguments.</returns>
     ///
     public Object[] flexTimeFit(int numArgsOut, Object xin, Object yin, Object w, Object 
                           stationarypoint, Object tailConcavity, Object xinlb, Object 
-                          xinub, Object invalidx, Object invalidupper, Object 
-                          invalidlower, Object smoothCoeff)
+                          xinub, Object xinlbmin, Object xinubmax, Object invalidx, 
+                          Object invalidupper)
     {
-      return mcr.EvaluateFunction(numArgsOut, "flexTimeFit", xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, invalidx, invalidupper, invalidlower, smoothCoeff);
+      return mcr.EvaluateFunction(numArgsOut, "flexTimeFit", xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, xinlbmin, xinubmax, invalidx, invalidupper);
     }
 
 
@@ -5065,20 +6040,20 @@ namespace flexFitNative
     /// <param name="tailConcavity">Input argument #5</param>
     /// <param name="xinlb">Input argument #6</param>
     /// <param name="xinub">Input argument #7</param>
-    /// <param name="invalidx">Input argument #8</param>
-    /// <param name="invalidupper">Input argument #9</param>
-    /// <param name="invalidlower">Input argument #10</param>
-    /// <param name="smoothCoeff">Input argument #11</param>
-    /// <param name="boundaryx">Input argument #12</param>
+    /// <param name="xinlbmin">Input argument #8</param>
+    /// <param name="xinubmax">Input argument #9</param>
+    /// <param name="invalidx">Input argument #10</param>
+    /// <param name="invalidupper">Input argument #11</param>
+    /// <param name="invalidlower">Input argument #12</param>
     /// <returns>An Array of length "numArgsOut" containing the output
     /// arguments.</returns>
     ///
     public Object[] flexTimeFit(int numArgsOut, Object xin, Object yin, Object w, Object 
                           stationarypoint, Object tailConcavity, Object xinlb, Object 
-                          xinub, Object invalidx, Object invalidupper, Object 
-                          invalidlower, Object smoothCoeff, Object boundaryx)
+                          xinub, Object xinlbmin, Object xinubmax, Object invalidx, 
+                          Object invalidupper, Object invalidlower)
     {
-      return mcr.EvaluateFunction(numArgsOut, "flexTimeFit", xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, invalidx, invalidupper, invalidlower, smoothCoeff, boundaryx);
+      return mcr.EvaluateFunction(numArgsOut, "flexTimeFit", xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, xinlbmin, xinubmax, invalidx, invalidupper, invalidlower);
     }
 
 
@@ -5178,22 +6153,22 @@ namespace flexFitNative
     /// <param name="tailConcavity">Input argument #5</param>
     /// <param name="xinlb">Input argument #6</param>
     /// <param name="xinub">Input argument #7</param>
-    /// <param name="invalidx">Input argument #8</param>
-    /// <param name="invalidupper">Input argument #9</param>
-    /// <param name="invalidlower">Input argument #10</param>
-    /// <param name="smoothCoeff">Input argument #11</param>
-    /// <param name="boundaryx">Input argument #12</param>
-    /// <param name="boundarydx">Input argument #13</param>
+    /// <param name="xinlbmin">Input argument #8</param>
+    /// <param name="xinubmax">Input argument #9</param>
+    /// <param name="invalidx">Input argument #10</param>
+    /// <param name="invalidupper">Input argument #11</param>
+    /// <param name="invalidlower">Input argument #12</param>
+    /// <param name="invaliduppermax">Input argument #13</param>
     /// <returns>An Array of length "numArgsOut" containing the output
     /// arguments.</returns>
     ///
     public Object[] flexTimeFit(int numArgsOut, Object xin, Object yin, Object w, Object 
                           stationarypoint, Object tailConcavity, Object xinlb, Object 
-                          xinub, Object invalidx, Object invalidupper, Object 
-                          invalidlower, Object smoothCoeff, Object boundaryx, Object 
-                          boundarydx)
+                          xinub, Object xinlbmin, Object xinubmax, Object invalidx, 
+                          Object invalidupper, Object invalidlower, Object 
+                          invaliduppermax)
     {
-      return mcr.EvaluateFunction(numArgsOut, "flexTimeFit", xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, invalidx, invalidupper, invalidlower, smoothCoeff, boundaryx, boundarydx);
+      return mcr.EvaluateFunction(numArgsOut, "flexTimeFit", xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, xinlbmin, xinubmax, invalidx, invalidupper, invalidlower, invaliduppermax);
     }
 
 
@@ -5293,23 +6268,23 @@ namespace flexFitNative
     /// <param name="tailConcavity">Input argument #5</param>
     /// <param name="xinlb">Input argument #6</param>
     /// <param name="xinub">Input argument #7</param>
-    /// <param name="invalidx">Input argument #8</param>
-    /// <param name="invalidupper">Input argument #9</param>
-    /// <param name="invalidlower">Input argument #10</param>
-    /// <param name="smoothCoeff">Input argument #11</param>
-    /// <param name="boundaryx">Input argument #12</param>
-    /// <param name="boundarydx">Input argument #13</param>
-    /// <param name="boundarydxx">Input argument #14</param>
+    /// <param name="xinlbmin">Input argument #8</param>
+    /// <param name="xinubmax">Input argument #9</param>
+    /// <param name="invalidx">Input argument #10</param>
+    /// <param name="invalidupper">Input argument #11</param>
+    /// <param name="invalidlower">Input argument #12</param>
+    /// <param name="invaliduppermax">Input argument #13</param>
+    /// <param name="invalidlowermin">Input argument #14</param>
     /// <returns>An Array of length "numArgsOut" containing the output
     /// arguments.</returns>
     ///
     public Object[] flexTimeFit(int numArgsOut, Object xin, Object yin, Object w, Object 
                           stationarypoint, Object tailConcavity, Object xinlb, Object 
-                          xinub, Object invalidx, Object invalidupper, Object 
-                          invalidlower, Object smoothCoeff, Object boundaryx, Object 
-                          boundarydx, Object boundarydxx)
+                          xinub, Object xinlbmin, Object xinubmax, Object invalidx, 
+                          Object invalidupper, Object invalidlower, Object 
+                          invaliduppermax, Object invalidlowermin)
     {
-      return mcr.EvaluateFunction(numArgsOut, "flexTimeFit", xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, invalidx, invalidupper, invalidlower, smoothCoeff, boundaryx, boundarydx, boundarydxx);
+      return mcr.EvaluateFunction(numArgsOut, "flexTimeFit", xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, xinlbmin, xinubmax, invalidx, invalidupper, invalidlower, invaliduppermax, invalidlowermin);
     }
 
 
@@ -5409,24 +6384,24 @@ namespace flexFitNative
     /// <param name="tailConcavity">Input argument #5</param>
     /// <param name="xinlb">Input argument #6</param>
     /// <param name="xinub">Input argument #7</param>
-    /// <param name="invalidx">Input argument #8</param>
-    /// <param name="invalidupper">Input argument #9</param>
-    /// <param name="invalidlower">Input argument #10</param>
-    /// <param name="smoothCoeff">Input argument #11</param>
-    /// <param name="boundaryx">Input argument #12</param>
-    /// <param name="boundarydx">Input argument #13</param>
-    /// <param name="boundarydxx">Input argument #14</param>
-    /// <param name="leftright">Input argument #15</param>
+    /// <param name="xinlbmin">Input argument #8</param>
+    /// <param name="xinubmax">Input argument #9</param>
+    /// <param name="invalidx">Input argument #10</param>
+    /// <param name="invalidupper">Input argument #11</param>
+    /// <param name="invalidlower">Input argument #12</param>
+    /// <param name="invaliduppermax">Input argument #13</param>
+    /// <param name="invalidlowermin">Input argument #14</param>
+    /// <param name="smoothCoeff">Input argument #15</param>
     /// <returns>An Array of length "numArgsOut" containing the output
     /// arguments.</returns>
     ///
     public Object[] flexTimeFit(int numArgsOut, Object xin, Object yin, Object w, Object 
                           stationarypoint, Object tailConcavity, Object xinlb, Object 
-                          xinub, Object invalidx, Object invalidupper, Object 
-                          invalidlower, Object smoothCoeff, Object boundaryx, Object 
-                          boundarydx, Object boundarydxx, Object leftright)
+                          xinub, Object xinlbmin, Object xinubmax, Object invalidx, 
+                          Object invalidupper, Object invalidlower, Object 
+                          invaliduppermax, Object invalidlowermin, Object smoothCoeff)
     {
-      return mcr.EvaluateFunction(numArgsOut, "flexTimeFit", xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, invalidx, invalidupper, invalidlower, smoothCoeff, boundaryx, boundarydx, boundarydxx, leftright);
+      return mcr.EvaluateFunction(numArgsOut, "flexTimeFit", xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, xinlbmin, xinubmax, invalidx, invalidupper, invalidlower, invaliduppermax, invalidlowermin, smoothCoeff);
     }
 
 
@@ -5526,25 +6501,26 @@ namespace flexFitNative
     /// <param name="tailConcavity">Input argument #5</param>
     /// <param name="xinlb">Input argument #6</param>
     /// <param name="xinub">Input argument #7</param>
-    /// <param name="invalidx">Input argument #8</param>
-    /// <param name="invalidupper">Input argument #9</param>
-    /// <param name="invalidlower">Input argument #10</param>
-    /// <param name="smoothCoeff">Input argument #11</param>
-    /// <param name="boundaryx">Input argument #12</param>
-    /// <param name="boundarydx">Input argument #13</param>
-    /// <param name="boundarydxx">Input argument #14</param>
-    /// <param name="leftright">Input argument #15</param>
-    /// <param name="xexl">Input argument #16</param>
+    /// <param name="xinlbmin">Input argument #8</param>
+    /// <param name="xinubmax">Input argument #9</param>
+    /// <param name="invalidx">Input argument #10</param>
+    /// <param name="invalidupper">Input argument #11</param>
+    /// <param name="invalidlower">Input argument #12</param>
+    /// <param name="invaliduppermax">Input argument #13</param>
+    /// <param name="invalidlowermin">Input argument #14</param>
+    /// <param name="smoothCoeff">Input argument #15</param>
+    /// <param name="boundaryx">Input argument #16</param>
     /// <returns>An Array of length "numArgsOut" containing the output
     /// arguments.</returns>
     ///
     public Object[] flexTimeFit(int numArgsOut, Object xin, Object yin, Object w, Object 
                           stationarypoint, Object tailConcavity, Object xinlb, Object 
-                          xinub, Object invalidx, Object invalidupper, Object 
-                          invalidlower, Object smoothCoeff, Object boundaryx, Object 
-                          boundarydx, Object boundarydxx, Object leftright, Object xexl)
+                          xinub, Object xinlbmin, Object xinubmax, Object invalidx, 
+                          Object invalidupper, Object invalidlower, Object 
+                          invaliduppermax, Object invalidlowermin, Object smoothCoeff, 
+                          Object boundaryx)
     {
-      return mcr.EvaluateFunction(numArgsOut, "flexTimeFit", xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, invalidx, invalidupper, invalidlower, smoothCoeff, boundaryx, boundarydx, boundarydxx, leftright, xexl);
+      return mcr.EvaluateFunction(numArgsOut, "flexTimeFit", xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, xinlbmin, xinubmax, invalidx, invalidupper, invalidlower, invaliduppermax, invalidlowermin, smoothCoeff, boundaryx);
     }
 
 
@@ -5644,27 +6620,27 @@ namespace flexFitNative
     /// <param name="tailConcavity">Input argument #5</param>
     /// <param name="xinlb">Input argument #6</param>
     /// <param name="xinub">Input argument #7</param>
-    /// <param name="invalidx">Input argument #8</param>
-    /// <param name="invalidupper">Input argument #9</param>
-    /// <param name="invalidlower">Input argument #10</param>
-    /// <param name="smoothCoeff">Input argument #11</param>
-    /// <param name="boundaryx">Input argument #12</param>
-    /// <param name="boundarydx">Input argument #13</param>
-    /// <param name="boundarydxx">Input argument #14</param>
-    /// <param name="leftright">Input argument #15</param>
-    /// <param name="xexl">Input argument #16</param>
-    /// <param name="yexl">Input argument #17</param>
+    /// <param name="xinlbmin">Input argument #8</param>
+    /// <param name="xinubmax">Input argument #9</param>
+    /// <param name="invalidx">Input argument #10</param>
+    /// <param name="invalidupper">Input argument #11</param>
+    /// <param name="invalidlower">Input argument #12</param>
+    /// <param name="invaliduppermax">Input argument #13</param>
+    /// <param name="invalidlowermin">Input argument #14</param>
+    /// <param name="smoothCoeff">Input argument #15</param>
+    /// <param name="boundaryx">Input argument #16</param>
+    /// <param name="boundarydx">Input argument #17</param>
     /// <returns>An Array of length "numArgsOut" containing the output
     /// arguments.</returns>
     ///
     public Object[] flexTimeFit(int numArgsOut, Object xin, Object yin, Object w, Object 
                           stationarypoint, Object tailConcavity, Object xinlb, Object 
-                          xinub, Object invalidx, Object invalidupper, Object 
-                          invalidlower, Object smoothCoeff, Object boundaryx, Object 
-                          boundarydx, Object boundarydxx, Object leftright, Object xexl, 
-                          Object yexl)
+                          xinub, Object xinlbmin, Object xinubmax, Object invalidx, 
+                          Object invalidupper, Object invalidlower, Object 
+                          invaliduppermax, Object invalidlowermin, Object smoothCoeff, 
+                          Object boundaryx, Object boundarydx)
     {
-      return mcr.EvaluateFunction(numArgsOut, "flexTimeFit", xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, invalidx, invalidupper, invalidlower, smoothCoeff, boundaryx, boundarydx, boundarydxx, leftright, xexl, yexl);
+      return mcr.EvaluateFunction(numArgsOut, "flexTimeFit", xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, xinlbmin, xinubmax, invalidx, invalidupper, invalidlower, invaliduppermax, invalidlowermin, smoothCoeff, boundaryx, boundarydx);
     }
 
 
@@ -5764,28 +6740,28 @@ namespace flexFitNative
     /// <param name="tailConcavity">Input argument #5</param>
     /// <param name="xinlb">Input argument #6</param>
     /// <param name="xinub">Input argument #7</param>
-    /// <param name="invalidx">Input argument #8</param>
-    /// <param name="invalidupper">Input argument #9</param>
-    /// <param name="invalidlower">Input argument #10</param>
-    /// <param name="smoothCoeff">Input argument #11</param>
-    /// <param name="boundaryx">Input argument #12</param>
-    /// <param name="boundarydx">Input argument #13</param>
-    /// <param name="boundarydxx">Input argument #14</param>
-    /// <param name="leftright">Input argument #15</param>
-    /// <param name="xexl">Input argument #16</param>
-    /// <param name="yexl">Input argument #17</param>
-    /// <param name="xendl">Input argument #18</param>
+    /// <param name="xinlbmin">Input argument #8</param>
+    /// <param name="xinubmax">Input argument #9</param>
+    /// <param name="invalidx">Input argument #10</param>
+    /// <param name="invalidupper">Input argument #11</param>
+    /// <param name="invalidlower">Input argument #12</param>
+    /// <param name="invaliduppermax">Input argument #13</param>
+    /// <param name="invalidlowermin">Input argument #14</param>
+    /// <param name="smoothCoeff">Input argument #15</param>
+    /// <param name="boundaryx">Input argument #16</param>
+    /// <param name="boundarydx">Input argument #17</param>
+    /// <param name="boundarydxx">Input argument #18</param>
     /// <returns>An Array of length "numArgsOut" containing the output
     /// arguments.</returns>
     ///
     public Object[] flexTimeFit(int numArgsOut, Object xin, Object yin, Object w, Object 
                           stationarypoint, Object tailConcavity, Object xinlb, Object 
-                          xinub, Object invalidx, Object invalidupper, Object 
-                          invalidlower, Object smoothCoeff, Object boundaryx, Object 
-                          boundarydx, Object boundarydxx, Object leftright, Object xexl, 
-                          Object yexl, Object xendl)
+                          xinub, Object xinlbmin, Object xinubmax, Object invalidx, 
+                          Object invalidupper, Object invalidlower, Object 
+                          invaliduppermax, Object invalidlowermin, Object smoothCoeff, 
+                          Object boundaryx, Object boundarydx, Object boundarydxx)
     {
-      return mcr.EvaluateFunction(numArgsOut, "flexTimeFit", xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, invalidx, invalidupper, invalidlower, smoothCoeff, boundaryx, boundarydx, boundarydxx, leftright, xexl, yexl, xendl);
+      return mcr.EvaluateFunction(numArgsOut, "flexTimeFit", xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, xinlbmin, xinubmax, invalidx, invalidupper, invalidlower, invaliduppermax, invalidlowermin, smoothCoeff, boundaryx, boundarydx, boundarydxx);
     }
 
 
@@ -5885,29 +6861,30 @@ namespace flexFitNative
     /// <param name="tailConcavity">Input argument #5</param>
     /// <param name="xinlb">Input argument #6</param>
     /// <param name="xinub">Input argument #7</param>
-    /// <param name="invalidx">Input argument #8</param>
-    /// <param name="invalidupper">Input argument #9</param>
-    /// <param name="invalidlower">Input argument #10</param>
-    /// <param name="smoothCoeff">Input argument #11</param>
-    /// <param name="boundaryx">Input argument #12</param>
-    /// <param name="boundarydx">Input argument #13</param>
-    /// <param name="boundarydxx">Input argument #14</param>
-    /// <param name="leftright">Input argument #15</param>
-    /// <param name="xexl">Input argument #16</param>
-    /// <param name="yexl">Input argument #17</param>
-    /// <param name="xendl">Input argument #18</param>
-    /// <param name="lbendl">Input argument #19</param>
+    /// <param name="xinlbmin">Input argument #8</param>
+    /// <param name="xinubmax">Input argument #9</param>
+    /// <param name="invalidx">Input argument #10</param>
+    /// <param name="invalidupper">Input argument #11</param>
+    /// <param name="invalidlower">Input argument #12</param>
+    /// <param name="invaliduppermax">Input argument #13</param>
+    /// <param name="invalidlowermin">Input argument #14</param>
+    /// <param name="smoothCoeff">Input argument #15</param>
+    /// <param name="boundaryx">Input argument #16</param>
+    /// <param name="boundarydx">Input argument #17</param>
+    /// <param name="boundarydxx">Input argument #18</param>
+    /// <param name="leftright">Input argument #19</param>
     /// <returns>An Array of length "numArgsOut" containing the output
     /// arguments.</returns>
     ///
     public Object[] flexTimeFit(int numArgsOut, Object xin, Object yin, Object w, Object 
                           stationarypoint, Object tailConcavity, Object xinlb, Object 
-                          xinub, Object invalidx, Object invalidupper, Object 
-                          invalidlower, Object smoothCoeff, Object boundaryx, Object 
-                          boundarydx, Object boundarydxx, Object leftright, Object xexl, 
-                          Object yexl, Object xendl, Object lbendl)
+                          xinub, Object xinlbmin, Object xinubmax, Object invalidx, 
+                          Object invalidupper, Object invalidlower, Object 
+                          invaliduppermax, Object invalidlowermin, Object smoothCoeff, 
+                          Object boundaryx, Object boundarydx, Object boundarydxx, Object 
+                          leftright)
     {
-      return mcr.EvaluateFunction(numArgsOut, "flexTimeFit", xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, invalidx, invalidupper, invalidlower, smoothCoeff, boundaryx, boundarydx, boundarydxx, leftright, xexl, yexl, xendl, lbendl);
+      return mcr.EvaluateFunction(numArgsOut, "flexTimeFit", xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, xinlbmin, xinubmax, invalidx, invalidupper, invalidlower, invaliduppermax, invalidlowermin, smoothCoeff, boundaryx, boundarydx, boundarydxx, leftright);
     }
 
 
@@ -6007,30 +6984,31 @@ namespace flexFitNative
     /// <param name="tailConcavity">Input argument #5</param>
     /// <param name="xinlb">Input argument #6</param>
     /// <param name="xinub">Input argument #7</param>
-    /// <param name="invalidx">Input argument #8</param>
-    /// <param name="invalidupper">Input argument #9</param>
-    /// <param name="invalidlower">Input argument #10</param>
-    /// <param name="smoothCoeff">Input argument #11</param>
-    /// <param name="boundaryx">Input argument #12</param>
-    /// <param name="boundarydx">Input argument #13</param>
-    /// <param name="boundarydxx">Input argument #14</param>
-    /// <param name="leftright">Input argument #15</param>
-    /// <param name="xexl">Input argument #16</param>
-    /// <param name="yexl">Input argument #17</param>
-    /// <param name="xendl">Input argument #18</param>
-    /// <param name="lbendl">Input argument #19</param>
-    /// <param name="ubendl">Input argument #20</param>
+    /// <param name="xinlbmin">Input argument #8</param>
+    /// <param name="xinubmax">Input argument #9</param>
+    /// <param name="invalidx">Input argument #10</param>
+    /// <param name="invalidupper">Input argument #11</param>
+    /// <param name="invalidlower">Input argument #12</param>
+    /// <param name="invaliduppermax">Input argument #13</param>
+    /// <param name="invalidlowermin">Input argument #14</param>
+    /// <param name="smoothCoeff">Input argument #15</param>
+    /// <param name="boundaryx">Input argument #16</param>
+    /// <param name="boundarydx">Input argument #17</param>
+    /// <param name="boundarydxx">Input argument #18</param>
+    /// <param name="leftright">Input argument #19</param>
+    /// <param name="xexl">Input argument #20</param>
     /// <returns>An Array of length "numArgsOut" containing the output
     /// arguments.</returns>
     ///
     public Object[] flexTimeFit(int numArgsOut, Object xin, Object yin, Object w, Object 
                           stationarypoint, Object tailConcavity, Object xinlb, Object 
-                          xinub, Object invalidx, Object invalidupper, Object 
-                          invalidlower, Object smoothCoeff, Object boundaryx, Object 
-                          boundarydx, Object boundarydxx, Object leftright, Object xexl, 
-                          Object yexl, Object xendl, Object lbendl, Object ubendl)
+                          xinub, Object xinlbmin, Object xinubmax, Object invalidx, 
+                          Object invalidupper, Object invalidlower, Object 
+                          invaliduppermax, Object invalidlowermin, Object smoothCoeff, 
+                          Object boundaryx, Object boundarydx, Object boundarydxx, Object 
+                          leftright, Object xexl)
     {
-      return mcr.EvaluateFunction(numArgsOut, "flexTimeFit", xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, invalidx, invalidupper, invalidlower, smoothCoeff, boundaryx, boundarydx, boundarydxx, leftright, xexl, yexl, xendl, lbendl, ubendl);
+      return mcr.EvaluateFunction(numArgsOut, "flexTimeFit", xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, xinlbmin, xinubmax, invalidx, invalidupper, invalidlower, invaliduppermax, invalidlowermin, smoothCoeff, boundaryx, boundarydx, boundarydxx, leftright, xexl);
     }
 
 
@@ -6130,32 +7108,32 @@ namespace flexFitNative
     /// <param name="tailConcavity">Input argument #5</param>
     /// <param name="xinlb">Input argument #6</param>
     /// <param name="xinub">Input argument #7</param>
-    /// <param name="invalidx">Input argument #8</param>
-    /// <param name="invalidupper">Input argument #9</param>
-    /// <param name="invalidlower">Input argument #10</param>
-    /// <param name="smoothCoeff">Input argument #11</param>
-    /// <param name="boundaryx">Input argument #12</param>
-    /// <param name="boundarydx">Input argument #13</param>
-    /// <param name="boundarydxx">Input argument #14</param>
-    /// <param name="leftright">Input argument #15</param>
-    /// <param name="xexl">Input argument #16</param>
-    /// <param name="yexl">Input argument #17</param>
-    /// <param name="xendl">Input argument #18</param>
-    /// <param name="lbendl">Input argument #19</param>
-    /// <param name="ubendl">Input argument #20</param>
-    /// <param name="xexr">Input argument #21</param>
+    /// <param name="xinlbmin">Input argument #8</param>
+    /// <param name="xinubmax">Input argument #9</param>
+    /// <param name="invalidx">Input argument #10</param>
+    /// <param name="invalidupper">Input argument #11</param>
+    /// <param name="invalidlower">Input argument #12</param>
+    /// <param name="invaliduppermax">Input argument #13</param>
+    /// <param name="invalidlowermin">Input argument #14</param>
+    /// <param name="smoothCoeff">Input argument #15</param>
+    /// <param name="boundaryx">Input argument #16</param>
+    /// <param name="boundarydx">Input argument #17</param>
+    /// <param name="boundarydxx">Input argument #18</param>
+    /// <param name="leftright">Input argument #19</param>
+    /// <param name="xexl">Input argument #20</param>
+    /// <param name="yexl">Input argument #21</param>
     /// <returns>An Array of length "numArgsOut" containing the output
     /// arguments.</returns>
     ///
     public Object[] flexTimeFit(int numArgsOut, Object xin, Object yin, Object w, Object 
                           stationarypoint, Object tailConcavity, Object xinlb, Object 
-                          xinub, Object invalidx, Object invalidupper, Object 
-                          invalidlower, Object smoothCoeff, Object boundaryx, Object 
-                          boundarydx, Object boundarydxx, Object leftright, Object xexl, 
-                          Object yexl, Object xendl, Object lbendl, Object ubendl, Object 
-                          xexr)
+                          xinub, Object xinlbmin, Object xinubmax, Object invalidx, 
+                          Object invalidupper, Object invalidlower, Object 
+                          invaliduppermax, Object invalidlowermin, Object smoothCoeff, 
+                          Object boundaryx, Object boundarydx, Object boundarydxx, Object 
+                          leftright, Object xexl, Object yexl)
     {
-      return mcr.EvaluateFunction(numArgsOut, "flexTimeFit", xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, invalidx, invalidupper, invalidlower, smoothCoeff, boundaryx, boundarydx, boundarydxx, leftright, xexl, yexl, xendl, lbendl, ubendl, xexr);
+      return mcr.EvaluateFunction(numArgsOut, "flexTimeFit", xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, xinlbmin, xinubmax, invalidx, invalidupper, invalidlower, invaliduppermax, invalidlowermin, smoothCoeff, boundaryx, boundarydx, boundarydxx, leftright, xexl, yexl);
     }
 
 
@@ -6255,33 +7233,33 @@ namespace flexFitNative
     /// <param name="tailConcavity">Input argument #5</param>
     /// <param name="xinlb">Input argument #6</param>
     /// <param name="xinub">Input argument #7</param>
-    /// <param name="invalidx">Input argument #8</param>
-    /// <param name="invalidupper">Input argument #9</param>
-    /// <param name="invalidlower">Input argument #10</param>
-    /// <param name="smoothCoeff">Input argument #11</param>
-    /// <param name="boundaryx">Input argument #12</param>
-    /// <param name="boundarydx">Input argument #13</param>
-    /// <param name="boundarydxx">Input argument #14</param>
-    /// <param name="leftright">Input argument #15</param>
-    /// <param name="xexl">Input argument #16</param>
-    /// <param name="yexl">Input argument #17</param>
-    /// <param name="xendl">Input argument #18</param>
-    /// <param name="lbendl">Input argument #19</param>
-    /// <param name="ubendl">Input argument #20</param>
-    /// <param name="xexr">Input argument #21</param>
-    /// <param name="yexr">Input argument #22</param>
+    /// <param name="xinlbmin">Input argument #8</param>
+    /// <param name="xinubmax">Input argument #9</param>
+    /// <param name="invalidx">Input argument #10</param>
+    /// <param name="invalidupper">Input argument #11</param>
+    /// <param name="invalidlower">Input argument #12</param>
+    /// <param name="invaliduppermax">Input argument #13</param>
+    /// <param name="invalidlowermin">Input argument #14</param>
+    /// <param name="smoothCoeff">Input argument #15</param>
+    /// <param name="boundaryx">Input argument #16</param>
+    /// <param name="boundarydx">Input argument #17</param>
+    /// <param name="boundarydxx">Input argument #18</param>
+    /// <param name="leftright">Input argument #19</param>
+    /// <param name="xexl">Input argument #20</param>
+    /// <param name="yexl">Input argument #21</param>
+    /// <param name="xendl">Input argument #22</param>
     /// <returns>An Array of length "numArgsOut" containing the output
     /// arguments.</returns>
     ///
     public Object[] flexTimeFit(int numArgsOut, Object xin, Object yin, Object w, Object 
                           stationarypoint, Object tailConcavity, Object xinlb, Object 
-                          xinub, Object invalidx, Object invalidupper, Object 
-                          invalidlower, Object smoothCoeff, Object boundaryx, Object 
-                          boundarydx, Object boundarydxx, Object leftright, Object xexl, 
-                          Object yexl, Object xendl, Object lbendl, Object ubendl, Object 
-                          xexr, Object yexr)
+                          xinub, Object xinlbmin, Object xinubmax, Object invalidx, 
+                          Object invalidupper, Object invalidlower, Object 
+                          invaliduppermax, Object invalidlowermin, Object smoothCoeff, 
+                          Object boundaryx, Object boundarydx, Object boundarydxx, Object 
+                          leftright, Object xexl, Object yexl, Object xendl)
     {
-      return mcr.EvaluateFunction(numArgsOut, "flexTimeFit", xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, invalidx, invalidupper, invalidlower, smoothCoeff, boundaryx, boundarydx, boundarydxx, leftright, xexl, yexl, xendl, lbendl, ubendl, xexr, yexr);
+      return mcr.EvaluateFunction(numArgsOut, "flexTimeFit", xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, xinlbmin, xinubmax, invalidx, invalidupper, invalidlower, invaliduppermax, invalidlowermin, smoothCoeff, boundaryx, boundarydx, boundarydxx, leftright, xexl, yexl, xendl);
     }
 
 
@@ -6381,34 +7359,35 @@ namespace flexFitNative
     /// <param name="tailConcavity">Input argument #5</param>
     /// <param name="xinlb">Input argument #6</param>
     /// <param name="xinub">Input argument #7</param>
-    /// <param name="invalidx">Input argument #8</param>
-    /// <param name="invalidupper">Input argument #9</param>
-    /// <param name="invalidlower">Input argument #10</param>
-    /// <param name="smoothCoeff">Input argument #11</param>
-    /// <param name="boundaryx">Input argument #12</param>
-    /// <param name="boundarydx">Input argument #13</param>
-    /// <param name="boundarydxx">Input argument #14</param>
-    /// <param name="leftright">Input argument #15</param>
-    /// <param name="xexl">Input argument #16</param>
-    /// <param name="yexl">Input argument #17</param>
-    /// <param name="xendl">Input argument #18</param>
-    /// <param name="lbendl">Input argument #19</param>
-    /// <param name="ubendl">Input argument #20</param>
-    /// <param name="xexr">Input argument #21</param>
-    /// <param name="yexr">Input argument #22</param>
-    /// <param name="xendr">Input argument #23</param>
+    /// <param name="xinlbmin">Input argument #8</param>
+    /// <param name="xinubmax">Input argument #9</param>
+    /// <param name="invalidx">Input argument #10</param>
+    /// <param name="invalidupper">Input argument #11</param>
+    /// <param name="invalidlower">Input argument #12</param>
+    /// <param name="invaliduppermax">Input argument #13</param>
+    /// <param name="invalidlowermin">Input argument #14</param>
+    /// <param name="smoothCoeff">Input argument #15</param>
+    /// <param name="boundaryx">Input argument #16</param>
+    /// <param name="boundarydx">Input argument #17</param>
+    /// <param name="boundarydxx">Input argument #18</param>
+    /// <param name="leftright">Input argument #19</param>
+    /// <param name="xexl">Input argument #20</param>
+    /// <param name="yexl">Input argument #21</param>
+    /// <param name="xendl">Input argument #22</param>
+    /// <param name="lbendl">Input argument #23</param>
     /// <returns>An Array of length "numArgsOut" containing the output
     /// arguments.</returns>
     ///
     public Object[] flexTimeFit(int numArgsOut, Object xin, Object yin, Object w, Object 
                           stationarypoint, Object tailConcavity, Object xinlb, Object 
-                          xinub, Object invalidx, Object invalidupper, Object 
-                          invalidlower, Object smoothCoeff, Object boundaryx, Object 
-                          boundarydx, Object boundarydxx, Object leftright, Object xexl, 
-                          Object yexl, Object xendl, Object lbendl, Object ubendl, Object 
-                          xexr, Object yexr, Object xendr)
+                          xinub, Object xinlbmin, Object xinubmax, Object invalidx, 
+                          Object invalidupper, Object invalidlower, Object 
+                          invaliduppermax, Object invalidlowermin, Object smoothCoeff, 
+                          Object boundaryx, Object boundarydx, Object boundarydxx, Object 
+                          leftright, Object xexl, Object yexl, Object xendl, Object 
+                          lbendl)
     {
-      return mcr.EvaluateFunction(numArgsOut, "flexTimeFit", xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, invalidx, invalidupper, invalidlower, smoothCoeff, boundaryx, boundarydx, boundarydxx, leftright, xexl, yexl, xendl, lbendl, ubendl, xexr, yexr, xendr);
+      return mcr.EvaluateFunction(numArgsOut, "flexTimeFit", xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, xinlbmin, xinubmax, invalidx, invalidupper, invalidlower, invaliduppermax, invalidlowermin, smoothCoeff, boundaryx, boundarydx, boundarydxx, leftright, xexl, yexl, xendl, lbendl);
     }
 
 
@@ -6508,35 +7487,36 @@ namespace flexFitNative
     /// <param name="tailConcavity">Input argument #5</param>
     /// <param name="xinlb">Input argument #6</param>
     /// <param name="xinub">Input argument #7</param>
-    /// <param name="invalidx">Input argument #8</param>
-    /// <param name="invalidupper">Input argument #9</param>
-    /// <param name="invalidlower">Input argument #10</param>
-    /// <param name="smoothCoeff">Input argument #11</param>
-    /// <param name="boundaryx">Input argument #12</param>
-    /// <param name="boundarydx">Input argument #13</param>
-    /// <param name="boundarydxx">Input argument #14</param>
-    /// <param name="leftright">Input argument #15</param>
-    /// <param name="xexl">Input argument #16</param>
-    /// <param name="yexl">Input argument #17</param>
-    /// <param name="xendl">Input argument #18</param>
-    /// <param name="lbendl">Input argument #19</param>
-    /// <param name="ubendl">Input argument #20</param>
-    /// <param name="xexr">Input argument #21</param>
-    /// <param name="yexr">Input argument #22</param>
-    /// <param name="xendr">Input argument #23</param>
-    /// <param name="lbendr">Input argument #24</param>
+    /// <param name="xinlbmin">Input argument #8</param>
+    /// <param name="xinubmax">Input argument #9</param>
+    /// <param name="invalidx">Input argument #10</param>
+    /// <param name="invalidupper">Input argument #11</param>
+    /// <param name="invalidlower">Input argument #12</param>
+    /// <param name="invaliduppermax">Input argument #13</param>
+    /// <param name="invalidlowermin">Input argument #14</param>
+    /// <param name="smoothCoeff">Input argument #15</param>
+    /// <param name="boundaryx">Input argument #16</param>
+    /// <param name="boundarydx">Input argument #17</param>
+    /// <param name="boundarydxx">Input argument #18</param>
+    /// <param name="leftright">Input argument #19</param>
+    /// <param name="xexl">Input argument #20</param>
+    /// <param name="yexl">Input argument #21</param>
+    /// <param name="xendl">Input argument #22</param>
+    /// <param name="lbendl">Input argument #23</param>
+    /// <param name="ubendl">Input argument #24</param>
     /// <returns>An Array of length "numArgsOut" containing the output
     /// arguments.</returns>
     ///
     public Object[] flexTimeFit(int numArgsOut, Object xin, Object yin, Object w, Object 
                           stationarypoint, Object tailConcavity, Object xinlb, Object 
-                          xinub, Object invalidx, Object invalidupper, Object 
-                          invalidlower, Object smoothCoeff, Object boundaryx, Object 
-                          boundarydx, Object boundarydxx, Object leftright, Object xexl, 
-                          Object yexl, Object xendl, Object lbendl, Object ubendl, Object 
-                          xexr, Object yexr, Object xendr, Object lbendr)
+                          xinub, Object xinlbmin, Object xinubmax, Object invalidx, 
+                          Object invalidupper, Object invalidlower, Object 
+                          invaliduppermax, Object invalidlowermin, Object smoothCoeff, 
+                          Object boundaryx, Object boundarydx, Object boundarydxx, Object 
+                          leftright, Object xexl, Object yexl, Object xendl, Object 
+                          lbendl, Object ubendl)
     {
-      return mcr.EvaluateFunction(numArgsOut, "flexTimeFit", xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, invalidx, invalidupper, invalidlower, smoothCoeff, boundaryx, boundarydx, boundarydxx, leftright, xexl, yexl, xendl, lbendl, ubendl, xexr, yexr, xendr, lbendr);
+      return mcr.EvaluateFunction(numArgsOut, "flexTimeFit", xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, xinlbmin, xinubmax, invalidx, invalidupper, invalidlower, invaliduppermax, invalidlowermin, smoothCoeff, boundaryx, boundarydx, boundarydxx, leftright, xexl, yexl, xendl, lbendl, ubendl);
     }
 
 
@@ -6636,36 +7616,37 @@ namespace flexFitNative
     /// <param name="tailConcavity">Input argument #5</param>
     /// <param name="xinlb">Input argument #6</param>
     /// <param name="xinub">Input argument #7</param>
-    /// <param name="invalidx">Input argument #8</param>
-    /// <param name="invalidupper">Input argument #9</param>
-    /// <param name="invalidlower">Input argument #10</param>
-    /// <param name="smoothCoeff">Input argument #11</param>
-    /// <param name="boundaryx">Input argument #12</param>
-    /// <param name="boundarydx">Input argument #13</param>
-    /// <param name="boundarydxx">Input argument #14</param>
-    /// <param name="leftright">Input argument #15</param>
-    /// <param name="xexl">Input argument #16</param>
-    /// <param name="yexl">Input argument #17</param>
-    /// <param name="xendl">Input argument #18</param>
-    /// <param name="lbendl">Input argument #19</param>
-    /// <param name="ubendl">Input argument #20</param>
-    /// <param name="xexr">Input argument #21</param>
-    /// <param name="yexr">Input argument #22</param>
-    /// <param name="xendr">Input argument #23</param>
-    /// <param name="lbendr">Input argument #24</param>
-    /// <param name="ubendr">Input argument #25</param>
+    /// <param name="xinlbmin">Input argument #8</param>
+    /// <param name="xinubmax">Input argument #9</param>
+    /// <param name="invalidx">Input argument #10</param>
+    /// <param name="invalidupper">Input argument #11</param>
+    /// <param name="invalidlower">Input argument #12</param>
+    /// <param name="invaliduppermax">Input argument #13</param>
+    /// <param name="invalidlowermin">Input argument #14</param>
+    /// <param name="smoothCoeff">Input argument #15</param>
+    /// <param name="boundaryx">Input argument #16</param>
+    /// <param name="boundarydx">Input argument #17</param>
+    /// <param name="boundarydxx">Input argument #18</param>
+    /// <param name="leftright">Input argument #19</param>
+    /// <param name="xexl">Input argument #20</param>
+    /// <param name="yexl">Input argument #21</param>
+    /// <param name="xendl">Input argument #22</param>
+    /// <param name="lbendl">Input argument #23</param>
+    /// <param name="ubendl">Input argument #24</param>
+    /// <param name="xexr">Input argument #25</param>
     /// <returns>An Array of length "numArgsOut" containing the output
     /// arguments.</returns>
     ///
     public Object[] flexTimeFit(int numArgsOut, Object xin, Object yin, Object w, Object 
                           stationarypoint, Object tailConcavity, Object xinlb, Object 
-                          xinub, Object invalidx, Object invalidupper, Object 
-                          invalidlower, Object smoothCoeff, Object boundaryx, Object 
-                          boundarydx, Object boundarydxx, Object leftright, Object xexl, 
-                          Object yexl, Object xendl, Object lbendl, Object ubendl, Object 
-                          xexr, Object yexr, Object xendr, Object lbendr, Object ubendr)
+                          xinub, Object xinlbmin, Object xinubmax, Object invalidx, 
+                          Object invalidupper, Object invalidlower, Object 
+                          invaliduppermax, Object invalidlowermin, Object smoothCoeff, 
+                          Object boundaryx, Object boundarydx, Object boundarydxx, Object 
+                          leftright, Object xexl, Object yexl, Object xendl, Object 
+                          lbendl, Object ubendl, Object xexr)
     {
-      return mcr.EvaluateFunction(numArgsOut, "flexTimeFit", xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, invalidx, invalidupper, invalidlower, smoothCoeff, boundaryx, boundarydx, boundarydxx, leftright, xexl, yexl, xendl, lbendl, ubendl, xexr, yexr, xendr, lbendr, ubendr);
+      return mcr.EvaluateFunction(numArgsOut, "flexTimeFit", xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, xinlbmin, xinubmax, invalidx, invalidupper, invalidlower, invaliduppermax, invalidlowermin, smoothCoeff, boundaryx, boundarydx, boundarydxx, leftright, xexl, yexl, xendl, lbendl, ubendl, xexr);
     }
 
 
@@ -6765,38 +7746,38 @@ namespace flexFitNative
     /// <param name="tailConcavity">Input argument #5</param>
     /// <param name="xinlb">Input argument #6</param>
     /// <param name="xinub">Input argument #7</param>
-    /// <param name="invalidx">Input argument #8</param>
-    /// <param name="invalidupper">Input argument #9</param>
-    /// <param name="invalidlower">Input argument #10</param>
-    /// <param name="smoothCoeff">Input argument #11</param>
-    /// <param name="boundaryx">Input argument #12</param>
-    /// <param name="boundarydx">Input argument #13</param>
-    /// <param name="boundarydxx">Input argument #14</param>
-    /// <param name="leftright">Input argument #15</param>
-    /// <param name="xexl">Input argument #16</param>
-    /// <param name="yexl">Input argument #17</param>
-    /// <param name="xendl">Input argument #18</param>
-    /// <param name="lbendl">Input argument #19</param>
-    /// <param name="ubendl">Input argument #20</param>
-    /// <param name="xexr">Input argument #21</param>
-    /// <param name="yexr">Input argument #22</param>
-    /// <param name="xendr">Input argument #23</param>
-    /// <param name="lbendr">Input argument #24</param>
-    /// <param name="ubendr">Input argument #25</param>
-    /// <param name="leftincrease">Input argument #26</param>
+    /// <param name="xinlbmin">Input argument #8</param>
+    /// <param name="xinubmax">Input argument #9</param>
+    /// <param name="invalidx">Input argument #10</param>
+    /// <param name="invalidupper">Input argument #11</param>
+    /// <param name="invalidlower">Input argument #12</param>
+    /// <param name="invaliduppermax">Input argument #13</param>
+    /// <param name="invalidlowermin">Input argument #14</param>
+    /// <param name="smoothCoeff">Input argument #15</param>
+    /// <param name="boundaryx">Input argument #16</param>
+    /// <param name="boundarydx">Input argument #17</param>
+    /// <param name="boundarydxx">Input argument #18</param>
+    /// <param name="leftright">Input argument #19</param>
+    /// <param name="xexl">Input argument #20</param>
+    /// <param name="yexl">Input argument #21</param>
+    /// <param name="xendl">Input argument #22</param>
+    /// <param name="lbendl">Input argument #23</param>
+    /// <param name="ubendl">Input argument #24</param>
+    /// <param name="xexr">Input argument #25</param>
+    /// <param name="yexr">Input argument #26</param>
     /// <returns>An Array of length "numArgsOut" containing the output
     /// arguments.</returns>
     ///
     public Object[] flexTimeFit(int numArgsOut, Object xin, Object yin, Object w, Object 
                           stationarypoint, Object tailConcavity, Object xinlb, Object 
-                          xinub, Object invalidx, Object invalidupper, Object 
-                          invalidlower, Object smoothCoeff, Object boundaryx, Object 
-                          boundarydx, Object boundarydxx, Object leftright, Object xexl, 
-                          Object yexl, Object xendl, Object lbendl, Object ubendl, Object 
-                          xexr, Object yexr, Object xendr, Object lbendr, Object ubendr, 
-                          Object leftincrease)
+                          xinub, Object xinlbmin, Object xinubmax, Object invalidx, 
+                          Object invalidupper, Object invalidlower, Object 
+                          invaliduppermax, Object invalidlowermin, Object smoothCoeff, 
+                          Object boundaryx, Object boundarydx, Object boundarydxx, Object 
+                          leftright, Object xexl, Object yexl, Object xendl, Object 
+                          lbendl, Object ubendl, Object xexr, Object yexr)
     {
-      return mcr.EvaluateFunction(numArgsOut, "flexTimeFit", xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, invalidx, invalidupper, invalidlower, smoothCoeff, boundaryx, boundarydx, boundarydxx, leftright, xexl, yexl, xendl, lbendl, ubendl, xexr, yexr, xendr, lbendr, ubendr, leftincrease);
+      return mcr.EvaluateFunction(numArgsOut, "flexTimeFit", xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, xinlbmin, xinubmax, invalidx, invalidupper, invalidlower, invaliduppermax, invalidlowermin, smoothCoeff, boundaryx, boundarydx, boundarydxx, leftright, xexl, yexl, xendl, lbendl, ubendl, xexr, yexr);
     }
 
 
@@ -6896,39 +7877,39 @@ namespace flexFitNative
     /// <param name="tailConcavity">Input argument #5</param>
     /// <param name="xinlb">Input argument #6</param>
     /// <param name="xinub">Input argument #7</param>
-    /// <param name="invalidx">Input argument #8</param>
-    /// <param name="invalidupper">Input argument #9</param>
-    /// <param name="invalidlower">Input argument #10</param>
-    /// <param name="smoothCoeff">Input argument #11</param>
-    /// <param name="boundaryx">Input argument #12</param>
-    /// <param name="boundarydx">Input argument #13</param>
-    /// <param name="boundarydxx">Input argument #14</param>
-    /// <param name="leftright">Input argument #15</param>
-    /// <param name="xexl">Input argument #16</param>
-    /// <param name="yexl">Input argument #17</param>
-    /// <param name="xendl">Input argument #18</param>
-    /// <param name="lbendl">Input argument #19</param>
-    /// <param name="ubendl">Input argument #20</param>
-    /// <param name="xexr">Input argument #21</param>
-    /// <param name="yexr">Input argument #22</param>
-    /// <param name="xendr">Input argument #23</param>
-    /// <param name="lbendr">Input argument #24</param>
-    /// <param name="ubendr">Input argument #25</param>
-    /// <param name="leftincrease">Input argument #26</param>
-    /// <param name="rightincrease">Input argument #27</param>
+    /// <param name="xinlbmin">Input argument #8</param>
+    /// <param name="xinubmax">Input argument #9</param>
+    /// <param name="invalidx">Input argument #10</param>
+    /// <param name="invalidupper">Input argument #11</param>
+    /// <param name="invalidlower">Input argument #12</param>
+    /// <param name="invaliduppermax">Input argument #13</param>
+    /// <param name="invalidlowermin">Input argument #14</param>
+    /// <param name="smoothCoeff">Input argument #15</param>
+    /// <param name="boundaryx">Input argument #16</param>
+    /// <param name="boundarydx">Input argument #17</param>
+    /// <param name="boundarydxx">Input argument #18</param>
+    /// <param name="leftright">Input argument #19</param>
+    /// <param name="xexl">Input argument #20</param>
+    /// <param name="yexl">Input argument #21</param>
+    /// <param name="xendl">Input argument #22</param>
+    /// <param name="lbendl">Input argument #23</param>
+    /// <param name="ubendl">Input argument #24</param>
+    /// <param name="xexr">Input argument #25</param>
+    /// <param name="yexr">Input argument #26</param>
+    /// <param name="xendr">Input argument #27</param>
     /// <returns>An Array of length "numArgsOut" containing the output
     /// arguments.</returns>
     ///
     public Object[] flexTimeFit(int numArgsOut, Object xin, Object yin, Object w, Object 
                           stationarypoint, Object tailConcavity, Object xinlb, Object 
-                          xinub, Object invalidx, Object invalidupper, Object 
-                          invalidlower, Object smoothCoeff, Object boundaryx, Object 
-                          boundarydx, Object boundarydxx, Object leftright, Object xexl, 
-                          Object yexl, Object xendl, Object lbendl, Object ubendl, Object 
-                          xexr, Object yexr, Object xendr, Object lbendr, Object ubendr, 
-                          Object leftincrease, Object rightincrease)
+                          xinub, Object xinlbmin, Object xinubmax, Object invalidx, 
+                          Object invalidupper, Object invalidlower, Object 
+                          invaliduppermax, Object invalidlowermin, Object smoothCoeff, 
+                          Object boundaryx, Object boundarydx, Object boundarydxx, Object 
+                          leftright, Object xexl, Object yexl, Object xendl, Object 
+                          lbendl, Object ubendl, Object xexr, Object yexr, Object xendr)
     {
-      return mcr.EvaluateFunction(numArgsOut, "flexTimeFit", xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, invalidx, invalidupper, invalidlower, smoothCoeff, boundaryx, boundarydx, boundarydxx, leftright, xexl, yexl, xendl, lbendl, ubendl, xexr, yexr, xendr, lbendr, ubendr, leftincrease, rightincrease);
+      return mcr.EvaluateFunction(numArgsOut, "flexTimeFit", xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, xinlbmin, xinubmax, invalidx, invalidupper, invalidlower, invaliduppermax, invalidlowermin, smoothCoeff, boundaryx, boundarydx, boundarydxx, leftright, xexl, yexl, xendl, lbendl, ubendl, xexr, yexr, xendr);
     }
 
 
@@ -7028,40 +8009,41 @@ namespace flexFitNative
     /// <param name="tailConcavity">Input argument #5</param>
     /// <param name="xinlb">Input argument #6</param>
     /// <param name="xinub">Input argument #7</param>
-    /// <param name="invalidx">Input argument #8</param>
-    /// <param name="invalidupper">Input argument #9</param>
-    /// <param name="invalidlower">Input argument #10</param>
-    /// <param name="smoothCoeff">Input argument #11</param>
-    /// <param name="boundaryx">Input argument #12</param>
-    /// <param name="boundarydx">Input argument #13</param>
-    /// <param name="boundarydxx">Input argument #14</param>
-    /// <param name="leftright">Input argument #15</param>
-    /// <param name="xexl">Input argument #16</param>
-    /// <param name="yexl">Input argument #17</param>
-    /// <param name="xendl">Input argument #18</param>
-    /// <param name="lbendl">Input argument #19</param>
-    /// <param name="ubendl">Input argument #20</param>
-    /// <param name="xexr">Input argument #21</param>
-    /// <param name="yexr">Input argument #22</param>
-    /// <param name="xendr">Input argument #23</param>
-    /// <param name="lbendr">Input argument #24</param>
-    /// <param name="ubendr">Input argument #25</param>
-    /// <param name="leftincrease">Input argument #26</param>
-    /// <param name="rightincrease">Input argument #27</param>
-    /// <param name="smooth">Input argument #28</param>
+    /// <param name="xinlbmin">Input argument #8</param>
+    /// <param name="xinubmax">Input argument #9</param>
+    /// <param name="invalidx">Input argument #10</param>
+    /// <param name="invalidupper">Input argument #11</param>
+    /// <param name="invalidlower">Input argument #12</param>
+    /// <param name="invaliduppermax">Input argument #13</param>
+    /// <param name="invalidlowermin">Input argument #14</param>
+    /// <param name="smoothCoeff">Input argument #15</param>
+    /// <param name="boundaryx">Input argument #16</param>
+    /// <param name="boundarydx">Input argument #17</param>
+    /// <param name="boundarydxx">Input argument #18</param>
+    /// <param name="leftright">Input argument #19</param>
+    /// <param name="xexl">Input argument #20</param>
+    /// <param name="yexl">Input argument #21</param>
+    /// <param name="xendl">Input argument #22</param>
+    /// <param name="lbendl">Input argument #23</param>
+    /// <param name="ubendl">Input argument #24</param>
+    /// <param name="xexr">Input argument #25</param>
+    /// <param name="yexr">Input argument #26</param>
+    /// <param name="xendr">Input argument #27</param>
+    /// <param name="lbendr">Input argument #28</param>
     /// <returns>An Array of length "numArgsOut" containing the output
     /// arguments.</returns>
     ///
     public Object[] flexTimeFit(int numArgsOut, Object xin, Object yin, Object w, Object 
                           stationarypoint, Object tailConcavity, Object xinlb, Object 
-                          xinub, Object invalidx, Object invalidupper, Object 
-                          invalidlower, Object smoothCoeff, Object boundaryx, Object 
-                          boundarydx, Object boundarydxx, Object leftright, Object xexl, 
-                          Object yexl, Object xendl, Object lbendl, Object ubendl, Object 
-                          xexr, Object yexr, Object xendr, Object lbendr, Object ubendr, 
-                          Object leftincrease, Object rightincrease, Object smooth)
+                          xinub, Object xinlbmin, Object xinubmax, Object invalidx, 
+                          Object invalidupper, Object invalidlower, Object 
+                          invaliduppermax, Object invalidlowermin, Object smoothCoeff, 
+                          Object boundaryx, Object boundarydx, Object boundarydxx, Object 
+                          leftright, Object xexl, Object yexl, Object xendl, Object 
+                          lbendl, Object ubendl, Object xexr, Object yexr, Object xendr, 
+                          Object lbendr)
     {
-      return mcr.EvaluateFunction(numArgsOut, "flexTimeFit", xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, invalidx, invalidupper, invalidlower, smoothCoeff, boundaryx, boundarydx, boundarydxx, leftright, xexl, yexl, xendl, lbendl, ubendl, xexr, yexr, xendr, lbendr, ubendr, leftincrease, rightincrease, smooth);
+      return mcr.EvaluateFunction(numArgsOut, "flexTimeFit", xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, xinlbmin, xinubmax, invalidx, invalidupper, invalidlower, invaliduppermax, invalidlowermin, smoothCoeff, boundaryx, boundarydx, boundarydxx, leftright, xexl, yexl, xendl, lbendl, ubendl, xexr, yexr, xendr, lbendr);
     }
 
 
@@ -7161,42 +8143,42 @@ namespace flexFitNative
     /// <param name="tailConcavity">Input argument #5</param>
     /// <param name="xinlb">Input argument #6</param>
     /// <param name="xinub">Input argument #7</param>
-    /// <param name="invalidx">Input argument #8</param>
-    /// <param name="invalidupper">Input argument #9</param>
-    /// <param name="invalidlower">Input argument #10</param>
-    /// <param name="smoothCoeff">Input argument #11</param>
-    /// <param name="boundaryx">Input argument #12</param>
-    /// <param name="boundarydx">Input argument #13</param>
-    /// <param name="boundarydxx">Input argument #14</param>
-    /// <param name="leftright">Input argument #15</param>
-    /// <param name="xexl">Input argument #16</param>
-    /// <param name="yexl">Input argument #17</param>
-    /// <param name="xendl">Input argument #18</param>
-    /// <param name="lbendl">Input argument #19</param>
-    /// <param name="ubendl">Input argument #20</param>
-    /// <param name="xexr">Input argument #21</param>
-    /// <param name="yexr">Input argument #22</param>
-    /// <param name="xendr">Input argument #23</param>
-    /// <param name="lbendr">Input argument #24</param>
-    /// <param name="ubendr">Input argument #25</param>
-    /// <param name="leftincrease">Input argument #26</param>
-    /// <param name="rightincrease">Input argument #27</param>
-    /// <param name="smooth">Input argument #28</param>
-    /// <param name="tight">Input argument #29</param>
+    /// <param name="xinlbmin">Input argument #8</param>
+    /// <param name="xinubmax">Input argument #9</param>
+    /// <param name="invalidx">Input argument #10</param>
+    /// <param name="invalidupper">Input argument #11</param>
+    /// <param name="invalidlower">Input argument #12</param>
+    /// <param name="invaliduppermax">Input argument #13</param>
+    /// <param name="invalidlowermin">Input argument #14</param>
+    /// <param name="smoothCoeff">Input argument #15</param>
+    /// <param name="boundaryx">Input argument #16</param>
+    /// <param name="boundarydx">Input argument #17</param>
+    /// <param name="boundarydxx">Input argument #18</param>
+    /// <param name="leftright">Input argument #19</param>
+    /// <param name="xexl">Input argument #20</param>
+    /// <param name="yexl">Input argument #21</param>
+    /// <param name="xendl">Input argument #22</param>
+    /// <param name="lbendl">Input argument #23</param>
+    /// <param name="ubendl">Input argument #24</param>
+    /// <param name="xexr">Input argument #25</param>
+    /// <param name="yexr">Input argument #26</param>
+    /// <param name="xendr">Input argument #27</param>
+    /// <param name="lbendr">Input argument #28</param>
+    /// <param name="ubendr">Input argument #29</param>
     /// <returns>An Array of length "numArgsOut" containing the output
     /// arguments.</returns>
     ///
     public Object[] flexTimeFit(int numArgsOut, Object xin, Object yin, Object w, Object 
                           stationarypoint, Object tailConcavity, Object xinlb, Object 
-                          xinub, Object invalidx, Object invalidupper, Object 
-                          invalidlower, Object smoothCoeff, Object boundaryx, Object 
-                          boundarydx, Object boundarydxx, Object leftright, Object xexl, 
-                          Object yexl, Object xendl, Object lbendl, Object ubendl, Object 
-                          xexr, Object yexr, Object xendr, Object lbendr, Object ubendr, 
-                          Object leftincrease, Object rightincrease, Object smooth, 
-                          Object tight)
+                          xinub, Object xinlbmin, Object xinubmax, Object invalidx, 
+                          Object invalidupper, Object invalidlower, Object 
+                          invaliduppermax, Object invalidlowermin, Object smoothCoeff, 
+                          Object boundaryx, Object boundarydx, Object boundarydxx, Object 
+                          leftright, Object xexl, Object yexl, Object xendl, Object 
+                          lbendl, Object ubendl, Object xexr, Object yexr, Object xendr, 
+                          Object lbendr, Object ubendr)
     {
-      return mcr.EvaluateFunction(numArgsOut, "flexTimeFit", xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, invalidx, invalidupper, invalidlower, smoothCoeff, boundaryx, boundarydx, boundarydxx, leftright, xexl, yexl, xendl, lbendl, ubendl, xexr, yexr, xendr, lbendr, ubendr, leftincrease, rightincrease, smooth, tight);
+      return mcr.EvaluateFunction(numArgsOut, "flexTimeFit", xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, xinlbmin, xinubmax, invalidx, invalidupper, invalidlower, invaliduppermax, invalidlowermin, smoothCoeff, boundaryx, boundarydx, boundarydxx, leftright, xexl, yexl, xendl, lbendl, ubendl, xexr, yexr, xendr, lbendr, ubendr);
     }
 
 
@@ -7296,43 +8278,1033 @@ namespace flexFitNative
     /// <param name="tailConcavity">Input argument #5</param>
     /// <param name="xinlb">Input argument #6</param>
     /// <param name="xinub">Input argument #7</param>
-    /// <param name="invalidx">Input argument #8</param>
-    /// <param name="invalidupper">Input argument #9</param>
-    /// <param name="invalidlower">Input argument #10</param>
-    /// <param name="smoothCoeff">Input argument #11</param>
-    /// <param name="boundaryx">Input argument #12</param>
-    /// <param name="boundarydx">Input argument #13</param>
-    /// <param name="boundarydxx">Input argument #14</param>
-    /// <param name="leftright">Input argument #15</param>
-    /// <param name="xexl">Input argument #16</param>
-    /// <param name="yexl">Input argument #17</param>
-    /// <param name="xendl">Input argument #18</param>
-    /// <param name="lbendl">Input argument #19</param>
-    /// <param name="ubendl">Input argument #20</param>
-    /// <param name="xexr">Input argument #21</param>
-    /// <param name="yexr">Input argument #22</param>
-    /// <param name="xendr">Input argument #23</param>
-    /// <param name="lbendr">Input argument #24</param>
-    /// <param name="ubendr">Input argument #25</param>
-    /// <param name="leftincrease">Input argument #26</param>
-    /// <param name="rightincrease">Input argument #27</param>
-    /// <param name="smooth">Input argument #28</param>
-    /// <param name="tight">Input argument #29</param>
-    /// <param name="minxrange">Input argument #30</param>
+    /// <param name="xinlbmin">Input argument #8</param>
+    /// <param name="xinubmax">Input argument #9</param>
+    /// <param name="invalidx">Input argument #10</param>
+    /// <param name="invalidupper">Input argument #11</param>
+    /// <param name="invalidlower">Input argument #12</param>
+    /// <param name="invaliduppermax">Input argument #13</param>
+    /// <param name="invalidlowermin">Input argument #14</param>
+    /// <param name="smoothCoeff">Input argument #15</param>
+    /// <param name="boundaryx">Input argument #16</param>
+    /// <param name="boundarydx">Input argument #17</param>
+    /// <param name="boundarydxx">Input argument #18</param>
+    /// <param name="leftright">Input argument #19</param>
+    /// <param name="xexl">Input argument #20</param>
+    /// <param name="yexl">Input argument #21</param>
+    /// <param name="xendl">Input argument #22</param>
+    /// <param name="lbendl">Input argument #23</param>
+    /// <param name="ubendl">Input argument #24</param>
+    /// <param name="xexr">Input argument #25</param>
+    /// <param name="yexr">Input argument #26</param>
+    /// <param name="xendr">Input argument #27</param>
+    /// <param name="lbendr">Input argument #28</param>
+    /// <param name="ubendr">Input argument #29</param>
+    /// <param name="leftincrease">Input argument #30</param>
     /// <returns>An Array of length "numArgsOut" containing the output
     /// arguments.</returns>
     ///
     public Object[] flexTimeFit(int numArgsOut, Object xin, Object yin, Object w, Object 
                           stationarypoint, Object tailConcavity, Object xinlb, Object 
-                          xinub, Object invalidx, Object invalidupper, Object 
-                          invalidlower, Object smoothCoeff, Object boundaryx, Object 
-                          boundarydx, Object boundarydxx, Object leftright, Object xexl, 
-                          Object yexl, Object xendl, Object lbendl, Object ubendl, Object 
-                          xexr, Object yexr, Object xendr, Object lbendr, Object ubendr, 
-                          Object leftincrease, Object rightincrease, Object smooth, 
-                          Object tight, Object minxrange)
+                          xinub, Object xinlbmin, Object xinubmax, Object invalidx, 
+                          Object invalidupper, Object invalidlower, Object 
+                          invaliduppermax, Object invalidlowermin, Object smoothCoeff, 
+                          Object boundaryx, Object boundarydx, Object boundarydxx, Object 
+                          leftright, Object xexl, Object yexl, Object xendl, Object 
+                          lbendl, Object ubendl, Object xexr, Object yexr, Object xendr, 
+                          Object lbendr, Object ubendr, Object leftincrease)
     {
-      return mcr.EvaluateFunction(numArgsOut, "flexTimeFit", xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, invalidx, invalidupper, invalidlower, smoothCoeff, boundaryx, boundarydx, boundarydxx, leftright, xexl, yexl, xendl, lbendl, ubendl, xexr, yexr, xendr, lbendr, ubendr, leftincrease, rightincrease, smooth, tight, minxrange);
+      return mcr.EvaluateFunction(numArgsOut, "flexTimeFit", xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, xinlbmin, xinubmax, invalidx, invalidupper, invalidlower, invaliduppermax, invalidlowermin, smoothCoeff, boundaryx, boundarydx, boundarydxx, leftright, xexl, yexl, xendl, lbendl, ubendl, xexr, yexr, xendr, lbendr, ubendr, leftincrease);
+    }
+
+
+    /// <summary>
+    /// Provides the standard 31-input Object interface to the flexTimeFit MATLAB
+    /// function.
+    /// </summary>
+    /// <remarks>
+    /// M-Documentation:
+    /// input
+    /// clc
+    /// M = csvread('c:\temp\voltooltest\slice_IWM.USZ_20150206.csv', 1);
+    /// leftright = nan;
+    /// smoothCoeff = nan;
+    /// stationarypoint = nan;
+    /// i = find(M(:,1)==1);
+    /// boundaryx = [nan; nan];
+    /// boundarydx = [nan; nan];
+    /// boundarydxx = [nan; nan];
+    /// if isnan(leftright)
+    /// intropart = i(1) : i(end);
+    /// iEndl = 1 : i(1) - 1;
+    /// iEndr = (i(end) + 1) : size(M,1);
+    /// iEndlvalid = find(~isnan(M(iEndl, 4)));
+    /// iEndrvalid = i(end) + find(~isnan(M(iEndr, 4)));
+    /// ivalid = i(1) + find(~isnan(M(intropart, 4))) - 1;
+    /// iinvalid = i(1) + find(isnan(M(intropart, 4))) - 1;
+    /// elseif leftright == -1
+    /// intropart = i(1) : size(M,1);
+    /// iEndl = 1 : (i(1) - 1);
+    /// iEndlvalid = find(~isnan(M(iEndl, 4)));
+    /// ivalid = i(1) + find(~isnan(M(intropart, 4))) - 1;
+    /// iinvalid = i(1) + find(isnan(M(intropart, 4))) - 1;
+    /// else
+    /// intropart = 1: i(end);
+    /// iEndr = (i(end) + 1) : size(M,1);
+    /// iEndrvalid = i(end) + find(~isnan(M(iEndr, 4)));
+    /// ivalid = find(~isnan(M(intropart, 4)));
+    /// iinvalid = find(isnan(M(intropart, 4)));
+    /// end
+    /// xin = M(ivalid,2)';
+    /// invalidx = M(iinvalid,2)';
+    /// yin = M(ivalid,4)';
+    /// w = M(ivalid,5)';
+    /// xinub = M(ivalid,7)';  inf(1,n);
+    /// xinub(xinub == 1) = inf;
+    /// invalidupper = M(iinvalid, 7)';
+    /// invalidupper(invalidupper == 1) = inf;
+    /// invalidlower = M(iinvalid, 6);
+    /// xinlb = M(ivalid,6)';  zeros(1,n);
+    /// if isnan(leftright)
+    /// xexl = M(iEndlvalid, 2)';
+    /// yexl = M(iEndlvalid, 4)';
+    /// xendl = M(iEndl,2)';
+    /// xexr = M(iEndrvalid, 2)';
+    /// yexr = M(iEndrvalid, 4)';
+    /// xendr = M(iEndr,2)';
+    /// ubendl = M(iEndl, 7)';
+    /// ubendl(ubendl == 1) = inf;
+    /// ubendr = M(iEndr, 7)';
+    /// ubendr(ubendr == 1) = inf;
+    /// lbendl = M(iEndl, 6)';
+    /// lbendr = M(iEndr, 6)';
+    /// elseif leftright == -1
+    /// xexl = M(iEndlvalid,2)';
+    /// xexr = [];
+    /// yexl = M(iEndlvalid,4)';
+    /// yexr = [];
+    /// xendl = M(iEndl,2)';
+    /// xendr = [];
+    /// ubendl = M(iEndl,7)';
+    /// ubendl(ubendl == 1) = inf;
+    /// ubendr = [];
+    /// lbendl = M(iEndl,6)';
+    /// lbendr = [];
+    /// else
+    /// xexl = [];
+    /// xexr = M(iEndrvalid,2)';
+    /// yexl = [];
+    /// yexr = M(iEndrvalid,4)';
+    /// xendl = [];
+    /// xendr = M(iEndr,2)';
+    /// ubendl = [];
+    /// ubendr = M(iEndr,7)';
+    /// ubendr(ubendr == 1) = inf;
+    /// lbendl = [];
+    /// lbendr = M(iEndr,6)';
+    /// end
+    /// leftincrease = -inf;
+    /// rightincrease = inf;
+    /// </remarks>
+    /// <param name="numArgsOut">The number of output arguments to return.</param>
+    /// <param name="xin">Input argument #1</param>
+    /// <param name="yin">Input argument #2</param>
+    /// <param name="w">Input argument #3</param>
+    /// <param name="stationarypoint">Input argument #4</param>
+    /// <param name="tailConcavity">Input argument #5</param>
+    /// <param name="xinlb">Input argument #6</param>
+    /// <param name="xinub">Input argument #7</param>
+    /// <param name="xinlbmin">Input argument #8</param>
+    /// <param name="xinubmax">Input argument #9</param>
+    /// <param name="invalidx">Input argument #10</param>
+    /// <param name="invalidupper">Input argument #11</param>
+    /// <param name="invalidlower">Input argument #12</param>
+    /// <param name="invaliduppermax">Input argument #13</param>
+    /// <param name="invalidlowermin">Input argument #14</param>
+    /// <param name="smoothCoeff">Input argument #15</param>
+    /// <param name="boundaryx">Input argument #16</param>
+    /// <param name="boundarydx">Input argument #17</param>
+    /// <param name="boundarydxx">Input argument #18</param>
+    /// <param name="leftright">Input argument #19</param>
+    /// <param name="xexl">Input argument #20</param>
+    /// <param name="yexl">Input argument #21</param>
+    /// <param name="xendl">Input argument #22</param>
+    /// <param name="lbendl">Input argument #23</param>
+    /// <param name="ubendl">Input argument #24</param>
+    /// <param name="xexr">Input argument #25</param>
+    /// <param name="yexr">Input argument #26</param>
+    /// <param name="xendr">Input argument #27</param>
+    /// <param name="lbendr">Input argument #28</param>
+    /// <param name="ubendr">Input argument #29</param>
+    /// <param name="leftincrease">Input argument #30</param>
+    /// <param name="rightincrease">Input argument #31</param>
+    /// <returns>An Array of length "numArgsOut" containing the output
+    /// arguments.</returns>
+    ///
+    public Object[] flexTimeFit(int numArgsOut, Object xin, Object yin, Object w, Object 
+                          stationarypoint, Object tailConcavity, Object xinlb, Object 
+                          xinub, Object xinlbmin, Object xinubmax, Object invalidx, 
+                          Object invalidupper, Object invalidlower, Object 
+                          invaliduppermax, Object invalidlowermin, Object smoothCoeff, 
+                          Object boundaryx, Object boundarydx, Object boundarydxx, Object 
+                          leftright, Object xexl, Object yexl, Object xendl, Object 
+                          lbendl, Object ubendl, Object xexr, Object yexr, Object xendr, 
+                          Object lbendr, Object ubendr, Object leftincrease, Object 
+                          rightincrease)
+    {
+      return mcr.EvaluateFunction(numArgsOut, "flexTimeFit", xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, xinlbmin, xinubmax, invalidx, invalidupper, invalidlower, invaliduppermax, invalidlowermin, smoothCoeff, boundaryx, boundarydx, boundarydxx, leftright, xexl, yexl, xendl, lbendl, ubendl, xexr, yexr, xendr, lbendr, ubendr, leftincrease, rightincrease);
+    }
+
+
+    /// <summary>
+    /// Provides the standard 32-input Object interface to the flexTimeFit MATLAB
+    /// function.
+    /// </summary>
+    /// <remarks>
+    /// M-Documentation:
+    /// input
+    /// clc
+    /// M = csvread('c:\temp\voltooltest\slice_IWM.USZ_20150206.csv', 1);
+    /// leftright = nan;
+    /// smoothCoeff = nan;
+    /// stationarypoint = nan;
+    /// i = find(M(:,1)==1);
+    /// boundaryx = [nan; nan];
+    /// boundarydx = [nan; nan];
+    /// boundarydxx = [nan; nan];
+    /// if isnan(leftright)
+    /// intropart = i(1) : i(end);
+    /// iEndl = 1 : i(1) - 1;
+    /// iEndr = (i(end) + 1) : size(M,1);
+    /// iEndlvalid = find(~isnan(M(iEndl, 4)));
+    /// iEndrvalid = i(end) + find(~isnan(M(iEndr, 4)));
+    /// ivalid = i(1) + find(~isnan(M(intropart, 4))) - 1;
+    /// iinvalid = i(1) + find(isnan(M(intropart, 4))) - 1;
+    /// elseif leftright == -1
+    /// intropart = i(1) : size(M,1);
+    /// iEndl = 1 : (i(1) - 1);
+    /// iEndlvalid = find(~isnan(M(iEndl, 4)));
+    /// ivalid = i(1) + find(~isnan(M(intropart, 4))) - 1;
+    /// iinvalid = i(1) + find(isnan(M(intropart, 4))) - 1;
+    /// else
+    /// intropart = 1: i(end);
+    /// iEndr = (i(end) + 1) : size(M,1);
+    /// iEndrvalid = i(end) + find(~isnan(M(iEndr, 4)));
+    /// ivalid = find(~isnan(M(intropart, 4)));
+    /// iinvalid = find(isnan(M(intropart, 4)));
+    /// end
+    /// xin = M(ivalid,2)';
+    /// invalidx = M(iinvalid,2)';
+    /// yin = M(ivalid,4)';
+    /// w = M(ivalid,5)';
+    /// xinub = M(ivalid,7)';  inf(1,n);
+    /// xinub(xinub == 1) = inf;
+    /// invalidupper = M(iinvalid, 7)';
+    /// invalidupper(invalidupper == 1) = inf;
+    /// invalidlower = M(iinvalid, 6);
+    /// xinlb = M(ivalid,6)';  zeros(1,n);
+    /// if isnan(leftright)
+    /// xexl = M(iEndlvalid, 2)';
+    /// yexl = M(iEndlvalid, 4)';
+    /// xendl = M(iEndl,2)';
+    /// xexr = M(iEndrvalid, 2)';
+    /// yexr = M(iEndrvalid, 4)';
+    /// xendr = M(iEndr,2)';
+    /// ubendl = M(iEndl, 7)';
+    /// ubendl(ubendl == 1) = inf;
+    /// ubendr = M(iEndr, 7)';
+    /// ubendr(ubendr == 1) = inf;
+    /// lbendl = M(iEndl, 6)';
+    /// lbendr = M(iEndr, 6)';
+    /// elseif leftright == -1
+    /// xexl = M(iEndlvalid,2)';
+    /// xexr = [];
+    /// yexl = M(iEndlvalid,4)';
+    /// yexr = [];
+    /// xendl = M(iEndl,2)';
+    /// xendr = [];
+    /// ubendl = M(iEndl,7)';
+    /// ubendl(ubendl == 1) = inf;
+    /// ubendr = [];
+    /// lbendl = M(iEndl,6)';
+    /// lbendr = [];
+    /// else
+    /// xexl = [];
+    /// xexr = M(iEndrvalid,2)';
+    /// yexl = [];
+    /// yexr = M(iEndrvalid,4)';
+    /// xendl = [];
+    /// xendr = M(iEndr,2)';
+    /// ubendl = [];
+    /// ubendr = M(iEndr,7)';
+    /// ubendr(ubendr == 1) = inf;
+    /// lbendl = [];
+    /// lbendr = M(iEndr,6)';
+    /// end
+    /// leftincrease = -inf;
+    /// rightincrease = inf;
+    /// </remarks>
+    /// <param name="numArgsOut">The number of output arguments to return.</param>
+    /// <param name="xin">Input argument #1</param>
+    /// <param name="yin">Input argument #2</param>
+    /// <param name="w">Input argument #3</param>
+    /// <param name="stationarypoint">Input argument #4</param>
+    /// <param name="tailConcavity">Input argument #5</param>
+    /// <param name="xinlb">Input argument #6</param>
+    /// <param name="xinub">Input argument #7</param>
+    /// <param name="xinlbmin">Input argument #8</param>
+    /// <param name="xinubmax">Input argument #9</param>
+    /// <param name="invalidx">Input argument #10</param>
+    /// <param name="invalidupper">Input argument #11</param>
+    /// <param name="invalidlower">Input argument #12</param>
+    /// <param name="invaliduppermax">Input argument #13</param>
+    /// <param name="invalidlowermin">Input argument #14</param>
+    /// <param name="smoothCoeff">Input argument #15</param>
+    /// <param name="boundaryx">Input argument #16</param>
+    /// <param name="boundarydx">Input argument #17</param>
+    /// <param name="boundarydxx">Input argument #18</param>
+    /// <param name="leftright">Input argument #19</param>
+    /// <param name="xexl">Input argument #20</param>
+    /// <param name="yexl">Input argument #21</param>
+    /// <param name="xendl">Input argument #22</param>
+    /// <param name="lbendl">Input argument #23</param>
+    /// <param name="ubendl">Input argument #24</param>
+    /// <param name="xexr">Input argument #25</param>
+    /// <param name="yexr">Input argument #26</param>
+    /// <param name="xendr">Input argument #27</param>
+    /// <param name="lbendr">Input argument #28</param>
+    /// <param name="ubendr">Input argument #29</param>
+    /// <param name="leftincrease">Input argument #30</param>
+    /// <param name="rightincrease">Input argument #31</param>
+    /// <param name="smooth">Input argument #32</param>
+    /// <returns>An Array of length "numArgsOut" containing the output
+    /// arguments.</returns>
+    ///
+    public Object[] flexTimeFit(int numArgsOut, Object xin, Object yin, Object w, Object 
+                          stationarypoint, Object tailConcavity, Object xinlb, Object 
+                          xinub, Object xinlbmin, Object xinubmax, Object invalidx, 
+                          Object invalidupper, Object invalidlower, Object 
+                          invaliduppermax, Object invalidlowermin, Object smoothCoeff, 
+                          Object boundaryx, Object boundarydx, Object boundarydxx, Object 
+                          leftright, Object xexl, Object yexl, Object xendl, Object 
+                          lbendl, Object ubendl, Object xexr, Object yexr, Object xendr, 
+                          Object lbendr, Object ubendr, Object leftincrease, Object 
+                          rightincrease, Object smooth)
+    {
+      return mcr.EvaluateFunction(numArgsOut, "flexTimeFit", xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, xinlbmin, xinubmax, invalidx, invalidupper, invalidlower, invaliduppermax, invalidlowermin, smoothCoeff, boundaryx, boundarydx, boundarydxx, leftright, xexl, yexl, xendl, lbendl, ubendl, xexr, yexr, xendr, lbendr, ubendr, leftincrease, rightincrease, smooth);
+    }
+
+
+    /// <summary>
+    /// Provides the standard 33-input Object interface to the flexTimeFit MATLAB
+    /// function.
+    /// </summary>
+    /// <remarks>
+    /// M-Documentation:
+    /// input
+    /// clc
+    /// M = csvread('c:\temp\voltooltest\slice_IWM.USZ_20150206.csv', 1);
+    /// leftright = nan;
+    /// smoothCoeff = nan;
+    /// stationarypoint = nan;
+    /// i = find(M(:,1)==1);
+    /// boundaryx = [nan; nan];
+    /// boundarydx = [nan; nan];
+    /// boundarydxx = [nan; nan];
+    /// if isnan(leftright)
+    /// intropart = i(1) : i(end);
+    /// iEndl = 1 : i(1) - 1;
+    /// iEndr = (i(end) + 1) : size(M,1);
+    /// iEndlvalid = find(~isnan(M(iEndl, 4)));
+    /// iEndrvalid = i(end) + find(~isnan(M(iEndr, 4)));
+    /// ivalid = i(1) + find(~isnan(M(intropart, 4))) - 1;
+    /// iinvalid = i(1) + find(isnan(M(intropart, 4))) - 1;
+    /// elseif leftright == -1
+    /// intropart = i(1) : size(M,1);
+    /// iEndl = 1 : (i(1) - 1);
+    /// iEndlvalid = find(~isnan(M(iEndl, 4)));
+    /// ivalid = i(1) + find(~isnan(M(intropart, 4))) - 1;
+    /// iinvalid = i(1) + find(isnan(M(intropart, 4))) - 1;
+    /// else
+    /// intropart = 1: i(end);
+    /// iEndr = (i(end) + 1) : size(M,1);
+    /// iEndrvalid = i(end) + find(~isnan(M(iEndr, 4)));
+    /// ivalid = find(~isnan(M(intropart, 4)));
+    /// iinvalid = find(isnan(M(intropart, 4)));
+    /// end
+    /// xin = M(ivalid,2)';
+    /// invalidx = M(iinvalid,2)';
+    /// yin = M(ivalid,4)';
+    /// w = M(ivalid,5)';
+    /// xinub = M(ivalid,7)';  inf(1,n);
+    /// xinub(xinub == 1) = inf;
+    /// invalidupper = M(iinvalid, 7)';
+    /// invalidupper(invalidupper == 1) = inf;
+    /// invalidlower = M(iinvalid, 6);
+    /// xinlb = M(ivalid,6)';  zeros(1,n);
+    /// if isnan(leftright)
+    /// xexl = M(iEndlvalid, 2)';
+    /// yexl = M(iEndlvalid, 4)';
+    /// xendl = M(iEndl,2)';
+    /// xexr = M(iEndrvalid, 2)';
+    /// yexr = M(iEndrvalid, 4)';
+    /// xendr = M(iEndr,2)';
+    /// ubendl = M(iEndl, 7)';
+    /// ubendl(ubendl == 1) = inf;
+    /// ubendr = M(iEndr, 7)';
+    /// ubendr(ubendr == 1) = inf;
+    /// lbendl = M(iEndl, 6)';
+    /// lbendr = M(iEndr, 6)';
+    /// elseif leftright == -1
+    /// xexl = M(iEndlvalid,2)';
+    /// xexr = [];
+    /// yexl = M(iEndlvalid,4)';
+    /// yexr = [];
+    /// xendl = M(iEndl,2)';
+    /// xendr = [];
+    /// ubendl = M(iEndl,7)';
+    /// ubendl(ubendl == 1) = inf;
+    /// ubendr = [];
+    /// lbendl = M(iEndl,6)';
+    /// lbendr = [];
+    /// else
+    /// xexl = [];
+    /// xexr = M(iEndrvalid,2)';
+    /// yexl = [];
+    /// yexr = M(iEndrvalid,4)';
+    /// xendl = [];
+    /// xendr = M(iEndr,2)';
+    /// ubendl = [];
+    /// ubendr = M(iEndr,7)';
+    /// ubendr(ubendr == 1) = inf;
+    /// lbendl = [];
+    /// lbendr = M(iEndr,6)';
+    /// end
+    /// leftincrease = -inf;
+    /// rightincrease = inf;
+    /// </remarks>
+    /// <param name="numArgsOut">The number of output arguments to return.</param>
+    /// <param name="xin">Input argument #1</param>
+    /// <param name="yin">Input argument #2</param>
+    /// <param name="w">Input argument #3</param>
+    /// <param name="stationarypoint">Input argument #4</param>
+    /// <param name="tailConcavity">Input argument #5</param>
+    /// <param name="xinlb">Input argument #6</param>
+    /// <param name="xinub">Input argument #7</param>
+    /// <param name="xinlbmin">Input argument #8</param>
+    /// <param name="xinubmax">Input argument #9</param>
+    /// <param name="invalidx">Input argument #10</param>
+    /// <param name="invalidupper">Input argument #11</param>
+    /// <param name="invalidlower">Input argument #12</param>
+    /// <param name="invaliduppermax">Input argument #13</param>
+    /// <param name="invalidlowermin">Input argument #14</param>
+    /// <param name="smoothCoeff">Input argument #15</param>
+    /// <param name="boundaryx">Input argument #16</param>
+    /// <param name="boundarydx">Input argument #17</param>
+    /// <param name="boundarydxx">Input argument #18</param>
+    /// <param name="leftright">Input argument #19</param>
+    /// <param name="xexl">Input argument #20</param>
+    /// <param name="yexl">Input argument #21</param>
+    /// <param name="xendl">Input argument #22</param>
+    /// <param name="lbendl">Input argument #23</param>
+    /// <param name="ubendl">Input argument #24</param>
+    /// <param name="xexr">Input argument #25</param>
+    /// <param name="yexr">Input argument #26</param>
+    /// <param name="xendr">Input argument #27</param>
+    /// <param name="lbendr">Input argument #28</param>
+    /// <param name="ubendr">Input argument #29</param>
+    /// <param name="leftincrease">Input argument #30</param>
+    /// <param name="rightincrease">Input argument #31</param>
+    /// <param name="smooth">Input argument #32</param>
+    /// <param name="tight">Input argument #33</param>
+    /// <returns>An Array of length "numArgsOut" containing the output
+    /// arguments.</returns>
+    ///
+    public Object[] flexTimeFit(int numArgsOut, Object xin, Object yin, Object w, Object 
+                          stationarypoint, Object tailConcavity, Object xinlb, Object 
+                          xinub, Object xinlbmin, Object xinubmax, Object invalidx, 
+                          Object invalidupper, Object invalidlower, Object 
+                          invaliduppermax, Object invalidlowermin, Object smoothCoeff, 
+                          Object boundaryx, Object boundarydx, Object boundarydxx, Object 
+                          leftright, Object xexl, Object yexl, Object xendl, Object 
+                          lbendl, Object ubendl, Object xexr, Object yexr, Object xendr, 
+                          Object lbendr, Object ubendr, Object leftincrease, Object 
+                          rightincrease, Object smooth, Object tight)
+    {
+      return mcr.EvaluateFunction(numArgsOut, "flexTimeFit", xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, xinlbmin, xinubmax, invalidx, invalidupper, invalidlower, invaliduppermax, invalidlowermin, smoothCoeff, boundaryx, boundarydx, boundarydxx, leftright, xexl, yexl, xendl, lbendl, ubendl, xexr, yexr, xendr, lbendr, ubendr, leftincrease, rightincrease, smooth, tight);
+    }
+
+
+    /// <summary>
+    /// Provides the standard 34-input Object interface to the flexTimeFit MATLAB
+    /// function.
+    /// </summary>
+    /// <remarks>
+    /// M-Documentation:
+    /// input
+    /// clc
+    /// M = csvread('c:\temp\voltooltest\slice_IWM.USZ_20150206.csv', 1);
+    /// leftright = nan;
+    /// smoothCoeff = nan;
+    /// stationarypoint = nan;
+    /// i = find(M(:,1)==1);
+    /// boundaryx = [nan; nan];
+    /// boundarydx = [nan; nan];
+    /// boundarydxx = [nan; nan];
+    /// if isnan(leftright)
+    /// intropart = i(1) : i(end);
+    /// iEndl = 1 : i(1) - 1;
+    /// iEndr = (i(end) + 1) : size(M,1);
+    /// iEndlvalid = find(~isnan(M(iEndl, 4)));
+    /// iEndrvalid = i(end) + find(~isnan(M(iEndr, 4)));
+    /// ivalid = i(1) + find(~isnan(M(intropart, 4))) - 1;
+    /// iinvalid = i(1) + find(isnan(M(intropart, 4))) - 1;
+    /// elseif leftright == -1
+    /// intropart = i(1) : size(M,1);
+    /// iEndl = 1 : (i(1) - 1);
+    /// iEndlvalid = find(~isnan(M(iEndl, 4)));
+    /// ivalid = i(1) + find(~isnan(M(intropart, 4))) - 1;
+    /// iinvalid = i(1) + find(isnan(M(intropart, 4))) - 1;
+    /// else
+    /// intropart = 1: i(end);
+    /// iEndr = (i(end) + 1) : size(M,1);
+    /// iEndrvalid = i(end) + find(~isnan(M(iEndr, 4)));
+    /// ivalid = find(~isnan(M(intropart, 4)));
+    /// iinvalid = find(isnan(M(intropart, 4)));
+    /// end
+    /// xin = M(ivalid,2)';
+    /// invalidx = M(iinvalid,2)';
+    /// yin = M(ivalid,4)';
+    /// w = M(ivalid,5)';
+    /// xinub = M(ivalid,7)';  inf(1,n);
+    /// xinub(xinub == 1) = inf;
+    /// invalidupper = M(iinvalid, 7)';
+    /// invalidupper(invalidupper == 1) = inf;
+    /// invalidlower = M(iinvalid, 6);
+    /// xinlb = M(ivalid,6)';  zeros(1,n);
+    /// if isnan(leftright)
+    /// xexl = M(iEndlvalid, 2)';
+    /// yexl = M(iEndlvalid, 4)';
+    /// xendl = M(iEndl,2)';
+    /// xexr = M(iEndrvalid, 2)';
+    /// yexr = M(iEndrvalid, 4)';
+    /// xendr = M(iEndr,2)';
+    /// ubendl = M(iEndl, 7)';
+    /// ubendl(ubendl == 1) = inf;
+    /// ubendr = M(iEndr, 7)';
+    /// ubendr(ubendr == 1) = inf;
+    /// lbendl = M(iEndl, 6)';
+    /// lbendr = M(iEndr, 6)';
+    /// elseif leftright == -1
+    /// xexl = M(iEndlvalid,2)';
+    /// xexr = [];
+    /// yexl = M(iEndlvalid,4)';
+    /// yexr = [];
+    /// xendl = M(iEndl,2)';
+    /// xendr = [];
+    /// ubendl = M(iEndl,7)';
+    /// ubendl(ubendl == 1) = inf;
+    /// ubendr = [];
+    /// lbendl = M(iEndl,6)';
+    /// lbendr = [];
+    /// else
+    /// xexl = [];
+    /// xexr = M(iEndrvalid,2)';
+    /// yexl = [];
+    /// yexr = M(iEndrvalid,4)';
+    /// xendl = [];
+    /// xendr = M(iEndr,2)';
+    /// ubendl = [];
+    /// ubendr = M(iEndr,7)';
+    /// ubendr(ubendr == 1) = inf;
+    /// lbendl = [];
+    /// lbendr = M(iEndr,6)';
+    /// end
+    /// leftincrease = -inf;
+    /// rightincrease = inf;
+    /// </remarks>
+    /// <param name="numArgsOut">The number of output arguments to return.</param>
+    /// <param name="xin">Input argument #1</param>
+    /// <param name="yin">Input argument #2</param>
+    /// <param name="w">Input argument #3</param>
+    /// <param name="stationarypoint">Input argument #4</param>
+    /// <param name="tailConcavity">Input argument #5</param>
+    /// <param name="xinlb">Input argument #6</param>
+    /// <param name="xinub">Input argument #7</param>
+    /// <param name="xinlbmin">Input argument #8</param>
+    /// <param name="xinubmax">Input argument #9</param>
+    /// <param name="invalidx">Input argument #10</param>
+    /// <param name="invalidupper">Input argument #11</param>
+    /// <param name="invalidlower">Input argument #12</param>
+    /// <param name="invaliduppermax">Input argument #13</param>
+    /// <param name="invalidlowermin">Input argument #14</param>
+    /// <param name="smoothCoeff">Input argument #15</param>
+    /// <param name="boundaryx">Input argument #16</param>
+    /// <param name="boundarydx">Input argument #17</param>
+    /// <param name="boundarydxx">Input argument #18</param>
+    /// <param name="leftright">Input argument #19</param>
+    /// <param name="xexl">Input argument #20</param>
+    /// <param name="yexl">Input argument #21</param>
+    /// <param name="xendl">Input argument #22</param>
+    /// <param name="lbendl">Input argument #23</param>
+    /// <param name="ubendl">Input argument #24</param>
+    /// <param name="xexr">Input argument #25</param>
+    /// <param name="yexr">Input argument #26</param>
+    /// <param name="xendr">Input argument #27</param>
+    /// <param name="lbendr">Input argument #28</param>
+    /// <param name="ubendr">Input argument #29</param>
+    /// <param name="leftincrease">Input argument #30</param>
+    /// <param name="rightincrease">Input argument #31</param>
+    /// <param name="smooth">Input argument #32</param>
+    /// <param name="tight">Input argument #33</param>
+    /// <param name="tightlb">Input argument #34</param>
+    /// <returns>An Array of length "numArgsOut" containing the output
+    /// arguments.</returns>
+    ///
+    public Object[] flexTimeFit(int numArgsOut, Object xin, Object yin, Object w, Object 
+                          stationarypoint, Object tailConcavity, Object xinlb, Object 
+                          xinub, Object xinlbmin, Object xinubmax, Object invalidx, 
+                          Object invalidupper, Object invalidlower, Object 
+                          invaliduppermax, Object invalidlowermin, Object smoothCoeff, 
+                          Object boundaryx, Object boundarydx, Object boundarydxx, Object 
+                          leftright, Object xexl, Object yexl, Object xendl, Object 
+                          lbendl, Object ubendl, Object xexr, Object yexr, Object xendr, 
+                          Object lbendr, Object ubendr, Object leftincrease, Object 
+                          rightincrease, Object smooth, Object tight, Object tightlb)
+    {
+      return mcr.EvaluateFunction(numArgsOut, "flexTimeFit", xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, xinlbmin, xinubmax, invalidx, invalidupper, invalidlower, invaliduppermax, invalidlowermin, smoothCoeff, boundaryx, boundarydx, boundarydxx, leftright, xexl, yexl, xendl, lbendl, ubendl, xexr, yexr, xendr, lbendr, ubendr, leftincrease, rightincrease, smooth, tight, tightlb);
+    }
+
+
+    /// <summary>
+    /// Provides the standard 35-input Object interface to the flexTimeFit MATLAB
+    /// function.
+    /// </summary>
+    /// <remarks>
+    /// M-Documentation:
+    /// input
+    /// clc
+    /// M = csvread('c:\temp\voltooltest\slice_IWM.USZ_20150206.csv', 1);
+    /// leftright = nan;
+    /// smoothCoeff = nan;
+    /// stationarypoint = nan;
+    /// i = find(M(:,1)==1);
+    /// boundaryx = [nan; nan];
+    /// boundarydx = [nan; nan];
+    /// boundarydxx = [nan; nan];
+    /// if isnan(leftright)
+    /// intropart = i(1) : i(end);
+    /// iEndl = 1 : i(1) - 1;
+    /// iEndr = (i(end) + 1) : size(M,1);
+    /// iEndlvalid = find(~isnan(M(iEndl, 4)));
+    /// iEndrvalid = i(end) + find(~isnan(M(iEndr, 4)));
+    /// ivalid = i(1) + find(~isnan(M(intropart, 4))) - 1;
+    /// iinvalid = i(1) + find(isnan(M(intropart, 4))) - 1;
+    /// elseif leftright == -1
+    /// intropart = i(1) : size(M,1);
+    /// iEndl = 1 : (i(1) - 1);
+    /// iEndlvalid = find(~isnan(M(iEndl, 4)));
+    /// ivalid = i(1) + find(~isnan(M(intropart, 4))) - 1;
+    /// iinvalid = i(1) + find(isnan(M(intropart, 4))) - 1;
+    /// else
+    /// intropart = 1: i(end);
+    /// iEndr = (i(end) + 1) : size(M,1);
+    /// iEndrvalid = i(end) + find(~isnan(M(iEndr, 4)));
+    /// ivalid = find(~isnan(M(intropart, 4)));
+    /// iinvalid = find(isnan(M(intropart, 4)));
+    /// end
+    /// xin = M(ivalid,2)';
+    /// invalidx = M(iinvalid,2)';
+    /// yin = M(ivalid,4)';
+    /// w = M(ivalid,5)';
+    /// xinub = M(ivalid,7)';  inf(1,n);
+    /// xinub(xinub == 1) = inf;
+    /// invalidupper = M(iinvalid, 7)';
+    /// invalidupper(invalidupper == 1) = inf;
+    /// invalidlower = M(iinvalid, 6);
+    /// xinlb = M(ivalid,6)';  zeros(1,n);
+    /// if isnan(leftright)
+    /// xexl = M(iEndlvalid, 2)';
+    /// yexl = M(iEndlvalid, 4)';
+    /// xendl = M(iEndl,2)';
+    /// xexr = M(iEndrvalid, 2)';
+    /// yexr = M(iEndrvalid, 4)';
+    /// xendr = M(iEndr,2)';
+    /// ubendl = M(iEndl, 7)';
+    /// ubendl(ubendl == 1) = inf;
+    /// ubendr = M(iEndr, 7)';
+    /// ubendr(ubendr == 1) = inf;
+    /// lbendl = M(iEndl, 6)';
+    /// lbendr = M(iEndr, 6)';
+    /// elseif leftright == -1
+    /// xexl = M(iEndlvalid,2)';
+    /// xexr = [];
+    /// yexl = M(iEndlvalid,4)';
+    /// yexr = [];
+    /// xendl = M(iEndl,2)';
+    /// xendr = [];
+    /// ubendl = M(iEndl,7)';
+    /// ubendl(ubendl == 1) = inf;
+    /// ubendr = [];
+    /// lbendl = M(iEndl,6)';
+    /// lbendr = [];
+    /// else
+    /// xexl = [];
+    /// xexr = M(iEndrvalid,2)';
+    /// yexl = [];
+    /// yexr = M(iEndrvalid,4)';
+    /// xendl = [];
+    /// xendr = M(iEndr,2)';
+    /// ubendl = [];
+    /// ubendr = M(iEndr,7)';
+    /// ubendr(ubendr == 1) = inf;
+    /// lbendl = [];
+    /// lbendr = M(iEndr,6)';
+    /// end
+    /// leftincrease = -inf;
+    /// rightincrease = inf;
+    /// </remarks>
+    /// <param name="numArgsOut">The number of output arguments to return.</param>
+    /// <param name="xin">Input argument #1</param>
+    /// <param name="yin">Input argument #2</param>
+    /// <param name="w">Input argument #3</param>
+    /// <param name="stationarypoint">Input argument #4</param>
+    /// <param name="tailConcavity">Input argument #5</param>
+    /// <param name="xinlb">Input argument #6</param>
+    /// <param name="xinub">Input argument #7</param>
+    /// <param name="xinlbmin">Input argument #8</param>
+    /// <param name="xinubmax">Input argument #9</param>
+    /// <param name="invalidx">Input argument #10</param>
+    /// <param name="invalidupper">Input argument #11</param>
+    /// <param name="invalidlower">Input argument #12</param>
+    /// <param name="invaliduppermax">Input argument #13</param>
+    /// <param name="invalidlowermin">Input argument #14</param>
+    /// <param name="smoothCoeff">Input argument #15</param>
+    /// <param name="boundaryx">Input argument #16</param>
+    /// <param name="boundarydx">Input argument #17</param>
+    /// <param name="boundarydxx">Input argument #18</param>
+    /// <param name="leftright">Input argument #19</param>
+    /// <param name="xexl">Input argument #20</param>
+    /// <param name="yexl">Input argument #21</param>
+    /// <param name="xendl">Input argument #22</param>
+    /// <param name="lbendl">Input argument #23</param>
+    /// <param name="ubendl">Input argument #24</param>
+    /// <param name="xexr">Input argument #25</param>
+    /// <param name="yexr">Input argument #26</param>
+    /// <param name="xendr">Input argument #27</param>
+    /// <param name="lbendr">Input argument #28</param>
+    /// <param name="ubendr">Input argument #29</param>
+    /// <param name="leftincrease">Input argument #30</param>
+    /// <param name="rightincrease">Input argument #31</param>
+    /// <param name="smooth">Input argument #32</param>
+    /// <param name="tight">Input argument #33</param>
+    /// <param name="tightlb">Input argument #34</param>
+    /// <param name="tightub">Input argument #35</param>
+    /// <returns>An Array of length "numArgsOut" containing the output
+    /// arguments.</returns>
+    ///
+    public Object[] flexTimeFit(int numArgsOut, Object xin, Object yin, Object w, Object 
+                          stationarypoint, Object tailConcavity, Object xinlb, Object 
+                          xinub, Object xinlbmin, Object xinubmax, Object invalidx, 
+                          Object invalidupper, Object invalidlower, Object 
+                          invaliduppermax, Object invalidlowermin, Object smoothCoeff, 
+                          Object boundaryx, Object boundarydx, Object boundarydxx, Object 
+                          leftright, Object xexl, Object yexl, Object xendl, Object 
+                          lbendl, Object ubendl, Object xexr, Object yexr, Object xendr, 
+                          Object lbendr, Object ubendr, Object leftincrease, Object 
+                          rightincrease, Object smooth, Object tight, Object tightlb, 
+                          Object tightub)
+    {
+      return mcr.EvaluateFunction(numArgsOut, "flexTimeFit", xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, xinlbmin, xinubmax, invalidx, invalidupper, invalidlower, invaliduppermax, invalidlowermin, smoothCoeff, boundaryx, boundarydx, boundarydxx, leftright, xexl, yexl, xendl, lbendl, ubendl, xexr, yexr, xendr, lbendr, ubendr, leftincrease, rightincrease, smooth, tight, tightlb, tightub);
+    }
+
+
+    /// <summary>
+    /// Provides the standard 36-input Object interface to the flexTimeFit MATLAB
+    /// function.
+    /// </summary>
+    /// <remarks>
+    /// M-Documentation:
+    /// input
+    /// clc
+    /// M = csvread('c:\temp\voltooltest\slice_IWM.USZ_20150206.csv', 1);
+    /// leftright = nan;
+    /// smoothCoeff = nan;
+    /// stationarypoint = nan;
+    /// i = find(M(:,1)==1);
+    /// boundaryx = [nan; nan];
+    /// boundarydx = [nan; nan];
+    /// boundarydxx = [nan; nan];
+    /// if isnan(leftright)
+    /// intropart = i(1) : i(end);
+    /// iEndl = 1 : i(1) - 1;
+    /// iEndr = (i(end) + 1) : size(M,1);
+    /// iEndlvalid = find(~isnan(M(iEndl, 4)));
+    /// iEndrvalid = i(end) + find(~isnan(M(iEndr, 4)));
+    /// ivalid = i(1) + find(~isnan(M(intropart, 4))) - 1;
+    /// iinvalid = i(1) + find(isnan(M(intropart, 4))) - 1;
+    /// elseif leftright == -1
+    /// intropart = i(1) : size(M,1);
+    /// iEndl = 1 : (i(1) - 1);
+    /// iEndlvalid = find(~isnan(M(iEndl, 4)));
+    /// ivalid = i(1) + find(~isnan(M(intropart, 4))) - 1;
+    /// iinvalid = i(1) + find(isnan(M(intropart, 4))) - 1;
+    /// else
+    /// intropart = 1: i(end);
+    /// iEndr = (i(end) + 1) : size(M,1);
+    /// iEndrvalid = i(end) + find(~isnan(M(iEndr, 4)));
+    /// ivalid = find(~isnan(M(intropart, 4)));
+    /// iinvalid = find(isnan(M(intropart, 4)));
+    /// end
+    /// xin = M(ivalid,2)';
+    /// invalidx = M(iinvalid,2)';
+    /// yin = M(ivalid,4)';
+    /// w = M(ivalid,5)';
+    /// xinub = M(ivalid,7)';  inf(1,n);
+    /// xinub(xinub == 1) = inf;
+    /// invalidupper = M(iinvalid, 7)';
+    /// invalidupper(invalidupper == 1) = inf;
+    /// invalidlower = M(iinvalid, 6);
+    /// xinlb = M(ivalid,6)';  zeros(1,n);
+    /// if isnan(leftright)
+    /// xexl = M(iEndlvalid, 2)';
+    /// yexl = M(iEndlvalid, 4)';
+    /// xendl = M(iEndl,2)';
+    /// xexr = M(iEndrvalid, 2)';
+    /// yexr = M(iEndrvalid, 4)';
+    /// xendr = M(iEndr,2)';
+    /// ubendl = M(iEndl, 7)';
+    /// ubendl(ubendl == 1) = inf;
+    /// ubendr = M(iEndr, 7)';
+    /// ubendr(ubendr == 1) = inf;
+    /// lbendl = M(iEndl, 6)';
+    /// lbendr = M(iEndr, 6)';
+    /// elseif leftright == -1
+    /// xexl = M(iEndlvalid,2)';
+    /// xexr = [];
+    /// yexl = M(iEndlvalid,4)';
+    /// yexr = [];
+    /// xendl = M(iEndl,2)';
+    /// xendr = [];
+    /// ubendl = M(iEndl,7)';
+    /// ubendl(ubendl == 1) = inf;
+    /// ubendr = [];
+    /// lbendl = M(iEndl,6)';
+    /// lbendr = [];
+    /// else
+    /// xexl = [];
+    /// xexr = M(iEndrvalid,2)';
+    /// yexl = [];
+    /// yexr = M(iEndrvalid,4)';
+    /// xendl = [];
+    /// xendr = M(iEndr,2)';
+    /// ubendl = [];
+    /// ubendr = M(iEndr,7)';
+    /// ubendr(ubendr == 1) = inf;
+    /// lbendl = [];
+    /// lbendr = M(iEndr,6)';
+    /// end
+    /// leftincrease = -inf;
+    /// rightincrease = inf;
+    /// </remarks>
+    /// <param name="numArgsOut">The number of output arguments to return.</param>
+    /// <param name="xin">Input argument #1</param>
+    /// <param name="yin">Input argument #2</param>
+    /// <param name="w">Input argument #3</param>
+    /// <param name="stationarypoint">Input argument #4</param>
+    /// <param name="tailConcavity">Input argument #5</param>
+    /// <param name="xinlb">Input argument #6</param>
+    /// <param name="xinub">Input argument #7</param>
+    /// <param name="xinlbmin">Input argument #8</param>
+    /// <param name="xinubmax">Input argument #9</param>
+    /// <param name="invalidx">Input argument #10</param>
+    /// <param name="invalidupper">Input argument #11</param>
+    /// <param name="invalidlower">Input argument #12</param>
+    /// <param name="invaliduppermax">Input argument #13</param>
+    /// <param name="invalidlowermin">Input argument #14</param>
+    /// <param name="smoothCoeff">Input argument #15</param>
+    /// <param name="boundaryx">Input argument #16</param>
+    /// <param name="boundarydx">Input argument #17</param>
+    /// <param name="boundarydxx">Input argument #18</param>
+    /// <param name="leftright">Input argument #19</param>
+    /// <param name="xexl">Input argument #20</param>
+    /// <param name="yexl">Input argument #21</param>
+    /// <param name="xendl">Input argument #22</param>
+    /// <param name="lbendl">Input argument #23</param>
+    /// <param name="ubendl">Input argument #24</param>
+    /// <param name="xexr">Input argument #25</param>
+    /// <param name="yexr">Input argument #26</param>
+    /// <param name="xendr">Input argument #27</param>
+    /// <param name="lbendr">Input argument #28</param>
+    /// <param name="ubendr">Input argument #29</param>
+    /// <param name="leftincrease">Input argument #30</param>
+    /// <param name="rightincrease">Input argument #31</param>
+    /// <param name="smooth">Input argument #32</param>
+    /// <param name="tight">Input argument #33</param>
+    /// <param name="tightlb">Input argument #34</param>
+    /// <param name="tightub">Input argument #35</param>
+    /// <param name="minxrange">Input argument #36</param>
+    /// <returns>An Array of length "numArgsOut" containing the output
+    /// arguments.</returns>
+    ///
+    public Object[] flexTimeFit(int numArgsOut, Object xin, Object yin, Object w, Object 
+                          stationarypoint, Object tailConcavity, Object xinlb, Object 
+                          xinub, Object xinlbmin, Object xinubmax, Object invalidx, 
+                          Object invalidupper, Object invalidlower, Object 
+                          invaliduppermax, Object invalidlowermin, Object smoothCoeff, 
+                          Object boundaryx, Object boundarydx, Object boundarydxx, Object 
+                          leftright, Object xexl, Object yexl, Object xendl, Object 
+                          lbendl, Object ubendl, Object xexr, Object yexr, Object xendr, 
+                          Object lbendr, Object ubendr, Object leftincrease, Object 
+                          rightincrease, Object smooth, Object tight, Object tightlb, 
+                          Object tightub, Object minxrange)
+    {
+      return mcr.EvaluateFunction(numArgsOut, "flexTimeFit", xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, xinlbmin, xinubmax, invalidx, invalidupper, invalidlower, invaliduppermax, invalidlowermin, smoothCoeff, boundaryx, boundarydx, boundarydxx, leftright, xexl, yexl, xendl, lbendl, ubendl, xexr, yexr, xendr, lbendr, ubendr, leftincrease, rightincrease, smooth, tight, tightlb, tightub, minxrange);
+    }
+
+
+    /// <summary>
+    /// Provides the standard 37-input Object interface to the flexTimeFit MATLAB
+    /// function.
+    /// </summary>
+    /// <remarks>
+    /// M-Documentation:
+    /// input
+    /// clc
+    /// M = csvread('c:\temp\voltooltest\slice_IWM.USZ_20150206.csv', 1);
+    /// leftright = nan;
+    /// smoothCoeff = nan;
+    /// stationarypoint = nan;
+    /// i = find(M(:,1)==1);
+    /// boundaryx = [nan; nan];
+    /// boundarydx = [nan; nan];
+    /// boundarydxx = [nan; nan];
+    /// if isnan(leftright)
+    /// intropart = i(1) : i(end);
+    /// iEndl = 1 : i(1) - 1;
+    /// iEndr = (i(end) + 1) : size(M,1);
+    /// iEndlvalid = find(~isnan(M(iEndl, 4)));
+    /// iEndrvalid = i(end) + find(~isnan(M(iEndr, 4)));
+    /// ivalid = i(1) + find(~isnan(M(intropart, 4))) - 1;
+    /// iinvalid = i(1) + find(isnan(M(intropart, 4))) - 1;
+    /// elseif leftright == -1
+    /// intropart = i(1) : size(M,1);
+    /// iEndl = 1 : (i(1) - 1);
+    /// iEndlvalid = find(~isnan(M(iEndl, 4)));
+    /// ivalid = i(1) + find(~isnan(M(intropart, 4))) - 1;
+    /// iinvalid = i(1) + find(isnan(M(intropart, 4))) - 1;
+    /// else
+    /// intropart = 1: i(end);
+    /// iEndr = (i(end) + 1) : size(M,1);
+    /// iEndrvalid = i(end) + find(~isnan(M(iEndr, 4)));
+    /// ivalid = find(~isnan(M(intropart, 4)));
+    /// iinvalid = find(isnan(M(intropart, 4)));
+    /// end
+    /// xin = M(ivalid,2)';
+    /// invalidx = M(iinvalid,2)';
+    /// yin = M(ivalid,4)';
+    /// w = M(ivalid,5)';
+    /// xinub = M(ivalid,7)';  inf(1,n);
+    /// xinub(xinub == 1) = inf;
+    /// invalidupper = M(iinvalid, 7)';
+    /// invalidupper(invalidupper == 1) = inf;
+    /// invalidlower = M(iinvalid, 6);
+    /// xinlb = M(ivalid,6)';  zeros(1,n);
+    /// if isnan(leftright)
+    /// xexl = M(iEndlvalid, 2)';
+    /// yexl = M(iEndlvalid, 4)';
+    /// xendl = M(iEndl,2)';
+    /// xexr = M(iEndrvalid, 2)';
+    /// yexr = M(iEndrvalid, 4)';
+    /// xendr = M(iEndr,2)';
+    /// ubendl = M(iEndl, 7)';
+    /// ubendl(ubendl == 1) = inf;
+    /// ubendr = M(iEndr, 7)';
+    /// ubendr(ubendr == 1) = inf;
+    /// lbendl = M(iEndl, 6)';
+    /// lbendr = M(iEndr, 6)';
+    /// elseif leftright == -1
+    /// xexl = M(iEndlvalid,2)';
+    /// xexr = [];
+    /// yexl = M(iEndlvalid,4)';
+    /// yexr = [];
+    /// xendl = M(iEndl,2)';
+    /// xendr = [];
+    /// ubendl = M(iEndl,7)';
+    /// ubendl(ubendl == 1) = inf;
+    /// ubendr = [];
+    /// lbendl = M(iEndl,6)';
+    /// lbendr = [];
+    /// else
+    /// xexl = [];
+    /// xexr = M(iEndrvalid,2)';
+    /// yexl = [];
+    /// yexr = M(iEndrvalid,4)';
+    /// xendl = [];
+    /// xendr = M(iEndr,2)';
+    /// ubendl = [];
+    /// ubendr = M(iEndr,7)';
+    /// ubendr(ubendr == 1) = inf;
+    /// lbendl = [];
+    /// lbendr = M(iEndr,6)';
+    /// end
+    /// leftincrease = -inf;
+    /// rightincrease = inf;
+    /// </remarks>
+    /// <param name="numArgsOut">The number of output arguments to return.</param>
+    /// <param name="xin">Input argument #1</param>
+    /// <param name="yin">Input argument #2</param>
+    /// <param name="w">Input argument #3</param>
+    /// <param name="stationarypoint">Input argument #4</param>
+    /// <param name="tailConcavity">Input argument #5</param>
+    /// <param name="xinlb">Input argument #6</param>
+    /// <param name="xinub">Input argument #7</param>
+    /// <param name="xinlbmin">Input argument #8</param>
+    /// <param name="xinubmax">Input argument #9</param>
+    /// <param name="invalidx">Input argument #10</param>
+    /// <param name="invalidupper">Input argument #11</param>
+    /// <param name="invalidlower">Input argument #12</param>
+    /// <param name="invaliduppermax">Input argument #13</param>
+    /// <param name="invalidlowermin">Input argument #14</param>
+    /// <param name="smoothCoeff">Input argument #15</param>
+    /// <param name="boundaryx">Input argument #16</param>
+    /// <param name="boundarydx">Input argument #17</param>
+    /// <param name="boundarydxx">Input argument #18</param>
+    /// <param name="leftright">Input argument #19</param>
+    /// <param name="xexl">Input argument #20</param>
+    /// <param name="yexl">Input argument #21</param>
+    /// <param name="xendl">Input argument #22</param>
+    /// <param name="lbendl">Input argument #23</param>
+    /// <param name="ubendl">Input argument #24</param>
+    /// <param name="xexr">Input argument #25</param>
+    /// <param name="yexr">Input argument #26</param>
+    /// <param name="xendr">Input argument #27</param>
+    /// <param name="lbendr">Input argument #28</param>
+    /// <param name="ubendr">Input argument #29</param>
+    /// <param name="leftincrease">Input argument #30</param>
+    /// <param name="rightincrease">Input argument #31</param>
+    /// <param name="smooth">Input argument #32</param>
+    /// <param name="tight">Input argument #33</param>
+    /// <param name="tightlb">Input argument #34</param>
+    /// <param name="tightub">Input argument #35</param>
+    /// <param name="minxrange">Input argument #36</param>
+    /// <param name="breakBoundary">Input argument #37</param>
+    /// <returns>An Array of length "numArgsOut" containing the output
+    /// arguments.</returns>
+    ///
+    public Object[] flexTimeFit(int numArgsOut, Object xin, Object yin, Object w, Object 
+                          stationarypoint, Object tailConcavity, Object xinlb, Object 
+                          xinub, Object xinlbmin, Object xinubmax, Object invalidx, 
+                          Object invalidupper, Object invalidlower, Object 
+                          invaliduppermax, Object invalidlowermin, Object smoothCoeff, 
+                          Object boundaryx, Object boundarydx, Object boundarydxx, Object 
+                          leftright, Object xexl, Object yexl, Object xendl, Object 
+                          lbendl, Object ubendl, Object xexr, Object yexr, Object xendr, 
+                          Object lbendr, Object ubendr, Object leftincrease, Object 
+                          rightincrease, Object smooth, Object tight, Object tightlb, 
+                          Object tightub, Object minxrange, Object breakBoundary)
+    {
+      return mcr.EvaluateFunction(numArgsOut, "flexTimeFit", xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, xinlbmin, xinubmax, invalidx, invalidupper, invalidlower, invaliduppermax, invalidlowermin, smoothCoeff, boundaryx, boundarydx, boundarydxx, leftright, xexl, yexl, xendl, lbendl, ubendl, xexr, yexr, xendr, lbendr, ubendr, leftincrease, rightincrease, smooth, tight, tightlb, tightub, minxrange, breakBoundary);
     }
 
 
@@ -7432,7 +9404,7 @@ namespace flexFitNative
     /// <param name= "varArgsIn">Array of Object representing variable input
     /// arguments</param>
     ///
-    [MATLABSignature("flexTimeFit", 30, 10, 0)]
+    [MATLABSignature("flexTimeFit", 37, 11, 0)]
     protected void flexTimeFit(int numArgsOut, ref Object[] argsOut, Object[] argsIn, params Object[] varArgsIn)
     {
         mcr.EvaluateFunctionForTypeSafeCall("flexTimeFit", numArgsOut, ref argsOut, argsIn, varArgsIn);
@@ -7915,16 +9887,16 @@ namespace flexFitNative
     /// <param name="leftright">Input argument #11</param>
     /// <param name="upperLimitG">Input argument #12</param>
     /// <param name="lowerLimitG">Input argument #13</param>
-    /// <param name="xEndl">Input argument #14</param>
+    /// <param name="upperLimitGmax">Input argument #14</param>
     /// <returns>An Object containing the first output argument.</returns>
     ///
     public Object flexWingFit(Object x_in1, Object y, Object weight, Object 
                         stationaryPoint, Object tailConcavity, Object smoothCoeff, Object 
                         turningPoint_in1, Object boundaryx, Object boundarydx, Object 
                         boundarydxx, Object leftright, Object upperLimitG, Object 
-                        lowerLimitG, Object xEndl)
+                        lowerLimitG, Object upperLimitGmax)
     {
-      return mcr.EvaluateFunction("flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl);
+      return mcr.EvaluateFunction("flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, upperLimitGmax);
     }
 
 
@@ -7957,17 +9929,17 @@ namespace flexFitNative
     /// <param name="leftright">Input argument #11</param>
     /// <param name="upperLimitG">Input argument #12</param>
     /// <param name="lowerLimitG">Input argument #13</param>
-    /// <param name="xEndl">Input argument #14</param>
-    /// <param name="aMaxl">Input argument #15</param>
+    /// <param name="upperLimitGmax">Input argument #14</param>
+    /// <param name="lowerLimitGmin">Input argument #15</param>
     /// <returns>An Object containing the first output argument.</returns>
     ///
     public Object flexWingFit(Object x_in1, Object y, Object weight, Object 
                         stationaryPoint, Object tailConcavity, Object smoothCoeff, Object 
                         turningPoint_in1, Object boundaryx, Object boundarydx, Object 
                         boundarydxx, Object leftright, Object upperLimitG, Object 
-                        lowerLimitG, Object xEndl, Object aMaxl)
+                        lowerLimitG, Object upperLimitGmax, Object lowerLimitGmin)
     {
-      return mcr.EvaluateFunction("flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl);
+      return mcr.EvaluateFunction("flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, upperLimitGmax, lowerLimitGmin);
     }
 
 
@@ -8000,18 +9972,19 @@ namespace flexFitNative
     /// <param name="leftright">Input argument #11</param>
     /// <param name="upperLimitG">Input argument #12</param>
     /// <param name="lowerLimitG">Input argument #13</param>
-    /// <param name="xEndl">Input argument #14</param>
-    /// <param name="aMaxl">Input argument #15</param>
-    /// <param name="aMinl">Input argument #16</param>
+    /// <param name="upperLimitGmax">Input argument #14</param>
+    /// <param name="lowerLimitGmin">Input argument #15</param>
+    /// <param name="xEndl">Input argument #16</param>
     /// <returns>An Object containing the first output argument.</returns>
     ///
     public Object flexWingFit(Object x_in1, Object y, Object weight, Object 
                         stationaryPoint, Object tailConcavity, Object smoothCoeff, Object 
                         turningPoint_in1, Object boundaryx, Object boundarydx, Object 
                         boundarydxx, Object leftright, Object upperLimitG, Object 
-                        lowerLimitG, Object xEndl, Object aMaxl, Object aMinl)
+                        lowerLimitG, Object upperLimitGmax, Object lowerLimitGmin, Object 
+                        xEndl)
     {
-      return mcr.EvaluateFunction("flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl);
+      return mcr.EvaluateFunction("flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, upperLimitGmax, lowerLimitGmin, xEndl);
     }
 
 
@@ -8044,20 +10017,20 @@ namespace flexFitNative
     /// <param name="leftright">Input argument #11</param>
     /// <param name="upperLimitG">Input argument #12</param>
     /// <param name="lowerLimitG">Input argument #13</param>
-    /// <param name="xEndl">Input argument #14</param>
-    /// <param name="aMaxl">Input argument #15</param>
-    /// <param name="aMinl">Input argument #16</param>
-    /// <param name="xEndr">Input argument #17</param>
+    /// <param name="upperLimitGmax">Input argument #14</param>
+    /// <param name="lowerLimitGmin">Input argument #15</param>
+    /// <param name="xEndl">Input argument #16</param>
+    /// <param name="aMaxl">Input argument #17</param>
     /// <returns>An Object containing the first output argument.</returns>
     ///
     public Object flexWingFit(Object x_in1, Object y, Object weight, Object 
                         stationaryPoint, Object tailConcavity, Object smoothCoeff, Object 
                         turningPoint_in1, Object boundaryx, Object boundarydx, Object 
                         boundarydxx, Object leftright, Object upperLimitG, Object 
-                        lowerLimitG, Object xEndl, Object aMaxl, Object aMinl, Object 
-                        xEndr)
+                        lowerLimitG, Object upperLimitGmax, Object lowerLimitGmin, Object 
+                        xEndl, Object aMaxl)
     {
-      return mcr.EvaluateFunction("flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr);
+      return mcr.EvaluateFunction("flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, upperLimitGmax, lowerLimitGmin, xEndl, aMaxl);
     }
 
 
@@ -8090,21 +10063,21 @@ namespace flexFitNative
     /// <param name="leftright">Input argument #11</param>
     /// <param name="upperLimitG">Input argument #12</param>
     /// <param name="lowerLimitG">Input argument #13</param>
-    /// <param name="xEndl">Input argument #14</param>
-    /// <param name="aMaxl">Input argument #15</param>
-    /// <param name="aMinl">Input argument #16</param>
-    /// <param name="xEndr">Input argument #17</param>
-    /// <param name="aMaxr">Input argument #18</param>
+    /// <param name="upperLimitGmax">Input argument #14</param>
+    /// <param name="lowerLimitGmin">Input argument #15</param>
+    /// <param name="xEndl">Input argument #16</param>
+    /// <param name="aMaxl">Input argument #17</param>
+    /// <param name="aMinl">Input argument #18</param>
     /// <returns>An Object containing the first output argument.</returns>
     ///
     public Object flexWingFit(Object x_in1, Object y, Object weight, Object 
                         stationaryPoint, Object tailConcavity, Object smoothCoeff, Object 
                         turningPoint_in1, Object boundaryx, Object boundarydx, Object 
                         boundarydxx, Object leftright, Object upperLimitG, Object 
-                        lowerLimitG, Object xEndl, Object aMaxl, Object aMinl, Object 
-                        xEndr, Object aMaxr)
+                        lowerLimitG, Object upperLimitGmax, Object lowerLimitGmin, Object 
+                        xEndl, Object aMaxl, Object aMinl)
     {
-      return mcr.EvaluateFunction("flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr);
+      return mcr.EvaluateFunction("flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, upperLimitGmax, lowerLimitGmin, xEndl, aMaxl, aMinl);
     }
 
 
@@ -8137,22 +10110,22 @@ namespace flexFitNative
     /// <param name="leftright">Input argument #11</param>
     /// <param name="upperLimitG">Input argument #12</param>
     /// <param name="lowerLimitG">Input argument #13</param>
-    /// <param name="xEndl">Input argument #14</param>
-    /// <param name="aMaxl">Input argument #15</param>
-    /// <param name="aMinl">Input argument #16</param>
-    /// <param name="xEndr">Input argument #17</param>
-    /// <param name="aMaxr">Input argument #18</param>
-    /// <param name="aMinr">Input argument #19</param>
+    /// <param name="upperLimitGmax">Input argument #14</param>
+    /// <param name="lowerLimitGmin">Input argument #15</param>
+    /// <param name="xEndl">Input argument #16</param>
+    /// <param name="aMaxl">Input argument #17</param>
+    /// <param name="aMinl">Input argument #18</param>
+    /// <param name="xEndr">Input argument #19</param>
     /// <returns>An Object containing the first output argument.</returns>
     ///
     public Object flexWingFit(Object x_in1, Object y, Object weight, Object 
                         stationaryPoint, Object tailConcavity, Object smoothCoeff, Object 
                         turningPoint_in1, Object boundaryx, Object boundarydx, Object 
                         boundarydxx, Object leftright, Object upperLimitG, Object 
-                        lowerLimitG, Object xEndl, Object aMaxl, Object aMinl, Object 
-                        xEndr, Object aMaxr, Object aMinr)
+                        lowerLimitG, Object upperLimitGmax, Object lowerLimitGmin, Object 
+                        xEndl, Object aMaxl, Object aMinl, Object xEndr)
     {
-      return mcr.EvaluateFunction("flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr);
+      return mcr.EvaluateFunction("flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, upperLimitGmax, lowerLimitGmin, xEndl, aMaxl, aMinl, xEndr);
     }
 
 
@@ -8185,23 +10158,23 @@ namespace flexFitNative
     /// <param name="leftright">Input argument #11</param>
     /// <param name="upperLimitG">Input argument #12</param>
     /// <param name="lowerLimitG">Input argument #13</param>
-    /// <param name="xEndl">Input argument #14</param>
-    /// <param name="aMaxl">Input argument #15</param>
-    /// <param name="aMinl">Input argument #16</param>
-    /// <param name="xEndr">Input argument #17</param>
-    /// <param name="aMaxr">Input argument #18</param>
-    /// <param name="aMinr">Input argument #19</param>
-    /// <param name="invalidx">Input argument #20</param>
+    /// <param name="upperLimitGmax">Input argument #14</param>
+    /// <param name="lowerLimitGmin">Input argument #15</param>
+    /// <param name="xEndl">Input argument #16</param>
+    /// <param name="aMaxl">Input argument #17</param>
+    /// <param name="aMinl">Input argument #18</param>
+    /// <param name="xEndr">Input argument #19</param>
+    /// <param name="aMaxr">Input argument #20</param>
     /// <returns>An Object containing the first output argument.</returns>
     ///
     public Object flexWingFit(Object x_in1, Object y, Object weight, Object 
                         stationaryPoint, Object tailConcavity, Object smoothCoeff, Object 
                         turningPoint_in1, Object boundaryx, Object boundarydx, Object 
                         boundarydxx, Object leftright, Object upperLimitG, Object 
-                        lowerLimitG, Object xEndl, Object aMaxl, Object aMinl, Object 
-                        xEndr, Object aMaxr, Object aMinr, Object invalidx)
+                        lowerLimitG, Object upperLimitGmax, Object lowerLimitGmin, Object 
+                        xEndl, Object aMaxl, Object aMinl, Object xEndr, Object aMaxr)
     {
-      return mcr.EvaluateFunction("flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx);
+      return mcr.EvaluateFunction("flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, upperLimitGmax, lowerLimitGmin, xEndl, aMaxl, aMinl, xEndr, aMaxr);
     }
 
 
@@ -8234,25 +10207,25 @@ namespace flexFitNative
     /// <param name="leftright">Input argument #11</param>
     /// <param name="upperLimitG">Input argument #12</param>
     /// <param name="lowerLimitG">Input argument #13</param>
-    /// <param name="xEndl">Input argument #14</param>
-    /// <param name="aMaxl">Input argument #15</param>
-    /// <param name="aMinl">Input argument #16</param>
-    /// <param name="xEndr">Input argument #17</param>
-    /// <param name="aMaxr">Input argument #18</param>
-    /// <param name="aMinr">Input argument #19</param>
-    /// <param name="invalidx">Input argument #20</param>
-    /// <param name="invalidupper">Input argument #21</param>
+    /// <param name="upperLimitGmax">Input argument #14</param>
+    /// <param name="lowerLimitGmin">Input argument #15</param>
+    /// <param name="xEndl">Input argument #16</param>
+    /// <param name="aMaxl">Input argument #17</param>
+    /// <param name="aMinl">Input argument #18</param>
+    /// <param name="xEndr">Input argument #19</param>
+    /// <param name="aMaxr">Input argument #20</param>
+    /// <param name="aMinr">Input argument #21</param>
     /// <returns>An Object containing the first output argument.</returns>
     ///
     public Object flexWingFit(Object x_in1, Object y, Object weight, Object 
                         stationaryPoint, Object tailConcavity, Object smoothCoeff, Object 
                         turningPoint_in1, Object boundaryx, Object boundarydx, Object 
                         boundarydxx, Object leftright, Object upperLimitG, Object 
-                        lowerLimitG, Object xEndl, Object aMaxl, Object aMinl, Object 
-                        xEndr, Object aMaxr, Object aMinr, Object invalidx, Object 
-                        invalidupper)
+                        lowerLimitG, Object upperLimitGmax, Object lowerLimitGmin, Object 
+                        xEndl, Object aMaxl, Object aMinl, Object xEndr, Object aMaxr, 
+                        Object aMinr)
     {
-      return mcr.EvaluateFunction("flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper);
+      return mcr.EvaluateFunction("flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, upperLimitGmax, lowerLimitGmin, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr);
     }
 
 
@@ -8285,26 +10258,26 @@ namespace flexFitNative
     /// <param name="leftright">Input argument #11</param>
     /// <param name="upperLimitG">Input argument #12</param>
     /// <param name="lowerLimitG">Input argument #13</param>
-    /// <param name="xEndl">Input argument #14</param>
-    /// <param name="aMaxl">Input argument #15</param>
-    /// <param name="aMinl">Input argument #16</param>
-    /// <param name="xEndr">Input argument #17</param>
-    /// <param name="aMaxr">Input argument #18</param>
-    /// <param name="aMinr">Input argument #19</param>
-    /// <param name="invalidx">Input argument #20</param>
-    /// <param name="invalidupper">Input argument #21</param>
-    /// <param name="invalidlower">Input argument #22</param>
+    /// <param name="upperLimitGmax">Input argument #14</param>
+    /// <param name="lowerLimitGmin">Input argument #15</param>
+    /// <param name="xEndl">Input argument #16</param>
+    /// <param name="aMaxl">Input argument #17</param>
+    /// <param name="aMinl">Input argument #18</param>
+    /// <param name="xEndr">Input argument #19</param>
+    /// <param name="aMaxr">Input argument #20</param>
+    /// <param name="aMinr">Input argument #21</param>
+    /// <param name="invalidx">Input argument #22</param>
     /// <returns>An Object containing the first output argument.</returns>
     ///
     public Object flexWingFit(Object x_in1, Object y, Object weight, Object 
                         stationaryPoint, Object tailConcavity, Object smoothCoeff, Object 
                         turningPoint_in1, Object boundaryx, Object boundarydx, Object 
                         boundarydxx, Object leftright, Object upperLimitG, Object 
-                        lowerLimitG, Object xEndl, Object aMaxl, Object aMinl, Object 
-                        xEndr, Object aMaxr, Object aMinr, Object invalidx, Object 
-                        invalidupper, Object invalidlower)
+                        lowerLimitG, Object upperLimitGmax, Object lowerLimitGmin, Object 
+                        xEndl, Object aMaxl, Object aMinl, Object xEndr, Object aMaxr, 
+                        Object aMinr, Object invalidx)
     {
-      return mcr.EvaluateFunction("flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower);
+      return mcr.EvaluateFunction("flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, upperLimitGmax, lowerLimitGmin, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx);
     }
 
 
@@ -8337,27 +10310,27 @@ namespace flexFitNative
     /// <param name="leftright">Input argument #11</param>
     /// <param name="upperLimitG">Input argument #12</param>
     /// <param name="lowerLimitG">Input argument #13</param>
-    /// <param name="xEndl">Input argument #14</param>
-    /// <param name="aMaxl">Input argument #15</param>
-    /// <param name="aMinl">Input argument #16</param>
-    /// <param name="xEndr">Input argument #17</param>
-    /// <param name="aMaxr">Input argument #18</param>
-    /// <param name="aMinr">Input argument #19</param>
-    /// <param name="invalidx">Input argument #20</param>
-    /// <param name="invalidupper">Input argument #21</param>
-    /// <param name="invalidlower">Input argument #22</param>
-    /// <param name="leftincrease">Input argument #23</param>
+    /// <param name="upperLimitGmax">Input argument #14</param>
+    /// <param name="lowerLimitGmin">Input argument #15</param>
+    /// <param name="xEndl">Input argument #16</param>
+    /// <param name="aMaxl">Input argument #17</param>
+    /// <param name="aMinl">Input argument #18</param>
+    /// <param name="xEndr">Input argument #19</param>
+    /// <param name="aMaxr">Input argument #20</param>
+    /// <param name="aMinr">Input argument #21</param>
+    /// <param name="invalidx">Input argument #22</param>
+    /// <param name="invalidupper">Input argument #23</param>
     /// <returns>An Object containing the first output argument.</returns>
     ///
     public Object flexWingFit(Object x_in1, Object y, Object weight, Object 
                         stationaryPoint, Object tailConcavity, Object smoothCoeff, Object 
                         turningPoint_in1, Object boundaryx, Object boundarydx, Object 
                         boundarydxx, Object leftright, Object upperLimitG, Object 
-                        lowerLimitG, Object xEndl, Object aMaxl, Object aMinl, Object 
-                        xEndr, Object aMaxr, Object aMinr, Object invalidx, Object 
-                        invalidupper, Object invalidlower, Object leftincrease)
+                        lowerLimitG, Object upperLimitGmax, Object lowerLimitGmin, Object 
+                        xEndl, Object aMaxl, Object aMinl, Object xEndr, Object aMaxr, 
+                        Object aMinr, Object invalidx, Object invalidupper)
     {
-      return mcr.EvaluateFunction("flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, leftincrease);
+      return mcr.EvaluateFunction("flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, upperLimitGmax, lowerLimitGmin, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper);
     }
 
 
@@ -8390,29 +10363,29 @@ namespace flexFitNative
     /// <param name="leftright">Input argument #11</param>
     /// <param name="upperLimitG">Input argument #12</param>
     /// <param name="lowerLimitG">Input argument #13</param>
-    /// <param name="xEndl">Input argument #14</param>
-    /// <param name="aMaxl">Input argument #15</param>
-    /// <param name="aMinl">Input argument #16</param>
-    /// <param name="xEndr">Input argument #17</param>
-    /// <param name="aMaxr">Input argument #18</param>
-    /// <param name="aMinr">Input argument #19</param>
-    /// <param name="invalidx">Input argument #20</param>
-    /// <param name="invalidupper">Input argument #21</param>
-    /// <param name="invalidlower">Input argument #22</param>
-    /// <param name="leftincrease">Input argument #23</param>
-    /// <param name="rightincrease">Input argument #24</param>
+    /// <param name="upperLimitGmax">Input argument #14</param>
+    /// <param name="lowerLimitGmin">Input argument #15</param>
+    /// <param name="xEndl">Input argument #16</param>
+    /// <param name="aMaxl">Input argument #17</param>
+    /// <param name="aMinl">Input argument #18</param>
+    /// <param name="xEndr">Input argument #19</param>
+    /// <param name="aMaxr">Input argument #20</param>
+    /// <param name="aMinr">Input argument #21</param>
+    /// <param name="invalidx">Input argument #22</param>
+    /// <param name="invalidupper">Input argument #23</param>
+    /// <param name="invalidlower">Input argument #24</param>
     /// <returns>An Object containing the first output argument.</returns>
     ///
     public Object flexWingFit(Object x_in1, Object y, Object weight, Object 
                         stationaryPoint, Object tailConcavity, Object smoothCoeff, Object 
                         turningPoint_in1, Object boundaryx, Object boundarydx, Object 
                         boundarydxx, Object leftright, Object upperLimitG, Object 
-                        lowerLimitG, Object xEndl, Object aMaxl, Object aMinl, Object 
-                        xEndr, Object aMaxr, Object aMinr, Object invalidx, Object 
-                        invalidupper, Object invalidlower, Object leftincrease, Object 
-                        rightincrease)
+                        lowerLimitG, Object upperLimitGmax, Object lowerLimitGmin, Object 
+                        xEndl, Object aMaxl, Object aMinl, Object xEndr, Object aMaxr, 
+                        Object aMinr, Object invalidx, Object invalidupper, Object 
+                        invalidlower)
     {
-      return mcr.EvaluateFunction("flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, leftincrease, rightincrease);
+      return mcr.EvaluateFunction("flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, upperLimitGmax, lowerLimitGmin, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower);
     }
 
 
@@ -8445,30 +10418,30 @@ namespace flexFitNative
     /// <param name="leftright">Input argument #11</param>
     /// <param name="upperLimitG">Input argument #12</param>
     /// <param name="lowerLimitG">Input argument #13</param>
-    /// <param name="xEndl">Input argument #14</param>
-    /// <param name="aMaxl">Input argument #15</param>
-    /// <param name="aMinl">Input argument #16</param>
-    /// <param name="xEndr">Input argument #17</param>
-    /// <param name="aMaxr">Input argument #18</param>
-    /// <param name="aMinr">Input argument #19</param>
-    /// <param name="invalidx">Input argument #20</param>
-    /// <param name="invalidupper">Input argument #21</param>
-    /// <param name="invalidlower">Input argument #22</param>
-    /// <param name="leftincrease">Input argument #23</param>
-    /// <param name="rightincrease">Input argument #24</param>
-    /// <param name="smooth">Input argument #25</param>
+    /// <param name="upperLimitGmax">Input argument #14</param>
+    /// <param name="lowerLimitGmin">Input argument #15</param>
+    /// <param name="xEndl">Input argument #16</param>
+    /// <param name="aMaxl">Input argument #17</param>
+    /// <param name="aMinl">Input argument #18</param>
+    /// <param name="xEndr">Input argument #19</param>
+    /// <param name="aMaxr">Input argument #20</param>
+    /// <param name="aMinr">Input argument #21</param>
+    /// <param name="invalidx">Input argument #22</param>
+    /// <param name="invalidupper">Input argument #23</param>
+    /// <param name="invalidlower">Input argument #24</param>
+    /// <param name="invaliduppermax">Input argument #25</param>
     /// <returns>An Object containing the first output argument.</returns>
     ///
     public Object flexWingFit(Object x_in1, Object y, Object weight, Object 
                         stationaryPoint, Object tailConcavity, Object smoothCoeff, Object 
                         turningPoint_in1, Object boundaryx, Object boundarydx, Object 
                         boundarydxx, Object leftright, Object upperLimitG, Object 
-                        lowerLimitG, Object xEndl, Object aMaxl, Object aMinl, Object 
-                        xEndr, Object aMaxr, Object aMinr, Object invalidx, Object 
-                        invalidupper, Object invalidlower, Object leftincrease, Object 
-                        rightincrease, Object smooth)
+                        lowerLimitG, Object upperLimitGmax, Object lowerLimitGmin, Object 
+                        xEndl, Object aMaxl, Object aMinl, Object xEndr, Object aMaxr, 
+                        Object aMinr, Object invalidx, Object invalidupper, Object 
+                        invalidlower, Object invaliduppermax)
     {
-      return mcr.EvaluateFunction("flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, leftincrease, rightincrease, smooth);
+      return mcr.EvaluateFunction("flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, upperLimitGmax, lowerLimitGmin, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, invaliduppermax);
     }
 
 
@@ -8501,31 +10474,31 @@ namespace flexFitNative
     /// <param name="leftright">Input argument #11</param>
     /// <param name="upperLimitG">Input argument #12</param>
     /// <param name="lowerLimitG">Input argument #13</param>
-    /// <param name="xEndl">Input argument #14</param>
-    /// <param name="aMaxl">Input argument #15</param>
-    /// <param name="aMinl">Input argument #16</param>
-    /// <param name="xEndr">Input argument #17</param>
-    /// <param name="aMaxr">Input argument #18</param>
-    /// <param name="aMinr">Input argument #19</param>
-    /// <param name="invalidx">Input argument #20</param>
-    /// <param name="invalidupper">Input argument #21</param>
-    /// <param name="invalidlower">Input argument #22</param>
-    /// <param name="leftincrease">Input argument #23</param>
-    /// <param name="rightincrease">Input argument #24</param>
-    /// <param name="smooth">Input argument #25</param>
-    /// <param name="tight">Input argument #26</param>
+    /// <param name="upperLimitGmax">Input argument #14</param>
+    /// <param name="lowerLimitGmin">Input argument #15</param>
+    /// <param name="xEndl">Input argument #16</param>
+    /// <param name="aMaxl">Input argument #17</param>
+    /// <param name="aMinl">Input argument #18</param>
+    /// <param name="xEndr">Input argument #19</param>
+    /// <param name="aMaxr">Input argument #20</param>
+    /// <param name="aMinr">Input argument #21</param>
+    /// <param name="invalidx">Input argument #22</param>
+    /// <param name="invalidupper">Input argument #23</param>
+    /// <param name="invalidlower">Input argument #24</param>
+    /// <param name="invaliduppermax">Input argument #25</param>
+    /// <param name="invalidlowermin">Input argument #26</param>
     /// <returns>An Object containing the first output argument.</returns>
     ///
     public Object flexWingFit(Object x_in1, Object y, Object weight, Object 
                         stationaryPoint, Object tailConcavity, Object smoothCoeff, Object 
                         turningPoint_in1, Object boundaryx, Object boundarydx, Object 
                         boundarydxx, Object leftright, Object upperLimitG, Object 
-                        lowerLimitG, Object xEndl, Object aMaxl, Object aMinl, Object 
-                        xEndr, Object aMaxr, Object aMinr, Object invalidx, Object 
-                        invalidupper, Object invalidlower, Object leftincrease, Object 
-                        rightincrease, Object smooth, Object tight)
+                        lowerLimitG, Object upperLimitGmax, Object lowerLimitGmin, Object 
+                        xEndl, Object aMaxl, Object aMinl, Object xEndr, Object aMaxr, 
+                        Object aMinr, Object invalidx, Object invalidupper, Object 
+                        invalidlower, Object invaliduppermax, Object invalidlowermin)
     {
-      return mcr.EvaluateFunction("flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, leftincrease, rightincrease, smooth, tight);
+      return mcr.EvaluateFunction("flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, upperLimitGmax, lowerLimitGmin, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, invaliduppermax, invalidlowermin);
     }
 
 
@@ -8558,32 +10531,33 @@ namespace flexFitNative
     /// <param name="leftright">Input argument #11</param>
     /// <param name="upperLimitG">Input argument #12</param>
     /// <param name="lowerLimitG">Input argument #13</param>
-    /// <param name="xEndl">Input argument #14</param>
-    /// <param name="aMaxl">Input argument #15</param>
-    /// <param name="aMinl">Input argument #16</param>
-    /// <param name="xEndr">Input argument #17</param>
-    /// <param name="aMaxr">Input argument #18</param>
-    /// <param name="aMinr">Input argument #19</param>
-    /// <param name="invalidx">Input argument #20</param>
-    /// <param name="invalidupper">Input argument #21</param>
-    /// <param name="invalidlower">Input argument #22</param>
-    /// <param name="leftincrease">Input argument #23</param>
-    /// <param name="rightincrease">Input argument #24</param>
-    /// <param name="smooth">Input argument #25</param>
-    /// <param name="tight">Input argument #26</param>
-    /// <param name="minxrange">Input argument #27</param>
+    /// <param name="upperLimitGmax">Input argument #14</param>
+    /// <param name="lowerLimitGmin">Input argument #15</param>
+    /// <param name="xEndl">Input argument #16</param>
+    /// <param name="aMaxl">Input argument #17</param>
+    /// <param name="aMinl">Input argument #18</param>
+    /// <param name="xEndr">Input argument #19</param>
+    /// <param name="aMaxr">Input argument #20</param>
+    /// <param name="aMinr">Input argument #21</param>
+    /// <param name="invalidx">Input argument #22</param>
+    /// <param name="invalidupper">Input argument #23</param>
+    /// <param name="invalidlower">Input argument #24</param>
+    /// <param name="invaliduppermax">Input argument #25</param>
+    /// <param name="invalidlowermin">Input argument #26</param>
+    /// <param name="leftincrease">Input argument #27</param>
     /// <returns>An Object containing the first output argument.</returns>
     ///
     public Object flexWingFit(Object x_in1, Object y, Object weight, Object 
                         stationaryPoint, Object tailConcavity, Object smoothCoeff, Object 
                         turningPoint_in1, Object boundaryx, Object boundarydx, Object 
                         boundarydxx, Object leftright, Object upperLimitG, Object 
-                        lowerLimitG, Object xEndl, Object aMaxl, Object aMinl, Object 
-                        xEndr, Object aMaxr, Object aMinr, Object invalidx, Object 
-                        invalidupper, Object invalidlower, Object leftincrease, Object 
-                        rightincrease, Object smooth, Object tight, Object minxrange)
+                        lowerLimitG, Object upperLimitGmax, Object lowerLimitGmin, Object 
+                        xEndl, Object aMaxl, Object aMinl, Object xEndr, Object aMaxr, 
+                        Object aMinr, Object invalidx, Object invalidupper, Object 
+                        invalidlower, Object invaliduppermax, Object invalidlowermin, 
+                        Object leftincrease)
     {
-      return mcr.EvaluateFunction("flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, leftincrease, rightincrease, smooth, tight, minxrange);
+      return mcr.EvaluateFunction("flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, upperLimitGmax, lowerLimitGmin, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, invaliduppermax, invalidlowermin, leftincrease);
     }
 
 
@@ -8616,34 +10590,34 @@ namespace flexFitNative
     /// <param name="leftright">Input argument #11</param>
     /// <param name="upperLimitG">Input argument #12</param>
     /// <param name="lowerLimitG">Input argument #13</param>
-    /// <param name="xEndl">Input argument #14</param>
-    /// <param name="aMaxl">Input argument #15</param>
-    /// <param name="aMinl">Input argument #16</param>
-    /// <param name="xEndr">Input argument #17</param>
-    /// <param name="aMaxr">Input argument #18</param>
-    /// <param name="aMinr">Input argument #19</param>
-    /// <param name="invalidx">Input argument #20</param>
-    /// <param name="invalidupper">Input argument #21</param>
-    /// <param name="invalidlower">Input argument #22</param>
-    /// <param name="leftincrease">Input argument #23</param>
-    /// <param name="rightincrease">Input argument #24</param>
-    /// <param name="smooth">Input argument #25</param>
-    /// <param name="tight">Input argument #26</param>
-    /// <param name="minxrange">Input argument #27</param>
-    /// <param name="concave">Input argument #28</param>
+    /// <param name="upperLimitGmax">Input argument #14</param>
+    /// <param name="lowerLimitGmin">Input argument #15</param>
+    /// <param name="xEndl">Input argument #16</param>
+    /// <param name="aMaxl">Input argument #17</param>
+    /// <param name="aMinl">Input argument #18</param>
+    /// <param name="xEndr">Input argument #19</param>
+    /// <param name="aMaxr">Input argument #20</param>
+    /// <param name="aMinr">Input argument #21</param>
+    /// <param name="invalidx">Input argument #22</param>
+    /// <param name="invalidupper">Input argument #23</param>
+    /// <param name="invalidlower">Input argument #24</param>
+    /// <param name="invaliduppermax">Input argument #25</param>
+    /// <param name="invalidlowermin">Input argument #26</param>
+    /// <param name="leftincrease">Input argument #27</param>
+    /// <param name="rightincrease">Input argument #28</param>
     /// <returns>An Object containing the first output argument.</returns>
     ///
     public Object flexWingFit(Object x_in1, Object y, Object weight, Object 
                         stationaryPoint, Object tailConcavity, Object smoothCoeff, Object 
                         turningPoint_in1, Object boundaryx, Object boundarydx, Object 
                         boundarydxx, Object leftright, Object upperLimitG, Object 
-                        lowerLimitG, Object xEndl, Object aMaxl, Object aMinl, Object 
-                        xEndr, Object aMaxr, Object aMinr, Object invalidx, Object 
-                        invalidupper, Object invalidlower, Object leftincrease, Object 
-                        rightincrease, Object smooth, Object tight, Object minxrange, 
-                        Object concave)
+                        lowerLimitG, Object upperLimitGmax, Object lowerLimitGmin, Object 
+                        xEndl, Object aMaxl, Object aMinl, Object xEndr, Object aMaxr, 
+                        Object aMinr, Object invalidx, Object invalidupper, Object 
+                        invalidlower, Object invaliduppermax, Object invalidlowermin, 
+                        Object leftincrease, Object rightincrease)
     {
-      return mcr.EvaluateFunction("flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, leftincrease, rightincrease, smooth, tight, minxrange, concave);
+      return mcr.EvaluateFunction("flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, upperLimitGmax, lowerLimitGmin, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, invaliduppermax, invalidlowermin, leftincrease, rightincrease);
     }
 
 
@@ -8676,35 +10650,35 @@ namespace flexFitNative
     /// <param name="leftright">Input argument #11</param>
     /// <param name="upperLimitG">Input argument #12</param>
     /// <param name="lowerLimitG">Input argument #13</param>
-    /// <param name="xEndl">Input argument #14</param>
-    /// <param name="aMaxl">Input argument #15</param>
-    /// <param name="aMinl">Input argument #16</param>
-    /// <param name="xEndr">Input argument #17</param>
-    /// <param name="aMaxr">Input argument #18</param>
-    /// <param name="aMinr">Input argument #19</param>
-    /// <param name="invalidx">Input argument #20</param>
-    /// <param name="invalidupper">Input argument #21</param>
-    /// <param name="invalidlower">Input argument #22</param>
-    /// <param name="leftincrease">Input argument #23</param>
-    /// <param name="rightincrease">Input argument #24</param>
-    /// <param name="smooth">Input argument #25</param>
-    /// <param name="tight">Input argument #26</param>
-    /// <param name="minxrange">Input argument #27</param>
-    /// <param name="concave">Input argument #28</param>
-    /// <param name="allowflat">Input argument #29</param>
+    /// <param name="upperLimitGmax">Input argument #14</param>
+    /// <param name="lowerLimitGmin">Input argument #15</param>
+    /// <param name="xEndl">Input argument #16</param>
+    /// <param name="aMaxl">Input argument #17</param>
+    /// <param name="aMinl">Input argument #18</param>
+    /// <param name="xEndr">Input argument #19</param>
+    /// <param name="aMaxr">Input argument #20</param>
+    /// <param name="aMinr">Input argument #21</param>
+    /// <param name="invalidx">Input argument #22</param>
+    /// <param name="invalidupper">Input argument #23</param>
+    /// <param name="invalidlower">Input argument #24</param>
+    /// <param name="invaliduppermax">Input argument #25</param>
+    /// <param name="invalidlowermin">Input argument #26</param>
+    /// <param name="leftincrease">Input argument #27</param>
+    /// <param name="rightincrease">Input argument #28</param>
+    /// <param name="smooth">Input argument #29</param>
     /// <returns>An Object containing the first output argument.</returns>
     ///
     public Object flexWingFit(Object x_in1, Object y, Object weight, Object 
                         stationaryPoint, Object tailConcavity, Object smoothCoeff, Object 
                         turningPoint_in1, Object boundaryx, Object boundarydx, Object 
                         boundarydxx, Object leftright, Object upperLimitG, Object 
-                        lowerLimitG, Object xEndl, Object aMaxl, Object aMinl, Object 
-                        xEndr, Object aMaxr, Object aMinr, Object invalidx, Object 
-                        invalidupper, Object invalidlower, Object leftincrease, Object 
-                        rightincrease, Object smooth, Object tight, Object minxrange, 
-                        Object concave, Object allowflat)
+                        lowerLimitG, Object upperLimitGmax, Object lowerLimitGmin, Object 
+                        xEndl, Object aMaxl, Object aMinl, Object xEndr, Object aMaxr, 
+                        Object aMinr, Object invalidx, Object invalidupper, Object 
+                        invalidlower, Object invaliduppermax, Object invalidlowermin, 
+                        Object leftincrease, Object rightincrease, Object smooth)
     {
-      return mcr.EvaluateFunction("flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, leftincrease, rightincrease, smooth, tight, minxrange, concave, allowflat);
+      return mcr.EvaluateFunction("flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, upperLimitGmax, lowerLimitGmin, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, invaliduppermax, invalidlowermin, leftincrease, rightincrease, smooth);
     }
 
 
@@ -8737,36 +10711,37 @@ namespace flexFitNative
     /// <param name="leftright">Input argument #11</param>
     /// <param name="upperLimitG">Input argument #12</param>
     /// <param name="lowerLimitG">Input argument #13</param>
-    /// <param name="xEndl">Input argument #14</param>
-    /// <param name="aMaxl">Input argument #15</param>
-    /// <param name="aMinl">Input argument #16</param>
-    /// <param name="xEndr">Input argument #17</param>
-    /// <param name="aMaxr">Input argument #18</param>
-    /// <param name="aMinr">Input argument #19</param>
-    /// <param name="invalidx">Input argument #20</param>
-    /// <param name="invalidupper">Input argument #21</param>
-    /// <param name="invalidlower">Input argument #22</param>
-    /// <param name="leftincrease">Input argument #23</param>
-    /// <param name="rightincrease">Input argument #24</param>
-    /// <param name="smooth">Input argument #25</param>
-    /// <param name="tight">Input argument #26</param>
-    /// <param name="minxrange">Input argument #27</param>
-    /// <param name="concave">Input argument #28</param>
-    /// <param name="allowflat">Input argument #29</param>
-    /// <param name="fromtime">Input argument #30</param>
+    /// <param name="upperLimitGmax">Input argument #14</param>
+    /// <param name="lowerLimitGmin">Input argument #15</param>
+    /// <param name="xEndl">Input argument #16</param>
+    /// <param name="aMaxl">Input argument #17</param>
+    /// <param name="aMinl">Input argument #18</param>
+    /// <param name="xEndr">Input argument #19</param>
+    /// <param name="aMaxr">Input argument #20</param>
+    /// <param name="aMinr">Input argument #21</param>
+    /// <param name="invalidx">Input argument #22</param>
+    /// <param name="invalidupper">Input argument #23</param>
+    /// <param name="invalidlower">Input argument #24</param>
+    /// <param name="invaliduppermax">Input argument #25</param>
+    /// <param name="invalidlowermin">Input argument #26</param>
+    /// <param name="leftincrease">Input argument #27</param>
+    /// <param name="rightincrease">Input argument #28</param>
+    /// <param name="smooth">Input argument #29</param>
+    /// <param name="tight">Input argument #30</param>
     /// <returns>An Object containing the first output argument.</returns>
     ///
     public Object flexWingFit(Object x_in1, Object y, Object weight, Object 
                         stationaryPoint, Object tailConcavity, Object smoothCoeff, Object 
                         turningPoint_in1, Object boundaryx, Object boundarydx, Object 
                         boundarydxx, Object leftright, Object upperLimitG, Object 
-                        lowerLimitG, Object xEndl, Object aMaxl, Object aMinl, Object 
-                        xEndr, Object aMaxr, Object aMinr, Object invalidx, Object 
-                        invalidupper, Object invalidlower, Object leftincrease, Object 
-                        rightincrease, Object smooth, Object tight, Object minxrange, 
-                        Object concave, Object allowflat, Object fromtime)
+                        lowerLimitG, Object upperLimitGmax, Object lowerLimitGmin, Object 
+                        xEndl, Object aMaxl, Object aMinl, Object xEndr, Object aMaxr, 
+                        Object aMinr, Object invalidx, Object invalidupper, Object 
+                        invalidlower, Object invaliduppermax, Object invalidlowermin, 
+                        Object leftincrease, Object rightincrease, Object smooth, Object 
+                        tight)
     {
-      return mcr.EvaluateFunction("flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, leftincrease, rightincrease, smooth, tight, minxrange, concave, allowflat, fromtime);
+      return mcr.EvaluateFunction("flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, upperLimitGmax, lowerLimitGmin, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, invaliduppermax, invalidlowermin, leftincrease, rightincrease, smooth, tight);
     }
 
 
@@ -8799,38 +10774,594 @@ namespace flexFitNative
     /// <param name="leftright">Input argument #11</param>
     /// <param name="upperLimitG">Input argument #12</param>
     /// <param name="lowerLimitG">Input argument #13</param>
-    /// <param name="xEndl">Input argument #14</param>
-    /// <param name="aMaxl">Input argument #15</param>
-    /// <param name="aMinl">Input argument #16</param>
-    /// <param name="xEndr">Input argument #17</param>
-    /// <param name="aMaxr">Input argument #18</param>
-    /// <param name="aMinr">Input argument #19</param>
-    /// <param name="invalidx">Input argument #20</param>
-    /// <param name="invalidupper">Input argument #21</param>
-    /// <param name="invalidlower">Input argument #22</param>
-    /// <param name="leftincrease">Input argument #23</param>
-    /// <param name="rightincrease">Input argument #24</param>
-    /// <param name="smooth">Input argument #25</param>
-    /// <param name="tight">Input argument #26</param>
-    /// <param name="minxrange">Input argument #27</param>
-    /// <param name="concave">Input argument #28</param>
-    /// <param name="allowflat">Input argument #29</param>
-    /// <param name="fromtime">Input argument #30</param>
-    /// <param name="originalx">Input argument #31</param>
+    /// <param name="upperLimitGmax">Input argument #14</param>
+    /// <param name="lowerLimitGmin">Input argument #15</param>
+    /// <param name="xEndl">Input argument #16</param>
+    /// <param name="aMaxl">Input argument #17</param>
+    /// <param name="aMinl">Input argument #18</param>
+    /// <param name="xEndr">Input argument #19</param>
+    /// <param name="aMaxr">Input argument #20</param>
+    /// <param name="aMinr">Input argument #21</param>
+    /// <param name="invalidx">Input argument #22</param>
+    /// <param name="invalidupper">Input argument #23</param>
+    /// <param name="invalidlower">Input argument #24</param>
+    /// <param name="invaliduppermax">Input argument #25</param>
+    /// <param name="invalidlowermin">Input argument #26</param>
+    /// <param name="leftincrease">Input argument #27</param>
+    /// <param name="rightincrease">Input argument #28</param>
+    /// <param name="smooth">Input argument #29</param>
+    /// <param name="tight">Input argument #30</param>
+    /// <param name="tightlb">Input argument #31</param>
     /// <returns>An Object containing the first output argument.</returns>
     ///
     public Object flexWingFit(Object x_in1, Object y, Object weight, Object 
                         stationaryPoint, Object tailConcavity, Object smoothCoeff, Object 
                         turningPoint_in1, Object boundaryx, Object boundarydx, Object 
                         boundarydxx, Object leftright, Object upperLimitG, Object 
-                        lowerLimitG, Object xEndl, Object aMaxl, Object aMinl, Object 
-                        xEndr, Object aMaxr, Object aMinr, Object invalidx, Object 
-                        invalidupper, Object invalidlower, Object leftincrease, Object 
-                        rightincrease, Object smooth, Object tight, Object minxrange, 
-                        Object concave, Object allowflat, Object fromtime, Object 
-                        originalx)
+                        lowerLimitG, Object upperLimitGmax, Object lowerLimitGmin, Object 
+                        xEndl, Object aMaxl, Object aMinl, Object xEndr, Object aMaxr, 
+                        Object aMinr, Object invalidx, Object invalidupper, Object 
+                        invalidlower, Object invaliduppermax, Object invalidlowermin, 
+                        Object leftincrease, Object rightincrease, Object smooth, Object 
+                        tight, Object tightlb)
     {
-      return mcr.EvaluateFunction("flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, leftincrease, rightincrease, smooth, tight, minxrange, concave, allowflat, fromtime, originalx);
+      return mcr.EvaluateFunction("flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, upperLimitGmax, lowerLimitGmin, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, invaliduppermax, invalidlowermin, leftincrease, rightincrease, smooth, tight, tightlb);
+    }
+
+
+    /// <summary>
+    /// Provides a single output, 32-input Objectinterface to the flexWingFit MATLAB
+    /// function.
+    /// </summary>
+    /// <remarks>
+    /// M-Documentation:
+    /// clc
+    /// M = csvread('c:\temp\voltooltest\sampledata.csv', 2, 0);
+    /// MM = M(M(:,5)&lt;=0.5, :);
+    /// leftright = 1;
+    /// IV = MM(MM(:,3)~=0 &amp; MM(:,4)~=0,:);
+    /// IV = [IV (IV(:,3)+IV(:,4))./2];
+    /// x = IV(:,2)';
+    /// y = IV(:,6)';
+    /// weight = ones(1,length(x));
+    /// </remarks>
+    /// <param name="x_in1">Input argument #1</param>
+    /// <param name="y">Input argument #2</param>
+    /// <param name="weight">Input argument #3</param>
+    /// <param name="stationaryPoint">Input argument #4</param>
+    /// <param name="tailConcavity">Input argument #5</param>
+    /// <param name="smoothCoeff">Input argument #6</param>
+    /// <param name="turningPoint_in1">Input argument #7</param>
+    /// <param name="boundaryx">Input argument #8</param>
+    /// <param name="boundarydx">Input argument #9</param>
+    /// <param name="boundarydxx">Input argument #10</param>
+    /// <param name="leftright">Input argument #11</param>
+    /// <param name="upperLimitG">Input argument #12</param>
+    /// <param name="lowerLimitG">Input argument #13</param>
+    /// <param name="upperLimitGmax">Input argument #14</param>
+    /// <param name="lowerLimitGmin">Input argument #15</param>
+    /// <param name="xEndl">Input argument #16</param>
+    /// <param name="aMaxl">Input argument #17</param>
+    /// <param name="aMinl">Input argument #18</param>
+    /// <param name="xEndr">Input argument #19</param>
+    /// <param name="aMaxr">Input argument #20</param>
+    /// <param name="aMinr">Input argument #21</param>
+    /// <param name="invalidx">Input argument #22</param>
+    /// <param name="invalidupper">Input argument #23</param>
+    /// <param name="invalidlower">Input argument #24</param>
+    /// <param name="invaliduppermax">Input argument #25</param>
+    /// <param name="invalidlowermin">Input argument #26</param>
+    /// <param name="leftincrease">Input argument #27</param>
+    /// <param name="rightincrease">Input argument #28</param>
+    /// <param name="smooth">Input argument #29</param>
+    /// <param name="tight">Input argument #30</param>
+    /// <param name="tightlb">Input argument #31</param>
+    /// <param name="tightub">Input argument #32</param>
+    /// <returns>An Object containing the first output argument.</returns>
+    ///
+    public Object flexWingFit(Object x_in1, Object y, Object weight, Object 
+                        stationaryPoint, Object tailConcavity, Object smoothCoeff, Object 
+                        turningPoint_in1, Object boundaryx, Object boundarydx, Object 
+                        boundarydxx, Object leftright, Object upperLimitG, Object 
+                        lowerLimitG, Object upperLimitGmax, Object lowerLimitGmin, Object 
+                        xEndl, Object aMaxl, Object aMinl, Object xEndr, Object aMaxr, 
+                        Object aMinr, Object invalidx, Object invalidupper, Object 
+                        invalidlower, Object invaliduppermax, Object invalidlowermin, 
+                        Object leftincrease, Object rightincrease, Object smooth, Object 
+                        tight, Object tightlb, Object tightub)
+    {
+      return mcr.EvaluateFunction("flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, upperLimitGmax, lowerLimitGmin, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, invaliduppermax, invalidlowermin, leftincrease, rightincrease, smooth, tight, tightlb, tightub);
+    }
+
+
+    /// <summary>
+    /// Provides a single output, 33-input Objectinterface to the flexWingFit MATLAB
+    /// function.
+    /// </summary>
+    /// <remarks>
+    /// M-Documentation:
+    /// clc
+    /// M = csvread('c:\temp\voltooltest\sampledata.csv', 2, 0);
+    /// MM = M(M(:,5)&lt;=0.5, :);
+    /// leftright = 1;
+    /// IV = MM(MM(:,3)~=0 &amp; MM(:,4)~=0,:);
+    /// IV = [IV (IV(:,3)+IV(:,4))./2];
+    /// x = IV(:,2)';
+    /// y = IV(:,6)';
+    /// weight = ones(1,length(x));
+    /// </remarks>
+    /// <param name="x_in1">Input argument #1</param>
+    /// <param name="y">Input argument #2</param>
+    /// <param name="weight">Input argument #3</param>
+    /// <param name="stationaryPoint">Input argument #4</param>
+    /// <param name="tailConcavity">Input argument #5</param>
+    /// <param name="smoothCoeff">Input argument #6</param>
+    /// <param name="turningPoint_in1">Input argument #7</param>
+    /// <param name="boundaryx">Input argument #8</param>
+    /// <param name="boundarydx">Input argument #9</param>
+    /// <param name="boundarydxx">Input argument #10</param>
+    /// <param name="leftright">Input argument #11</param>
+    /// <param name="upperLimitG">Input argument #12</param>
+    /// <param name="lowerLimitG">Input argument #13</param>
+    /// <param name="upperLimitGmax">Input argument #14</param>
+    /// <param name="lowerLimitGmin">Input argument #15</param>
+    /// <param name="xEndl">Input argument #16</param>
+    /// <param name="aMaxl">Input argument #17</param>
+    /// <param name="aMinl">Input argument #18</param>
+    /// <param name="xEndr">Input argument #19</param>
+    /// <param name="aMaxr">Input argument #20</param>
+    /// <param name="aMinr">Input argument #21</param>
+    /// <param name="invalidx">Input argument #22</param>
+    /// <param name="invalidupper">Input argument #23</param>
+    /// <param name="invalidlower">Input argument #24</param>
+    /// <param name="invaliduppermax">Input argument #25</param>
+    /// <param name="invalidlowermin">Input argument #26</param>
+    /// <param name="leftincrease">Input argument #27</param>
+    /// <param name="rightincrease">Input argument #28</param>
+    /// <param name="smooth">Input argument #29</param>
+    /// <param name="tight">Input argument #30</param>
+    /// <param name="tightlb">Input argument #31</param>
+    /// <param name="tightub">Input argument #32</param>
+    /// <param name="minxrange">Input argument #33</param>
+    /// <returns>An Object containing the first output argument.</returns>
+    ///
+    public Object flexWingFit(Object x_in1, Object y, Object weight, Object 
+                        stationaryPoint, Object tailConcavity, Object smoothCoeff, Object 
+                        turningPoint_in1, Object boundaryx, Object boundarydx, Object 
+                        boundarydxx, Object leftright, Object upperLimitG, Object 
+                        lowerLimitG, Object upperLimitGmax, Object lowerLimitGmin, Object 
+                        xEndl, Object aMaxl, Object aMinl, Object xEndr, Object aMaxr, 
+                        Object aMinr, Object invalidx, Object invalidupper, Object 
+                        invalidlower, Object invaliduppermax, Object invalidlowermin, 
+                        Object leftincrease, Object rightincrease, Object smooth, Object 
+                        tight, Object tightlb, Object tightub, Object minxrange)
+    {
+      return mcr.EvaluateFunction("flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, upperLimitGmax, lowerLimitGmin, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, invaliduppermax, invalidlowermin, leftincrease, rightincrease, smooth, tight, tightlb, tightub, minxrange);
+    }
+
+
+    /// <summary>
+    /// Provides a single output, 34-input Objectinterface to the flexWingFit MATLAB
+    /// function.
+    /// </summary>
+    /// <remarks>
+    /// M-Documentation:
+    /// clc
+    /// M = csvread('c:\temp\voltooltest\sampledata.csv', 2, 0);
+    /// MM = M(M(:,5)&lt;=0.5, :);
+    /// leftright = 1;
+    /// IV = MM(MM(:,3)~=0 &amp; MM(:,4)~=0,:);
+    /// IV = [IV (IV(:,3)+IV(:,4))./2];
+    /// x = IV(:,2)';
+    /// y = IV(:,6)';
+    /// weight = ones(1,length(x));
+    /// </remarks>
+    /// <param name="x_in1">Input argument #1</param>
+    /// <param name="y">Input argument #2</param>
+    /// <param name="weight">Input argument #3</param>
+    /// <param name="stationaryPoint">Input argument #4</param>
+    /// <param name="tailConcavity">Input argument #5</param>
+    /// <param name="smoothCoeff">Input argument #6</param>
+    /// <param name="turningPoint_in1">Input argument #7</param>
+    /// <param name="boundaryx">Input argument #8</param>
+    /// <param name="boundarydx">Input argument #9</param>
+    /// <param name="boundarydxx">Input argument #10</param>
+    /// <param name="leftright">Input argument #11</param>
+    /// <param name="upperLimitG">Input argument #12</param>
+    /// <param name="lowerLimitG">Input argument #13</param>
+    /// <param name="upperLimitGmax">Input argument #14</param>
+    /// <param name="lowerLimitGmin">Input argument #15</param>
+    /// <param name="xEndl">Input argument #16</param>
+    /// <param name="aMaxl">Input argument #17</param>
+    /// <param name="aMinl">Input argument #18</param>
+    /// <param name="xEndr">Input argument #19</param>
+    /// <param name="aMaxr">Input argument #20</param>
+    /// <param name="aMinr">Input argument #21</param>
+    /// <param name="invalidx">Input argument #22</param>
+    /// <param name="invalidupper">Input argument #23</param>
+    /// <param name="invalidlower">Input argument #24</param>
+    /// <param name="invaliduppermax">Input argument #25</param>
+    /// <param name="invalidlowermin">Input argument #26</param>
+    /// <param name="leftincrease">Input argument #27</param>
+    /// <param name="rightincrease">Input argument #28</param>
+    /// <param name="smooth">Input argument #29</param>
+    /// <param name="tight">Input argument #30</param>
+    /// <param name="tightlb">Input argument #31</param>
+    /// <param name="tightub">Input argument #32</param>
+    /// <param name="minxrange">Input argument #33</param>
+    /// <param name="concave">Input argument #34</param>
+    /// <returns>An Object containing the first output argument.</returns>
+    ///
+    public Object flexWingFit(Object x_in1, Object y, Object weight, Object 
+                        stationaryPoint, Object tailConcavity, Object smoothCoeff, Object 
+                        turningPoint_in1, Object boundaryx, Object boundarydx, Object 
+                        boundarydxx, Object leftright, Object upperLimitG, Object 
+                        lowerLimitG, Object upperLimitGmax, Object lowerLimitGmin, Object 
+                        xEndl, Object aMaxl, Object aMinl, Object xEndr, Object aMaxr, 
+                        Object aMinr, Object invalidx, Object invalidupper, Object 
+                        invalidlower, Object invaliduppermax, Object invalidlowermin, 
+                        Object leftincrease, Object rightincrease, Object smooth, Object 
+                        tight, Object tightlb, Object tightub, Object minxrange, Object 
+                        concave)
+    {
+      return mcr.EvaluateFunction("flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, upperLimitGmax, lowerLimitGmin, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, invaliduppermax, invalidlowermin, leftincrease, rightincrease, smooth, tight, tightlb, tightub, minxrange, concave);
+    }
+
+
+    /// <summary>
+    /// Provides a single output, 35-input Objectinterface to the flexWingFit MATLAB
+    /// function.
+    /// </summary>
+    /// <remarks>
+    /// M-Documentation:
+    /// clc
+    /// M = csvread('c:\temp\voltooltest\sampledata.csv', 2, 0);
+    /// MM = M(M(:,5)&lt;=0.5, :);
+    /// leftright = 1;
+    /// IV = MM(MM(:,3)~=0 &amp; MM(:,4)~=0,:);
+    /// IV = [IV (IV(:,3)+IV(:,4))./2];
+    /// x = IV(:,2)';
+    /// y = IV(:,6)';
+    /// weight = ones(1,length(x));
+    /// </remarks>
+    /// <param name="x_in1">Input argument #1</param>
+    /// <param name="y">Input argument #2</param>
+    /// <param name="weight">Input argument #3</param>
+    /// <param name="stationaryPoint">Input argument #4</param>
+    /// <param name="tailConcavity">Input argument #5</param>
+    /// <param name="smoothCoeff">Input argument #6</param>
+    /// <param name="turningPoint_in1">Input argument #7</param>
+    /// <param name="boundaryx">Input argument #8</param>
+    /// <param name="boundarydx">Input argument #9</param>
+    /// <param name="boundarydxx">Input argument #10</param>
+    /// <param name="leftright">Input argument #11</param>
+    /// <param name="upperLimitG">Input argument #12</param>
+    /// <param name="lowerLimitG">Input argument #13</param>
+    /// <param name="upperLimitGmax">Input argument #14</param>
+    /// <param name="lowerLimitGmin">Input argument #15</param>
+    /// <param name="xEndl">Input argument #16</param>
+    /// <param name="aMaxl">Input argument #17</param>
+    /// <param name="aMinl">Input argument #18</param>
+    /// <param name="xEndr">Input argument #19</param>
+    /// <param name="aMaxr">Input argument #20</param>
+    /// <param name="aMinr">Input argument #21</param>
+    /// <param name="invalidx">Input argument #22</param>
+    /// <param name="invalidupper">Input argument #23</param>
+    /// <param name="invalidlower">Input argument #24</param>
+    /// <param name="invaliduppermax">Input argument #25</param>
+    /// <param name="invalidlowermin">Input argument #26</param>
+    /// <param name="leftincrease">Input argument #27</param>
+    /// <param name="rightincrease">Input argument #28</param>
+    /// <param name="smooth">Input argument #29</param>
+    /// <param name="tight">Input argument #30</param>
+    /// <param name="tightlb">Input argument #31</param>
+    /// <param name="tightub">Input argument #32</param>
+    /// <param name="minxrange">Input argument #33</param>
+    /// <param name="concave">Input argument #34</param>
+    /// <param name="allowflat">Input argument #35</param>
+    /// <returns>An Object containing the first output argument.</returns>
+    ///
+    public Object flexWingFit(Object x_in1, Object y, Object weight, Object 
+                        stationaryPoint, Object tailConcavity, Object smoothCoeff, Object 
+                        turningPoint_in1, Object boundaryx, Object boundarydx, Object 
+                        boundarydxx, Object leftright, Object upperLimitG, Object 
+                        lowerLimitG, Object upperLimitGmax, Object lowerLimitGmin, Object 
+                        xEndl, Object aMaxl, Object aMinl, Object xEndr, Object aMaxr, 
+                        Object aMinr, Object invalidx, Object invalidupper, Object 
+                        invalidlower, Object invaliduppermax, Object invalidlowermin, 
+                        Object leftincrease, Object rightincrease, Object smooth, Object 
+                        tight, Object tightlb, Object tightub, Object minxrange, Object 
+                        concave, Object allowflat)
+    {
+      return mcr.EvaluateFunction("flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, upperLimitGmax, lowerLimitGmin, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, invaliduppermax, invalidlowermin, leftincrease, rightincrease, smooth, tight, tightlb, tightub, minxrange, concave, allowflat);
+    }
+
+
+    /// <summary>
+    /// Provides a single output, 36-input Objectinterface to the flexWingFit MATLAB
+    /// function.
+    /// </summary>
+    /// <remarks>
+    /// M-Documentation:
+    /// clc
+    /// M = csvread('c:\temp\voltooltest\sampledata.csv', 2, 0);
+    /// MM = M(M(:,5)&lt;=0.5, :);
+    /// leftright = 1;
+    /// IV = MM(MM(:,3)~=0 &amp; MM(:,4)~=0,:);
+    /// IV = [IV (IV(:,3)+IV(:,4))./2];
+    /// x = IV(:,2)';
+    /// y = IV(:,6)';
+    /// weight = ones(1,length(x));
+    /// </remarks>
+    /// <param name="x_in1">Input argument #1</param>
+    /// <param name="y">Input argument #2</param>
+    /// <param name="weight">Input argument #3</param>
+    /// <param name="stationaryPoint">Input argument #4</param>
+    /// <param name="tailConcavity">Input argument #5</param>
+    /// <param name="smoothCoeff">Input argument #6</param>
+    /// <param name="turningPoint_in1">Input argument #7</param>
+    /// <param name="boundaryx">Input argument #8</param>
+    /// <param name="boundarydx">Input argument #9</param>
+    /// <param name="boundarydxx">Input argument #10</param>
+    /// <param name="leftright">Input argument #11</param>
+    /// <param name="upperLimitG">Input argument #12</param>
+    /// <param name="lowerLimitG">Input argument #13</param>
+    /// <param name="upperLimitGmax">Input argument #14</param>
+    /// <param name="lowerLimitGmin">Input argument #15</param>
+    /// <param name="xEndl">Input argument #16</param>
+    /// <param name="aMaxl">Input argument #17</param>
+    /// <param name="aMinl">Input argument #18</param>
+    /// <param name="xEndr">Input argument #19</param>
+    /// <param name="aMaxr">Input argument #20</param>
+    /// <param name="aMinr">Input argument #21</param>
+    /// <param name="invalidx">Input argument #22</param>
+    /// <param name="invalidupper">Input argument #23</param>
+    /// <param name="invalidlower">Input argument #24</param>
+    /// <param name="invaliduppermax">Input argument #25</param>
+    /// <param name="invalidlowermin">Input argument #26</param>
+    /// <param name="leftincrease">Input argument #27</param>
+    /// <param name="rightincrease">Input argument #28</param>
+    /// <param name="smooth">Input argument #29</param>
+    /// <param name="tight">Input argument #30</param>
+    /// <param name="tightlb">Input argument #31</param>
+    /// <param name="tightub">Input argument #32</param>
+    /// <param name="minxrange">Input argument #33</param>
+    /// <param name="concave">Input argument #34</param>
+    /// <param name="allowflat">Input argument #35</param>
+    /// <param name="fromtime">Input argument #36</param>
+    /// <returns>An Object containing the first output argument.</returns>
+    ///
+    public Object flexWingFit(Object x_in1, Object y, Object weight, Object 
+                        stationaryPoint, Object tailConcavity, Object smoothCoeff, Object 
+                        turningPoint_in1, Object boundaryx, Object boundarydx, Object 
+                        boundarydxx, Object leftright, Object upperLimitG, Object 
+                        lowerLimitG, Object upperLimitGmax, Object lowerLimitGmin, Object 
+                        xEndl, Object aMaxl, Object aMinl, Object xEndr, Object aMaxr, 
+                        Object aMinr, Object invalidx, Object invalidupper, Object 
+                        invalidlower, Object invaliduppermax, Object invalidlowermin, 
+                        Object leftincrease, Object rightincrease, Object smooth, Object 
+                        tight, Object tightlb, Object tightub, Object minxrange, Object 
+                        concave, Object allowflat, Object fromtime)
+    {
+      return mcr.EvaluateFunction("flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, upperLimitGmax, lowerLimitGmin, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, invaliduppermax, invalidlowermin, leftincrease, rightincrease, smooth, tight, tightlb, tightub, minxrange, concave, allowflat, fromtime);
+    }
+
+
+    /// <summary>
+    /// Provides a single output, 37-input Objectinterface to the flexWingFit MATLAB
+    /// function.
+    /// </summary>
+    /// <remarks>
+    /// M-Documentation:
+    /// clc
+    /// M = csvread('c:\temp\voltooltest\sampledata.csv', 2, 0);
+    /// MM = M(M(:,5)&lt;=0.5, :);
+    /// leftright = 1;
+    /// IV = MM(MM(:,3)~=0 &amp; MM(:,4)~=0,:);
+    /// IV = [IV (IV(:,3)+IV(:,4))./2];
+    /// x = IV(:,2)';
+    /// y = IV(:,6)';
+    /// weight = ones(1,length(x));
+    /// </remarks>
+    /// <param name="x_in1">Input argument #1</param>
+    /// <param name="y">Input argument #2</param>
+    /// <param name="weight">Input argument #3</param>
+    /// <param name="stationaryPoint">Input argument #4</param>
+    /// <param name="tailConcavity">Input argument #5</param>
+    /// <param name="smoothCoeff">Input argument #6</param>
+    /// <param name="turningPoint_in1">Input argument #7</param>
+    /// <param name="boundaryx">Input argument #8</param>
+    /// <param name="boundarydx">Input argument #9</param>
+    /// <param name="boundarydxx">Input argument #10</param>
+    /// <param name="leftright">Input argument #11</param>
+    /// <param name="upperLimitG">Input argument #12</param>
+    /// <param name="lowerLimitG">Input argument #13</param>
+    /// <param name="upperLimitGmax">Input argument #14</param>
+    /// <param name="lowerLimitGmin">Input argument #15</param>
+    /// <param name="xEndl">Input argument #16</param>
+    /// <param name="aMaxl">Input argument #17</param>
+    /// <param name="aMinl">Input argument #18</param>
+    /// <param name="xEndr">Input argument #19</param>
+    /// <param name="aMaxr">Input argument #20</param>
+    /// <param name="aMinr">Input argument #21</param>
+    /// <param name="invalidx">Input argument #22</param>
+    /// <param name="invalidupper">Input argument #23</param>
+    /// <param name="invalidlower">Input argument #24</param>
+    /// <param name="invaliduppermax">Input argument #25</param>
+    /// <param name="invalidlowermin">Input argument #26</param>
+    /// <param name="leftincrease">Input argument #27</param>
+    /// <param name="rightincrease">Input argument #28</param>
+    /// <param name="smooth">Input argument #29</param>
+    /// <param name="tight">Input argument #30</param>
+    /// <param name="tightlb">Input argument #31</param>
+    /// <param name="tightub">Input argument #32</param>
+    /// <param name="minxrange">Input argument #33</param>
+    /// <param name="concave">Input argument #34</param>
+    /// <param name="allowflat">Input argument #35</param>
+    /// <param name="fromtime">Input argument #36</param>
+    /// <param name="originalx">Input argument #37</param>
+    /// <returns>An Object containing the first output argument.</returns>
+    ///
+    public Object flexWingFit(Object x_in1, Object y, Object weight, Object 
+                        stationaryPoint, Object tailConcavity, Object smoothCoeff, Object 
+                        turningPoint_in1, Object boundaryx, Object boundarydx, Object 
+                        boundarydxx, Object leftright, Object upperLimitG, Object 
+                        lowerLimitG, Object upperLimitGmax, Object lowerLimitGmin, Object 
+                        xEndl, Object aMaxl, Object aMinl, Object xEndr, Object aMaxr, 
+                        Object aMinr, Object invalidx, Object invalidupper, Object 
+                        invalidlower, Object invaliduppermax, Object invalidlowermin, 
+                        Object leftincrease, Object rightincrease, Object smooth, Object 
+                        tight, Object tightlb, Object tightub, Object minxrange, Object 
+                        concave, Object allowflat, Object fromtime, Object originalx)
+    {
+      return mcr.EvaluateFunction("flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, upperLimitGmax, lowerLimitGmin, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, invaliduppermax, invalidlowermin, leftincrease, rightincrease, smooth, tight, tightlb, tightub, minxrange, concave, allowflat, fromtime, originalx);
+    }
+
+
+    /// <summary>
+    /// Provides a single output, 38-input Objectinterface to the flexWingFit MATLAB
+    /// function.
+    /// </summary>
+    /// <remarks>
+    /// M-Documentation:
+    /// clc
+    /// M = csvread('c:\temp\voltooltest\sampledata.csv', 2, 0);
+    /// MM = M(M(:,5)&lt;=0.5, :);
+    /// leftright = 1;
+    /// IV = MM(MM(:,3)~=0 &amp; MM(:,4)~=0,:);
+    /// IV = [IV (IV(:,3)+IV(:,4))./2];
+    /// x = IV(:,2)';
+    /// y = IV(:,6)';
+    /// weight = ones(1,length(x));
+    /// </remarks>
+    /// <param name="x_in1">Input argument #1</param>
+    /// <param name="y">Input argument #2</param>
+    /// <param name="weight">Input argument #3</param>
+    /// <param name="stationaryPoint">Input argument #4</param>
+    /// <param name="tailConcavity">Input argument #5</param>
+    /// <param name="smoothCoeff">Input argument #6</param>
+    /// <param name="turningPoint_in1">Input argument #7</param>
+    /// <param name="boundaryx">Input argument #8</param>
+    /// <param name="boundarydx">Input argument #9</param>
+    /// <param name="boundarydxx">Input argument #10</param>
+    /// <param name="leftright">Input argument #11</param>
+    /// <param name="upperLimitG">Input argument #12</param>
+    /// <param name="lowerLimitG">Input argument #13</param>
+    /// <param name="upperLimitGmax">Input argument #14</param>
+    /// <param name="lowerLimitGmin">Input argument #15</param>
+    /// <param name="xEndl">Input argument #16</param>
+    /// <param name="aMaxl">Input argument #17</param>
+    /// <param name="aMinl">Input argument #18</param>
+    /// <param name="xEndr">Input argument #19</param>
+    /// <param name="aMaxr">Input argument #20</param>
+    /// <param name="aMinr">Input argument #21</param>
+    /// <param name="invalidx">Input argument #22</param>
+    /// <param name="invalidupper">Input argument #23</param>
+    /// <param name="invalidlower">Input argument #24</param>
+    /// <param name="invaliduppermax">Input argument #25</param>
+    /// <param name="invalidlowermin">Input argument #26</param>
+    /// <param name="leftincrease">Input argument #27</param>
+    /// <param name="rightincrease">Input argument #28</param>
+    /// <param name="smooth">Input argument #29</param>
+    /// <param name="tight">Input argument #30</param>
+    /// <param name="tightlb">Input argument #31</param>
+    /// <param name="tightub">Input argument #32</param>
+    /// <param name="minxrange">Input argument #33</param>
+    /// <param name="concave">Input argument #34</param>
+    /// <param name="allowflat">Input argument #35</param>
+    /// <param name="fromtime">Input argument #36</param>
+    /// <param name="originalx">Input argument #37</param>
+    /// <param name="breakBoundary">Input argument #38</param>
+    /// <returns>An Object containing the first output argument.</returns>
+    ///
+    public Object flexWingFit(Object x_in1, Object y, Object weight, Object 
+                        stationaryPoint, Object tailConcavity, Object smoothCoeff, Object 
+                        turningPoint_in1, Object boundaryx, Object boundarydx, Object 
+                        boundarydxx, Object leftright, Object upperLimitG, Object 
+                        lowerLimitG, Object upperLimitGmax, Object lowerLimitGmin, Object 
+                        xEndl, Object aMaxl, Object aMinl, Object xEndr, Object aMaxr, 
+                        Object aMinr, Object invalidx, Object invalidupper, Object 
+                        invalidlower, Object invaliduppermax, Object invalidlowermin, 
+                        Object leftincrease, Object rightincrease, Object smooth, Object 
+                        tight, Object tightlb, Object tightub, Object minxrange, Object 
+                        concave, Object allowflat, Object fromtime, Object originalx, 
+                        Object breakBoundary)
+    {
+      return mcr.EvaluateFunction("flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, upperLimitGmax, lowerLimitGmin, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, invaliduppermax, invalidlowermin, leftincrease, rightincrease, smooth, tight, tightlb, tightub, minxrange, concave, allowflat, fromtime, originalx, breakBoundary);
+    }
+
+
+    /// <summary>
+    /// Provides a single output, 39-input Objectinterface to the flexWingFit MATLAB
+    /// function.
+    /// </summary>
+    /// <remarks>
+    /// M-Documentation:
+    /// clc
+    /// M = csvread('c:\temp\voltooltest\sampledata.csv', 2, 0);
+    /// MM = M(M(:,5)&lt;=0.5, :);
+    /// leftright = 1;
+    /// IV = MM(MM(:,3)~=0 &amp; MM(:,4)~=0,:);
+    /// IV = [IV (IV(:,3)+IV(:,4))./2];
+    /// x = IV(:,2)';
+    /// y = IV(:,6)';
+    /// weight = ones(1,length(x));
+    /// </remarks>
+    /// <param name="x_in1">Input argument #1</param>
+    /// <param name="y">Input argument #2</param>
+    /// <param name="weight">Input argument #3</param>
+    /// <param name="stationaryPoint">Input argument #4</param>
+    /// <param name="tailConcavity">Input argument #5</param>
+    /// <param name="smoothCoeff">Input argument #6</param>
+    /// <param name="turningPoint_in1">Input argument #7</param>
+    /// <param name="boundaryx">Input argument #8</param>
+    /// <param name="boundarydx">Input argument #9</param>
+    /// <param name="boundarydxx">Input argument #10</param>
+    /// <param name="leftright">Input argument #11</param>
+    /// <param name="upperLimitG">Input argument #12</param>
+    /// <param name="lowerLimitG">Input argument #13</param>
+    /// <param name="upperLimitGmax">Input argument #14</param>
+    /// <param name="lowerLimitGmin">Input argument #15</param>
+    /// <param name="xEndl">Input argument #16</param>
+    /// <param name="aMaxl">Input argument #17</param>
+    /// <param name="aMinl">Input argument #18</param>
+    /// <param name="xEndr">Input argument #19</param>
+    /// <param name="aMaxr">Input argument #20</param>
+    /// <param name="aMinr">Input argument #21</param>
+    /// <param name="invalidx">Input argument #22</param>
+    /// <param name="invalidupper">Input argument #23</param>
+    /// <param name="invalidlower">Input argument #24</param>
+    /// <param name="invaliduppermax">Input argument #25</param>
+    /// <param name="invalidlowermin">Input argument #26</param>
+    /// <param name="leftincrease">Input argument #27</param>
+    /// <param name="rightincrease">Input argument #28</param>
+    /// <param name="smooth">Input argument #29</param>
+    /// <param name="tight">Input argument #30</param>
+    /// <param name="tightlb">Input argument #31</param>
+    /// <param name="tightub">Input argument #32</param>
+    /// <param name="minxrange">Input argument #33</param>
+    /// <param name="concave">Input argument #34</param>
+    /// <param name="allowflat">Input argument #35</param>
+    /// <param name="fromtime">Input argument #36</param>
+    /// <param name="originalx">Input argument #37</param>
+    /// <param name="breakBoundary">Input argument #38</param>
+    /// <param name="forcesmooth">Input argument #39</param>
+    /// <returns>An Object containing the first output argument.</returns>
+    ///
+    public Object flexWingFit(Object x_in1, Object y, Object weight, Object 
+                        stationaryPoint, Object tailConcavity, Object smoothCoeff, Object 
+                        turningPoint_in1, Object boundaryx, Object boundarydx, Object 
+                        boundarydxx, Object leftright, Object upperLimitG, Object 
+                        lowerLimitG, Object upperLimitGmax, Object lowerLimitGmin, Object 
+                        xEndl, Object aMaxl, Object aMinl, Object xEndr, Object aMaxr, 
+                        Object aMinr, Object invalidx, Object invalidupper, Object 
+                        invalidlower, Object invaliduppermax, Object invalidlowermin, 
+                        Object leftincrease, Object rightincrease, Object smooth, Object 
+                        tight, Object tightlb, Object tightub, Object minxrange, Object 
+                        concave, Object allowflat, Object fromtime, Object originalx, 
+                        Object breakBoundary, Object forcesmooth)
+    {
+      return mcr.EvaluateFunction("flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, upperLimitGmax, lowerLimitGmin, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, invaliduppermax, invalidlowermin, leftincrease, rightincrease, smooth, tight, tightlb, tightub, minxrange, concave, allowflat, fromtime, originalx, breakBoundary, forcesmooth);
     }
 
 
@@ -9344,7 +11875,7 @@ namespace flexFitNative
     /// <param name="leftright">Input argument #11</param>
     /// <param name="upperLimitG">Input argument #12</param>
     /// <param name="lowerLimitG">Input argument #13</param>
-    /// <param name="xEndl">Input argument #14</param>
+    /// <param name="upperLimitGmax">Input argument #14</param>
     /// <returns>An Array of length "numArgsOut" containing the output
     /// arguments.</returns>
     ///
@@ -9352,9 +11883,9 @@ namespace flexFitNative
                           Object stationaryPoint, Object tailConcavity, Object 
                           smoothCoeff, Object turningPoint_in1, Object boundaryx, Object 
                           boundarydx, Object boundarydxx, Object leftright, Object 
-                          upperLimitG, Object lowerLimitG, Object xEndl)
+                          upperLimitG, Object lowerLimitG, Object upperLimitGmax)
     {
-      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl);
+      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, upperLimitGmax);
     }
 
 
@@ -9388,8 +11919,8 @@ namespace flexFitNative
     /// <param name="leftright">Input argument #11</param>
     /// <param name="upperLimitG">Input argument #12</param>
     /// <param name="lowerLimitG">Input argument #13</param>
-    /// <param name="xEndl">Input argument #14</param>
-    /// <param name="aMaxl">Input argument #15</param>
+    /// <param name="upperLimitGmax">Input argument #14</param>
+    /// <param name="lowerLimitGmin">Input argument #15</param>
     /// <returns>An Array of length "numArgsOut" containing the output
     /// arguments.</returns>
     ///
@@ -9397,9 +11928,10 @@ namespace flexFitNative
                           Object stationaryPoint, Object tailConcavity, Object 
                           smoothCoeff, Object turningPoint_in1, Object boundaryx, Object 
                           boundarydx, Object boundarydxx, Object leftright, Object 
-                          upperLimitG, Object lowerLimitG, Object xEndl, Object aMaxl)
+                          upperLimitG, Object lowerLimitG, Object upperLimitGmax, Object 
+                          lowerLimitGmin)
     {
-      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl);
+      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, upperLimitGmax, lowerLimitGmin);
     }
 
 
@@ -9433,9 +11965,9 @@ namespace flexFitNative
     /// <param name="leftright">Input argument #11</param>
     /// <param name="upperLimitG">Input argument #12</param>
     /// <param name="lowerLimitG">Input argument #13</param>
-    /// <param name="xEndl">Input argument #14</param>
-    /// <param name="aMaxl">Input argument #15</param>
-    /// <param name="aMinl">Input argument #16</param>
+    /// <param name="upperLimitGmax">Input argument #14</param>
+    /// <param name="lowerLimitGmin">Input argument #15</param>
+    /// <param name="xEndl">Input argument #16</param>
     /// <returns>An Array of length "numArgsOut" containing the output
     /// arguments.</returns>
     ///
@@ -9443,10 +11975,10 @@ namespace flexFitNative
                           Object stationaryPoint, Object tailConcavity, Object 
                           smoothCoeff, Object turningPoint_in1, Object boundaryx, Object 
                           boundarydx, Object boundarydxx, Object leftright, Object 
-                          upperLimitG, Object lowerLimitG, Object xEndl, Object aMaxl, 
-                          Object aMinl)
+                          upperLimitG, Object lowerLimitG, Object upperLimitGmax, Object 
+                          lowerLimitGmin, Object xEndl)
     {
-      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl);
+      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, upperLimitGmax, lowerLimitGmin, xEndl);
     }
 
 
@@ -9480,10 +12012,10 @@ namespace flexFitNative
     /// <param name="leftright">Input argument #11</param>
     /// <param name="upperLimitG">Input argument #12</param>
     /// <param name="lowerLimitG">Input argument #13</param>
-    /// <param name="xEndl">Input argument #14</param>
-    /// <param name="aMaxl">Input argument #15</param>
-    /// <param name="aMinl">Input argument #16</param>
-    /// <param name="xEndr">Input argument #17</param>
+    /// <param name="upperLimitGmax">Input argument #14</param>
+    /// <param name="lowerLimitGmin">Input argument #15</param>
+    /// <param name="xEndl">Input argument #16</param>
+    /// <param name="aMaxl">Input argument #17</param>
     /// <returns>An Array of length "numArgsOut" containing the output
     /// arguments.</returns>
     ///
@@ -9491,10 +12023,10 @@ namespace flexFitNative
                           Object stationaryPoint, Object tailConcavity, Object 
                           smoothCoeff, Object turningPoint_in1, Object boundaryx, Object 
                           boundarydx, Object boundarydxx, Object leftright, Object 
-                          upperLimitG, Object lowerLimitG, Object xEndl, Object aMaxl, 
-                          Object aMinl, Object xEndr)
+                          upperLimitG, Object lowerLimitG, Object upperLimitGmax, Object 
+                          lowerLimitGmin, Object xEndl, Object aMaxl)
     {
-      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr);
+      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, upperLimitGmax, lowerLimitGmin, xEndl, aMaxl);
     }
 
 
@@ -9528,11 +12060,11 @@ namespace flexFitNative
     /// <param name="leftright">Input argument #11</param>
     /// <param name="upperLimitG">Input argument #12</param>
     /// <param name="lowerLimitG">Input argument #13</param>
-    /// <param name="xEndl">Input argument #14</param>
-    /// <param name="aMaxl">Input argument #15</param>
-    /// <param name="aMinl">Input argument #16</param>
-    /// <param name="xEndr">Input argument #17</param>
-    /// <param name="aMaxr">Input argument #18</param>
+    /// <param name="upperLimitGmax">Input argument #14</param>
+    /// <param name="lowerLimitGmin">Input argument #15</param>
+    /// <param name="xEndl">Input argument #16</param>
+    /// <param name="aMaxl">Input argument #17</param>
+    /// <param name="aMinl">Input argument #18</param>
     /// <returns>An Array of length "numArgsOut" containing the output
     /// arguments.</returns>
     ///
@@ -9540,10 +12072,10 @@ namespace flexFitNative
                           Object stationaryPoint, Object tailConcavity, Object 
                           smoothCoeff, Object turningPoint_in1, Object boundaryx, Object 
                           boundarydx, Object boundarydxx, Object leftright, Object 
-                          upperLimitG, Object lowerLimitG, Object xEndl, Object aMaxl, 
-                          Object aMinl, Object xEndr, Object aMaxr)
+                          upperLimitG, Object lowerLimitG, Object upperLimitGmax, Object 
+                          lowerLimitGmin, Object xEndl, Object aMaxl, Object aMinl)
     {
-      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr);
+      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, upperLimitGmax, lowerLimitGmin, xEndl, aMaxl, aMinl);
     }
 
 
@@ -9577,12 +12109,12 @@ namespace flexFitNative
     /// <param name="leftright">Input argument #11</param>
     /// <param name="upperLimitG">Input argument #12</param>
     /// <param name="lowerLimitG">Input argument #13</param>
-    /// <param name="xEndl">Input argument #14</param>
-    /// <param name="aMaxl">Input argument #15</param>
-    /// <param name="aMinl">Input argument #16</param>
-    /// <param name="xEndr">Input argument #17</param>
-    /// <param name="aMaxr">Input argument #18</param>
-    /// <param name="aMinr">Input argument #19</param>
+    /// <param name="upperLimitGmax">Input argument #14</param>
+    /// <param name="lowerLimitGmin">Input argument #15</param>
+    /// <param name="xEndl">Input argument #16</param>
+    /// <param name="aMaxl">Input argument #17</param>
+    /// <param name="aMinl">Input argument #18</param>
+    /// <param name="xEndr">Input argument #19</param>
     /// <returns>An Array of length "numArgsOut" containing the output
     /// arguments.</returns>
     ///
@@ -9590,10 +12122,11 @@ namespace flexFitNative
                           Object stationaryPoint, Object tailConcavity, Object 
                           smoothCoeff, Object turningPoint_in1, Object boundaryx, Object 
                           boundarydx, Object boundarydxx, Object leftright, Object 
-                          upperLimitG, Object lowerLimitG, Object xEndl, Object aMaxl, 
-                          Object aMinl, Object xEndr, Object aMaxr, Object aMinr)
+                          upperLimitG, Object lowerLimitG, Object upperLimitGmax, Object 
+                          lowerLimitGmin, Object xEndl, Object aMaxl, Object aMinl, 
+                          Object xEndr)
     {
-      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr);
+      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, upperLimitGmax, lowerLimitGmin, xEndl, aMaxl, aMinl, xEndr);
     }
 
 
@@ -9627,13 +12160,13 @@ namespace flexFitNative
     /// <param name="leftright">Input argument #11</param>
     /// <param name="upperLimitG">Input argument #12</param>
     /// <param name="lowerLimitG">Input argument #13</param>
-    /// <param name="xEndl">Input argument #14</param>
-    /// <param name="aMaxl">Input argument #15</param>
-    /// <param name="aMinl">Input argument #16</param>
-    /// <param name="xEndr">Input argument #17</param>
-    /// <param name="aMaxr">Input argument #18</param>
-    /// <param name="aMinr">Input argument #19</param>
-    /// <param name="invalidx">Input argument #20</param>
+    /// <param name="upperLimitGmax">Input argument #14</param>
+    /// <param name="lowerLimitGmin">Input argument #15</param>
+    /// <param name="xEndl">Input argument #16</param>
+    /// <param name="aMaxl">Input argument #17</param>
+    /// <param name="aMinl">Input argument #18</param>
+    /// <param name="xEndr">Input argument #19</param>
+    /// <param name="aMaxr">Input argument #20</param>
     /// <returns>An Array of length "numArgsOut" containing the output
     /// arguments.</returns>
     ///
@@ -9641,11 +12174,11 @@ namespace flexFitNative
                           Object stationaryPoint, Object tailConcavity, Object 
                           smoothCoeff, Object turningPoint_in1, Object boundaryx, Object 
                           boundarydx, Object boundarydxx, Object leftright, Object 
-                          upperLimitG, Object lowerLimitG, Object xEndl, Object aMaxl, 
-                          Object aMinl, Object xEndr, Object aMaxr, Object aMinr, Object 
-                          invalidx)
+                          upperLimitG, Object lowerLimitG, Object upperLimitGmax, Object 
+                          lowerLimitGmin, Object xEndl, Object aMaxl, Object aMinl, 
+                          Object xEndr, Object aMaxr)
     {
-      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx);
+      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, upperLimitGmax, lowerLimitGmin, xEndl, aMaxl, aMinl, xEndr, aMaxr);
     }
 
 
@@ -9679,14 +12212,14 @@ namespace flexFitNative
     /// <param name="leftright">Input argument #11</param>
     /// <param name="upperLimitG">Input argument #12</param>
     /// <param name="lowerLimitG">Input argument #13</param>
-    /// <param name="xEndl">Input argument #14</param>
-    /// <param name="aMaxl">Input argument #15</param>
-    /// <param name="aMinl">Input argument #16</param>
-    /// <param name="xEndr">Input argument #17</param>
-    /// <param name="aMaxr">Input argument #18</param>
-    /// <param name="aMinr">Input argument #19</param>
-    /// <param name="invalidx">Input argument #20</param>
-    /// <param name="invalidupper">Input argument #21</param>
+    /// <param name="upperLimitGmax">Input argument #14</param>
+    /// <param name="lowerLimitGmin">Input argument #15</param>
+    /// <param name="xEndl">Input argument #16</param>
+    /// <param name="aMaxl">Input argument #17</param>
+    /// <param name="aMinl">Input argument #18</param>
+    /// <param name="xEndr">Input argument #19</param>
+    /// <param name="aMaxr">Input argument #20</param>
+    /// <param name="aMinr">Input argument #21</param>
     /// <returns>An Array of length "numArgsOut" containing the output
     /// arguments.</returns>
     ///
@@ -9694,11 +12227,11 @@ namespace flexFitNative
                           Object stationaryPoint, Object tailConcavity, Object 
                           smoothCoeff, Object turningPoint_in1, Object boundaryx, Object 
                           boundarydx, Object boundarydxx, Object leftright, Object 
-                          upperLimitG, Object lowerLimitG, Object xEndl, Object aMaxl, 
-                          Object aMinl, Object xEndr, Object aMaxr, Object aMinr, Object 
-                          invalidx, Object invalidupper)
+                          upperLimitG, Object lowerLimitG, Object upperLimitGmax, Object 
+                          lowerLimitGmin, Object xEndl, Object aMaxl, Object aMinl, 
+                          Object xEndr, Object aMaxr, Object aMinr)
     {
-      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper);
+      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, upperLimitGmax, lowerLimitGmin, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr);
     }
 
 
@@ -9732,15 +12265,15 @@ namespace flexFitNative
     /// <param name="leftright">Input argument #11</param>
     /// <param name="upperLimitG">Input argument #12</param>
     /// <param name="lowerLimitG">Input argument #13</param>
-    /// <param name="xEndl">Input argument #14</param>
-    /// <param name="aMaxl">Input argument #15</param>
-    /// <param name="aMinl">Input argument #16</param>
-    /// <param name="xEndr">Input argument #17</param>
-    /// <param name="aMaxr">Input argument #18</param>
-    /// <param name="aMinr">Input argument #19</param>
-    /// <param name="invalidx">Input argument #20</param>
-    /// <param name="invalidupper">Input argument #21</param>
-    /// <param name="invalidlower">Input argument #22</param>
+    /// <param name="upperLimitGmax">Input argument #14</param>
+    /// <param name="lowerLimitGmin">Input argument #15</param>
+    /// <param name="xEndl">Input argument #16</param>
+    /// <param name="aMaxl">Input argument #17</param>
+    /// <param name="aMinl">Input argument #18</param>
+    /// <param name="xEndr">Input argument #19</param>
+    /// <param name="aMaxr">Input argument #20</param>
+    /// <param name="aMinr">Input argument #21</param>
+    /// <param name="invalidx">Input argument #22</param>
     /// <returns>An Array of length "numArgsOut" containing the output
     /// arguments.</returns>
     ///
@@ -9748,11 +12281,11 @@ namespace flexFitNative
                           Object stationaryPoint, Object tailConcavity, Object 
                           smoothCoeff, Object turningPoint_in1, Object boundaryx, Object 
                           boundarydx, Object boundarydxx, Object leftright, Object 
-                          upperLimitG, Object lowerLimitG, Object xEndl, Object aMaxl, 
-                          Object aMinl, Object xEndr, Object aMaxr, Object aMinr, Object 
-                          invalidx, Object invalidupper, Object invalidlower)
+                          upperLimitG, Object lowerLimitG, Object upperLimitGmax, Object 
+                          lowerLimitGmin, Object xEndl, Object aMaxl, Object aMinl, 
+                          Object xEndr, Object aMaxr, Object aMinr, Object invalidx)
     {
-      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower);
+      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, upperLimitGmax, lowerLimitGmin, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx);
     }
 
 
@@ -9786,16 +12319,16 @@ namespace flexFitNative
     /// <param name="leftright">Input argument #11</param>
     /// <param name="upperLimitG">Input argument #12</param>
     /// <param name="lowerLimitG">Input argument #13</param>
-    /// <param name="xEndl">Input argument #14</param>
-    /// <param name="aMaxl">Input argument #15</param>
-    /// <param name="aMinl">Input argument #16</param>
-    /// <param name="xEndr">Input argument #17</param>
-    /// <param name="aMaxr">Input argument #18</param>
-    /// <param name="aMinr">Input argument #19</param>
-    /// <param name="invalidx">Input argument #20</param>
-    /// <param name="invalidupper">Input argument #21</param>
-    /// <param name="invalidlower">Input argument #22</param>
-    /// <param name="leftincrease">Input argument #23</param>
+    /// <param name="upperLimitGmax">Input argument #14</param>
+    /// <param name="lowerLimitGmin">Input argument #15</param>
+    /// <param name="xEndl">Input argument #16</param>
+    /// <param name="aMaxl">Input argument #17</param>
+    /// <param name="aMinl">Input argument #18</param>
+    /// <param name="xEndr">Input argument #19</param>
+    /// <param name="aMaxr">Input argument #20</param>
+    /// <param name="aMinr">Input argument #21</param>
+    /// <param name="invalidx">Input argument #22</param>
+    /// <param name="invalidupper">Input argument #23</param>
     /// <returns>An Array of length "numArgsOut" containing the output
     /// arguments.</returns>
     ///
@@ -9803,12 +12336,12 @@ namespace flexFitNative
                           Object stationaryPoint, Object tailConcavity, Object 
                           smoothCoeff, Object turningPoint_in1, Object boundaryx, Object 
                           boundarydx, Object boundarydxx, Object leftright, Object 
-                          upperLimitG, Object lowerLimitG, Object xEndl, Object aMaxl, 
-                          Object aMinl, Object xEndr, Object aMaxr, Object aMinr, Object 
-                          invalidx, Object invalidupper, Object invalidlower, Object 
-                          leftincrease)
+                          upperLimitG, Object lowerLimitG, Object upperLimitGmax, Object 
+                          lowerLimitGmin, Object xEndl, Object aMaxl, Object aMinl, 
+                          Object xEndr, Object aMaxr, Object aMinr, Object invalidx, 
+                          Object invalidupper)
     {
-      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, leftincrease);
+      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, upperLimitGmax, lowerLimitGmin, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper);
     }
 
 
@@ -9842,17 +12375,17 @@ namespace flexFitNative
     /// <param name="leftright">Input argument #11</param>
     /// <param name="upperLimitG">Input argument #12</param>
     /// <param name="lowerLimitG">Input argument #13</param>
-    /// <param name="xEndl">Input argument #14</param>
-    /// <param name="aMaxl">Input argument #15</param>
-    /// <param name="aMinl">Input argument #16</param>
-    /// <param name="xEndr">Input argument #17</param>
-    /// <param name="aMaxr">Input argument #18</param>
-    /// <param name="aMinr">Input argument #19</param>
-    /// <param name="invalidx">Input argument #20</param>
-    /// <param name="invalidupper">Input argument #21</param>
-    /// <param name="invalidlower">Input argument #22</param>
-    /// <param name="leftincrease">Input argument #23</param>
-    /// <param name="rightincrease">Input argument #24</param>
+    /// <param name="upperLimitGmax">Input argument #14</param>
+    /// <param name="lowerLimitGmin">Input argument #15</param>
+    /// <param name="xEndl">Input argument #16</param>
+    /// <param name="aMaxl">Input argument #17</param>
+    /// <param name="aMinl">Input argument #18</param>
+    /// <param name="xEndr">Input argument #19</param>
+    /// <param name="aMaxr">Input argument #20</param>
+    /// <param name="aMinr">Input argument #21</param>
+    /// <param name="invalidx">Input argument #22</param>
+    /// <param name="invalidupper">Input argument #23</param>
+    /// <param name="invalidlower">Input argument #24</param>
     /// <returns>An Array of length "numArgsOut" containing the output
     /// arguments.</returns>
     ///
@@ -9860,12 +12393,12 @@ namespace flexFitNative
                           Object stationaryPoint, Object tailConcavity, Object 
                           smoothCoeff, Object turningPoint_in1, Object boundaryx, Object 
                           boundarydx, Object boundarydxx, Object leftright, Object 
-                          upperLimitG, Object lowerLimitG, Object xEndl, Object aMaxl, 
-                          Object aMinl, Object xEndr, Object aMaxr, Object aMinr, Object 
-                          invalidx, Object invalidupper, Object invalidlower, Object 
-                          leftincrease, Object rightincrease)
+                          upperLimitG, Object lowerLimitG, Object upperLimitGmax, Object 
+                          lowerLimitGmin, Object xEndl, Object aMaxl, Object aMinl, 
+                          Object xEndr, Object aMaxr, Object aMinr, Object invalidx, 
+                          Object invalidupper, Object invalidlower)
     {
-      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, leftincrease, rightincrease);
+      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, upperLimitGmax, lowerLimitGmin, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower);
     }
 
 
@@ -9899,18 +12432,18 @@ namespace flexFitNative
     /// <param name="leftright">Input argument #11</param>
     /// <param name="upperLimitG">Input argument #12</param>
     /// <param name="lowerLimitG">Input argument #13</param>
-    /// <param name="xEndl">Input argument #14</param>
-    /// <param name="aMaxl">Input argument #15</param>
-    /// <param name="aMinl">Input argument #16</param>
-    /// <param name="xEndr">Input argument #17</param>
-    /// <param name="aMaxr">Input argument #18</param>
-    /// <param name="aMinr">Input argument #19</param>
-    /// <param name="invalidx">Input argument #20</param>
-    /// <param name="invalidupper">Input argument #21</param>
-    /// <param name="invalidlower">Input argument #22</param>
-    /// <param name="leftincrease">Input argument #23</param>
-    /// <param name="rightincrease">Input argument #24</param>
-    /// <param name="smooth">Input argument #25</param>
+    /// <param name="upperLimitGmax">Input argument #14</param>
+    /// <param name="lowerLimitGmin">Input argument #15</param>
+    /// <param name="xEndl">Input argument #16</param>
+    /// <param name="aMaxl">Input argument #17</param>
+    /// <param name="aMinl">Input argument #18</param>
+    /// <param name="xEndr">Input argument #19</param>
+    /// <param name="aMaxr">Input argument #20</param>
+    /// <param name="aMinr">Input argument #21</param>
+    /// <param name="invalidx">Input argument #22</param>
+    /// <param name="invalidupper">Input argument #23</param>
+    /// <param name="invalidlower">Input argument #24</param>
+    /// <param name="invaliduppermax">Input argument #25</param>
     /// <returns>An Array of length "numArgsOut" containing the output
     /// arguments.</returns>
     ///
@@ -9918,12 +12451,13 @@ namespace flexFitNative
                           Object stationaryPoint, Object tailConcavity, Object 
                           smoothCoeff, Object turningPoint_in1, Object boundaryx, Object 
                           boundarydx, Object boundarydxx, Object leftright, Object 
-                          upperLimitG, Object lowerLimitG, Object xEndl, Object aMaxl, 
-                          Object aMinl, Object xEndr, Object aMaxr, Object aMinr, Object 
-                          invalidx, Object invalidupper, Object invalidlower, Object 
-                          leftincrease, Object rightincrease, Object smooth)
+                          upperLimitG, Object lowerLimitG, Object upperLimitGmax, Object 
+                          lowerLimitGmin, Object xEndl, Object aMaxl, Object aMinl, 
+                          Object xEndr, Object aMaxr, Object aMinr, Object invalidx, 
+                          Object invalidupper, Object invalidlower, Object 
+                          invaliduppermax)
     {
-      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, leftincrease, rightincrease, smooth);
+      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, upperLimitGmax, lowerLimitGmin, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, invaliduppermax);
     }
 
 
@@ -9957,19 +12491,19 @@ namespace flexFitNative
     /// <param name="leftright">Input argument #11</param>
     /// <param name="upperLimitG">Input argument #12</param>
     /// <param name="lowerLimitG">Input argument #13</param>
-    /// <param name="xEndl">Input argument #14</param>
-    /// <param name="aMaxl">Input argument #15</param>
-    /// <param name="aMinl">Input argument #16</param>
-    /// <param name="xEndr">Input argument #17</param>
-    /// <param name="aMaxr">Input argument #18</param>
-    /// <param name="aMinr">Input argument #19</param>
-    /// <param name="invalidx">Input argument #20</param>
-    /// <param name="invalidupper">Input argument #21</param>
-    /// <param name="invalidlower">Input argument #22</param>
-    /// <param name="leftincrease">Input argument #23</param>
-    /// <param name="rightincrease">Input argument #24</param>
-    /// <param name="smooth">Input argument #25</param>
-    /// <param name="tight">Input argument #26</param>
+    /// <param name="upperLimitGmax">Input argument #14</param>
+    /// <param name="lowerLimitGmin">Input argument #15</param>
+    /// <param name="xEndl">Input argument #16</param>
+    /// <param name="aMaxl">Input argument #17</param>
+    /// <param name="aMinl">Input argument #18</param>
+    /// <param name="xEndr">Input argument #19</param>
+    /// <param name="aMaxr">Input argument #20</param>
+    /// <param name="aMinr">Input argument #21</param>
+    /// <param name="invalidx">Input argument #22</param>
+    /// <param name="invalidupper">Input argument #23</param>
+    /// <param name="invalidlower">Input argument #24</param>
+    /// <param name="invaliduppermax">Input argument #25</param>
+    /// <param name="invalidlowermin">Input argument #26</param>
     /// <returns>An Array of length "numArgsOut" containing the output
     /// arguments.</returns>
     ///
@@ -9977,12 +12511,13 @@ namespace flexFitNative
                           Object stationaryPoint, Object tailConcavity, Object 
                           smoothCoeff, Object turningPoint_in1, Object boundaryx, Object 
                           boundarydx, Object boundarydxx, Object leftright, Object 
-                          upperLimitG, Object lowerLimitG, Object xEndl, Object aMaxl, 
-                          Object aMinl, Object xEndr, Object aMaxr, Object aMinr, Object 
-                          invalidx, Object invalidupper, Object invalidlower, Object 
-                          leftincrease, Object rightincrease, Object smooth, Object tight)
+                          upperLimitG, Object lowerLimitG, Object upperLimitGmax, Object 
+                          lowerLimitGmin, Object xEndl, Object aMaxl, Object aMinl, 
+                          Object xEndr, Object aMaxr, Object aMinr, Object invalidx, 
+                          Object invalidupper, Object invalidlower, Object 
+                          invaliduppermax, Object invalidlowermin)
     {
-      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, leftincrease, rightincrease, smooth, tight);
+      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, upperLimitGmax, lowerLimitGmin, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, invaliduppermax, invalidlowermin);
     }
 
 
@@ -10016,20 +12551,20 @@ namespace flexFitNative
     /// <param name="leftright">Input argument #11</param>
     /// <param name="upperLimitG">Input argument #12</param>
     /// <param name="lowerLimitG">Input argument #13</param>
-    /// <param name="xEndl">Input argument #14</param>
-    /// <param name="aMaxl">Input argument #15</param>
-    /// <param name="aMinl">Input argument #16</param>
-    /// <param name="xEndr">Input argument #17</param>
-    /// <param name="aMaxr">Input argument #18</param>
-    /// <param name="aMinr">Input argument #19</param>
-    /// <param name="invalidx">Input argument #20</param>
-    /// <param name="invalidupper">Input argument #21</param>
-    /// <param name="invalidlower">Input argument #22</param>
-    /// <param name="leftincrease">Input argument #23</param>
-    /// <param name="rightincrease">Input argument #24</param>
-    /// <param name="smooth">Input argument #25</param>
-    /// <param name="tight">Input argument #26</param>
-    /// <param name="minxrange">Input argument #27</param>
+    /// <param name="upperLimitGmax">Input argument #14</param>
+    /// <param name="lowerLimitGmin">Input argument #15</param>
+    /// <param name="xEndl">Input argument #16</param>
+    /// <param name="aMaxl">Input argument #17</param>
+    /// <param name="aMinl">Input argument #18</param>
+    /// <param name="xEndr">Input argument #19</param>
+    /// <param name="aMaxr">Input argument #20</param>
+    /// <param name="aMinr">Input argument #21</param>
+    /// <param name="invalidx">Input argument #22</param>
+    /// <param name="invalidupper">Input argument #23</param>
+    /// <param name="invalidlower">Input argument #24</param>
+    /// <param name="invaliduppermax">Input argument #25</param>
+    /// <param name="invalidlowermin">Input argument #26</param>
+    /// <param name="leftincrease">Input argument #27</param>
     /// <returns>An Array of length "numArgsOut" containing the output
     /// arguments.</returns>
     ///
@@ -10037,13 +12572,13 @@ namespace flexFitNative
                           Object stationaryPoint, Object tailConcavity, Object 
                           smoothCoeff, Object turningPoint_in1, Object boundaryx, Object 
                           boundarydx, Object boundarydxx, Object leftright, Object 
-                          upperLimitG, Object lowerLimitG, Object xEndl, Object aMaxl, 
-                          Object aMinl, Object xEndr, Object aMaxr, Object aMinr, Object 
-                          invalidx, Object invalidupper, Object invalidlower, Object 
-                          leftincrease, Object rightincrease, Object smooth, Object 
-                          tight, Object minxrange)
+                          upperLimitG, Object lowerLimitG, Object upperLimitGmax, Object 
+                          lowerLimitGmin, Object xEndl, Object aMaxl, Object aMinl, 
+                          Object xEndr, Object aMaxr, Object aMinr, Object invalidx, 
+                          Object invalidupper, Object invalidlower, Object 
+                          invaliduppermax, Object invalidlowermin, Object leftincrease)
     {
-      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, leftincrease, rightincrease, smooth, tight, minxrange);
+      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, upperLimitGmax, lowerLimitGmin, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, invaliduppermax, invalidlowermin, leftincrease);
     }
 
 
@@ -10077,21 +12612,21 @@ namespace flexFitNative
     /// <param name="leftright">Input argument #11</param>
     /// <param name="upperLimitG">Input argument #12</param>
     /// <param name="lowerLimitG">Input argument #13</param>
-    /// <param name="xEndl">Input argument #14</param>
-    /// <param name="aMaxl">Input argument #15</param>
-    /// <param name="aMinl">Input argument #16</param>
-    /// <param name="xEndr">Input argument #17</param>
-    /// <param name="aMaxr">Input argument #18</param>
-    /// <param name="aMinr">Input argument #19</param>
-    /// <param name="invalidx">Input argument #20</param>
-    /// <param name="invalidupper">Input argument #21</param>
-    /// <param name="invalidlower">Input argument #22</param>
-    /// <param name="leftincrease">Input argument #23</param>
-    /// <param name="rightincrease">Input argument #24</param>
-    /// <param name="smooth">Input argument #25</param>
-    /// <param name="tight">Input argument #26</param>
-    /// <param name="minxrange">Input argument #27</param>
-    /// <param name="concave">Input argument #28</param>
+    /// <param name="upperLimitGmax">Input argument #14</param>
+    /// <param name="lowerLimitGmin">Input argument #15</param>
+    /// <param name="xEndl">Input argument #16</param>
+    /// <param name="aMaxl">Input argument #17</param>
+    /// <param name="aMinl">Input argument #18</param>
+    /// <param name="xEndr">Input argument #19</param>
+    /// <param name="aMaxr">Input argument #20</param>
+    /// <param name="aMinr">Input argument #21</param>
+    /// <param name="invalidx">Input argument #22</param>
+    /// <param name="invalidupper">Input argument #23</param>
+    /// <param name="invalidlower">Input argument #24</param>
+    /// <param name="invaliduppermax">Input argument #25</param>
+    /// <param name="invalidlowermin">Input argument #26</param>
+    /// <param name="leftincrease">Input argument #27</param>
+    /// <param name="rightincrease">Input argument #28</param>
     /// <returns>An Array of length "numArgsOut" containing the output
     /// arguments.</returns>
     ///
@@ -10099,13 +12634,14 @@ namespace flexFitNative
                           Object stationaryPoint, Object tailConcavity, Object 
                           smoothCoeff, Object turningPoint_in1, Object boundaryx, Object 
                           boundarydx, Object boundarydxx, Object leftright, Object 
-                          upperLimitG, Object lowerLimitG, Object xEndl, Object aMaxl, 
-                          Object aMinl, Object xEndr, Object aMaxr, Object aMinr, Object 
-                          invalidx, Object invalidupper, Object invalidlower, Object 
-                          leftincrease, Object rightincrease, Object smooth, Object 
-                          tight, Object minxrange, Object concave)
+                          upperLimitG, Object lowerLimitG, Object upperLimitGmax, Object 
+                          lowerLimitGmin, Object xEndl, Object aMaxl, Object aMinl, 
+                          Object xEndr, Object aMaxr, Object aMinr, Object invalidx, 
+                          Object invalidupper, Object invalidlower, Object 
+                          invaliduppermax, Object invalidlowermin, Object leftincrease, 
+                          Object rightincrease)
     {
-      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, leftincrease, rightincrease, smooth, tight, minxrange, concave);
+      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, upperLimitGmax, lowerLimitGmin, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, invaliduppermax, invalidlowermin, leftincrease, rightincrease);
     }
 
 
@@ -10139,22 +12675,22 @@ namespace flexFitNative
     /// <param name="leftright">Input argument #11</param>
     /// <param name="upperLimitG">Input argument #12</param>
     /// <param name="lowerLimitG">Input argument #13</param>
-    /// <param name="xEndl">Input argument #14</param>
-    /// <param name="aMaxl">Input argument #15</param>
-    /// <param name="aMinl">Input argument #16</param>
-    /// <param name="xEndr">Input argument #17</param>
-    /// <param name="aMaxr">Input argument #18</param>
-    /// <param name="aMinr">Input argument #19</param>
-    /// <param name="invalidx">Input argument #20</param>
-    /// <param name="invalidupper">Input argument #21</param>
-    /// <param name="invalidlower">Input argument #22</param>
-    /// <param name="leftincrease">Input argument #23</param>
-    /// <param name="rightincrease">Input argument #24</param>
-    /// <param name="smooth">Input argument #25</param>
-    /// <param name="tight">Input argument #26</param>
-    /// <param name="minxrange">Input argument #27</param>
-    /// <param name="concave">Input argument #28</param>
-    /// <param name="allowflat">Input argument #29</param>
+    /// <param name="upperLimitGmax">Input argument #14</param>
+    /// <param name="lowerLimitGmin">Input argument #15</param>
+    /// <param name="xEndl">Input argument #16</param>
+    /// <param name="aMaxl">Input argument #17</param>
+    /// <param name="aMinl">Input argument #18</param>
+    /// <param name="xEndr">Input argument #19</param>
+    /// <param name="aMaxr">Input argument #20</param>
+    /// <param name="aMinr">Input argument #21</param>
+    /// <param name="invalidx">Input argument #22</param>
+    /// <param name="invalidupper">Input argument #23</param>
+    /// <param name="invalidlower">Input argument #24</param>
+    /// <param name="invaliduppermax">Input argument #25</param>
+    /// <param name="invalidlowermin">Input argument #26</param>
+    /// <param name="leftincrease">Input argument #27</param>
+    /// <param name="rightincrease">Input argument #28</param>
+    /// <param name="smooth">Input argument #29</param>
     /// <returns>An Array of length "numArgsOut" containing the output
     /// arguments.</returns>
     ///
@@ -10162,13 +12698,14 @@ namespace flexFitNative
                           Object stationaryPoint, Object tailConcavity, Object 
                           smoothCoeff, Object turningPoint_in1, Object boundaryx, Object 
                           boundarydx, Object boundarydxx, Object leftright, Object 
-                          upperLimitG, Object lowerLimitG, Object xEndl, Object aMaxl, 
-                          Object aMinl, Object xEndr, Object aMaxr, Object aMinr, Object 
-                          invalidx, Object invalidupper, Object invalidlower, Object 
-                          leftincrease, Object rightincrease, Object smooth, Object 
-                          tight, Object minxrange, Object concave, Object allowflat)
+                          upperLimitG, Object lowerLimitG, Object upperLimitGmax, Object 
+                          lowerLimitGmin, Object xEndl, Object aMaxl, Object aMinl, 
+                          Object xEndr, Object aMaxr, Object aMinr, Object invalidx, 
+                          Object invalidupper, Object invalidlower, Object 
+                          invaliduppermax, Object invalidlowermin, Object leftincrease, 
+                          Object rightincrease, Object smooth)
     {
-      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, leftincrease, rightincrease, smooth, tight, minxrange, concave, allowflat);
+      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, upperLimitGmax, lowerLimitGmin, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, invaliduppermax, invalidlowermin, leftincrease, rightincrease, smooth);
     }
 
 
@@ -10202,23 +12739,23 @@ namespace flexFitNative
     /// <param name="leftright">Input argument #11</param>
     /// <param name="upperLimitG">Input argument #12</param>
     /// <param name="lowerLimitG">Input argument #13</param>
-    /// <param name="xEndl">Input argument #14</param>
-    /// <param name="aMaxl">Input argument #15</param>
-    /// <param name="aMinl">Input argument #16</param>
-    /// <param name="xEndr">Input argument #17</param>
-    /// <param name="aMaxr">Input argument #18</param>
-    /// <param name="aMinr">Input argument #19</param>
-    /// <param name="invalidx">Input argument #20</param>
-    /// <param name="invalidupper">Input argument #21</param>
-    /// <param name="invalidlower">Input argument #22</param>
-    /// <param name="leftincrease">Input argument #23</param>
-    /// <param name="rightincrease">Input argument #24</param>
-    /// <param name="smooth">Input argument #25</param>
-    /// <param name="tight">Input argument #26</param>
-    /// <param name="minxrange">Input argument #27</param>
-    /// <param name="concave">Input argument #28</param>
-    /// <param name="allowflat">Input argument #29</param>
-    /// <param name="fromtime">Input argument #30</param>
+    /// <param name="upperLimitGmax">Input argument #14</param>
+    /// <param name="lowerLimitGmin">Input argument #15</param>
+    /// <param name="xEndl">Input argument #16</param>
+    /// <param name="aMaxl">Input argument #17</param>
+    /// <param name="aMinl">Input argument #18</param>
+    /// <param name="xEndr">Input argument #19</param>
+    /// <param name="aMaxr">Input argument #20</param>
+    /// <param name="aMinr">Input argument #21</param>
+    /// <param name="invalidx">Input argument #22</param>
+    /// <param name="invalidupper">Input argument #23</param>
+    /// <param name="invalidlower">Input argument #24</param>
+    /// <param name="invaliduppermax">Input argument #25</param>
+    /// <param name="invalidlowermin">Input argument #26</param>
+    /// <param name="leftincrease">Input argument #27</param>
+    /// <param name="rightincrease">Input argument #28</param>
+    /// <param name="smooth">Input argument #29</param>
+    /// <param name="tight">Input argument #30</param>
     /// <returns>An Array of length "numArgsOut" containing the output
     /// arguments.</returns>
     ///
@@ -10226,14 +12763,14 @@ namespace flexFitNative
                           Object stationaryPoint, Object tailConcavity, Object 
                           smoothCoeff, Object turningPoint_in1, Object boundaryx, Object 
                           boundarydx, Object boundarydxx, Object leftright, Object 
-                          upperLimitG, Object lowerLimitG, Object xEndl, Object aMaxl, 
-                          Object aMinl, Object xEndr, Object aMaxr, Object aMinr, Object 
-                          invalidx, Object invalidupper, Object invalidlower, Object 
-                          leftincrease, Object rightincrease, Object smooth, Object 
-                          tight, Object minxrange, Object concave, Object allowflat, 
-                          Object fromtime)
+                          upperLimitG, Object lowerLimitG, Object upperLimitGmax, Object 
+                          lowerLimitGmin, Object xEndl, Object aMaxl, Object aMinl, 
+                          Object xEndr, Object aMaxr, Object aMinr, Object invalidx, 
+                          Object invalidupper, Object invalidlower, Object 
+                          invaliduppermax, Object invalidlowermin, Object leftincrease, 
+                          Object rightincrease, Object smooth, Object tight)
     {
-      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, leftincrease, rightincrease, smooth, tight, minxrange, concave, allowflat, fromtime);
+      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, upperLimitGmax, lowerLimitGmin, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, invaliduppermax, invalidlowermin, leftincrease, rightincrease, smooth, tight);
     }
 
 
@@ -10267,24 +12804,24 @@ namespace flexFitNative
     /// <param name="leftright">Input argument #11</param>
     /// <param name="upperLimitG">Input argument #12</param>
     /// <param name="lowerLimitG">Input argument #13</param>
-    /// <param name="xEndl">Input argument #14</param>
-    /// <param name="aMaxl">Input argument #15</param>
-    /// <param name="aMinl">Input argument #16</param>
-    /// <param name="xEndr">Input argument #17</param>
-    /// <param name="aMaxr">Input argument #18</param>
-    /// <param name="aMinr">Input argument #19</param>
-    /// <param name="invalidx">Input argument #20</param>
-    /// <param name="invalidupper">Input argument #21</param>
-    /// <param name="invalidlower">Input argument #22</param>
-    /// <param name="leftincrease">Input argument #23</param>
-    /// <param name="rightincrease">Input argument #24</param>
-    /// <param name="smooth">Input argument #25</param>
-    /// <param name="tight">Input argument #26</param>
-    /// <param name="minxrange">Input argument #27</param>
-    /// <param name="concave">Input argument #28</param>
-    /// <param name="allowflat">Input argument #29</param>
-    /// <param name="fromtime">Input argument #30</param>
-    /// <param name="originalx">Input argument #31</param>
+    /// <param name="upperLimitGmax">Input argument #14</param>
+    /// <param name="lowerLimitGmin">Input argument #15</param>
+    /// <param name="xEndl">Input argument #16</param>
+    /// <param name="aMaxl">Input argument #17</param>
+    /// <param name="aMinl">Input argument #18</param>
+    /// <param name="xEndr">Input argument #19</param>
+    /// <param name="aMaxr">Input argument #20</param>
+    /// <param name="aMinr">Input argument #21</param>
+    /// <param name="invalidx">Input argument #22</param>
+    /// <param name="invalidupper">Input argument #23</param>
+    /// <param name="invalidlower">Input argument #24</param>
+    /// <param name="invaliduppermax">Input argument #25</param>
+    /// <param name="invalidlowermin">Input argument #26</param>
+    /// <param name="leftincrease">Input argument #27</param>
+    /// <param name="rightincrease">Input argument #28</param>
+    /// <param name="smooth">Input argument #29</param>
+    /// <param name="tight">Input argument #30</param>
+    /// <param name="tightlb">Input argument #31</param>
     /// <returns>An Array of length "numArgsOut" containing the output
     /// arguments.</returns>
     ///
@@ -10292,14 +12829,594 @@ namespace flexFitNative
                           Object stationaryPoint, Object tailConcavity, Object 
                           smoothCoeff, Object turningPoint_in1, Object boundaryx, Object 
                           boundarydx, Object boundarydxx, Object leftright, Object 
-                          upperLimitG, Object lowerLimitG, Object xEndl, Object aMaxl, 
-                          Object aMinl, Object xEndr, Object aMaxr, Object aMinr, Object 
-                          invalidx, Object invalidupper, Object invalidlower, Object 
-                          leftincrease, Object rightincrease, Object smooth, Object 
-                          tight, Object minxrange, Object concave, Object allowflat, 
-                          Object fromtime, Object originalx)
+                          upperLimitG, Object lowerLimitG, Object upperLimitGmax, Object 
+                          lowerLimitGmin, Object xEndl, Object aMaxl, Object aMinl, 
+                          Object xEndr, Object aMaxr, Object aMinr, Object invalidx, 
+                          Object invalidupper, Object invalidlower, Object 
+                          invaliduppermax, Object invalidlowermin, Object leftincrease, 
+                          Object rightincrease, Object smooth, Object tight, Object 
+                          tightlb)
     {
-      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, leftincrease, rightincrease, smooth, tight, minxrange, concave, allowflat, fromtime, originalx);
+      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, upperLimitGmax, lowerLimitGmin, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, invaliduppermax, invalidlowermin, leftincrease, rightincrease, smooth, tight, tightlb);
+    }
+
+
+    /// <summary>
+    /// Provides the standard 32-input Object interface to the flexWingFit MATLAB
+    /// function.
+    /// </summary>
+    /// <remarks>
+    /// M-Documentation:
+    /// clc
+    /// M = csvread('c:\temp\voltooltest\sampledata.csv', 2, 0);
+    /// MM = M(M(:,5)&lt;=0.5, :);
+    /// leftright = 1;
+    /// IV = MM(MM(:,3)~=0 &amp; MM(:,4)~=0,:);
+    /// IV = [IV (IV(:,3)+IV(:,4))./2];
+    /// x = IV(:,2)';
+    /// y = IV(:,6)';
+    /// weight = ones(1,length(x));
+    /// </remarks>
+    /// <param name="numArgsOut">The number of output arguments to return.</param>
+    /// <param name="x_in1">Input argument #1</param>
+    /// <param name="y">Input argument #2</param>
+    /// <param name="weight">Input argument #3</param>
+    /// <param name="stationaryPoint">Input argument #4</param>
+    /// <param name="tailConcavity">Input argument #5</param>
+    /// <param name="smoothCoeff">Input argument #6</param>
+    /// <param name="turningPoint_in1">Input argument #7</param>
+    /// <param name="boundaryx">Input argument #8</param>
+    /// <param name="boundarydx">Input argument #9</param>
+    /// <param name="boundarydxx">Input argument #10</param>
+    /// <param name="leftright">Input argument #11</param>
+    /// <param name="upperLimitG">Input argument #12</param>
+    /// <param name="lowerLimitG">Input argument #13</param>
+    /// <param name="upperLimitGmax">Input argument #14</param>
+    /// <param name="lowerLimitGmin">Input argument #15</param>
+    /// <param name="xEndl">Input argument #16</param>
+    /// <param name="aMaxl">Input argument #17</param>
+    /// <param name="aMinl">Input argument #18</param>
+    /// <param name="xEndr">Input argument #19</param>
+    /// <param name="aMaxr">Input argument #20</param>
+    /// <param name="aMinr">Input argument #21</param>
+    /// <param name="invalidx">Input argument #22</param>
+    /// <param name="invalidupper">Input argument #23</param>
+    /// <param name="invalidlower">Input argument #24</param>
+    /// <param name="invaliduppermax">Input argument #25</param>
+    /// <param name="invalidlowermin">Input argument #26</param>
+    /// <param name="leftincrease">Input argument #27</param>
+    /// <param name="rightincrease">Input argument #28</param>
+    /// <param name="smooth">Input argument #29</param>
+    /// <param name="tight">Input argument #30</param>
+    /// <param name="tightlb">Input argument #31</param>
+    /// <param name="tightub">Input argument #32</param>
+    /// <returns>An Array of length "numArgsOut" containing the output
+    /// arguments.</returns>
+    ///
+    public Object[] flexWingFit(int numArgsOut, Object x_in1, Object y, Object weight, 
+                          Object stationaryPoint, Object tailConcavity, Object 
+                          smoothCoeff, Object turningPoint_in1, Object boundaryx, Object 
+                          boundarydx, Object boundarydxx, Object leftright, Object 
+                          upperLimitG, Object lowerLimitG, Object upperLimitGmax, Object 
+                          lowerLimitGmin, Object xEndl, Object aMaxl, Object aMinl, 
+                          Object xEndr, Object aMaxr, Object aMinr, Object invalidx, 
+                          Object invalidupper, Object invalidlower, Object 
+                          invaliduppermax, Object invalidlowermin, Object leftincrease, 
+                          Object rightincrease, Object smooth, Object tight, Object 
+                          tightlb, Object tightub)
+    {
+      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, upperLimitGmax, lowerLimitGmin, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, invaliduppermax, invalidlowermin, leftincrease, rightincrease, smooth, tight, tightlb, tightub);
+    }
+
+
+    /// <summary>
+    /// Provides the standard 33-input Object interface to the flexWingFit MATLAB
+    /// function.
+    /// </summary>
+    /// <remarks>
+    /// M-Documentation:
+    /// clc
+    /// M = csvread('c:\temp\voltooltest\sampledata.csv', 2, 0);
+    /// MM = M(M(:,5)&lt;=0.5, :);
+    /// leftright = 1;
+    /// IV = MM(MM(:,3)~=0 &amp; MM(:,4)~=0,:);
+    /// IV = [IV (IV(:,3)+IV(:,4))./2];
+    /// x = IV(:,2)';
+    /// y = IV(:,6)';
+    /// weight = ones(1,length(x));
+    /// </remarks>
+    /// <param name="numArgsOut">The number of output arguments to return.</param>
+    /// <param name="x_in1">Input argument #1</param>
+    /// <param name="y">Input argument #2</param>
+    /// <param name="weight">Input argument #3</param>
+    /// <param name="stationaryPoint">Input argument #4</param>
+    /// <param name="tailConcavity">Input argument #5</param>
+    /// <param name="smoothCoeff">Input argument #6</param>
+    /// <param name="turningPoint_in1">Input argument #7</param>
+    /// <param name="boundaryx">Input argument #8</param>
+    /// <param name="boundarydx">Input argument #9</param>
+    /// <param name="boundarydxx">Input argument #10</param>
+    /// <param name="leftright">Input argument #11</param>
+    /// <param name="upperLimitG">Input argument #12</param>
+    /// <param name="lowerLimitG">Input argument #13</param>
+    /// <param name="upperLimitGmax">Input argument #14</param>
+    /// <param name="lowerLimitGmin">Input argument #15</param>
+    /// <param name="xEndl">Input argument #16</param>
+    /// <param name="aMaxl">Input argument #17</param>
+    /// <param name="aMinl">Input argument #18</param>
+    /// <param name="xEndr">Input argument #19</param>
+    /// <param name="aMaxr">Input argument #20</param>
+    /// <param name="aMinr">Input argument #21</param>
+    /// <param name="invalidx">Input argument #22</param>
+    /// <param name="invalidupper">Input argument #23</param>
+    /// <param name="invalidlower">Input argument #24</param>
+    /// <param name="invaliduppermax">Input argument #25</param>
+    /// <param name="invalidlowermin">Input argument #26</param>
+    /// <param name="leftincrease">Input argument #27</param>
+    /// <param name="rightincrease">Input argument #28</param>
+    /// <param name="smooth">Input argument #29</param>
+    /// <param name="tight">Input argument #30</param>
+    /// <param name="tightlb">Input argument #31</param>
+    /// <param name="tightub">Input argument #32</param>
+    /// <param name="minxrange">Input argument #33</param>
+    /// <returns>An Array of length "numArgsOut" containing the output
+    /// arguments.</returns>
+    ///
+    public Object[] flexWingFit(int numArgsOut, Object x_in1, Object y, Object weight, 
+                          Object stationaryPoint, Object tailConcavity, Object 
+                          smoothCoeff, Object turningPoint_in1, Object boundaryx, Object 
+                          boundarydx, Object boundarydxx, Object leftright, Object 
+                          upperLimitG, Object lowerLimitG, Object upperLimitGmax, Object 
+                          lowerLimitGmin, Object xEndl, Object aMaxl, Object aMinl, 
+                          Object xEndr, Object aMaxr, Object aMinr, Object invalidx, 
+                          Object invalidupper, Object invalidlower, Object 
+                          invaliduppermax, Object invalidlowermin, Object leftincrease, 
+                          Object rightincrease, Object smooth, Object tight, Object 
+                          tightlb, Object tightub, Object minxrange)
+    {
+      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, upperLimitGmax, lowerLimitGmin, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, invaliduppermax, invalidlowermin, leftincrease, rightincrease, smooth, tight, tightlb, tightub, minxrange);
+    }
+
+
+    /// <summary>
+    /// Provides the standard 34-input Object interface to the flexWingFit MATLAB
+    /// function.
+    /// </summary>
+    /// <remarks>
+    /// M-Documentation:
+    /// clc
+    /// M = csvread('c:\temp\voltooltest\sampledata.csv', 2, 0);
+    /// MM = M(M(:,5)&lt;=0.5, :);
+    /// leftright = 1;
+    /// IV = MM(MM(:,3)~=0 &amp; MM(:,4)~=0,:);
+    /// IV = [IV (IV(:,3)+IV(:,4))./2];
+    /// x = IV(:,2)';
+    /// y = IV(:,6)';
+    /// weight = ones(1,length(x));
+    /// </remarks>
+    /// <param name="numArgsOut">The number of output arguments to return.</param>
+    /// <param name="x_in1">Input argument #1</param>
+    /// <param name="y">Input argument #2</param>
+    /// <param name="weight">Input argument #3</param>
+    /// <param name="stationaryPoint">Input argument #4</param>
+    /// <param name="tailConcavity">Input argument #5</param>
+    /// <param name="smoothCoeff">Input argument #6</param>
+    /// <param name="turningPoint_in1">Input argument #7</param>
+    /// <param name="boundaryx">Input argument #8</param>
+    /// <param name="boundarydx">Input argument #9</param>
+    /// <param name="boundarydxx">Input argument #10</param>
+    /// <param name="leftright">Input argument #11</param>
+    /// <param name="upperLimitG">Input argument #12</param>
+    /// <param name="lowerLimitG">Input argument #13</param>
+    /// <param name="upperLimitGmax">Input argument #14</param>
+    /// <param name="lowerLimitGmin">Input argument #15</param>
+    /// <param name="xEndl">Input argument #16</param>
+    /// <param name="aMaxl">Input argument #17</param>
+    /// <param name="aMinl">Input argument #18</param>
+    /// <param name="xEndr">Input argument #19</param>
+    /// <param name="aMaxr">Input argument #20</param>
+    /// <param name="aMinr">Input argument #21</param>
+    /// <param name="invalidx">Input argument #22</param>
+    /// <param name="invalidupper">Input argument #23</param>
+    /// <param name="invalidlower">Input argument #24</param>
+    /// <param name="invaliduppermax">Input argument #25</param>
+    /// <param name="invalidlowermin">Input argument #26</param>
+    /// <param name="leftincrease">Input argument #27</param>
+    /// <param name="rightincrease">Input argument #28</param>
+    /// <param name="smooth">Input argument #29</param>
+    /// <param name="tight">Input argument #30</param>
+    /// <param name="tightlb">Input argument #31</param>
+    /// <param name="tightub">Input argument #32</param>
+    /// <param name="minxrange">Input argument #33</param>
+    /// <param name="concave">Input argument #34</param>
+    /// <returns>An Array of length "numArgsOut" containing the output
+    /// arguments.</returns>
+    ///
+    public Object[] flexWingFit(int numArgsOut, Object x_in1, Object y, Object weight, 
+                          Object stationaryPoint, Object tailConcavity, Object 
+                          smoothCoeff, Object turningPoint_in1, Object boundaryx, Object 
+                          boundarydx, Object boundarydxx, Object leftright, Object 
+                          upperLimitG, Object lowerLimitG, Object upperLimitGmax, Object 
+                          lowerLimitGmin, Object xEndl, Object aMaxl, Object aMinl, 
+                          Object xEndr, Object aMaxr, Object aMinr, Object invalidx, 
+                          Object invalidupper, Object invalidlower, Object 
+                          invaliduppermax, Object invalidlowermin, Object leftincrease, 
+                          Object rightincrease, Object smooth, Object tight, Object 
+                          tightlb, Object tightub, Object minxrange, Object concave)
+    {
+      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, upperLimitGmax, lowerLimitGmin, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, invaliduppermax, invalidlowermin, leftincrease, rightincrease, smooth, tight, tightlb, tightub, minxrange, concave);
+    }
+
+
+    /// <summary>
+    /// Provides the standard 35-input Object interface to the flexWingFit MATLAB
+    /// function.
+    /// </summary>
+    /// <remarks>
+    /// M-Documentation:
+    /// clc
+    /// M = csvread('c:\temp\voltooltest\sampledata.csv', 2, 0);
+    /// MM = M(M(:,5)&lt;=0.5, :);
+    /// leftright = 1;
+    /// IV = MM(MM(:,3)~=0 &amp; MM(:,4)~=0,:);
+    /// IV = [IV (IV(:,3)+IV(:,4))./2];
+    /// x = IV(:,2)';
+    /// y = IV(:,6)';
+    /// weight = ones(1,length(x));
+    /// </remarks>
+    /// <param name="numArgsOut">The number of output arguments to return.</param>
+    /// <param name="x_in1">Input argument #1</param>
+    /// <param name="y">Input argument #2</param>
+    /// <param name="weight">Input argument #3</param>
+    /// <param name="stationaryPoint">Input argument #4</param>
+    /// <param name="tailConcavity">Input argument #5</param>
+    /// <param name="smoothCoeff">Input argument #6</param>
+    /// <param name="turningPoint_in1">Input argument #7</param>
+    /// <param name="boundaryx">Input argument #8</param>
+    /// <param name="boundarydx">Input argument #9</param>
+    /// <param name="boundarydxx">Input argument #10</param>
+    /// <param name="leftright">Input argument #11</param>
+    /// <param name="upperLimitG">Input argument #12</param>
+    /// <param name="lowerLimitG">Input argument #13</param>
+    /// <param name="upperLimitGmax">Input argument #14</param>
+    /// <param name="lowerLimitGmin">Input argument #15</param>
+    /// <param name="xEndl">Input argument #16</param>
+    /// <param name="aMaxl">Input argument #17</param>
+    /// <param name="aMinl">Input argument #18</param>
+    /// <param name="xEndr">Input argument #19</param>
+    /// <param name="aMaxr">Input argument #20</param>
+    /// <param name="aMinr">Input argument #21</param>
+    /// <param name="invalidx">Input argument #22</param>
+    /// <param name="invalidupper">Input argument #23</param>
+    /// <param name="invalidlower">Input argument #24</param>
+    /// <param name="invaliduppermax">Input argument #25</param>
+    /// <param name="invalidlowermin">Input argument #26</param>
+    /// <param name="leftincrease">Input argument #27</param>
+    /// <param name="rightincrease">Input argument #28</param>
+    /// <param name="smooth">Input argument #29</param>
+    /// <param name="tight">Input argument #30</param>
+    /// <param name="tightlb">Input argument #31</param>
+    /// <param name="tightub">Input argument #32</param>
+    /// <param name="minxrange">Input argument #33</param>
+    /// <param name="concave">Input argument #34</param>
+    /// <param name="allowflat">Input argument #35</param>
+    /// <returns>An Array of length "numArgsOut" containing the output
+    /// arguments.</returns>
+    ///
+    public Object[] flexWingFit(int numArgsOut, Object x_in1, Object y, Object weight, 
+                          Object stationaryPoint, Object tailConcavity, Object 
+                          smoothCoeff, Object turningPoint_in1, Object boundaryx, Object 
+                          boundarydx, Object boundarydxx, Object leftright, Object 
+                          upperLimitG, Object lowerLimitG, Object upperLimitGmax, Object 
+                          lowerLimitGmin, Object xEndl, Object aMaxl, Object aMinl, 
+                          Object xEndr, Object aMaxr, Object aMinr, Object invalidx, 
+                          Object invalidupper, Object invalidlower, Object 
+                          invaliduppermax, Object invalidlowermin, Object leftincrease, 
+                          Object rightincrease, Object smooth, Object tight, Object 
+                          tightlb, Object tightub, Object minxrange, Object concave, 
+                          Object allowflat)
+    {
+      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, upperLimitGmax, lowerLimitGmin, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, invaliduppermax, invalidlowermin, leftincrease, rightincrease, smooth, tight, tightlb, tightub, minxrange, concave, allowflat);
+    }
+
+
+    /// <summary>
+    /// Provides the standard 36-input Object interface to the flexWingFit MATLAB
+    /// function.
+    /// </summary>
+    /// <remarks>
+    /// M-Documentation:
+    /// clc
+    /// M = csvread('c:\temp\voltooltest\sampledata.csv', 2, 0);
+    /// MM = M(M(:,5)&lt;=0.5, :);
+    /// leftright = 1;
+    /// IV = MM(MM(:,3)~=0 &amp; MM(:,4)~=0,:);
+    /// IV = [IV (IV(:,3)+IV(:,4))./2];
+    /// x = IV(:,2)';
+    /// y = IV(:,6)';
+    /// weight = ones(1,length(x));
+    /// </remarks>
+    /// <param name="numArgsOut">The number of output arguments to return.</param>
+    /// <param name="x_in1">Input argument #1</param>
+    /// <param name="y">Input argument #2</param>
+    /// <param name="weight">Input argument #3</param>
+    /// <param name="stationaryPoint">Input argument #4</param>
+    /// <param name="tailConcavity">Input argument #5</param>
+    /// <param name="smoothCoeff">Input argument #6</param>
+    /// <param name="turningPoint_in1">Input argument #7</param>
+    /// <param name="boundaryx">Input argument #8</param>
+    /// <param name="boundarydx">Input argument #9</param>
+    /// <param name="boundarydxx">Input argument #10</param>
+    /// <param name="leftright">Input argument #11</param>
+    /// <param name="upperLimitG">Input argument #12</param>
+    /// <param name="lowerLimitG">Input argument #13</param>
+    /// <param name="upperLimitGmax">Input argument #14</param>
+    /// <param name="lowerLimitGmin">Input argument #15</param>
+    /// <param name="xEndl">Input argument #16</param>
+    /// <param name="aMaxl">Input argument #17</param>
+    /// <param name="aMinl">Input argument #18</param>
+    /// <param name="xEndr">Input argument #19</param>
+    /// <param name="aMaxr">Input argument #20</param>
+    /// <param name="aMinr">Input argument #21</param>
+    /// <param name="invalidx">Input argument #22</param>
+    /// <param name="invalidupper">Input argument #23</param>
+    /// <param name="invalidlower">Input argument #24</param>
+    /// <param name="invaliduppermax">Input argument #25</param>
+    /// <param name="invalidlowermin">Input argument #26</param>
+    /// <param name="leftincrease">Input argument #27</param>
+    /// <param name="rightincrease">Input argument #28</param>
+    /// <param name="smooth">Input argument #29</param>
+    /// <param name="tight">Input argument #30</param>
+    /// <param name="tightlb">Input argument #31</param>
+    /// <param name="tightub">Input argument #32</param>
+    /// <param name="minxrange">Input argument #33</param>
+    /// <param name="concave">Input argument #34</param>
+    /// <param name="allowflat">Input argument #35</param>
+    /// <param name="fromtime">Input argument #36</param>
+    /// <returns>An Array of length "numArgsOut" containing the output
+    /// arguments.</returns>
+    ///
+    public Object[] flexWingFit(int numArgsOut, Object x_in1, Object y, Object weight, 
+                          Object stationaryPoint, Object tailConcavity, Object 
+                          smoothCoeff, Object turningPoint_in1, Object boundaryx, Object 
+                          boundarydx, Object boundarydxx, Object leftright, Object 
+                          upperLimitG, Object lowerLimitG, Object upperLimitGmax, Object 
+                          lowerLimitGmin, Object xEndl, Object aMaxl, Object aMinl, 
+                          Object xEndr, Object aMaxr, Object aMinr, Object invalidx, 
+                          Object invalidupper, Object invalidlower, Object 
+                          invaliduppermax, Object invalidlowermin, Object leftincrease, 
+                          Object rightincrease, Object smooth, Object tight, Object 
+                          tightlb, Object tightub, Object minxrange, Object concave, 
+                          Object allowflat, Object fromtime)
+    {
+      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, upperLimitGmax, lowerLimitGmin, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, invaliduppermax, invalidlowermin, leftincrease, rightincrease, smooth, tight, tightlb, tightub, minxrange, concave, allowflat, fromtime);
+    }
+
+
+    /// <summary>
+    /// Provides the standard 37-input Object interface to the flexWingFit MATLAB
+    /// function.
+    /// </summary>
+    /// <remarks>
+    /// M-Documentation:
+    /// clc
+    /// M = csvread('c:\temp\voltooltest\sampledata.csv', 2, 0);
+    /// MM = M(M(:,5)&lt;=0.5, :);
+    /// leftright = 1;
+    /// IV = MM(MM(:,3)~=0 &amp; MM(:,4)~=0,:);
+    /// IV = [IV (IV(:,3)+IV(:,4))./2];
+    /// x = IV(:,2)';
+    /// y = IV(:,6)';
+    /// weight = ones(1,length(x));
+    /// </remarks>
+    /// <param name="numArgsOut">The number of output arguments to return.</param>
+    /// <param name="x_in1">Input argument #1</param>
+    /// <param name="y">Input argument #2</param>
+    /// <param name="weight">Input argument #3</param>
+    /// <param name="stationaryPoint">Input argument #4</param>
+    /// <param name="tailConcavity">Input argument #5</param>
+    /// <param name="smoothCoeff">Input argument #6</param>
+    /// <param name="turningPoint_in1">Input argument #7</param>
+    /// <param name="boundaryx">Input argument #8</param>
+    /// <param name="boundarydx">Input argument #9</param>
+    /// <param name="boundarydxx">Input argument #10</param>
+    /// <param name="leftright">Input argument #11</param>
+    /// <param name="upperLimitG">Input argument #12</param>
+    /// <param name="lowerLimitG">Input argument #13</param>
+    /// <param name="upperLimitGmax">Input argument #14</param>
+    /// <param name="lowerLimitGmin">Input argument #15</param>
+    /// <param name="xEndl">Input argument #16</param>
+    /// <param name="aMaxl">Input argument #17</param>
+    /// <param name="aMinl">Input argument #18</param>
+    /// <param name="xEndr">Input argument #19</param>
+    /// <param name="aMaxr">Input argument #20</param>
+    /// <param name="aMinr">Input argument #21</param>
+    /// <param name="invalidx">Input argument #22</param>
+    /// <param name="invalidupper">Input argument #23</param>
+    /// <param name="invalidlower">Input argument #24</param>
+    /// <param name="invaliduppermax">Input argument #25</param>
+    /// <param name="invalidlowermin">Input argument #26</param>
+    /// <param name="leftincrease">Input argument #27</param>
+    /// <param name="rightincrease">Input argument #28</param>
+    /// <param name="smooth">Input argument #29</param>
+    /// <param name="tight">Input argument #30</param>
+    /// <param name="tightlb">Input argument #31</param>
+    /// <param name="tightub">Input argument #32</param>
+    /// <param name="minxrange">Input argument #33</param>
+    /// <param name="concave">Input argument #34</param>
+    /// <param name="allowflat">Input argument #35</param>
+    /// <param name="fromtime">Input argument #36</param>
+    /// <param name="originalx">Input argument #37</param>
+    /// <returns>An Array of length "numArgsOut" containing the output
+    /// arguments.</returns>
+    ///
+    public Object[] flexWingFit(int numArgsOut, Object x_in1, Object y, Object weight, 
+                          Object stationaryPoint, Object tailConcavity, Object 
+                          smoothCoeff, Object turningPoint_in1, Object boundaryx, Object 
+                          boundarydx, Object boundarydxx, Object leftright, Object 
+                          upperLimitG, Object lowerLimitG, Object upperLimitGmax, Object 
+                          lowerLimitGmin, Object xEndl, Object aMaxl, Object aMinl, 
+                          Object xEndr, Object aMaxr, Object aMinr, Object invalidx, 
+                          Object invalidupper, Object invalidlower, Object 
+                          invaliduppermax, Object invalidlowermin, Object leftincrease, 
+                          Object rightincrease, Object smooth, Object tight, Object 
+                          tightlb, Object tightub, Object minxrange, Object concave, 
+                          Object allowflat, Object fromtime, Object originalx)
+    {
+      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, upperLimitGmax, lowerLimitGmin, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, invaliduppermax, invalidlowermin, leftincrease, rightincrease, smooth, tight, tightlb, tightub, minxrange, concave, allowflat, fromtime, originalx);
+    }
+
+
+    /// <summary>
+    /// Provides the standard 38-input Object interface to the flexWingFit MATLAB
+    /// function.
+    /// </summary>
+    /// <remarks>
+    /// M-Documentation:
+    /// clc
+    /// M = csvread('c:\temp\voltooltest\sampledata.csv', 2, 0);
+    /// MM = M(M(:,5)&lt;=0.5, :);
+    /// leftright = 1;
+    /// IV = MM(MM(:,3)~=0 &amp; MM(:,4)~=0,:);
+    /// IV = [IV (IV(:,3)+IV(:,4))./2];
+    /// x = IV(:,2)';
+    /// y = IV(:,6)';
+    /// weight = ones(1,length(x));
+    /// </remarks>
+    /// <param name="numArgsOut">The number of output arguments to return.</param>
+    /// <param name="x_in1">Input argument #1</param>
+    /// <param name="y">Input argument #2</param>
+    /// <param name="weight">Input argument #3</param>
+    /// <param name="stationaryPoint">Input argument #4</param>
+    /// <param name="tailConcavity">Input argument #5</param>
+    /// <param name="smoothCoeff">Input argument #6</param>
+    /// <param name="turningPoint_in1">Input argument #7</param>
+    /// <param name="boundaryx">Input argument #8</param>
+    /// <param name="boundarydx">Input argument #9</param>
+    /// <param name="boundarydxx">Input argument #10</param>
+    /// <param name="leftright">Input argument #11</param>
+    /// <param name="upperLimitG">Input argument #12</param>
+    /// <param name="lowerLimitG">Input argument #13</param>
+    /// <param name="upperLimitGmax">Input argument #14</param>
+    /// <param name="lowerLimitGmin">Input argument #15</param>
+    /// <param name="xEndl">Input argument #16</param>
+    /// <param name="aMaxl">Input argument #17</param>
+    /// <param name="aMinl">Input argument #18</param>
+    /// <param name="xEndr">Input argument #19</param>
+    /// <param name="aMaxr">Input argument #20</param>
+    /// <param name="aMinr">Input argument #21</param>
+    /// <param name="invalidx">Input argument #22</param>
+    /// <param name="invalidupper">Input argument #23</param>
+    /// <param name="invalidlower">Input argument #24</param>
+    /// <param name="invaliduppermax">Input argument #25</param>
+    /// <param name="invalidlowermin">Input argument #26</param>
+    /// <param name="leftincrease">Input argument #27</param>
+    /// <param name="rightincrease">Input argument #28</param>
+    /// <param name="smooth">Input argument #29</param>
+    /// <param name="tight">Input argument #30</param>
+    /// <param name="tightlb">Input argument #31</param>
+    /// <param name="tightub">Input argument #32</param>
+    /// <param name="minxrange">Input argument #33</param>
+    /// <param name="concave">Input argument #34</param>
+    /// <param name="allowflat">Input argument #35</param>
+    /// <param name="fromtime">Input argument #36</param>
+    /// <param name="originalx">Input argument #37</param>
+    /// <param name="breakBoundary">Input argument #38</param>
+    /// <returns>An Array of length "numArgsOut" containing the output
+    /// arguments.</returns>
+    ///
+    public Object[] flexWingFit(int numArgsOut, Object x_in1, Object y, Object weight, 
+                          Object stationaryPoint, Object tailConcavity, Object 
+                          smoothCoeff, Object turningPoint_in1, Object boundaryx, Object 
+                          boundarydx, Object boundarydxx, Object leftright, Object 
+                          upperLimitG, Object lowerLimitG, Object upperLimitGmax, Object 
+                          lowerLimitGmin, Object xEndl, Object aMaxl, Object aMinl, 
+                          Object xEndr, Object aMaxr, Object aMinr, Object invalidx, 
+                          Object invalidupper, Object invalidlower, Object 
+                          invaliduppermax, Object invalidlowermin, Object leftincrease, 
+                          Object rightincrease, Object smooth, Object tight, Object 
+                          tightlb, Object tightub, Object minxrange, Object concave, 
+                          Object allowflat, Object fromtime, Object originalx, Object 
+                          breakBoundary)
+    {
+      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, upperLimitGmax, lowerLimitGmin, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, invaliduppermax, invalidlowermin, leftincrease, rightincrease, smooth, tight, tightlb, tightub, minxrange, concave, allowflat, fromtime, originalx, breakBoundary);
+    }
+
+
+    /// <summary>
+    /// Provides the standard 39-input Object interface to the flexWingFit MATLAB
+    /// function.
+    /// </summary>
+    /// <remarks>
+    /// M-Documentation:
+    /// clc
+    /// M = csvread('c:\temp\voltooltest\sampledata.csv', 2, 0);
+    /// MM = M(M(:,5)&lt;=0.5, :);
+    /// leftright = 1;
+    /// IV = MM(MM(:,3)~=0 &amp; MM(:,4)~=0,:);
+    /// IV = [IV (IV(:,3)+IV(:,4))./2];
+    /// x = IV(:,2)';
+    /// y = IV(:,6)';
+    /// weight = ones(1,length(x));
+    /// </remarks>
+    /// <param name="numArgsOut">The number of output arguments to return.</param>
+    /// <param name="x_in1">Input argument #1</param>
+    /// <param name="y">Input argument #2</param>
+    /// <param name="weight">Input argument #3</param>
+    /// <param name="stationaryPoint">Input argument #4</param>
+    /// <param name="tailConcavity">Input argument #5</param>
+    /// <param name="smoothCoeff">Input argument #6</param>
+    /// <param name="turningPoint_in1">Input argument #7</param>
+    /// <param name="boundaryx">Input argument #8</param>
+    /// <param name="boundarydx">Input argument #9</param>
+    /// <param name="boundarydxx">Input argument #10</param>
+    /// <param name="leftright">Input argument #11</param>
+    /// <param name="upperLimitG">Input argument #12</param>
+    /// <param name="lowerLimitG">Input argument #13</param>
+    /// <param name="upperLimitGmax">Input argument #14</param>
+    /// <param name="lowerLimitGmin">Input argument #15</param>
+    /// <param name="xEndl">Input argument #16</param>
+    /// <param name="aMaxl">Input argument #17</param>
+    /// <param name="aMinl">Input argument #18</param>
+    /// <param name="xEndr">Input argument #19</param>
+    /// <param name="aMaxr">Input argument #20</param>
+    /// <param name="aMinr">Input argument #21</param>
+    /// <param name="invalidx">Input argument #22</param>
+    /// <param name="invalidupper">Input argument #23</param>
+    /// <param name="invalidlower">Input argument #24</param>
+    /// <param name="invaliduppermax">Input argument #25</param>
+    /// <param name="invalidlowermin">Input argument #26</param>
+    /// <param name="leftincrease">Input argument #27</param>
+    /// <param name="rightincrease">Input argument #28</param>
+    /// <param name="smooth">Input argument #29</param>
+    /// <param name="tight">Input argument #30</param>
+    /// <param name="tightlb">Input argument #31</param>
+    /// <param name="tightub">Input argument #32</param>
+    /// <param name="minxrange">Input argument #33</param>
+    /// <param name="concave">Input argument #34</param>
+    /// <param name="allowflat">Input argument #35</param>
+    /// <param name="fromtime">Input argument #36</param>
+    /// <param name="originalx">Input argument #37</param>
+    /// <param name="breakBoundary">Input argument #38</param>
+    /// <param name="forcesmooth">Input argument #39</param>
+    /// <returns>An Array of length "numArgsOut" containing the output
+    /// arguments.</returns>
+    ///
+    public Object[] flexWingFit(int numArgsOut, Object x_in1, Object y, Object weight, 
+                          Object stationaryPoint, Object tailConcavity, Object 
+                          smoothCoeff, Object turningPoint_in1, Object boundaryx, Object 
+                          boundarydx, Object boundarydxx, Object leftright, Object 
+                          upperLimitG, Object lowerLimitG, Object upperLimitGmax, Object 
+                          lowerLimitGmin, Object xEndl, Object aMaxl, Object aMinl, 
+                          Object xEndr, Object aMaxr, Object aMinr, Object invalidx, 
+                          Object invalidupper, Object invalidlower, Object 
+                          invaliduppermax, Object invalidlowermin, Object leftincrease, 
+                          Object rightincrease, Object smooth, Object tight, Object 
+                          tightlb, Object tightub, Object minxrange, Object concave, 
+                          Object allowflat, Object fromtime, Object originalx, Object 
+                          breakBoundary, Object forcesmooth)
+    {
+      return mcr.EvaluateFunction(numArgsOut, "flexWingFit", x_in1, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint_in1, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, upperLimitGmax, lowerLimitGmin, xEndl, aMaxl, aMinl, xEndr, aMaxr, aMinr, invalidx, invalidupper, invalidlower, invaliduppermax, invalidlowermin, leftincrease, rightincrease, smooth, tight, tightlb, tightub, minxrange, concave, allowflat, fromtime, originalx, breakBoundary, forcesmooth);
     }
 
 
@@ -10327,7 +13444,7 @@ namespace flexFitNative
     /// <param name= "varArgsIn">Array of Object representing variable input
     /// arguments</param>
     ///
-    [MATLABSignature("flexWingFit", 31, 10, 0)]
+    [MATLABSignature("flexWingFit", 39, 11, 0)]
     protected void flexWingFit(int numArgsOut, ref Object[] argsOut, Object[] argsIn, params Object[] varArgsIn)
     {
         mcr.EvaluateFunctionForTypeSafeCall("flexWingFit", numArgsOut, ref argsOut, argsIn, varArgsIn);

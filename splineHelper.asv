@@ -12,171 +12,197 @@ classdef splineHelper
             s = region(2) - region(1);
         end
         
-        function [aa, bb, cc, dd] = leftPars(x, a, b, c, stationaryPoint, flat, xEnd, aMin, aMax, tailConcavity, dx, dxx, concave)
-            if ~flat && ~isempty(aMin) && (b(1) > 0) %a(1) < aMin(end) &&
+        function [aa, bb, cc, dd] = leftPars(x, a, b, c, stationaryPoint, flat, xEnd, lb, ub, lbmin, ubmax, tailConcavity, dx, dxx, concave)%, dontCareWingShape)
+            if ~flat && ~isempty(lb) && (b(1) > 0) %a(1) < aMin(end) &&all
                 err = 'Left needs more data';
                 error('%s', err);
             end
             
-            xEnd = xEnd(aMax ~= 0);
-            aMin = aMin(aMax ~= 0);
-            aMax = aMax(aMax ~= 0);
-            t = x(1);
-            aa = a(1);
-            hleft = stationaryPoint - t;
-            h2 = hleft * hleft;
-            if ~isempty(xEnd)
-                delta = xEnd - t;
-                delta2 = delta .^ 2;
-                delta3 = delta .^ 3;
-                
-                alpha = 3 * h2 * (aMin - aa);
-                beta = 3 * h2 * (aMax - aa);
-                
-                % 3 * delta ^2 * h ^2 - 2 * delta ^ 3 * h
-                tao = 3 * delta2 * h2 - 2 * delta3 * hleft;
-                gammaa = 3 * delta * h2 - delta3;
-                
-                %             aBoundMax = (3 * h3 * gamma .* aMax - (3 * h3 * gamma - 3 * h2 * tao) .* aMin) ./ (3 * h2 .*tao);
-                %             aBoundMax = min(aBoundMax);
-                %             if a > aBoundMax
-                %                 err = 'Fail to interpolate with given boundary';
-                %                 error('error in quadprog: %s', err);
-                %             end
-                left = max(beta * hleft ./ (gammaa * hleft - tao));
-                right = min(alpha ./ gammaa);
-                
-                if (left > 0)
-                    err = 'Left fail to extrapolate with given boundary';
-                    error('%s', err);
-                end
-                if (left > right)
-                    err = 'Left fail to extrapolate with given boundary';
-                    error('%s', err);
-                end
-            end
-            
-            if flat
-                bb = 0;
-            else
-                if isnan(dx)
-                    % use the weighted last few b's to calculate extrapolating b
-                    xtmp = x(1: min(length(x),3));
-                    w = exp(-(t-xtmp)./(t-xtmp(end)) * 3);
-                    %w = exp(t-x);
-                    btmp = b(1: min(length(b),3));
-                    bb = w * btmp / sum(w);
-                    if (sign(bb) ~= sign(b(1)) && b(1) < 0)
-                        bb = b(1);
-                    end
-                    % bb = b(1);
-                else
-                    bb = dx;
-                end
-            end
-            originb = bb;
-            if ~isempty(aMax)
-                if concave && bb < left && right < 0
-                    bb = right;
-                else
-                    bb = min(max(bb, left), right);
-                end
-            else
-                left = -inf;
-            end
-            bb = min(0, bb); % left wing should be decreasing
-            if ~isnan(tailConcavity) && bb ~=0
-                re = bb * 0.9 + bb * 0.1 * tailConcavity;
-                if (re < 0 && re < right && re > left)
-                    bb = re;
-                end
-            end
-            
-            if (abs(bb) > 2.5 * abs(originb) || abs(bb) < abs(originb)/2.5)
-                if ~flat && bb ~= 0
-                    %                     if (bb > originb)
-                    %                         aa = -inf;
-                    %                         cc = -inf;
-                    %                         dd = -inf;
-                    %                         return;
-                    %                     else
-                    err = 'Extrapolate left will change slope a lot';
-                    error('%s', err);
-                    %                     end
-                end
-            end
-            
-            if flat
-                cc = 0;
-            else
-                if isnan(dxx)
-                    ctmp = c(2:min(length(c),3));
-                    cc = - abs(w(2:2+length(ctmp)-1) * ctmp / sum(w(2:end)));
-                    if sign(cc) ~= sign(c(2))
-                        cc = c(2)/2;
-                    end
-                else
-                    cc = dxx;
-                end
-            end
-            %cc = -abs(c(2));
-            
-            maxCC = 0;
-            minCC = -bb/hleft;
-            
-            if ~isempty(aMax)
-                ccBoundMax = min((beta - bb * gammaa) ./ tao);
-                ccBoundMin = max((alpha - bb * gammaa) ./ tao);
-                if (ccBoundMax < ccBoundMin)
-                    if (isnan(left) || bb == 0)
-                        err = 'Left fail to extrapolate with given boundary';
-                        error('%s', err);
-                    end
-                    findb = false;
-                    for ii = linspace(bb, left)
-                        ccBoundMax = min((beta - ii * gammaa) ./ tao);
-                        ccBoundMin = max((alpha - ii * gammaa) ./ tao);
-                        if (ccBoundMax >= ccBoundMin)
-                            bb = ii;
-                            findb = true;
-                            break;
+            triedextended = false;
+            success = false;
+            while (~success)
+                try
+                    xEnd = xEnd(ub ~= 0);
+                    lb = lb(ub ~= 0);
+                    ub = ub(ub ~= 0);
+                    t = x(1);
+                    aa = a(1);
+                    hleft = stationaryPoint - t;
+                    h2 = hleft * hleft;
+                    if ~isempty(xEnd)
+                        delta = xEnd - t;
+                        delta2 = delta .^ 2;
+                        delta3 = delta .^ 3;
+                        
+                        alpha = 3 * h2 * (lb - aa);
+                        beta = 3 * h2 * (ub - aa);
+                        
+                        % 3 * delta ^2 * h ^2 - 2 * delta ^ 3 * h
+                        tao = 3 * delta2 * h2 - 2 * delta3 * hleft;
+                        gammaa = 3 * delta * h2 - delta3;
+                        
+                        %             aBoundMax = (3 * h3 * gamma .* aMax - (3 * h3 * gamma - 3 * h2 * tao) .* aMin) ./ (3 * h2 .*tao);
+                        %             aBoundMax = min(aBoundMax);
+                        %             if a > aBoundMax
+                        %                 err = 'Fail to interpolate with given boundary';
+                        %                 error('error in quadprog: %s', err);
+                        %             end
+                        left = max(beta * hleft ./ (gammaa * hleft - tao));
+                        right = min(alpha ./ gammaa);
+                        
+                        if (left > 0)
+                            err = 'Left fail to extrapolate with given boundary';
+                            error('%s', err);
                         end
-                    end
-                    if (~findb)
-                        err = 'Left fail to extrapolate with given boundary';
-                        error('%s', err);
-                    end
-                    if (abs(bb) > 3 * abs(originb) || abs(bb) < 0.3 * abs(originb))
-                        if bb ~= 0
-                            err = 'Extrapolate left will change slope a lot';
+                        if (left > right)
+                            err = 'Left fail to extrapolate with given boundary';
                             error('%s', err);
                         end
                     end
+                    
+                    if flat
+                        bb = 0;
+                    else
+                        if isnan(dx)
+                            % use the weighted last few b's to calculate extrapolating b
+                            xtmp = x(1: min(length(x),3));
+                            w = exp(-(t-xtmp)./(t-xtmp(end)) * 3);
+                            %w = exp(t-x);
+                            btmp = b(1: min(length(b),3));
+                            bb = w * btmp / sum(w);
+                            if (sign(bb) ~= sign(b(1)) && b(1) < 0)
+                                bb = b(1);
+                            end
+                            % bb = b(1);
+                        else
+                            bb = dx;
+                        end
+                    end
+                    %originb = bb;
+                    if ~isempty(ub)
+                        if concave && bb < left && right < 0
+                            bb = right;
+                        else
+                            bb = min(max(bb, left), right);
+                        end
+                    else
+                        right = inf;
+                        left = -inf;
+                    end
+                    bb = min(0, bb); % left wing should be decreasing
+                    if ~isnan(tailConcavity) && bb ~=0
+                        re = bb * 0.85 + bb * 0.15 * tailConcavity;
+                        if (re < 0 && re < right && re > left)
+                            bb = re;
+                        end
+                    end
+                    
+                    %             if ~dontCareWingShape && ...
+                    %               ((abs(originb) < 5e-4                        && (abs(bb) > 10 * abs(originb))) ...
+                    %             || (abs(originb) > 5e-4 && abs(originb) < 1e-3 && (abs(bb) > 2.5 * abs(originb) || abs(bb) < abs(originb)/2.5)) ...
+                    %             || (abs(originb) > 1e-3                        && (abs(bb) > 1.5 * abs(originb) || abs(bb) < abs(originb)/1.5)))
+                    %                 if ~flat && bb ~= 0
+                    %                     %                     if (bb > originb)
+                    %                     %                         aa = -inf;
+                    %                     %                         cc = -inf;
+                    %                     %                         dd = -inf;
+                    %                     %                         return;
+                    %                     %                     else
+                    %                     err = 'Extrapolate left will change slope a lot';
+                    %                     error('%s', err);
+                    %                     %                     end
+                    %                 end
+                    %             end
+                    
+                    if flat
+                        cc = 0;
+                    else
+                        if isnan(dxx)
+                            ctmp = c(2:min(length(c),3));
+                            cc = - abs(w(2:2+length(ctmp)-1) * ctmp / sum(w(2:end)));
+                            if sign(cc) ~= sign(c(2))
+                                cc = c(2)/2;
+                            end
+                        else
+                            cc = dxx;
+                        end
+                    end
+                    %cc = -abs(c(2));
+                    
+                    maxCC = 0;
+                    minCC = -bb/hleft;
+                    
+                    if ~isempty(ub)
+                        ccBoundMax = min((beta - bb * gammaa) ./ tao);
+                        if (ccBoundMax == -inf)
+                            ccBoundMax = inf;
+                        end
+                        ccBoundMin = max((alpha - bb * gammaa) ./ tao);
+                        if (ccBoundMax < ccBoundMin)
+                            if (isnan(left) || bb == 0)
+                                err = 'Left fail to extrapolate with given boundary';
+                                error('%s', err);
+                            end
+                            findb = false;
+                            for ii = linspace(min(0,right), left)
+                                ccBoundMax = min((beta - ii * gammaa) ./ tao);
+                                ccBoundMin = max((alpha - ii * gammaa) ./ tao);
+                                if ccBoundMax >= ccBoundMin  %...
+                                    %                         && (dontCareWingShape  ...
+                                    %                         || ((abs(originb) < 5e-4                        && (abs(ii) < 10 * abs(originb))) ...
+                                    %                         || (abs(originb) > 5e-4 && abs(originb) < 1e-3 && (abs(ii) < 2.5 * abs(originb) && abs(ii) > abs(originb)/2.5)) ...
+                                    %                         || (abs(originb) > 1e-3                        && (abs(ii) < 1.5 * abs(originb) && abs(ii) > abs(originb)/1.5))))
+                                    bb = ii;
+                                    findb = true;
+                                    break;
+                                end
+                            end
+                            if (~findb)
+                                err = 'Left fail to extrapolate with given boundary';
+                                error('%s', err);
+                            end
+                            %                     if (~dontCareWingShape && (abs(bb) > 3 * abs(originb) || abs(bb) < 0.3 * abs(originb)))
+                            %                         if bb ~= 0
+                            %                             err = 'Extrapolate left will change slope a lot';
+                            %                             error('%s', err);
+                            %                         end
+                            %                     end
+                        end
+                        maxCC = min(maxCC, ccBoundMax);
+                        minCC = max(minCC, ccBoundMin);
+                    end
+                    if concave && cc > maxCC
+                        cc = minCC;
+                    else
+                        cc = min(max(cc, minCC), maxCC);
+                        if ~isnan(tailConcavity)
+                            cc = minCC + tailConcavity * (cc - minCC);
+                        end
+                    end
+                    
+                    dd = (-bb - 2 * cc * hleft) / 3 / h2;
+                    success = true;
+                catch error1
+                    if (triedextended)
+                        throw(error1);
+                    else
+                        lb = lbmin;
+                        ub = ubmax;
+                        triedextended = true;
+                    end
                 end
-                maxCC = min(maxCC, ccBoundMax);
-                minCC = max(minCC, ccBoundMin);
             end
-            if concave && cc > maxCC
-                cc = minCC;
-            else
-                cc = min(max(cc, minCC), maxCC);
-                if ~isnan(tailConcavity)
-                    cc = minCC + tailConcavity * (cc - minCC);
-                end
-            end
-            
-            dd = (-bb - 2 * cc * hleft) / 3 / h2;
         end
         
-        function [aa, bb, cc, dd] = rightPars(x, a, b, c, stationaryPoint, flat, xEnd, aMin, aMax, tailConcavity, dx, dxx, concave)
-            if ~flat && ~isempty(aMin) &&  b(end) < 0 %a(end) < aMin(1) &&
+        function [aa, bb, cc, dd] = rightPars(x, a, b, c, stationaryPoint, flat, xEnd, lb, ub, lbmin, ubmax, tailConcavity, dx, dxx, concave)%, dontCareWingShape)
+            if ~flat && ~isempty(lb) &&  b(end) < 0 %a(end) < aMin(1) &&
                 err = 'Right needs more data';
                 error('%s', err);
             end
             
-            xEnd = xEnd(aMax ~= 0);
-            aMin = aMin(aMax ~= 0);
-            aMax = aMax(aMax ~= 0);
+            xEnd = xEnd(ub ~= 0);
+            lb = lb(ub ~= 0);
+            ub = ub(ub ~= 0);
             aa = a(end);
             t = x(end);
             hright = stationaryPoint - t;
@@ -186,8 +212,8 @@ classdef splineHelper
                 delta2 = delta .^ 2;
                 delta3 = delta .^ 3;
                 
-                alpha = 3 * h2 * (aMin - aa);
-                beta = 3 * h2 * (aMax - aa);
+                alpha = 3 * h2 * (lb - aa);
+                beta = 3 * h2 * (ub - aa);
                 
                 tao = 3 * delta2 * h2 - 2 * delta3 * hright;
                 gammaa = 3 * delta * h2 - delta3;
@@ -222,31 +248,35 @@ classdef splineHelper
                     bb = dx;
                 end
             end
-            originb = bb;
+            %originb = bb;
             %bb = b(end);
-            if ~isempty(aMax)
+            if ~isempty(ub)
                 if concave && bb > right && left > 0
                     bb = left;
                 else
                     bb = min(max(bb, left), right);
                 end
             else
+                right = inf;
                 left = -inf;
             end
             bb = max(bb, 0); %right wing should be increasing
             if ~isnan(tailConcavity) && bb ~= 0 
-                re = bb * 0.9 + bb * 0.1 * tailConcavity;
+                re = bb * 0.85 + bb * 0.15 * tailConcavity;
                 if (re < right && re > left && re > 0)
                     bb = re;
                 end
             end
             
-            if (abs(bb) > 3 * abs(originb) || abs(bb) < 0.3 * abs(originb))
-                if ~flat && bb ~= 0
-                    err = 'Extrapolate right will change slope a lot';
-                    error('%s', err);
-                end
-            end
+%             if ~dontCareWingShape && ...
+%               ((abs(originb) < 5e-4                        && (abs(bb) > 10 * abs(originb))) ...
+%             || (abs(originb) > 5e-4 && abs(originb) < 1e-3 && (abs(bb) > 2.5 * abs(originb) || abs(bb) < abs(originb)/2.5)) ...
+%             || (abs(originb) > 1e-3                        && (abs(bb) > 1.5 * abs(originb) || abs(bb) < abs(originb)/1.5)))
+%                 if ~flat && bb ~= 0
+%                     err = 'Extrapolate right will change slope a lot';
+%                     error('%s', err);
+%                 end
+%             end
             
             if flat
                 cc = 0;
@@ -266,8 +296,11 @@ classdef splineHelper
             maxCC = 0;
             minCC = -bb/hright;
             
-            if ~isempty(aMax)
+            if ~isempty(ub)
                 ccBoundMax = min((beta - bb * gammaa) ./ tao);
+                if (ccBoundMax == -inf)
+                    ccBoundMax = inf;
+                end
                 ccBoundMin = max((alpha - bb * gammaa) ./ tao);
                 if (ccBoundMax < ccBoundMin)
                     if (isnan(right) || bb == 0)
@@ -275,10 +308,14 @@ classdef splineHelper
                         error('%s', err);
                     end
                     findb = false;
-                    for ii = linspace(bb, right)
+                    for ii = linspace(max(left, 0), right)
                         ccBoundMax = min((beta - ii * gammaa) ./ tao);
                         ccBoundMin = max((alpha - ii * gammaa) ./ tao);
-                        if (ccBoundMax >= ccBoundMin)
+                        if ccBoundMax >= ccBoundMin  %...
+%                         && (dontCareWingShape  ...
+%                         || ((abs(originb) < 5e-4                        && (abs(ii) < 10 * abs(originb))) ...
+%                         || (abs(originb) > 5e-4 && abs(originb) < 1e-3 && (abs(ii) < 2.5 * abs(originb) && abs(ii) > abs(originb)/2.5)) ...
+%                         || (abs(originb) > 1e-3                        && (abs(ii) < 1.5 * abs(originb) && abs(ii) > abs(originb)/1.5))))   
                             bb = ii;
                             findb = true;
                             break;
@@ -288,12 +325,12 @@ classdef splineHelper
                         err = 'Right fail to extrapolate with given boundary';
                         error('%s', err);
                     end
-                    if (abs(bb) > 3 * abs(originb) || abs(bb) < 0.3 * abs(originb))
-                        if bb ~= 0
-                            err = 'Extrapolate right will change slope a lot';
-                            error('%s', err);
-                        end
-                    end
+%                     if (~dontCareWingShape && (abs(bb) > 3 * abs(originb) || abs(bb) < 0.3 * abs(originb)))
+%                         if bb ~= 0
+%                             err = 'Extrapolate right will change slope a lot';
+%                             error('%s', err);
+%                         end
+%                     end
                 end
                 maxCC = min(maxCC, ccBoundMax);
                 minCC = max(minCC, ccBoundMin);
@@ -367,7 +404,7 @@ classdef splineHelper
                 end
             end
             
-            bbold = bb;
+            %bbold = bb;
             bb = min(max(bb, left), right);
         end
         
