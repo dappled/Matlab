@@ -1,5 +1,5 @@
 <deployment-project plugin="plugin.ezdeploy" plugin-version="1.0">
-  <configuration build-checksum="2063670517" file="C:\Users\Dappled\OneDrive\dappled's sky\cs\matlab\convexMonotoneFit\flexFit.prj" location="C:\Users\Dappled\OneDrive\dappled's sky\cs\matlab\convexMonotoneFit" name="flexFit" preferred-package-location="C:\Users\Dappled\OneDrive\dappled's sky\cs\matlab\convexMonotoneFit\flexFit\for_redistribution" preferred-package-type="package.type.exe" target="target.ezdeploy.mps.archive" target-name="Production Server Compiler">
+  <configuration build-checksum="2643346165" file="C:\Users\Dappled\OneDrive\dappled's sky\cs\matlab\convexMonotoneFit\flexFit.prj" location="C:\Users\Dappled\OneDrive\dappled's sky\cs\matlab\convexMonotoneFit" name="flexFit" preferred-package-location="C:\Users\Dappled\OneDrive\dappled's sky\cs\matlab\convexMonotoneFit\flexFit\for_redistribution" preferred-package-type="package.type.exe" target="target.ezdeploy.mps.archive" target-name="Production Server Compiler">
     <param.appname>flexFit</param.appname>
     <param.icon />
     <param.icons />
@@ -75,33 +75,8 @@
     </build-deliverables>
     <workflow />
     <matlab>
-      <root>D:\Program Files\MATLAB\MATLAB Production Server\R2015a</root>
-      <toolboxes>
-        <toolbox name="matlabhdlcoder" />
-        <toolbox name="fixedpoint" />
-        <toolbox name="embeddedcoder" />
-        <toolbox name="matlabcoder" />
-      </toolboxes>
-      <toolbox>
-        <matlabhdlcoder>
-          <enabled>true</enabled>
-        </matlabhdlcoder>
-      </toolbox>
-      <toolbox>
-        <fixedpoint>
-          <enabled>true</enabled>
-        </fixedpoint>
-      </toolbox>
-      <toolbox>
-        <embeddedcoder>
-          <enabled>true</enabled>
-        </embeddedcoder>
-      </toolbox>
-      <toolbox>
-        <matlabcoder>
-          <enabled>true</enabled>
-        </matlabcoder>
-      </toolbox>
+      <root>C:\Program Files\MATLAB\MATLAB Production Server\R2015a</root>
+      <toolboxes />
     </matlab>
     <platform>
       <unix>false</unix>

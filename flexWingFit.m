@@ -4,9 +4,9 @@
 %           4 means left side flat
 %           5 means right side flat
 %           6 means both sides flat
-function [smooth1, smoothCoeff1, exitflag, g, gamma, aa, bb, cc, dd, turningPoint, x] = flexWingFit(x, y, weight, stationaryPoint, tailConcavity, smoothCoeff, turningPoint, boundaryx, boundarydx, boundarydxx, leftright, upperLimitG, lowerLimitG, ...
-    upperLimitGmax, lowerLimitGmin, xEndl, aubl, albl, aublmax, alblmin, xEndr, aubr, albr, aubrmax, albrmin, invalidx, invalidupper, invalidlower, invaliduppermax, invalidlowermin, leftincrease, rightincrease, smooth, tight, minxrange, concave, allowflat,...
-    fromtime, originalx, breakBoundary, forcesmooth)
+function [smooth1, smoothCoeff1, exitflag, g, gamma, aa, bb, cc, dd, turningPoint, xin, flatregion] = flexWingFit(xin, yin, weight, stationarypoint, tailConcavity, smoothCoeff, turningPoint, boundaryx, boundarydx, boundarydxx, leftright, xinub, xinlb, ...
+    xinubmax, xinlbmin, xendl, ubendl, lbendl, ubendlmax, lbendlmin, xendr, ubendr, lbendr, ubendrmax, lbendrmin, invalidx, invalidupper, invalidlower, invaliduppermax, invalidlowermin, leftincrease, rightincrease, smooth, tight, minxrange, concave, allowflat,...
+    fromtime, originalx, breakBoundary, forceclose, forcesmooth, careConvexConcave, allowHugeWingChange)
 % clc
 % M = csvread('c:\temp\voltooltest\sampledata.csv', 2, 0);
 % % % MM = M(M(:,5)<=0.5, :);
@@ -123,15 +123,23 @@ else
     optquad = optimoptions('quadprog','Display', 'off');
 end
 
-h = x(2:end) - x(1:end-1);
-n = length(x);
+if ~isnan(leftright)
+    error('not nan leftright');
+end
 
-tight = tight(2:end-1);
-originFirstD = (y(3:n) - y(1:n-2)) ./ (h(1:end-1) + h(2:end));
-originSecD = ((y(3:n) - y(2:n-1))./h(2:end) - (y(2:n-1) - y(1:n-2))./ h(1:end-1))./((h(1:end-1) + h(2:end))/2);
-% if have huggge dxx, we want to loose convex/concave requirement in that region
-avg = mean(abs(originSecD));
-hugedxxregion = find(abs(originSecD) > avg * 5);
+h = xin(2:end) - xin(1:end-1);
+n = length(xin);
+
+tight = tight - 1;
+originFirstD = (yin(3:n) - yin(1:n-2)) ./ (h(1:end-1) + h(2:end));
+originSecD = ((yin(3:n) - yin(2:n-1))./h(2:end) - (yin(2:n-1) - yin(1:n-2))./ h(1:end-1))./((h(1:end-1) + h(2:end))/2);
+originTurningPoint = turningPoint;
+originSmooth = smooth;
+originSmoothCoeff = smoothCoeff;
+% % if have huggge dxx, we want to loose convex/concave requirement in that
+% % region if we require very close
+% avg = mean(abs(originSecD));
+% hugedxxregion = find(abs(originSecD) > avg * 5);
 
 goodboundary = false;
 boundarydchanged = false;
@@ -139,29 +147,28 @@ boundarychanged = false;
 scchanged = false;
 goodSc = false;
 goodBdr = false;
-ignoreconvexconcave =false;
 countc = 0;
-allowignorelbub = breakBoundary;
+allowignorelbub = false;
 while ~goodBdr
     if (allowignorelbub)
         invalidlower = invalidlowermin;
         invalidupper = invaliduppermax;
-        lowerLimitG = lowerLimitGmin;
-        upperLimitG = upperLimitGmax;
+        xinlb = xinlbmin;
+        xinub = xinubmax;
     end
-    [increaseregion, decreaseregion] = findIDRegion(lowerLimitG, upperLimitG);
+    [increaseregion, decreaseregion] = findIDRegion(xinlb, xinub);
     % if length(increaseregion) == 1
     %     minincrease = x(increaseregion);
     % else
     if length(increaseregion) == 1
-        minincrease = x(increaseregion);
+        minincrease = xin(increaseregion);
     else
         minincrease = [];
     end
     if length(decreaseregion) == 1
-        maxdecrease = x(decreaseregion);
+        maxdecrease = xin(decreaseregion);
     elseif ~isempty(decreaseregion)
-        maxdecrease = x(decreaseregion(end));
+        maxdecrease = xin(decreaseregion(end));
     else
         maxdecrease = [];
     end
@@ -192,15 +199,15 @@ while ~goodBdr
             %     upperLimitG(1) = inf;
             %     lowerLimitG(1) = 0;
             % end
-            if ~isnan(dxleft)
-                inRegionDx = (y(2) - y(1)) /h(1);
-                dxleft = (dxleft + inRegionDx)/2;
-            end
-            
-            if ~isnan(dxright)
-                inRegionDx = (y(end) - y(end-1)) / h(end);
-                dxright = (dxright + inRegionDx)/2;
-            end
+%             if ~isnan(dxleft)
+%                 inRegionDx = (y(2) - y(1)) /h(1);
+%                 dxleft = (dxleft + inRegionDx)/2;
+%             end
+%             
+%             if ~isnan(dxright)
+%                 inRegionDx = (y(end) - y(end-1)) / h(end);
+%                 dxright = (dxright + inRegionDx)/2;
+%             end
             
             Q = zeros(n, n-2);
             
@@ -337,22 +344,25 @@ while ~goodBdr
             % end
             
             changed = false;
-            minx = x(y == min(y));
+            minx = xin(yin == min(yin));
             if (length(minx) > 1)
                 minx = minx(end);
             end
             
-            [lb, lb2, ub, ub2, flat] = calculateConcavePoints(originSecD, nan);
+            [lb, lb2, ub, ub2, flat, leftflat, rightflat, potentialconvexconcaves] = calculateConcavePoints(originSecD, nan, []);
             
             method = 1;
             smoothNan =false;
+            flatbff = flat;
+            leftflatbff = leftflat;
+            rightflatbff = rightflat;
             if isnan(smoothCoeff)
                 smoothNan = true;
                 %     smoothCoeff = 6;
                 
                 %opt = optimset('Display', 'iter','TolX', 0.6); %'Display', 'iter',
                 %[smoothCoeff, gcvScore, exitflag] = fminbndWithStartPoint(@gcv, 1e-7, 0, 6, opt);% fmincon(@gcv, 1e-7, [], [], [], [], 0, 6, [],opt);
-                [smoothCoeff, gcvScore, re, g, exitflag] = naiveSearch(smooth);
+                [smoothCoeff, ~, re, g, exitflag, ~, leftflat, rightflat] = naiveSearch(flat, leftflat, rightflat, true);
                 %     if exitflag <= 0
                 %         if exitflag == 0
                 %             err = 'Maximum number of function evaluations or iterations was reached';
@@ -366,42 +376,61 @@ while ~goodBdr
                 %         error('error in optimal smoothcoeff search: %s', err);
                 %     end
             else
-                [gcvScore, re, g, exitflag] = gcv(smoothCoeff);
+                [~, re, g, exitflag, ~, leftflat, rightflat] = gcv(smoothCoeff, flat, leftflat, rightflat, true);
             end
             
-            if (isnan(leftright) && ~ignoreconvexconcave && (concavePointsl1 ~= concavePointsl2 || concavePointsr1 ~= concavePointsr2)) || (~isnan(leftright) && (concavePoints ~= concavePoints2))
+            if exitflag < 0 && (isnan(leftright) && (concavePointsl1 ~= concavePointsl2 || concavePointsr1 ~= concavePointsr2)) || (~isnan(leftright) && (concavePoints ~= concavePoints2))
                 method = 2;
-                if exitflag == -1
+%                 if exitflag == -1
                     if smoothNan
                         smoothCoeff = NaN;
                     end
                     if isnan(smoothCoeff)
-                        [smoothCoeff, ~, re, g, exitflag] = naiveSearch(smooth);
+                        [smoothCoeff, ~, re, g, exitflag, ~, leftflat, rightflat] = naiveSearch(flatbff, leftflatbff, rightflatbff, true);
                     else
-                        [~, re, g, exitflag] = gcv(smoothCoeff);
+                        [~, re, g, exitflag, ~, leftflat, rightflat] = gcv(smoothCoeff, flatbff, leftflatbff, rightflatbff, true);
                     end
-                else
-                    %         if isnan(smoothCoeff)
-                    %             [smoothCoeff, gcvScore2, ree, gg, exitflagg] = naiveSearch(smooth);
-                    %         else
-                    %             [gcvScore2, ree, gg, exitflagg] = gcv(smoothCoeff);
-                    %         end
-                    [gcvScore2, ree, gg, exitflagg] = gcv(smoothCoeff);
-                    if exitflagg < 0 || gcvScore2 >= gcvScore
-                        method = 1;
+%                 else
+%                     %         if isnan(smoothCoeff)
+%                     %             [smoothCoeff, gcvScore2, ree, gg, exitflagg] = naiveSearch(smooth);
+%                     %         else
+%                     %             [gcvScore2, ree, gg, exitflagg] = gcv(smoothCoeff);
+%                     %         end
+%                     [gcvScore2, ree, gg, exitflagg] = gcv(smoothCoeff);
+%                     if exitflagg < 0 || gcvScore2 >= gcvScore
+%                         method = 1;
+%                     else
+%                         re = ree;
+%                         g = gg;
+%                         exitflag = exitflagg;
+%                     end
+%                 end
+            end;
+            
+            % try potential convexconcave
+            fixed = true;
+            if (exitflag < 0 && careConvexConcave && ~isempty(potentialconvexconcaves))
+                [rows, ~] = size(potentialconvexconcaves);
+                for row = 1 : 1 : rows
+                    fixed = false;
+                    [lb, ~, ub, ~, flat, leftflat, rightflat, ~] = calculateConcavePoints(originSecD, nan, potentialconvexconcaves(row, :));
+                    method = 1;
+                    if isnan(smoothCoeff)
+                        [smoothCoeff, ~, re, g, exitflag, ~, leftflat, rightflat] = naiveSearch(flat, leftflat, rightflat, true);
                     else
-                        re = ree;
-                        g = gg;
-                        exitflag = exitflagg;
+                        [~, re, g, exitflag, ~, leftflat, rightflat] = gcv(smoothCoeff, flat, leftflat, rightflat, true);
+                    end
+                    if (exitflag > 0 && ~isempty(g))
+                        fixed = true;
+                        break;
                     end
                 end
-            else
-                exitFlagg = 0;
+            end
+
+            if (~fixed)
+               [lb, ~, ub, ~, flat, leftflat, rightflat, ~] = calculateConcavePoints(originSecD, nan, []);
             end
             
-            if exitFlagg ~= 0
-                exitflag = exitFlagg;
-            end
             if isnan(dxxleft)
                 dxxleft = 0;
             end
@@ -418,10 +447,10 @@ while ~goodBdr
                 a = g(1:end); % g(line) - abcd(line,4)
                 b = firstDx(1:end); % (g(line+1) - g(line))/h(line) - (gamma(line+1) + 2*gamma(line))/6*h(line) - abcd(line,5)
                 c = gamma/2; % 0.5*gamma(line) - abcd(line,6)
-                d = [(gamma(2:end) - gamma(1:end-1))/ 6 ./ h'; 0]; % (gamma(line+1) - gamma(line))/6/h(line) - abcd(line,7)
+                %d = [(gamma(2:end) - gamma(1:end-1))/ 6 ./ h'; 0]; % (gamma(line+1) - gamma(line))/6/h(line) - abcd(line,7)
             end
             
-            if fromtime && ~forcesmooth && (exitflag > 0 &&((y(1) > y(2) && b(1) > -1e-5) || (y(end-1) < y(end) && b(end) < 1e-5)) && ~scchanged)
+            if fromtime && ~forcesmooth && (exitflag > 0 &&((yin(1) > yin(2) && b(1) > -1e-5) || (yin(end-1) < yin(end) && b(end) < 1e-5)) && ~scchanged)
                 smooth = 2;
                 scchanged = true;
                 goodSc = false;
@@ -429,7 +458,7 @@ while ~goodBdr
                 if (smooth ~= 0)
                     smooth = 0;
                 else
-                    smoothCoeff = 100;
+                    smoothCoeff = 500;
                 end
                 scchanged = true;
                 goodSc = false;
@@ -442,7 +471,7 @@ while ~goodBdr
                     scchanged = true;
                 end
                 goodSc = false;
-            elseif smooth == 0 && exitflag > 0 && ~scchanged && ~forcesmooth
+            elseif exitflag > 0 && ~scchanged && ~forcesmooth && smooth == 0 && smoothCoeff < 70 
                 window = 3;
                 mask = ones(window,1)/window;
                 mavg = conv(b, mask,'same');
@@ -452,7 +481,7 @@ while ~goodBdr
                 mavgmin = min(mavgr(:,1), mavgr(:,2));
                 mavgmax = max(mavgr(:,1), mavgr(:,2));
                 if ~all((b<mavgmax) & (b > mavgmin))
-                    smoothCoeff = 100;
+                    smoothCoeff = 500;
                     scchanged = true;
                 else
                     goodSc = true;
@@ -475,6 +504,7 @@ while ~goodBdr
                 error('Fail to fit');
             end
         end
+        % if still fail, try to change boundary by allowing lbmin ubmax
         if exitflag < 0 && ~boundarychanged
             allowignorelbub = true;
             %lowerLimitG = ones(1, length(lowerLimitG)) * -inf;
@@ -482,7 +512,6 @@ while ~goodBdr
             goodSc = false;
             goodboundary = false;
             boundarychanged = true;
-            %ignoreconvexconcave = true;
             goodBdr = false;
         else
             goodBdr = true;
@@ -490,24 +519,19 @@ while ~goodBdr
     end
 end
 
-if ~ignoreconvexconcave
-    turningPoint(1) = tpl1;
-    turningPoint(2) = tpr1;
-else
-    if isnan(leftright)
-        if method == 1         
-            turningPoint(1) = nan;
-            turningPoint(2) = nan;
-        else
-            turningPoint(1) = tpl2;
-            turningPoint(2) = tpr2;
-        end
+if isnan(leftright)
+    if method == 1
+        turningPoint(1) = tpl1;
+        turningPoint(2) = tpr1;
     else
-        if method == 1
-            turningPoint(1) = tp;
-        else
-            turningPoint(1) = tp2;
-        end
+        turningPoint(1) = tpl2;
+        turningPoint(2) = tpr2;
+    end
+else
+    if method == 1
+        turningPoint(1) = tp;
+    else
+        turningPoint(1) = tp2;
     end
 end
 
@@ -568,10 +592,20 @@ if dxxright == 0
     dxxright = nan;
 end
 
+needRefitBcHugeWingChange = 0;
+
+miny = min(yin);
 try
     if ~leftneedsmoredata
         if isnan(leftright) || leftright == -1
-            [aal, bbl, ccl, ddl] = splineHelper.leftPars(x, a, b, c, stationaryPoint(1), leftflat, xEndl, albl, aubl, alblmin, aublmax, tailConcavity(1), dxleft, dxxleft, concave);%, dontCareWingShape);
+            [hugeChange, aal, bbl, ccl, ddl] = splineHelper.leftPars(xin, a, b, c, stationarypoint(1), leftflat, xendl, lbendl, ubendl, lbendlmin, ubendlmax, tailConcavity(1), dxleft, dxxleft, concave);%, dontCareWingShape);
+            if (hugeChange || (yin(1) == miny && ~allowflat(1)))
+                if (~allowHugeWingChange(1))
+                    leftneedsmoredata = true;
+                else
+                    needRefitBcHugeWingChange = 1;
+                end
+            end
         else
             aal = 0; bbl = 0; ccl = 0; ddl = 0;
         end
@@ -587,9 +621,20 @@ end
 try
     if ~rightneedsmoredata
         if isnan(leftright)
-            [aar, bbr, ccr, ddr] = splineHelper.rightPars(x, a, b, c, stationaryPoint(2), rightflat, xEndr, albr, aubr, albrmin, aubrmax, tailConcavity(2), dxright, dxxright, concave);%, dontCareWingShape);
+            [hugeChange, aar, bbr, ccr, ddr] = splineHelper.rightPars(xin, a, b, c, stationarypoint(2), rightflat, xendr, lbendr, ubendr, lbendrmin, ubendrmax, tailConcavity(2), dxright, dxxright, concave);%, dontCareWingShape);
+            if (hugeChange || (yin(end) == miny && ~allowflat(2)))
+                if (~allowHugeWingChange(2))
+                    rightneedsmoredata = true;
+                else
+                    if (needRefitBcHugeWingChange == 1)
+                        needRefitBcHugeWingChange = 3;
+                    else
+                        needRefitBcHugeWingChange = 2;
+                    end
+                end
+            end
         elseif leftright == 1
-            [aar, bbr, ccr, ddr] = splineHelper.rightPars(x, a, b, c, stationaryPoint(1), rightflat, xEndr, albr, aubr, albrmin, aubrmax, tailConcavity(1), dxright, dxxright, concave);%, dontCareWingShape);
+            [aar, bbr, ccr, ddr] = splineHelper.rightPars(xin, a, b, c, stationarypoint(1), rightflat, xendr, lbendr, ubendr, lbendrmin, ubendrmax, tailConcavity(1), dxright, dxxright, concave);%, dontCareWingShape);
         else
             aar = 0; bbr = 0; ccr = 0; ddr = 0;
         end
@@ -600,6 +645,89 @@ catch e
     else
         rethrow(e);
     end
+end
+
+% refit to force smooth for wing b/c huge change
+if needRefitBcHugeWingChange > 0
+    % left wing need to be smooth out
+    if needRefitBcHugeWingChange == 1 || needRefitBcHugeWingChange == 3
+        tl = xin(1);
+        xexl = sort(xendl); %stationaryPoint(1) : 1 : tl-1;
+        yexl = aal + bbl .* (xexl-tl) + ccl .* (xexl-tl).^2 + ddl .* (xexl-tl).^3;
+%         xl = find(yexl > yin(2) * 1.1);
+%         if isempty(xl)
+            xl = 1;
+%         end
+        xl = xl(end);
+        xll = xl : length(xexl);
+        idx = find(xendl == xexl(xl));
+        xin = [xexl(xll) xin];
+        yin = [yexl(xll) yin];
+        weight = [ones(1, length(xll)) * min(weight) weight];
+        boundaryx = [nan nan];
+        boundarydx = [nan nan];
+        boundarydxx = [nan nan];
+        xvalididx = arrayfun(@(x)find(xendl==x,1),xexl(xll));
+        xinlb = [lbendl(xvalididx) xinlb];
+        xinlbmin = [lbendlmin(xvalididx) xinlbmin];
+        xinub = [ubendl(xvalididx) xinub];
+        xinubmax = [ubendlmax(xvalididx) xinubmax];
+        xinvalididx = find(xendl >= xin(1));
+        xinvalididx = xinvalididx(~ismember(xinvalididx, xvalididx));
+        invalidx = [invalidx xendl(xinvalididx)];
+        invalidupper = [invalidupper ubendl(xinvalididx)];
+        invaliduppermax = [invaliduppermax ubendlmax(xinvalididx)];
+        invalidlower = [invalidlower lbendl(xinvalididx)];
+        invalidlowermin = [invalidlowermin lbendlmin(xinvalididx)];
+        xendlidx = find(xendl < xin(1));
+        xendl = xendl(xendlidx);
+        ubendl = ubendl(xendlidx);
+        lbendl = lbendl(xendlidx);
+        ubendlmax = ubendlmax(xendlidx);
+        lbendlmin = lbendlmin(xendlidx);
+    end
+    % right wing need to be smooth out
+    if needRefitBcHugeWingChange == 2 || needRefitBcHugeWingChange == 3
+        tr = xin(end);
+        xexr = sort(xendr);
+        yexr = aar + bbr .* (xexr-tr) + ccr .* (xexr-tr).^2 + ddr .* (xexr-tr).^3;
+%         xr = find(yexr > yin(end-1) * 1.1);
+%         if isempty(xr)
+            xr = length(xexr);
+%         end
+        xr = xr(1);
+        xrr = 1 : xr;
+        idx = xr;
+        xin = [xin xexr(xrr)];
+        yin = [yin yexr(xrr)];
+        weight = [weight ones(1, xr) * min(weight)];
+        boundaryx = [nan nan];
+        boundarydx = [nan nan];
+        boundarydxx = [nan nan];
+        xvalididx = arrayfun(@(x)find(xendr==x,1),xexr(xrr));
+        xinlb = [xinlb lbendr(xvalididx)];
+        xinlbmin = [xinlbmin lbendrmin(xvalididx)];
+        xinub = [xinub ubendr(xvalididx)];
+        xinubmax = [xinubmax ubendrmax(xvalididx)];
+        xinvalididx = find(xendr <= xin(end));
+        xinvalididx = xinvalididx(~ismember(xinvalididx, xvalididx));
+        invalidx = [invalidx xendr(xinvalididx)];
+        invalidupper = [invalidupper ubendr(xinvalididx)];
+        invaliduppermax = [invaliduppermax ubendrmax(xinvalididx)];
+        invalidlower = [invalidlower lbendr(xinvalididx)];
+        invalidlowermin = [invalidlowermin lbendrmin(xinvalididx)];
+        xendridx = find(xendr > xin(end));
+        xendr = xendr(xendridx);
+        ubendr = ubendr(xendridx);
+        lbendr = lbendr(xendridx);
+        ubendrmax = ubendrmax(xendridx);
+        lbendrmin = lbendrmin(xendridx);
+    end
+    
+    [smooth1, smoothCoeff1, exitflag, g, gamma, aa, bb, cc, dd, turningPoint, xin, flatregion] = flexWingFit(xin, yin, weight, stationarypoint, tailConcavity, originSmoothCoeff, originTurningPoint, boundaryx, boundarydx, boundarydxx, leftright, xinub, xinlb, ...
+        xinubmax, xinlbmin, xendl, ubendl, lbendl, ubendlmax, lbendlmin, xendr, ubendr, lbendr, ubendrmax, lbendrmin, invalidx, invalidupper, invalidlower, invaliduppermax, invalidlowermin, leftincrease, rightincrease, originSmooth, tight, minxrange, concave, allowflat,...
+        fromtime, originalx, breakBoundary, forceclose, forcesmooth, careConvexConcave, false);
+    return;
 end
 
 if leftneedsmoredata && rightneedsmoredata
@@ -618,89 +746,90 @@ dd = [ddl, ddr];
 smoothCoeff1 = smoothCoeff;
 smooth1 = smooth;
 
+flatregion = [nan, nan];
 % if ~isnan(stationaryPoint(1))
 if isnan(leftright)
-    if ~isempty(xEndl) && (abs(bb(1)) < 1e-6 && abs(cc(1)) < 1e-6 && abs(dd(1)) < 1e-6)
-        exitflag = 4;
-    elseif ~isempty(xEndr) && (abs(bb(2)) < 1e-6 && abs(cc(2)) < 1e-6 && abs(dd(2)) < 1e-6)
-        exitflag = 5;
+    if ~isempty(xendl) && bb(1) == 0 && cc(1) == 0 && dd(1) == 0
+        flatregion(1) = xin(1);
+    elseif ~isempty(xendr) && bb(2) == 0 && cc(2) == 0 && dd(2) == 0
+        flatregion(2) = xin(end);
     end
 elseif leftright == -1
-    if ~isempty(xEndl) && (abs(bb(1)) < 1e-6 &&  abs(cc(1)) < 1e-6 && abs(dd(1)) < 1e-6)
-        exitflag = 3;
+    if ~isempty(xendl) && bb(1) == 0 && cc(1) == 0 && dd(1) == 0
+        flatregion(1) = xin(1);
     end
 elseif leftright == 1
-    if ~isempty(xEndr) && (abs(bb(2)) < 1e-6 && abs(cc(2)) < 1e-6 && abs(dd(2)) < 1e-6)
-        exitflag = 5;
+    if ~isempty(xendr) && bb(2) == 0 && cc(2) == 0 && dd(2) == 0
+        flatregion(2) = xin(end);
     end
 end
 % end
 
 %print
 if (displayOn)
+    ub(ub == 8.9) = inf;
     disp('1:n; x; y; g; upper; lower; dx; dxx')
-    [(1:1:n)' x' y' g ub(1:n) lb(1:n) firstDx gamma]
+    [(1:1:n)' xin' yin' g ub(1:n) lb(1:n) firstDx gamma]
     if isnan(leftright)
         disp('x; g; dx; dxx;')
-        tl = x(1);
-        tr = x(end);
-        if ~isempty(xEndl)
-            xxl = sort(xEndl); %stationaryPoint(1) : 1 : tl-1;
+        tl = xin(1);
+        tr = xin(end);
+        if ~isempty(xendl)
+            xxl = sort(xendl); %stationaryPoint(1) : 1 : tl-1;
             yyl = aal + bbl .* (xxl-tl) + ccl .* (xxl-tl).^2 + ddl .* (xxl-tl).^3;
         else
             xxl = [];
             yyl = [];
         end
-        if ~isempty(xEndr)
-            xxr = sort(xEndr); %tr + 1 : 1 : stationaryPoint(2);
+        if ~isempty(xendr)
+            xxr = sort(xendr); %tr + 1 : 1 : stationaryPoint(2);
             yyr = aar + bbr .* (xxr-tr) + ccr .* (xxr-tr).^2 + ddr .* (xxr-tr).^3;
         else
             xxr = [];
             yyr = [];
         end
-        xx = [xxl x xxr];
+        xx = [xxl xin xxr];
         yy = [yyl g' yyr];
         
         h = xx(2:end) - xx(1:end-1);
         dx = (yy(2:end) - yy(1:end-1))./h;
         dxx = ((yy(1:end-2) - yy(2:end-1))./h(1:end-1) - (yy(2:end-1) - yy(3:end))./h(2:end))./((h(1:end-1) + h(2:end))/2);
         [xx' yy' [dxleft; dx(2:end)'; dxright] [dxxleft; dxx'; dxxright]]
-        plot(xx', yy', x', y', x', lb(1:n), x', ub(1:n))
+        plot(xx', yy', xin', yin', xin', lb(1:n), xin', ub(1:n))
     elseif leftright == -1
-        t = x(1);
-        xx = sort(xEndl);
+        t = xin(1);
+        xx = sort(xendl);
         disp('x; g; dx; dxx;')
         yy = aal + bbl .* (xx-t) + ccl .* (xx-t).^2 + ddl .* (xx-t).^3;
-        xx = [xx x];
+        xx = [xx xin];
         yy = [yy g'];
         
         h = xx(2:end) - xx(1:end-1);
         dx = (yy(2:end) - yy(1:end-1))./h;
         dxx = ((yy(1:end-2) - yy(2:end-1))./h(1:end-1) - (yy(2:end-1) - yy(3:end))./h(2:end))./((h(1:end-1) + h(2:end))/2);
         [xx' yy' [dxleft; dx(2:end)'; dxright] [dxxleft; dxx'; dxxright]]
-        plot(xx', yy', x', y', x', lb(1:n), x', ub(1:n))
+        plot(xx', yy', xin', yin', xin', lb(1:n), xin', ub(1:n))
     else
-        t = x(end);
-        xx = sort(xEndr);
+        t = xin(end);
+        xx = sort(xendr);
         disp('x; g; dx; dxx;')
         yy = aar + bbr .* (xx-t) + ccr .* (xx-t).^2 + ddr .* (xx-t).^3;
-        xx = [x xx];
+        xx = [xin xx];
         yy = [g' yy];
         h = xx(2:end) - xx(1:end-1);
         dx = (yy(2:end) - yy(1:end-1))./ h;
         dxx = ((yy(1:end-2) - yy(2:end-1))./h(1:end-1) - (yy(2:end-1) - yy(3:end))./h(2:end))./((h(1:end-1) + h(2:end))/2);
         [xx' yy' [dxleft; dx(2:end)'; dxright] [dxxleft; dxx'; dxxright]]
-        plot(xx', yy', x', y', x', lb(1:n), x', ub(1:n))
+        plot(xx', yy', xin', yin', xin', lb(1:n), xin', ub(1:n))
     end
-    disp('x,a,b,c,d')
-    [x' a b c d]
     disp('aa,bb,cc,dd');
     [aa' bb' cc' dd']
     smoothCoeff
-    x
+    xin
+    flatregion
 end
 
-    function [xf, fval, re, g, exitflag] = naiveSearch(smooth)
+    function [xf, fval, re, g, exitflag, flat, leftflat, rightflat] = naiveSearch(flat, leftflat, rightflat, allowchangeconvexconcave)
         %         [f, re1, gg1, exitflag1] = gcv(1e-7);
         %         [f2, re2, gg2, exitflag2] = gcv(2);
         %         [f3, re3, gg3, exitflag3] = gcv(1);
@@ -728,26 +857,32 @@ end
         %         end
         
         if smooth
-            xf = fminbnd(@gcv, 0, 20, optimset(optfminbnd, 'TolX', 0.1));
+            xf = fminbnd(@(x) gcv(x, flat, leftflat, rightflat, allowchangeconvexconcave), 0, 20, optimset(optfminbnd, 'TolX', 0.5));
         else
-            xf = fminbnd(@gcv, 0, 100, optimset(optfminbnd, 'TolX', 0.1));
+            xf = fminbnd(@(x) gcv(x, flat, leftflat, rightflat, allowchangeconvexconcave), 0, 500, optimset(optfminbnd, 'TolX', 1));
         end
         
-        [fval, re, g, exitflag] = gcv(xf);
+        [fval, re, g, exitflag, flat, leftflat, rightflat] = gcv(xf, flat, leftflat, rightflat, allowchangeconvexconcave);
     end
 
 
-    function [score, re, gg, exitflag] = gcv(smoothCoeff)
+    function [score, re, gg, exitflag,flat, leftflat, rightflat] = gcv(smoothCoeff, flat, leftflat, rightflat, allowchangeconvexconcave)
+        flatbf = flat;
+        leftflatbf = leftflat;
+        rightflatbf = rightflat;
         try
-            [re, gg, exitflag] = calculation(smoothCoeff, lb, lb2, ub, ub2);
+            [re, gg, exitflag, flat, leftflat, rightflat] = calculation(smoothCoeff, lb, lb2, ub, ub2,flat, leftflat, rightflat, allowchangeconvexconcave);
             if (exitflag > 0)
-                score = splineHelper.calculateGCV(y, gg, weight, smoothCoeff, Q, R);
+                score = splineHelper.calculateGCV(yin, gg, weight, smoothCoeff, Q, R);
             else
                 score = 1e100;
             end
         catch e
             re = nan;
             gg = nan;
+            flat = flatbf;
+            leftflat = leftflatbf;
+            rightflat = rightflatbf;
             if strcmp(e.message, 'Fail to make curve monotone')
                 exitflag = -8;
             else
@@ -757,7 +892,7 @@ end
         end
     end
 
-    function [re, g, exitflag] = calculation(smoothCoeff, lb, lb2, ub, ub2)
+    function [re, g, exitflag, flat, leftflat, rightflat] = calculation(smoothCoeff, lb, lb2, ub, ub2, flat, leftflat, rightflat, allowchangeconvexconcave)
         %         if isnan(minxrange(1))
         %             ignoremin = true;
         %         else
@@ -781,7 +916,7 @@ end
 %         end
         %         end
         
-        minx = x(y == min(y));
+        minx = xin(yin == min(yin));
         if ~isempty(minx) && length(minx) > 1
             if (leftright == 1 && flat) || (isnan(leftright) && rightflat)
                 minx = minx(end);
@@ -805,27 +940,25 @@ end
         end
         
         relbub = false;
-        if ~ignoreconvexconcave
-            if isnan(leftright)
-                if (method == 1 && (minx > tpr1 || minx < tpl1)) || (method == 2 && (minx > tpr2 || minx < tpl2))
-                    relbub = true;
-                end
-            elseif (leftright == -1 && ~flat) || (leftright == 1 && flat)
-                if (method == 1 && tp > minx) || (method == 2 && tp2 > minx)
-                    relbub = true;
-                end
-            else
-                if (method == 1 && tp < minx) || (method == 2 && tp2 < minx)
-                    relbub = true;
-                end
+        if isnan(leftright)
+            if (method == 1 && (minx > tpr1 || minx < tpl1)) || (method == 2 && (minx > tpr2 || minx < tpl2))
+                relbub = true;
+            end
+        elseif (leftright == -1 && ~flat) || (leftright == 1 && flat)
+            if (method == 1 && tp > minx) || (method == 2 && tp2 > minx)
+                relbub = true;
+            end
+        else
+            if (method == 1 && tp < minx) || (method == 2 && tp2 < minx)
+                relbub = true;
             end
         end
         
-        if (relbub)
+        if (relbub && allowchangeconvexconcave)
             if method == 1
-                [lb, ~, ub, ~, flat] = calculateConcavePoints(originSecD, method);
+                [lb, ~, ub, ~, flat, leftflat, rightflat] = calculateConcavePoints(originSecD, method, []);
             else
-                [~, lb2, ~, ub2, flat] = calculateConcavePoints(originSecD, method);
+                [~, lb2, ~, ub2, flat, leftflat, rightflat] = calculateConcavePoints(originSecD, method, []);
             end
         end
         
@@ -862,7 +995,7 @@ end
             %             yyy = g(idxm1) + bi * delta + ci * delta * delta + di * delta^3
             % %             dxxx = bi + 2 * ci + delta + 3 * di * delta * delta
             % %             ddxx = 2 * ci + 6 * di * deltaall(diff(g(g<=minx)) <= 0) | ~all(diff(g(g>=minx)) >= 0)
-            minx = x(g == min(g));
+            minx = xin(g == min(g));
             
             if ~isempty(minx) && length(minx) > 1
                 if (leftright == 1 && flat) || (isnan(leftright) && rightflat)
@@ -879,7 +1012,7 @@ end
             % if count == 0 we always want to make sure minx inside
             % minxrange
             % else if 
-            if ~ignoremin && ((count == 0 && (minx > minxrange(2) || (minx == minxrange(2) && minx ~= x(end)))))
+            if ~ignoremin && ((count == 0 && (minx > minxrange(2) || (minx == minxrange(2) && minx ~= xin(end)))))
                 minx = minxrange(2);
                 minleftright = -1;
                 needRefit = true;
@@ -901,8 +1034,8 @@ end
             
             if ~isempty(minincrease)
                 if minincrease < minx
-                    if (minincrease == x(1))
-                        minx = x(1);
+                    if (minincrease == xin(1))
+                        minx = xin(1);
                         minleftright = 0;
                     else
                         minx = minincrease;
@@ -914,8 +1047,8 @@ end
             end
             if ~isempty(maxdecrease)
                 if (minx <= maxdecrease)
-                    if maxdecrease == x(end)
-                        minx = x(end);
+                    if maxdecrease == xin(end)
+                        minx = xin(end);
                         minleftright = 0;
                     else
                         minx = maxdecrease;
@@ -926,8 +1059,8 @@ end
                 end
             end
             
-            if count == 0 && (minx == x(end) && y(end-1) < y(end))
-                minx = x(y == min(y));
+            if count == 0 && (minx == xin(end) && yin(end-1) < yin(end))
+                minx = xin(yin == min(yin));
                 if (length(minx) > 1)
                     minx = minx(end);
                 end
@@ -935,8 +1068,8 @@ end
                 needRefit = true;
                 %minleftright = -1;
             end
-            if count == 0 && ((minx == x(1) && y(2) < y(1)))
-                minx = x(y==min(y));
+            if count == 0 && ((minx == xin(1) && yin(2) < yin(1)))
+                minx = xin(yin==min(yin));
                 if (length(minx) > 1)
                     minx = minx(1);
                 end
@@ -951,35 +1084,33 @@ end
             
             % if not monotone need refit
             if ~needRefit
-                if ~all(diff(g(x<=minx)) <= 0) || ~all(diff(g(x>=minx)) >= 0)
+                if ~all(diff(g(xin<=minx)) <= 0) || ~all(diff(g(xin>=minx)) >= 0)
                     needRefit = true;
                 end
             end
             
             relbub = false;
-            if ~ignoreconvexconcave
-                if isnan(leftright)
-                    if (method == 1 && (minx > tpr1 || minx < tpl1)) || (method == 2 && (minx > tpr2 || minx < tpl2))
-                        relbub = true;
-                    end
-                elseif (leftright == -1 && ~flat) || (leftright == 1 && flat)
-                    if (method == 1 && tp > minx) || (method == 2 && tp2 > minx)
-                        relbub = true;
-                    end
-                else
-                    if (method == 1 && tp < minx) || (method == 2 && tp2 < minx)
-                        relbub = true;
-                    end
+            if isnan(leftright)
+                if (method == 1 && (minx > tpr1 || minx < tpl1)) || (method == 2 && (minx > tpr2 || minx < tpl2))
+                    relbub = true;
+                end
+            elseif (leftright == -1 && ~flat) || (leftright == 1 && flat)
+                if (method == 1 && tp > minx) || (method == 2 && tp2 > minx)
+                    relbub = true;
+                end
+            else
+                if (method == 1 && tp < minx) || (method == 2 && tp2 < minx)
+                    relbub = true;
                 end
             end
-            
-            if (relbub)
+
+            if (relbub && allowchangeconvexconcave)
                 gtmp = g';
                 newSecD =((gtmp(3:n) - gtmp(2:n-1))./h(2:end) - (gtmp(2:n-1) - gtmp(1:n-2))./ h(1:end-1))./((h(1:end-1) + h(2:end))/2);
                 if method == 1
-                    [lb, ~, ub, ~, flat] = calculateConcavePoints(newSecD, method);
+                    [lb, ~, ub, ~, flat, leftflat, rightflat] = calculateConcavePoints(newSecD, method, []);
                 else
-                    [~, lb2, ~, ub2, flat] = calculateConcavePoints(newSecD, method);
+                    [~, lb2, ~, ub2, flat, leftflat, rightflat] = calculateConcavePoints(newSecD, method, []);
                 end
                 changedMin = true;
                 needRefit = true;
@@ -1003,13 +1134,13 @@ end
                     
                     for ii = range
                         xxx = xinc(ii);
-                        if (xxx == x(end)) %ignore last one
+                        if (xxx == xin(end)) %ignore last one
                             continue;
                         end
-                        idxx = find(x == xxx);
-                        hii = x(idxx + 1) - xxx;
+                        idxx = find(xin == xxx);
+                        hii = xin(idxx + 1) - xxx;
                         
-                        if (xxx == x(1))
+                        if (xxx == xin(1))
                             if ~isnan(dxxleft)
                                 di = (gammaa(1) - dxxleft)/6/h(1);
                                 bi = (g(2) - g(1))/h(1) - h(1)/6*(2*dxxleft + gammaa(1));
@@ -1019,7 +1150,7 @@ end
                                 bi = (g(2) - g(1))/h(1) - h(1)/6*gammaa(1);
                                 ci = 0;
                             end
-                        elseif (xxx == x(end-1))
+                        elseif (xxx == xin(end-1))
                             if ~isnan(dxxright)
                                 di = (dxxright - gammaa(n-2)) /6/h(n-1);
                                 bi = (g(n) - g(n-1))/h(n-1) - h(n-1)/6*(2*gammaa(n-2) + dxxright);
@@ -1068,7 +1199,7 @@ end
                         needRefit = true;
                         deltai2 = deltai * deltai;
                         
-                        if xxx == x(1)
+                        if xxx == xin(1)
                             %b1 + 2ci*deltaj + 3d1*deltaj^2 + (-h1/3 + deltaj - deltaj/2/hii) * dxxleft >= 0
                             Aless = [Aless; zeros(1, idxx-1), 1/hii, -1/hii, zeros(1, n-2-(idxx-1)), zeros(1, idxx - 2), -(-hii/6 + deltai2/2/hii), zeros(1, n-4-(idxx-2))];
                             if isnan(dxxleft)
@@ -1084,7 +1215,7 @@ end
                             else
                                 Beqq = [Beqq; -(1 - deltai/hii) * dxxleft];
                             end
-                        elseif xxx == x(end-1)
+                        elseif xxx == xin(end-1)
                             Aless = [Aless; zeros(1, idxx-1), 1/hii, -1/hii, zeros(1, n-2-(idxx-1)), zeros(1, idxx - 2), -(-hii/3 + deltai - deltai2/2/hii)];
                             if isnan(dxxright)
                                 bless = [bless; 0];
@@ -1119,13 +1250,13 @@ end
                     end
                     for ii = range
                         xxx = xdec(ii);
-                        if (xxx == x(end)) %ignore last one
+                        if (xxx == xin(end)) %ignore last one
                             continue;
                         end
                         idxx = ii;
                         hii = h(idxx);
                         
-                        if (xxx == x(1))
+                        if (xxx == xin(1))
                             if ~isnan(dxxleft)
                                 di = (gammaa(1) - dxxleft)/6/h(1);
                                 bi = (g(2) - g(1))/h(1) - h(1)/6*(2*dxxleft + gammaa(1));
@@ -1135,7 +1266,7 @@ end
                                 bi = (g(2) - g(1))/h(1) - h(1)/6*gammaa(1);
                                 ci = 0;
                             end
-                        elseif (xxx == x(end-1))
+                        elseif (xxx == xin(end-1))
                             if ~isnan(dxxright)
                                 di = (dxxright - gammaa(n-2)) /6/h(n-1);
                                 bi = (g(n) - g(n-1))/h(n-1) - h(n-1)/6*(2*gammaa(n-2) + dxxright);
@@ -1183,7 +1314,7 @@ end
                         % we are here if we need to add constraint
                         needRefit = true;
                         deltai2 = deltai * deltai;
-                        if xxx == x(1)
+                        if xxx == xin(1)
                             %b1 + 2ci*deltaj + 3d1*deltaj^2 + (-h1/3 + deltaj - deltaj/2/hii) * dxxleft <= 0
                             Aless = [Aless; zeros(1, idxx-1),  -1/hii, 1/hii, zeros(1, n-2-(idxx-1)), zeros(1, idxx - 2), (-hii/6 + deltai2/2/hii), zeros(1, n-4-(idxx-2))];
                             if isnan(dxxleft)
@@ -1199,7 +1330,7 @@ end
                             else
                                 Beqq = [Beqq; -(1 - deltai/hii) * dxxleft];
                             end
-                        elseif xxx == x(end-1)
+                        elseif xxx == xin(end-1)
                             Aless = [Aless; zeros(1, idxx-1),  -1/hii, 1/hii, zeros(1, n-2-(idxx-1)), zeros(1, idxx - 2), (-hii/3 + deltai - deltai2/2/hii)];
                             if isnan(dxxright)
                                 bless = [bless; 0];
@@ -1243,7 +1374,7 @@ end
         end
     end
 
-    function [lb, lb2, ub, ub2, flat] = calculateConcavePoints(dxx, method)
+    function [lb, lb2, ub, ub2, flat, leftflat, rightflat, potentials] = calculateConcavePoints(dxx, method, potentials)
         %initialize
         lb = [zeros(n, 1); -inf(n - 2, 1)];
         ub = [inf(n, 1); inf(n - 2, 1)];
@@ -1251,292 +1382,313 @@ end
         ub2 = [inf(n, 1); inf(n - 2, 1)];
         flat = false;
         
-        if (~ignoreconvexconcave)
-            if (isnan(leftright))
-                leftflat = mean(originFirstD(1:min(3, n-2))) > 0 && y(1) == min(y);
-                rightflat = mean(originFirstD(n-2-min(3,n-2)+1:end)) < 0 && y(end) == min(y);
-                %     [xl, nl] = firstn(x, max(n * 0.3, n));
-                %     [concavePointsl,tpl] = calConcavePoints(xl, nl, originSecD(1:nl-1), turningPoint(1), leftright, leftflat, true);
-                %     [concavePoints2l, tp2l] = calConcavePoints(x, n, originSecD, turningPoint(1), leftright, leftflat, true);
-                %     [concavePointsr,tpr] = calConcavePoints(x, n, originSecD, turningPoint(1), leftright, rightflat, true);
-                %     [concavePoints2r, tp2r] = calConcavePoints(x, n, originSecD, turningPoint(1), leftright, rightflat, true);
-                
-                if (leftflat) % flat left wing is like a right wing
-                    if isnan(method) || method == 1
-                        concavePointsl1 = 0; tpl1 = x(1);
-                        [concavePointsr1,tpr1] = splineHelper.calConcavePoints(x, n, dxx, turningPoint(2), -1, true, true);
-                    end
-                    if isnan(method) || method == 2
-                        concavePointsl2 = 0; tpl2 = x(1);
-                        [concavePointsr2,tpr2] = splineHelper.calConcavePoints(x, n, dxx, turningPoint(2), -1, true, false);
-                    end
-                elseif (rightflat)% right flat wing is like a left wing
-                    if isnan(method) || method == 1
-                        [concavePointsl1,tpl1] = splineHelper.calConcavePoints(x, n, dxx, turningPoint(1), 1, true, true);
-                        concavePointsr1 = 0; tpr1 = x(end);
-                    end
-                    if isnan(method) || method == 2
-                        [concavePointsl2,tpl2] = splineHelper.calConcavePoints(x, n, dxx, turningPoint(1), 1, true, false);
-                        concavePointsr2 = 0; tpr2 = x(end);
-                    end
-                else % else first left then right
-                    idx = find(x <= minx);
-                    xtmp = x(idx);
-                    lsecD = dxx(idx(1:end-2));
-                    if length(xtmp) == 1 || isempty(lsecD)
-                        if isnan(method) || method == 1
-                            concavePointsl1 = 0;
-                            tpl1 = x(1);
-                        end
-                        if isnan(method) || method == 2
-                            tpl2 = x(1);
-                            concavePointsl2 = 0;
-                        end
-                    else
-                        if isnan(method) || method == 1
-                            [concavePointsl1, tpl1] =  splineHelper.calConcavePoints(xtmp, length(xtmp), lsecD, turningPoint(1), -1, false, true);
-                            %                         if concavePointsl1 == 1
-                            %                             concavePointsl1 = 0;
-                            %                             tpl1 = x(1);
-                            %                         end
-                        end
-                        if isnan(method) || method == 2
-                            [concavePointsl2, tpl2] =  splineHelper.calConcavePoints(xtmp, length(xtmp), lsecD, turningPoint(1), -1, false, false);
-                            %                         if (concavePointsl2 == 1)
-                            %                             concavePointsl2 = 0;
-                            %                             tpl2 = x(1);
-                            %                         end
-                        end
-                    end
-                    if isnan(method) || method == 1
-                        m = max(tpl1, minx);
-                        idx = find(x>=m);
-                        xtmp = x(idx);
-                        rsecD = dxx(idx(1:end-2));
-                        if isempty(rsecD)
-                            concavePointsr1 = 0;
-                            tpr1 = x(end);
-                        else
-                            [concavePointsr1,tpr1] = splineHelper.calConcavePoints(xtmp, length(xtmp), rsecD, turningPoint(2), 1, false, true);
-                            %                         if concavePointsr1 == 1
-                            %                             concavePointsr1 = 0;
-                            %                             tpr1 = x(end);
-                            %                         end
-                        end
-                    end
-                    if isnan(method) || method == 2
-                        m = max(tpl2, minx);
-                        idx = find(x>=m);
-                        xtmp = x(idx);
-                        rsecD = dxx(idx(1:end-2));
-                        if isempty(rsecD)
-                            concavePointsr2 = 0;
-                            tpr2 = x(end);
-                        else
-                            [concavePointsr2,tpr2] = splineHelper.calConcavePoints(xtmp, length(xtmp), rsecD, turningPoint(2), 1, false, false);
-                            %                         if concavePointsr2 == 1
-                            %                             concavePointsr2 = 0;
-                            %                             tpr2 = x(end);
-                            %                         end
-                        end
-                    end
-                end
-                
+        leftflat = mean(originFirstD(1:min(3, n-2))) > 0 && yin(1) == min(yin);
+        rightflat = mean(originFirstD(n-2-min(3,n-2)+1:end)) < 0 && yin(end) == min(yin);
+        %         if (isnan(leftright))
+if (isempty(potentials))
+            if (leftflat) % flat left wing is like a right wing
                 if isnan(method) || method == 1
-                    if dxxleft > 0
-                        changed = changed | concavePointsl1 ~= 0;
-                        concavePointsl1 = 0;tpl1 = x(1);
-                        %concavePointsl2 = 0;tpl2 = x(1);
+                    concavePointsl1 = 0; tpl1 = xin(1);
+                    [concavePointsr1,tpr1, pr] = splineHelper.calConcavePoints(xin, n, dxx, turningPoint(2), -1, true, true);
+                    if ~isempty(pr)
+                        [rowstmp, ~] = size(pr);
+                        potentials = [repmat([0 xin(1)], rowstmp, 1) pr];
                     end
-                    if dxxright > 0
-                        changed = changed | concavePointsr1 ~= 0;
-                        concavePointsr1 = 0;tpr1 = x(end);
-                        %concavePointsr2 = 0;tpr2 = x(end);
-                    end
-                end
-                
-                flat = leftflat || rightflat;
-                %         concavePoints = -1;
-                %         concavePoints2 = -1;
-                %         tpl = 0;
-                %         tpr = inf;
-                %         flat = false;
-                %     if (leftflat)
-                %         Ales = [Ales; 1/h(1), -1/h(1), zeros(1, n-2), h(1)/6, zeros(1, n-3)];
-                %         bles = [bles; 0];
-                %     else
-                %         Ales = [Ales; -1/h(1), +1/h(1), zeros(1, n-2), -h(1)/6, zeros(1, n-3)];
-                %         bles = [bles; -1e-7];
-                %     end
-                %     if (rightflat)
-                %         Ales = [Ales; zeros(1,n-2), -1/h(n-1), +1/h(n-1), zeros(1, n-3), +h(n-1)/6];
-                %         bles = [bles; 0];
-                %     else
-                %         Ales = [Ales; zeros(1,n-2), +1/h(n-1), -1/h(n-1), zeros(1, n-3), -h(n-1)/6];
-                %         bles = [bles; -1e-7];
-                %     end
-                
-                if (leftflat && rightflat)
-                    exitFlagg = 6;
-                elseif (leftflat)
-                    exitFlagg = 4;
-                elseif (rightflat)
-                    exitFlagg = 5;
-                else exitFlagg = 0;
-                end
-            elseif leftright == -1 && mean(originFirstD(1:min(3, n-2))) > 0 && y(1) == min(y)
-                % if left wing is monotone increasing which is abnormal, we make left
-                % wing monotone increasing and extrapolate a flat wing
-                flat = true;
-                leftflat = true;
-                rightflat = false;
-                if isnan(method) || method == 1
-                    [concavePoints,tp] = splineHelper.calConcavePoints(x, n, dxx, turningPoint(1), leftright, flat, true);
-                    %                 if concavePoints == 1
-                    %                     concavePoints = 0;
-                    %                 end
                 end
                 if isnan(method) || method == 2
-                    [concavePoints2,tp2] = splineHelper.calConcavePoints(x, n, dxx, turningPoint(1), leftright, flat, false);
-                    %                 if concavePoints == 1
-                    %                     concavePoints = 0;
-                    %                 end
+                    concavePointsl2 = 0; tpl2 = xin(1);
+                    [concavePointsr2,tpr2, ~] = splineHelper.calConcavePoints(xin, n, dxx, turningPoint(2), -1, true, false);
                 end
-                %     %b1 >= 0 (-b1 <= 0)
-                %     Ales = [Ales; 1/h(1), -1/h(1), zeros(1, n-2), h(1)/6, zeros(1, n-3)];
-                %     bles = [bles; 0];
-                exitFlagg = 3;
-            elseif leftright == 1 && mean(originFirstD(n-2-min(3,n-2)+1:end)) < 0 && y(end) == min(y)
-                % if right wing is monotone decreasing which is abnormal, we make right
-                % wing monotone decreasing and extrapolate a flat wing
-                flat = true;
-                leftflat = false;
-                rightflat = true;
+            elseif (rightflat)% right flat wing is like a left wing
                 if isnan(method) || method == 1
-                    [concavePoints,tp] = splineHelper.calConcavePoints(x, n, dxx, turningPoint(1), leftright, flat, true);
-                    %                 if concavePoints == 1
-                    %                     concavePoints = 0;
-                    %                 end
+                    [concavePointsl1,tpl1, pl] = splineHelper.calConcavePoints(xin, n, dxx, turningPoint(1), 1, true, true);
+                    concavePointsr1 = 0; tpr1 = xin(end);
+                    if ~isempty(pl)
+                       [rowstmp, ~] = size(pl);
+                       potentials = [pl repmat([0 xin(end)], rowstmp, 1)];
+                    end
                 end
                 if isnan(method) || method == 2
-                    [concavePoints2,tp2] = splineHelper.calConcavePoints(x, n, dxx, turningPoint(1), leftright, flat, false);
-                    %                 if concavePoints == 1
-                    %                     concavePoints = 0;
-                    %                 end
+                    [concavePointsl2,tpl2, ~] = splineHelper.calConcavePoints(xin, n, dxx, turningPoint(1), 1, true, false);
+                    concavePointsr2 = 0; tpr2 = xin(end);
                 end
-                %    %bn <= 0
-                %     Ales = [Ales; zeros(1,n-2), -1/h(n-1), +1/h(n-1), zeros(1, n-3), +h(n-1)/6];
-                %     bles = [bles; 0];
-                exitFlagg = 3;
-            else
-                flat = false;
-                leftflat = false;
-                rightflat = false;
-                if leftright == -1
-                    idx = find(x <= minx);
-                    xtmp = x(idx);
-                    lsecD = dxx(idx(1:end-2));
-                    if length(xtmp) == 1 || isempty(lsecD)
-                        if isnan(method) || method == 1
-                            concavePoints = 0;
-                            tp = x(1);
-                        end
-                        if isnan(method) || method == 2
-                            concavePoints2 = 0;
-                            tp2 = x(1);
-                        end
-                    else
-                        if isnan(method) || method == 1
-                            [concavePoints,tp] = splineHelper.calConcavePoints(xtmp, length(xtmp), lsecD, turningPoint(1), leftright, flat, true);
-                            %                         if concavePoints == 1
-                            %                             concavePoints = 0;
-                            %                             tp = x(1);
-                            %                         end
-                        end
-                        if isnan(method) || method == 2
-                            [concavePoints2,tp2] = splineHelper.calConcavePoints(xtmp, length(xtmp), lsecD, turningPoint(1), leftright, flat, false);
-                            %                         if concavePoints2 == 1
-                            %                             concavePoints2 = 0;
-                            %                             tp2 = x(1);
-                            %                         end
-                        end
+            else % else first left then right
+                pl = [];
+                pr = [];
+                idx = find(xin <= minx);
+                xtmp = xin(idx);
+                lsecD = dxx(idx(1:end-2));
+                if length(xtmp) == 1 || isempty(lsecD)
+                    if isnan(method) || method == 1
+                        concavePointsl1 = 0;
+                        tpl1 = xin(1);
+                    end
+                    if isnan(method) || method == 2
+                        tpl2 = xin(1);
+                        concavePointsl2 = 0;
                     end
                 else
-                    idx = find(x>=minx);
-                    xtmp = x(idx);
-                    rsecD = dxx(idx(1:end-2));
-                    if isempty(rsecD)
-                        if isnan(method) || method == 1
-                            concavePoints = 0;
-                            tp = x(end);
-                        end
-                        if isnan(method) || method == 2
-                            concavePoints2 = 0;
-                            tp2 = x(end);
-                        end
-                    else
-                        if isnan(method) || method == 1
-                            [concavePoints,tp] = splineHelper.calConcavePoints(xtmp, length(xtmp), rsecD, turningPoint(1), leftright, flat, true);
-                            %                         if concavePoints == 1
-                            %                             concavePoints = 0;
-                            %                             tp = x(end);
-                            %                         end
-                        end
-                        if isnan(method) || method == 2
-                            [concavePoints2,tp2] = splineHelper.calConcavePoints(xtmp, length(xtmp), rsecD, turningPoint(1), leftright, flat, false);
-                            %                         if concavePoints2 == 1
-                            %                             concavePoints2 = 0;
-                            %                             tp2 = x(end);
-                            %                         end
-                        end
+                    if isnan(method) || method == 1
+                        [concavePointsl1, tpl1, pl] =  splineHelper.calConcavePoints(xtmp, length(xtmp), lsecD, turningPoint(1), -1, false, true);
+                        %                         if concavePointsl1 == 1
+                        %                             concavePointsl1 = 0;
+                        %                             tpl1 = x(1);
+                        %                         end
+                    end
+                    if isnan(method) || method == 2
+                        [concavePointsl2, tpl2, ~] =  splineHelper.calConcavePoints(xtmp, length(xtmp), lsecD, turningPoint(1), -1, false, false);
+                        %                         if (concavePointsl2 == 1)
+                        %                             concavePointsl2 = 0;
+                        %                             tpl2 = x(1);
+                        %                         end
                     end
                 end
                 
-                %     % Ales/bles, make sure strictly monotone at the end by setting leftwing b1 < -1e-7 and bn > 1e-7 (-bn < -1e-7)
-                %     if leftright == -1
-                %         Ales = [Ales; -1/h(1), +1/h(1), zeros(1, n-2), -h(1)/6, zeros(1, n-3)];%; zeros(1,n-2), 1/h(n-1), -1/h(n-1), zeros(1, n-3), -h(n-1)/6];
-                %     else
-                %         Ales = [Ales; zeros(1,n-2), +1/h(n-1), -1/h(n-1), zeros(1, n-3), -h(n-1)/6];
-                %     end
-                %     bles = [bles; -1e-7];
-                exitFlagg = 0;
                 if isnan(method) || method == 1
-                    if leftright == -1
-                        if dxxleft > 0
-                            changed = changed | concavePoints ~= 0;
-                            concavePoints = 0;tp = x(1);
-                            %concavePoints2 = 0;tp2 = x(1);
-                        end
+                    m = max(tpl1, minx);
+                    idx = find(xin>=m);
+                    xtmp = xin(idx);
+                    rsecD = dxx(idx(1:end-2));
+                    if isempty(rsecD)
+                        concavePointsr1 = 0;
+                        tpr1 = xin(end);
                     else
-                        if dxxright > 0
-                            changed = changed | concavePoints ~= 0;
-                            concavePoints = 0;tp = x(end);
-                            %concavePoints2 = 0;tp2 = x(end);
-                        end
+                        [concavePointsr1,tpr1, pr] = splineHelper.calConcavePoints(xtmp, length(xtmp), rsecD, turningPoint(2), 1, false, true);
+                        %                         if concavePointsr1 == 1
+                        %                             concavePointsr1 = 0;
+                        %                             tpr1 = x(end);
+                        %                         end
                     end
                 end
+                if isnan(method) || method == 2
+                    m = max(tpl2, minx);
+                    idx = find(xin>=m);
+                    xtmp = xin(idx);
+                    rsecD = dxx(idx(1:end-2));
+                    if isempty(rsecD)
+                        concavePointsr2 = 0;
+                        tpr2 = xin(end);
+                    else
+                        [concavePointsr2,tpr2, ~] = splineHelper.calConcavePoints(xtmp, length(xtmp), rsecD, turningPoint(2), 1, false, false);
+                        %                         if concavePointsr2 == 1
+                        %                             concavePointsr2 = 0;
+                        %                             tpr2 = x(end);
+                        %                         end
+                    end
+                end
+                
+                if ~isempty(pr) || ~isempty(pl)
+                    pl = [concavePointsl1 tpl1; pl];
+                    pr = [concavePointsr1 tpr1; pr];
+                    
+                    [rowspr, ~] = size(pr);
+                    [rowspl, ~] = size(pl);
+                    potentials = zeros(rowspr * rowspl, 4);
+                    for rowtmp = 1:1:rowspr
+                       potentials(rowspl*(rowtmp-1)+1:rowspl*rowtmp, :) = [pl repmat(pr(rowtmp, :), rowspl, 1)]; 
+                    end
+                    potentials = potentials(2:end,:); % last row is just normal [concavePointsl1 tpl1 concavePointsr1 tpr1]
+                end
+                    
             end
             
-%             if (isnan(leftright))
-%                 if changed
+            if isnan(method) || method == 1
+                if dxxleft > 0
+                    %changed = changed | concavePointsl1 ~= 0;
+                    concavePointsl1 = 0;tpl1 = xin(1);
+                    %concavePointsl2 = 0;tpl2 = x(1);
+                end
+                if dxxright > 0
+                    %changed = changed | concavePointsr1 ~= 0;
+                    concavePointsr1 = 0;tpr1 = xin(end);
+                    %concavePointsr2 = 0;tpr2 = x(end);
+                end
+            end
+             
+            flat = leftflat || rightflat;
+else
+    concavePointsl1 = potentials(1);
+    tpl1 = potentials(2);
+    concavePointsr1 = potentials(3);
+    tpr1 = potentials(4);
+    
+    concavePointsl2 =0;
+    tpl2 = xin(1);
+    concavePointsr2 = 0;
+    tpr2 = xin(end);
+end
+            %         concavePoints = -1;
+            %         concavePoints2 = -1;
+            %         tpl = 0;
+            %         tpr = inf;
+            %         flat = false;
+            %     if (leftflat)
+            %         Ales = [Ales; 1/h(1), -1/h(1), zeros(1, n-2), h(1)/6, zeros(1, n-3)];
+            %         bles = [bles; 0];
+            %     else
+            %         Ales = [Ales; -1/h(1), +1/h(1), zeros(1, n-2), -h(1)/6, zeros(1, n-3)];
+            %         bles = [bles; -1e-7];
+            %     end
+            %     if (rightflat)
+            %         Ales = [Ales; zeros(1,n-2), -1/h(n-1), +1/h(n-1), zeros(1, n-3), +h(n-1)/6];
+            %         bles = [bles; 0];
+            %     else
+            %         Ales = [Ales; zeros(1,n-2), +1/h(n-1), -1/h(n-1), zeros(1, n-3), -h(n-1)/6];
+            %         bles = [bles; -1e-7];
+            %     end
+            
+%         elseif leftright == -1 && mean(originFirstD(1:min(3, n-2))) > 0 && yin(1) == min(yin)
+%             % if left wing is monotone increasing which is abnormal, we make left
+%             % wing monotone increasing and extrapolate a flat wing
+%             flat = true;
+%             leftflat = true;
+%             rightflat = false;
+%             if isnan(method) || method == 1
+%                 [concavePoints,tp] = splineHelper.calConcavePoints(xin, n, dxx, turningPoint(1), leftright, flat, true);
+%                 %                 if concavePoints == 1
+%                 %                     concavePoints = 0;
+%                 %                 end
+%             end
+%             if isnan(method) || method == 2
+%                 [concavePoints2,tp2] = splineHelper.calConcavePoints(xin, n, dxx, turningPoint(1), leftright, flat, false);
+%                 %                 if concavePoints == 1
+%                 %                     concavePoints = 0;
+%                 %                 end
+%             end
+%             %     %b1 >= 0 (-b1 <= 0)
+%             %     Ales = [Ales; 1/h(1), -1/h(1), zeros(1, n-2), h(1)/6, zeros(1, n-3)];
+%             %     bles = [bles; 0];
+%         elseif leftright == 1 && mean(originFirstD(n-2-min(3,n-2)+1:end)) < 0 && yin(end) == min(yin)
+%             % if right wing is monotone decreasing which is abnormal, we make right
+%             % wing monotone decreasing and extrapolate a flat wing
+%             flat = true;
+%             leftflat = false;
+%             rightflat = true;
+%             if isnan(method) || method == 1
+%                 [concavePoints,tp] = splineHelper.calConcavePoints(xin, n, dxx, turningPoint(1), leftright, flat, true);
+%                 %                 if concavePoints == 1
+%                 %                     concavePoints = 0;
+%                 %                 end
+%             end
+%             if isnan(method) || method == 2
+%                 [concavePoints2,tp2] = splineHelper.calConcavePoints(xin, n, dxx, turningPoint(1), leftright, flat, false);
+%                 %                 if concavePoints == 1
+%                 %                     concavePoints = 0;
+%                 %                 end
+%             end
+%             %    %bn <= 0
+%             %     Ales = [Ales; zeros(1,n-2), -1/h(n-1), +1/h(n-1), zeros(1, n-3), +h(n-1)/6];
+%             %     bles = [bles; 0];
+%         else
+%             flat = false;
+%             leftflat = false;
+%             rightflat = false;
+%             if leftright == -1
+%                 idx = find(xin <= minx);
+%                 xtmp = xin(idx);
+%                 lsecD = dxx(idx(1:end-2));
+%                 if length(xtmp) == 1 || isempty(lsecD)
 %                     if isnan(method) || method == 1
-%                         lb = [zeros(n, 1); -inf(concavePointsl1, 1); -6e-4 * ones(n - 2 - concavePointsl1 - concavePointsr1, 1); -inf(concavePointsr1, 1)];
-%                         ub = [inf(n, 1); 6e-4 * ones(concavePointsl1, 1); inf(n-2 - concavePointsl1 - concavePointsr1, 1); 6e-4 * ones(concavePointsr1, 1)];
+%                         concavePoints = 0;
+%                         tp = xin(1);
 %                     end
 %                     if isnan(method) || method == 2
-%                         lb2 = [zeros(n, 1); -inf(concavePointsl2, 1); -6e-4 * ones(n - 2 - concavePointsl2 - concavePointsr2, 1); -inf(concavePointsr2, 1)];
-%                         ub2 = [inf(n, 1); 6e-4 * ones(concavePointsl2, 1); inf(n-2 - concavePointsl2 - concavePointsr2, 1); 6e-4 * ones(concavePointsr2, 1)];
+%                         concavePoints2 = 0;
+%                         tp2 = xin(1);
 %                     end
 %                 else
 %                     if isnan(method) || method == 1
-%                         lb = [zeros(n, 1); -inf(concavePointsl1, 1); zeros(n - 2 - concavePointsl1 - concavePointsr1, 1); -inf(concavePointsr1, 1)];
-%                         ub = [inf(n, 1); zeros(concavePointsl1, 1); inf(n-2 - concavePointsl1 - concavePointsr1, 1); zeros(concavePointsr1, 1)];
+%                         [concavePoints,tp] = splineHelper.calConcavePoints(xtmp, length(xtmp), lsecD, turningPoint(1), leftright, flat, true);
+%                         %                         if concavePoints == 1
+%                         %                             concavePoints = 0;
+%                         %                             tp = x(1);
+%                         %                         end
 %                     end
 %                     if isnan(method) || method == 2
-%                         lb2 = [zeros(n, 1); -inf(concavePointsl2, 1); zeros(n - 2 - concavePointsl2 - concavePointsr2, 1); -inf(concavePointsr2, 1)];
-%                         ub2 = [inf(n, 1); zeros(concavePointsl2, 1); inf(n-2 - concavePointsl2 - concavePointsr2, 1); zeros(concavePointsr2, 1)];
+%                         [concavePoints2,tp2] = splineHelper.calConcavePoints(xtmp, length(xtmp), lsecD, turningPoint(1), leftright, flat, false);
+%                         %                         if concavePoints2 == 1
+%                         %                             concavePoints2 = 0;
+%                         %                             tp2 = x(1);
+%                         %                         end
 %                     end
 %                 end
+%             else
+%                 idx = find(xin>=minx);
+%                 xtmp = xin(idx);
+%                 rsecD = dxx(idx(1:end-2));
+%                 if isempty(rsecD)
+%                     if isnan(method) || method == 1
+%                         concavePoints = 0;
+%                         tp = xin(end);
+%                     end
+%                     if isnan(method) || method == 2
+%                         concavePoints2 = 0;
+%                         tp2 = xin(end);
+%                     end
+%                 else
+%                     if isnan(method) || method == 1
+%                         [concavePoints,tp] = splineHelper.calConcavePoints(xtmp, length(xtmp), rsecD, turningPoint(1), leftright, flat, true);
+%                         %                         if concavePoints == 1
+%                         %                             concavePoints = 0;
+%                         %                             tp = x(end);
+%                         %                         end
+%                     end
+%                     if isnan(method) || method == 2
+%                         [concavePoints2,tp2] = splineHelper.calConcavePoints(xtmp, length(xtmp), rsecD, turningPoint(1), leftright, flat, false);
+%                         %                         if concavePoints2 == 1
+%                         %                             concavePoints2 = 0;
+%                         %                             tp2 = x(end);
+%                         %                         end
+%                     end
+%                 end
+%             end
+%             
+%             %     % Ales/bles, make sure strictly monotone at the end by setting leftwing b1 < -1e-7 and bn > 1e-7 (-bn < -1e-7)
+%             %     if leftright == -1
+%             %         Ales = [Ales; -1/h(1), +1/h(1), zeros(1, n-2), -h(1)/6, zeros(1, n-3)];%; zeros(1,n-2), 1/h(n-1), -1/h(n-1), zeros(1, n-3), -h(n-1)/6];
+%             %     else
+%             %         Ales = [Ales; zeros(1,n-2), +1/h(n-1), -1/h(n-1), zeros(1, n-3), -h(n-1)/6];
+%             %     end
+%             %     bles = [bles; -1e-7];
+%             if isnan(method) || method == 1
+%                 if leftright == -1
+%                     if dxxleft > 0
+%                         changed = changed | concavePoints ~= 0;
+%                         concavePoints = 0;tp = xin(1);
+%                         %concavePoints2 = 0;tp2 = x(1);
+%                     end
+%                 else
+%                     if dxxright > 0
+%                         changed = changed | concavePoints ~= 0;
+%                         concavePoints = 0;tp = xin(end);
+%                         %concavePoints2 = 0;tp2 = x(end);
+%                     end
+%                 end
+%             end
+%         end
+        
+        % make sure convex/concave
+        if (careConvexConcave)
+            if (isnan(leftright))
+                if changed
+                    if isnan(method) || method == 1
+                        lb = [zeros(n, 1); -inf(concavePointsl1, 1); -6e-4 * ones(n - 2 - concavePointsl1 - concavePointsr1, 1); -inf(concavePointsr1, 1)];
+                        ub = [inf(n, 1); 6e-4 * ones(concavePointsl1, 1); inf(n-2 - concavePointsl1 - concavePointsr1, 1); 6e-4 * ones(concavePointsr1, 1)];
+                    end
+                    if isnan(method) || method == 2
+                        lb2 = [zeros(n, 1); -inf(concavePointsl2, 1); -6e-4 * ones(n - 2 - concavePointsl2 - concavePointsr2, 1); -inf(concavePointsr2, 1)];
+                        ub2 = [inf(n, 1); 6e-4 * ones(concavePointsl2, 1); inf(n-2 - concavePointsl2 - concavePointsr2, 1); 6e-4 * ones(concavePointsr2, 1)];
+                    end
+                else
+                    if isnan(method) || method == 1
+                        lb = [zeros(n, 1); -inf(concavePointsl1, 1); zeros(n - 2 - concavePointsl1 - concavePointsr1, 1); -inf(concavePointsr1, 1)];
+                        ub = [inf(n, 1); zeros(concavePointsl1, 1); inf(n-2 - concavePointsl1 - concavePointsr1, 1); zeros(concavePointsr1, 1)];
+                    end
+                    if isnan(method) || method == 2
+                        lb2 = [zeros(n, 1); -inf(concavePointsl2, 1); zeros(n - 2 - concavePointsl2 - concavePointsr2, 1); -inf(concavePointsr2, 1)];
+                        ub2 = [inf(n, 1); zeros(concavePointsl2, 1); inf(n-2 - concavePointsl2 - concavePointsr2, 1); zeros(concavePointsr2, 1)];
+                    end
+                end
 %             elseif (leftright == -1 && ~flat) || (leftright == 1 && flat)
 %                 if changed
 %                     if isnan(method) || method == 1
@@ -1577,74 +1729,78 @@ end
 %                         ub2 = [inf(n, 1); inf(n-2-concavePoints2,1); zeros(concavePoints2,1)];
 %                     end
 %                 end
-%             end
-        else
-            leftflat =false;
-            rightflat = false;
+            end
         end
         
-        if ~isempty(lowerLimitG)
+        if ~isempty(xinlb)
             if isnan(method) || method == 1
-                lb(1:n) = lowerLimitG';
+                lb(1:n) = xinlb';
             end
             if isnan(method) || method == 2
-                lb2(1:n) = lowerLimitG';
+                lb2(1:n) = xinlb';
             end
         end
-        if ~isempty(upperLimitG)
+        if ~isempty(xinub)
             if isnan(method) || method == 1
-                ub(1:n) = upperLimitG';
+                ub(1:n) = xinub';
             end
             if isnan(method) || method == 2
-                ub2(1:n) = upperLimitG';
+                ub2(1:n) = xinub';
             end
         end
-%         if allowignorelbub && ~isempty(tightlb) % we might be able to cross the very tight market
-%             if isnan(method) || method == 1
-%                 lb(tightlb == 1) = lowerLimitGmin(tightlb == 1);
-%             end
-%             if isnan(method) || method == 2
-%                 lb2(tightlb == 1) =lowerLimitGmin(tightlb == 1);
-%             end
-%         end
-%         if allowignorelbub && ~isempty(tightub)
-%             if isnan(method) || method == 1
-%                 ub(tightub == 1) = upperLimitGmax(tightub == 1);
-%             end
-%             if isnan(method) || method == 2
-%                 ub2(tightub == 1) = upperLimitGmax(tightub == 1);
-%             end
-%         end
-        if ~isempty(hugedxxregion)
-            hdr = hugedxxregion + n;
+        %         if allowignorelbub && ~isempty(tightlb) % we might be able to cross the very tight market
+        %             if isnan(method) || method == 1
+        %                 lb(tightlb == 1) = lowerLimitGmin(tightlb == 1);
+        %             end
+        %             if isnan(method) || method == 2
+        %                 lb2(tightlb == 1) =lowerLimitGmin(tightlb == 1);
+        %             end
+        %         end
+        %         if allowignorelbub && ~isempty(tightub)
+        %             if isnan(method) || method == 1
+        %                 ub(tightub == 1) = upperLimitGmax(tightub == 1);
+        %             end
+        %             if isnan(method) || method == 2
+        %                 ub2(tightub == 1) = upperLimitGmax(tightub == 1);
+        %             end
+        %         end
+        
+        % if we force close, under certain circumstances we allow the curve to be a little not convex concave
+        if (forceclose)
+            %             % if goal as range of large dxx change, we allow it to be not convex concave
+            %             if ~isempty(hugedxxregion) && smooth == 2
+            %                 hdr = hugedxxregion + n;
+            %                 if isnan(method) || method == 1
+            %                     lb(hdr) = -inf;
+            %                     ub(hdr) = inf;
+            %                 end
+            %                 if isnan(method) || method == 2
+            %                     lb2(hdr) = -inf;
+            %                     ub2(hdr) = inf;
+            %                 end
+            %             end
+            
+            % if market is very tight some where we allow the curve to be a little not convex concave
+            tightidx = n + tight;
             if isnan(method) || method == 1
-                lb(hdr) = -inf;
-                ub(hdr) = inf;
+                tightidxl = find(lb(tightidx) == 0);
+                tightidxu = find(ub(tightidx) == 0);
+                if ~isempty(tightidxl)
+                    lb(tightidx(tightidxl)) = -6e-4;
+                end
+                if ~isempty(tightidxu)
+                    ub(tightidx(tightidxu)) = 6e-4;
+                end
             end
             if isnan(method) || method == 2
-                lb2(hdr) = -inf;
-                ub2(hdr) = inf;
-            end
-        end
-        tightidx = n + find(tight <= 0.05);
-        if isnan(method) || method == 1
-            tightidxl = find(lb(tightidx) == 0);
-            tightidxu = find(ub(tightidx) == 0);
-            if ~isempty(tightidxl)
-                lb(tightidx(tightidxl)) = -6e-4;
-            end
-            if ~isempty(tightidxu)
-                ub(tightidx(tightidxu)) = 6e-4;
-            end
-        end
-        if isnan(method) || method == 2
-            tightidxl = find(lb2(tightidx) == 0);
-            tightidxu = find(ub2(tightidx) == 0);
-            if ~isempty(tightidxl)
-                lb2(tightidx(tightidxl)) = -6e-4;
-            end
-            if ~isempty(tightidxu)
-                ub2(tightidx(tightidxu)) = 6e-4;
+                tightidxl = find(lb2(tightidx) == 0);
+                tightidxu = find(ub2(tightidx) == 0);
+                if ~isempty(tightidxl)
+                    lb2(tightidx(tightidxl)) = -6e-4;
+                end
+                if ~isempty(tightidxu)
+                    ub2(tightidx(tightidxu)) = 6e-4;
+                end
             end
         end
     end
@@ -1662,11 +1818,11 @@ end
             xinc = [];
         else
             if minleftright ~= 0 && ~isnan(minxrange(2))
-                xinc = x(x>=minxrange(2));
+                xinc = xin(xin>=minxrange(2));
             elseif minleftright == -1
-                xinc = x(x>=minx);
+                xinc = xin(xin>=minx);
             else
-                xinc = x(x>minx);
+                xinc = xin(xin>minx);
             end
             %             if (length(xinc) == 1)
             %                 xinc = [];
@@ -1679,8 +1835,8 @@ end
         end
         for ii = range
             xx = xinc(ii);
-            idxx = find(x == xx);
-            if xx == x(end)
+            idxx = find(xin == xx);
+            if xx == xin(end)
                 % normal right wing end, bn + dxxright*hi/3 > 1e-7, -bn < -1e-7 + dxxright * hi/3
                 Ales = [Ales; zeros(1, n-2), 1/h(n-1), -1/h(n-1), zeros(1, n-3), -h(n-1)/6];
                 if isnan(dxxright)
@@ -1688,7 +1844,7 @@ end
                 else
                     bles = [bles; -1e-5 + dxxright * h(n-1)/3];
                 end
-            elseif xx == x(1)
+            elseif xx == xin(1)
                 % (this might include leftflat so we allow 0) b1 - dxxleft*h1/3>= 0 (-b1 <= dxxleft*h1/3)
                 Ales = [Ales; 1/h(1), -1/h(1), zeros(1, n-2), h(1)/6, zeros(1, n-3)];
                 if isnan(dxxleft)
@@ -1696,7 +1852,7 @@ end
                 else
                     bles = [bles; dxxleft * h(1)/3];
                 end
-            elseif xx == x(end-1)
+            elseif xx == xin(end-1)
                 % bn-1  - dxxright*hn-1/6 > 1e-7, -bn-1 <= -1e-7 - dxxright*hn-1/6
                 Ales = [Ales; zeros(1, n-2), 1/h(n-1), -1/h(n-1), zeros(1,n-3), +h(n-1)/3];
                 if isnan(dxxright)
@@ -1715,11 +1871,11 @@ end
             xdec = [];
         else
             if minleftright ~= 0 && ~isnan(minxrange(1))
-                xdec = x(x<=minxrange(1));
+                xdec = xin(xin<=minxrange(1));
             elseif minleftright == 1 
-                xdec = x(x<=minx);
+                xdec = xin(xin<=minx);
             else
-                xdec = x(x<minx);
+                xdec = xin(xin<minx);
             end
             %             if (length(xdec) == 1)
             %                 xdec = [];
@@ -1731,9 +1887,9 @@ end
             range = 1:length(xdec);
         end
         for ii = range
-            xx = x(ii);
+            xx = xin(ii);
             idxx = ii;
-            if xx == x(1)
+            if xx == xin(1)
                 % normal left wing start, b1 - dxxleft*h1/3 < -1e-7
                 Ales = [Ales; -1/h(1), +1/h(1), zeros(1, n-2), -h(1)/6, zeros(1, n-3)];
                 if isnan(dxxleft)
@@ -1741,7 +1897,7 @@ end
                 else
                     bles = [bles; -1e-5 + dxxleft*h(1)/3];
                 end
-            elseif xx == x(end)
+            elseif xx == xin(end)
                 % (this might include rightflat so we allow 0) bn + dxxright *hn-1/3<=0,
                 % bn <= -dxxright * hi/3
                 Ales = [Ales; zeros(1,n-2), -1/h(n-1), 1/h(n-1), zeros(1, n-3), h(n-1)/6];
@@ -1750,7 +1906,7 @@ end
                 else
                     bles = [bles; -dxxright * h(n-1)/3];
                 end
-            elseif xx == x(end-1)
+            elseif xx == xin(end-1)
                 % bn-1 < -1e-7 + dxxright * hi/6
                 Ales = [Ales; zeros(1, n-2), -1/h(n-1), 1/h(n-1),zeros(1,n-3), -h(n-1)/3];
                 if isnan(dxxright)
@@ -1860,31 +2016,31 @@ end
         
         if minleftright ~= 0 %&& (~isempty(maxdecrease) && minx ~= maxdecrease) && (~isempty(minincrease) && minx ~= minincrease)
             try
-                xp1idx = find(x>minx,1);
+                xp1idx = find(xin>minx,1);
                 xm1idx = xp1idx - 1;
-                xp1 = x(xp1idx);
-                xm1 = x(xm1idx);
+                xp1 = xin(xp1idx);
+                xm1 = xin(xm1idx);
                 delta = minx - xm1;
                 delta2 = delta * delta;
                 hi = xp1-xm1;
                 
                 if (minleftright  == -1) % should be left of this
                     %bj + 2cj*deltaj + 3dj*deltaj^2 > 0
-                    if (xp1 == x(2))
+                    if (xp1 == xin(2))
                         Ales = [Ales; 1/hi, -1/hi, zeros(1, n-2), -(-hi/6 + delta2/2/hi), zeros(1, n-3)];
                         if ~isnan(dxxleft)
                             bles = [bles; (-hi/3 + delta - delta2/2/hi) * dxxleft];
                         else
                             bles = [bles; 0];
                         end
-                    elseif (xp1 == x(end))
+                    elseif (xp1 == xin(end))
                         Ales = [Ales; zeros(1, xm1idx-1),  1/hi, -1/hi, zeros(1, n-2-(xm1idx-1)), zeros(1, n-3), -(hi/6)];
                         if ~isnan(dxxright)
                             bles = [bles; (hi/3 + delta - delta2/2/hi) * dxxright];
                         else
                             bles = [bles; 0];
                         end
-                    elseif (xp1 == x(end - 1))
+                    elseif (xp1 == xin(end - 1))
                         Ales = [Ales; zeros(1, xm1idx-1),  1/hi, -1/hi, zeros(1, n-2-(xm1idx-1)), zeros(1, xm1idx - 1), -(-hi/3 + delta - delta2/2/hi)];
                         if ~isnan(dxxright)
                             bles = [bles; (-hi/6 + delta2/2/hi) * dxxright];
@@ -1897,21 +2053,21 @@ end
                     end
                 else
                     %bj + 2cj*deltaj + 3dj*deltaj^2 < 0
-                    if (xp1 == x(2))
+                    if (xp1 == xin(2))
                         Ales = [Ales; -1/hi, 1/hi, zeros(1, n-2), (-hi/6 + delta2/2/hi), zeros(1, n-3)];
                         if ~isnan(dxxleft)
                             bles = [bles; -(-hi/3 + delta - delta2/2/hi) * dxxleft];
                         else
                             bles = [bles; 0];
                         end
-                    elseif (xp1 == x(end))
+                    elseif (xp1 == xin(end))
                         Ales = [Ales; zeros(1, xm1idx-1), -1/hi, 1/hi, zeros(1, n-2-(xm1idx-1)), zeros(1, n-3), (hi/6)];
                         if ~isnan(dxxright)
                             bles = [bles; -(hi/3 + delta - delta2/2/hi) * dxxright];
                         else
                             bles = [bles; 0];
                         end
-                    elseif (xp1 == x(end - 1))
+                    elseif (xp1 == xin(end - 1))
                         Ales = [Ales; zeros(1, xm1idx-1),  -1/hi, 1/hi, zeros(1, n-2-(xm1idx-1)), zeros(1, xm1idx - 1), (-hi/3 + delta - delta2/2/hi)];
                         if ~isnan(dxxright)
                             bles = [bles; -(-hi/6 + delta2/2/hi) * dxxright];
@@ -1925,16 +2081,16 @@ end
                 end
                 
                 %2cj+6dj*deltaj > 0
-                if (xp1 == x(2))
+                if (xp1 == xin(2))
                     Ales = [Ales; zeros(1, n), -(delta/hi), zeros(1, n-3)];
                     if ~isnan(dxxleft)
                         bles = [bles; (1-delta/hi) * dxxleft];
                     else
                         bles = [bles; 0];
                     end
-                elseif (xp1 == x(end))
+                elseif (xp1 == xin(end))
                     %nothing
-                elseif (xp1 == x(end - 1))
+                elseif (xp1 == xin(end - 1))
                     Ales = [Ales; zeros(1, n), zeros(1, xm1idx -1), -(1-delta/hi)];
                     if ~isnan(dxxright)
                         bles = [bles; delta/hi * dxxright];
@@ -1959,10 +2115,10 @@ end
                 tupper = invalidupper(ii);
                 tlower = invalidlower(ii);
                 try
-                    tp1idx = find(x>tt,1);
+                    tp1idx = find(xin>tt,1);
                     tiidx = tp1idx - 1;
-                    tp1 = x(tp1idx);
-                    ti = x(tiidx);
+                    tp1 = xin(tp1idx);
+                    ti = xin(tiidx);
                 catch e
                     % we should not be here b/c the first or last should be valid
                     % or not in invalidx but iend
@@ -1981,7 +2137,7 @@ end
                         else
                             upperleftinvalid = tupper < leftmaxlowerinvalid;
                         end
-                        leftmaxlowervalid = max(lowerLimitG(x > minx & x < ti));
+                        leftmaxlowervalid = max(xinlb(xin > minx & xin < ti));
                         if isempty(leftmaxlowervalid)
                             upperleftvalid = false;
                         else
@@ -1993,7 +2149,7 @@ end
                         else
                             lowerrightinvalid = tlower > rightminupperinvalid;
                         end
-                        rightminuppervalid = min(upperLimitG(tp1idx:end));
+                        rightminuppervalid = min(xinub(tp1idx:end));
                         if isempty(rightminuppervalid)
                             lowerrightvalid = false;
                         else
@@ -2014,7 +2170,7 @@ end
                         else
                             lowerleftinvalid = tlower > leftminupperinvalid;
                         end
-                        leftminuppervalid = min(upperLimitG(1:tiidx));
+                        leftminuppervalid = min(xinub(1:tiidx));
                         if isempty(leftminuppervalid)
                             lowerleftvalid = false;
                         else
@@ -2026,7 +2182,7 @@ end
                         else
                             upperrightinvalid = tupper < rightmaxlowerinvalid;
                         end
-                        rightmaxlowervalid =  max(lowerLimitG(x > tp1 & x < minx));
+                        rightmaxlowervalid =  max(xinlb(xin > tp1 & xin < minx));
                         if isempty(rightmaxlowervalid)
                             upperrightvalid = false;
                         else
@@ -2039,7 +2195,7 @@ end
                     end
                 end
                 hh = tp1 - ti;
-                if (tp1 == x(end))
+                if (tp1 == xin(end))
                     if leftright == -1 && ~isnan(dxxright) % if nonzero boundary second dx
                         if ~isinf(tupper)
                             Ales = [Ales; zeros(1, tiidx-1), (tp1 - tt)/hh, (tt - ti)/hh, zeros(1, n-tp1idx), zeros(1,tiidx-2), -(tt-ti)*(tp1-tt)*(1+(tp1-tt)/hh)/6];
@@ -2059,7 +2215,7 @@ end
                             bles = [bles; -tlower];
                         end
                     end
-                elseif (ti == x(1))
+                elseif (ti == xin(1))
                     if leftright == 1 && ~isnan(dxxleft) % if nonzero boundary second dx
                         if ~isinf(tupper)
                             Ales = [Ales; zeros(1,tiidx-1), (tp1 - tt)/hh, (tt - ti)/hh, zeros(1,n-tp1idx), -(tt-ti)*(tp1-tt)*(1+(tt-ti)/hh)/6, zeros(1,n-1-tp1idx)];
@@ -2096,16 +2252,16 @@ end
         
         % boundary lb/ub should consider ex part boundary if minx is here
         if ~isnan(minx)
-            if minx ~= x(1) % if letf part is decreasing, leftmost node cannot be greater than the upper bound of left extrapolate
-                if ~isempty(aubl)
-                    ub(1)= min(ub(1), min(aubl));
-                    ub2(1) = min(ub2(1), min(aubl));
+            if minx ~= xin(1) % if letf part is decreasing, leftmost node cannot be greater than the upper bound of left extrapolate
+                if ~isempty(ubendl)
+                    ub(1)= min(ub(1), min(ubendl));
+                    ub2(1) = min(ub2(1), min(ubendl));
                 end
             end
-            if minx ~= x(end) % if right part is increasing, rightmost node cannot be greater than the upper bound of the right extrapolate
-                if ~isempty(aubr)
-                    ub(n) = min(ub(n), min(aubr));
-                    ub2(n) = min(ub2(n), min(aubr));
+            if minx ~= xin(end) % if right part is increasing, rightmost node cannot be greater than the upper bound of the right extrapolate
+                if ~isempty(ubendr)
+                    ub(n) = min(ub(n), min(ubendr));
+                    ub2(n) = min(ub2(n), min(ubendr));
                 end
             end
         end
@@ -2135,7 +2291,7 @@ end
 
     function [re, g, exitflag] = calculationImp(smoothCoeff, Ales, bles, Aeq, Beq, lb, lb2, ub, ub2)
         D = blkdiag(diag(weight), smoothCoeff*R);
-        eta = [weight.*y zeros(1, n-2)]';
+        eta = [weight.*yin zeros(1, n-2)]';
 %                 D = blkdiag(diag(ones(1,n)), smoothCoeff*R);
 %                 eta = [y zeros(1, n-2)]';
         if ~isnan(dxxleft)

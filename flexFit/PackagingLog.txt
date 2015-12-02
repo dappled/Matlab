@@ -23,11 +23,11 @@ Parsing file "C:\Users\Dappled\OneDrive\dappled's sky\cs\matlab\convexMonotoneFi
 Parsing file "C:\Users\Dappled\OneDrive\dappled's sky\cs\matlab\convexMonotoneFit\sabrFit.m"
 	(Referenced from: "Compiler Command Line").
 Deleting 5 temporary MEX authorization files.
-Removing: 'C:\Users\Dappled\AppData\Local\Temp\mathworks_tmp_00ac48940_2756.auth'.
-Removing: 'C:\Users\Dappled\AppData\Local\Temp\mathworks_tmp_00ac414996_2756.auth'.
-Removing: 'C:\Users\Dappled\AppData\Local\Temp\mathworks_tmp_00ac49792_2756.auth'.
-Removing: 'C:\Users\Dappled\AppData\Local\Temp\mathworks_tmp_00ac412672_2756.auth'.
-Removing: 'C:\Users\Dappled\AppData\Local\Temp\mathworks_tmp_00ac412898_2756.auth'.
+Removing: 'C:\Users\Dappled\AppData\Local\Temp\mathworks_tmp_0205c23542_8284.auth'.
+Removing: 'C:\Users\Dappled\AppData\Local\Temp\mathworks_tmp_0205c16922_8284.auth'.
+Removing: 'C:\Users\Dappled\AppData\Local\Temp\mathworks_tmp_0205c24696_8284.auth'.
+Removing: 'C:\Users\Dappled\AppData\Local\Temp\mathworks_tmp_0205c5744_8284.auth'.
+Removing: 'C:\Users\Dappled\AppData\Local\Temp\mathworks_tmp_0205c30467_8284.auth'.
 Generating file "C:\Users\Dappled\OneDrive\dappled's sky\cs\matlab\convexMonotoneFit\flexFit\for_testing\readme.txt".
-com.mathworks.toolbox.compiler.plugin.DeployableArchivePackageCommand@323eb18e
-Elapsed packaging time was: 3 minutes and 57 seconds.
+com.mathworks.toolbox.compiler.plugin.DeployableArchivePackageCommand@58284d56
+Elapsed packaging time was: 3 minutes and 45 seconds.

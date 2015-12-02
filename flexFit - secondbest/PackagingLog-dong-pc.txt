@@ -20,3 +20,14 @@ Parsing file "C:\Users\Dappled\OneDrive\dappled's sky\cs\matlab\convexMonotoneFi
 	(Referenced from: "Compiler Command Line").
 Parsing file "C:\Users\Dappled\OneDrive\dappled's sky\cs\matlab\convexMonotoneFit\flexWingFit.m"
 	(Referenced from: "Compiler Command Line").
+Parsing file "C:\Users\Dappled\OneDrive\dappled's sky\cs\matlab\convexMonotoneFit\sabrFit.m"
+	(Referenced from: "Compiler Command Line").
+Deleting 5 temporary MEX authorization files.
+Removing: 'C:\Users\Dappled\AppData\Local\Temp\mathworks_tmp_0479c9977_18332.auth'.
+Removing: 'C:\Users\Dappled\AppData\Local\Temp\mathworks_tmp_0479c30825_18332.auth'.
+Removing: 'C:\Users\Dappled\AppData\Local\Temp\mathworks_tmp_0479c11725_18332.auth'.
+Removing: 'C:\Users\Dappled\AppData\Local\Temp\mathworks_tmp_0479c31412_18332.auth'.
+Removing: 'C:\Users\Dappled\AppData\Local\Temp\mathworks_tmp_0479c20026_18332.auth'.
+Generating file "C:\Users\Dappled\OneDrive\dappled's sky\cs\matlab\convexMonotoneFit\flexFit\for_testing\readme.txt".
+com.mathworks.toolbox.compiler.plugin.DeployableArchivePackageCommand@6d6e898c
+Elapsed packaging time was: 3 minutes and 40 seconds.

@@ -2,8 +2,8 @@
 %           4 means left side flat
 %           5 means right side flat
 %           6 means both sides flat
-function [smooth1, smoothCoeff1, exitflag, g, gamma, aa, bb, cc, dd, turningPoint, x] = flexTimeFit(xin, yin, w, stationarypoint, tailConcavity, xinlb, xinub, xinlbmin, xinubmax, invalidx, invalidupper, invalidlower, invaliduppermax, invalidlowermin, smoothCoeff, boundaryx, boundarydx, boundarydxx, ...
-leftright, xexl, yexl, xendl, lbendl,ubendl, lbendlmin, ubendlmax, xexr,yexr, xendr, lbendr, ubendr, lbendrmin, ubendrmax, leftincrease, rightincrease, smooth, tight, minxrange, breakBoundary)
+function [smooth1, smoothCoeff1, exitflag, g, gamma, aa, bb, cc, dd, turningPoint, x, flatregion] = flexTimeFit(xin, yin, weight, stationarypoint, tailConcavity, xinlb, xinub, xinlbmin, xinubmax, invalidx, invalidupper, invalidlower, invaliduppermax, invalidlowermin, smoothCoeff, boundaryx, boundarydx, boundarydxx, ...
+leftright, xexl, yexl, xendl, lbendl,ubendl, lbendlmin, ubendlmax, xexr,yexr, xendr, lbendr, ubendr, lbendrmin, ubendrmax, leftincrease, rightincrease, smooth, tight, minxrange, breakBoundary, forceclose, careConvexConcave)
 % %input
 % clc
 % M = csvread('c:\temp\voltooltest\slice_IWM.USZ_20150206.csv', 1);
@@ -98,6 +98,9 @@ changedsmooth = true;
 originalx = length(xin);
 smooth2tried = false;
 forcesmooth = false;
+allowHugeWingChange = false;
+extendedleft = false;
+extendedright = false;
 
 % invalidupper(invalidx>115 & invalidx<118) = inf;
 % invaliduppermax(invalidx>115 & invalidx<118) = inf;
@@ -189,18 +192,21 @@ while ~goodleft || ~goodright
             end
         else
             smooth2tried = smooth == 2;
+            %allowHugeWingChange = allowHugeWingChange || smooth2tried;
+            allowHugeWingChange(1) = extendedleft;
+            allowHugeWingChange(2) = extendedright;
             if isnan(leftright)
-                [smooth1, smoothCoeff1, exitflag, g, gamma, aaa, bbb, ccc, ddd, turningPoint, x] = flexWingFit(xin, yin, w, stationarypoint, tailConcavity, smoothCoeff,...
+                [smooth1, smoothCoeff1, exitflag, g, gamma, aaa, bbb, ccc, ddd, turningPoint, x, flatregion] = flexWingFit(xin, yin, weight, stationarypoint, tailConcavity, smoothCoeff,...
                     [nan, nan], boundaryx, boundarydx, boundarydxx, nan, xinub, xinlb, xinubmax, xinlbmin, xendl, ubendl, lbendl, ubendlmax, lbendlmin, xendr, ubendr, lbendr, ubendrmax, lbendrmin, invalidx, invalidupper, invalidlower, invaliduppermax, invalidlowermin,...
-                    leftincrease, rightincrease, smooth, tight, minxrange, true, allowflat, true, originalx, breakBoundary, forcesmooth);
+                    leftincrease, rightincrease, smooth, tight, minxrange, true, allowflat, true, originalx, breakBoundary, forceclose, forcesmooth, careConvexConcave, allowHugeWingChange);
             elseif leftright == -1 %left
-                [smooth1, smoothCoeff1, exitflag, g, gamma, aaa, bbb, ccc, ddd, turningPoint, x] = flexWingFit(xin, yin, w, stationarypoint, tailConcavity, smoothCoeff, ...
+                [smooth1, smoothCoeff1, exitflag, g, gamma, aaa, bbb, ccc, ddd, turningPoint, x, flatregion] = flexWingFit(xin, yin, weight, stationarypoint, tailConcavity, smoothCoeff, ...
                     [nan, nan], boundaryx, boundarydx, boundarydxx, nan, xinub, xinlb, xinubmax, xinlbmin, xendl, ubendl, lbendl, ubendlmax, lbendlmin, [], [], [], [], [], invalidx, invalidupper, invalidlower, invaliduppermax, invalidlowermin,...
-                    leftincrease, rightincrease, smooth, tight, minxrange, true, true, allowflat, true, originalx, breakBoundary, forcesmooth);
+                    leftincrease, rightincrease, smooth, tight, minxrange, true, true, allowflat, true, originalx, breakBoundary, forceclose, forcesmooth, careConvexConcave, allowHugeWingChange);
             else %right
-                [smooth1, smoothCoeff1, exitflag, g, gamma, aaa, bbb, ccc, ddd, turningPoint, x] = flexWingFit(xin, yin, w, stationarypoint, tailConcavity, smoothCoeff, ...
+                [smooth1, smoothCoeff1, exitflag, g, gamma, aaa, bbb, ccc, ddd, turningPoint, x, flatregion] = flexWingFit(xin, yin, weight, stationarypoint, tailConcavity, smoothCoeff, ...
                     [nan, nan], boundaryx, boundarydx, boundarydxx, nan, xinub, xinlb, xinubmax, xinlbmin, [], [], [], [], [], xendr, ubendr, lbendr, ubendrmax, lbendrmin, invalidx, invalidupper, invalidlower, invaliduppermax, invalidlowermin,...
-                    leftincrease, rightincrease, smooth, tight, minxrange, true, true, allowflat, true, originalx, breakBoundary, forcesmooth);
+                    leftincrease, rightincrease, smooth, tight, minxrange, true, true, allowflat, true, originalx, breakBoundary, forceclose,  forcesmooth, careConvexConcave, allowHugeWingChange);
             end
         end
     catch e
@@ -231,7 +237,7 @@ while ~goodleft || ~goodright
         elseif strcmp(e.message, 'Right needs more data') || strcmp(e.message, 'Extrapolate right will change slope a lot')
             exitflag = -1;
             if (rightmoredatamode == 1) && smooth2tried
-                    error('Fail to time fit');
+                error('Fail to time fit');
             end
             rightneedsmoredata = true;
             rightmoredatamode = 1;
@@ -262,7 +268,7 @@ while ~goodleft || ~goodright
         idx = find(xendl == xexl(xl));
         xin = [xexl(xll) xin];
         yin = [yexl(xll) yin];
-        w = [ones(1, length(xll)) * min(w) w];
+        weight = [ones(1, length(xll)) * min(weight) weight];
         boundaryx = [nan nan];
         boundarydx = [nan nan];
         boundarydxx = [nan nan];
@@ -284,11 +290,17 @@ while ~goodleft || ~goodright
         xendl = xendl(xendlidx);
         ubendl = ubendl(xendlidx);
         lbendl = lbendl(xendlidx);
+        ubendlmax = ubendlmax(xendlidx);
+        lbendlmin = lbendlmin(xendlidx);
         goodleft = false;
         leftneedsmoredata = false;
+        extendedleft = true;
         if smooth == 2
             smooth = 1;
             changedsmooth = true;
+        end
+        if ~allowHugeWingChange(1)
+            allowHugeWingChange(1) = true;
         end
     else
         if (leftneedsmoredata)
@@ -321,7 +333,7 @@ while ~goodleft || ~goodright
         idx = xr;
         xin = [xin xexr(xrr)];
         yin = [yin yexr(xrr)];
-        w = [w ones(1, xr) * min(w)];
+        weight = [weight ones(1, xr) * min(weight)];
         boundaryx = [nan nan];
         boundarydx = [nan nan];
         boundarydxx = [nan nan];
@@ -343,11 +355,17 @@ while ~goodleft || ~goodright
         xendr = xendr(xendridx);
         ubendr = ubendr(xendridx);
         lbendr = lbendr(xendridx);
+        ubendrmax = ubendrmax(xendridx);
+        lbendrmin = lbendrmin(xendridx);
         goodright = false;
         rightneedsmoredata = false;
+        extendedright = true;
         if smooth == 2
             smooth = 1;
             changedsmooth = true;
+        end
+        if ~allowHugeWingChange(2)
+            allowHugeWingChange(2) = true;
         end
     else
         if (rightneedsmoredata)

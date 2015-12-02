@@ -12,7 +12,8 @@ classdef splineHelper
             s = region(2) - region(1);
         end
         
-        function [aa, bb, cc, dd] = leftPars(x, a, b, c, stationaryPoint, flat, xEnd, lb, ub, lbmin, ubmax, tailConcavity, dx, dxx, concave)%, dontCareWingShape)
+        function [hugeChange, aa, bb, cc, dd] = leftPars(x, a, b, c, stationaryPoint, flat, xEnd, lb, ub, lbmin, ubmax, tailConcavity, dx, dxx, concave)%, dontCareWingShape)
+            hugeChange = false;
             if ~flat && ~isempty(lb) && (b(1) > 0) %a(1) < aMin(end) &&all
                 err = 'Left needs more data';
                 error('%s', err);
@@ -78,7 +79,7 @@ classdef splineHelper
                             bb = dx;
                         end
                     end
-                    %originb = bb;
+                    originb = bb;
                     if ~isempty(ub)
                         if concave && bb < left && right < 0
                             bb = right;
@@ -97,22 +98,22 @@ classdef splineHelper
                         end
                     end
                     
-                    %             if ~dontCareWingShape && ...
-                    %               ((abs(originb) < 5e-4                        && (abs(bb) > 10 * abs(originb))) ...
-                    %             || (abs(originb) > 5e-4 && abs(originb) < 1e-3 && (abs(bb) > 2.5 * abs(originb) || abs(bb) < abs(originb)/2.5)) ...
-                    %             || (abs(originb) > 1e-3                        && (abs(bb) > 1.5 * abs(originb) || abs(bb) < abs(originb)/1.5)))
-                    %                 if ~flat && bb ~= 0
-                    %                     %                     if (bb > originb)
-                    %                     %                         aa = -inf;
-                    %                     %                         cc = -inf;
-                    %                     %                         dd = -inf;
-                    %                     %                         return;
-                    %                     %                     else
-                    %                     err = 'Extrapolate left will change slope a lot';
-                    %                     error('%s', err);
-                    %                     %                     end
-                    %                 end
-                    %             end
+                    if ((abs(originb) < 5e-4                        && (abs(bb) > 10 * abs(originb))) ...
+                     || (abs(originb) > 5e-4 && abs(originb) < 1e-3 && (abs(bb) > 2.5 * abs(originb) || abs(bb) < abs(originb)/2.5)) ...
+                     || (abs(originb) > 1e-3                        && (abs(bb) > 1.5 * abs(originb) || abs(bb) < abs(originb)/1.5)))
+                        if ~flat && bb ~= 0
+                            %                     if (bb > originb)
+                            %                         aa = -inf;
+                            %                         cc = -inf;
+                            %                         dd = -inf;
+                            %                         return;
+                            %                     else
+%                             err = 'Extrapolate left will change slope a lot';
+%                             error('%s', err);
+                            %                     end
+                            hugeChange = true;
+                        end
+                    end
                     
                     if flat
                         cc = 0;
@@ -147,13 +148,16 @@ classdef splineHelper
                             for ii = linspace(min(0,right), left)
                                 ccBoundMax = min((beta - ii * gammaa) ./ tao);
                                 ccBoundMin = max((alpha - ii * gammaa) ./ tao);
-                                if ccBoundMax >= ccBoundMin  %...
-                                    %                         && (dontCareWingShape  ...
-                                    %                         || ((abs(originb) < 5e-4                        && (abs(ii) < 10 * abs(originb))) ...
-                                    %                         || (abs(originb) > 5e-4 && abs(originb) < 1e-3 && (abs(ii) < 2.5 * abs(originb) && abs(ii) > abs(originb)/2.5)) ...
-                                    %                         || (abs(originb) > 1e-3                        && (abs(ii) < 1.5 * abs(originb) && abs(ii) > abs(originb)/1.5))))
+                                if ccBoundMax >= ccBoundMin
                                     bb = ii;
                                     findb = true;
+                                    if ((abs(originb) < 5e-4                        && (abs(bb) > 10 * abs(originb))) ...
+                                     || (abs(originb) > 5e-4 && abs(originb) < 1e-3 && (abs(bb) > 2.5 * abs(originb) || abs(bb) < abs(originb)/2.5)) ...
+                                     || (abs(originb) > 1e-3                        && (abs(bb) > 1.5 * abs(originb) || abs(bb) < abs(originb)/1.5)))
+                                        if ~flat && bb ~= 0
+                                            hugeChange = true;
+                                        end
+                                    end
                                     break;
                                 end
                             end
@@ -195,7 +199,8 @@ classdef splineHelper
             end
         end
         
-        function [aa, bb, cc, dd] = rightPars(x, a, b, c, stationaryPoint, flat, xEnd, lb, ub, lbmin, ubmax, tailConcavity, dx, dxx, concave)%, dontCareWingShape)
+        function [hugeChange, aa, bb, cc, dd] = rightPars(x, a, b, c, stationaryPoint, flat, xEnd, lb, ub, lbmin, ubmax, tailConcavity, dx, dxx, concave)%, dontCareWingShape)
+            hugeChange = false;
             if ~flat && ~isempty(lb) &&  b(end) < 0 %a(end) < aMin(1) &&
                 err = 'Right needs more data';
                 error('%s', err);
@@ -253,7 +258,7 @@ classdef splineHelper
                             bb = dx;
                         end
                     end
-                    %originb = bb;
+                    originb = bb;
                     %bb = b(end);
                     if ~isempty(ub)
                         if concave && bb > right && left > 0
@@ -272,16 +277,15 @@ classdef splineHelper
                             bb = re;
                         end
                     end
-                    
-                    %             if ~dontCareWingShape && ...
-                    %               ((abs(originb) < 5e-4                        && (abs(bb) > 10 * abs(originb))) ...
-                    %             || (abs(originb) > 5e-4 && abs(originb) < 1e-3 && (abs(bb) > 2.5 * abs(originb) || abs(bb) < abs(originb)/2.5)) ...
-                    %             || (abs(originb) > 1e-3                        && (abs(bb) > 1.5 * abs(originb) || abs(bb) < abs(originb)/1.5)))
-                    %                 if ~flat && bb ~= 0
-                    %                     err = 'Extrapolate right will change slope a lot';
-                    %                     error('%s', err);
-                    %                 end
-                    %             end
+                    if ((abs(originb) < 5e-4                        && (abs(bb) > 10 * abs(originb))) ...
+                     || (abs(originb) > 5e-4 && abs(originb) < 1e-3 && (abs(bb) > 2.5 * abs(originb) || abs(bb) < abs(originb)/2.5)) ...
+                     || (abs(originb) > 1e-3                        && (abs(bb) > 1.5 * abs(originb) || abs(bb) < abs(originb)/1.5)))
+                        if ~flat && bb ~= 0
+                            %                                         err = 'Extrapolate right will change slope a lot';
+                            %                                         error('%s', err);
+                            hugeChange = true;
+                        end
+                    end
                     
                     if flat
                         cc = 0;
@@ -323,6 +327,14 @@ classdef splineHelper
                                     %                         || (abs(originb) > 1e-3                        && (abs(ii) < 1.5 * abs(originb) && abs(ii) > abs(originb)/1.5))))
                                     bb = ii;
                                     findb = true;
+                                    
+                                    if  ((abs(originb) < 5e-4                        && (abs(bb) > 10 * abs(originb))) ...
+                                      || (abs(originb) > 5e-4 && abs(originb) < 1e-3 && (abs(bb) > 2.5 * abs(originb) || abs(bb) < abs(originb)/2.5)) ...
+                                      || (abs(originb) > 1e-3                        && (abs(bb) > 1.5 * abs(originb) || abs(bb) < abs(originb)/1.5)))
+                                        if ~flat && bb ~= 0
+                                            hugeChange = true;
+                                        end
+                                    end
                                     break;
                                 end
                             end
@@ -453,19 +465,31 @@ classdef splineHelper
         %             bb = min(max(bb, left), right);
         %         end
         
-        function [concavePoints,turningPoint] = calConcavePoints(x, n, originSecD, turningPoint, leftRight, flat, usemax)
+        function [concavePoints,turningPoint, potentials] = calConcavePoints(x, n, originSecD, turningPoint, leftRight, flat, usemax)
+            sumd = sum(originSecD);
+            potentials = [];
             if (leftRight == -1 && ~flat) || (leftRight == 1 && flat) % flat on right wing should be concave then convex, just like a left wing
                 if isnan(turningPoint)
                     if usemax
-                        %find the maximum convexity point, then go to the next point it
-                        %turns concave
+                        if (sumd < -0.05 && max(originSecD) < 0.01) % if even most convex point doesn't make the curve convex, all poinst should be concave
+                            concavePoints = n-2;
+                            turningPoint = x(end-1);
+                            return;
+                        elseif (sumd > 0.05 && min(originSecD) > -0.01) 
+                            concavePoints = 0;
+                            turningPoint = x(1);
+                            return;
+                        end
+                        if (sumd > 1e-3)
+                            potentials = [0 x(1)];
+                        elseif (sumd < -1e-3)
+                            potentials = [n-2 x(end-1)];
+                        elseif (max(originSecD) < 0.01 && min(originSecD) > -0.01)
+                            potentials = [0 x(1); n-2 x(end-1)];
+                        end
+                        %find the maximum convexity point, then go to the next point it turns concave
                         revSecD = fliplr(originSecD);
                         ss = cumsum(revSecD);
-                        %                         if (max(ss) < 0) % if even most convex point doesn't make the curve convex, all poinst should be concave
-                        %                             concavePoints = length(x)-2; % last point has 0 or fixed concavity
-                        %                             turningPoint = x(end-1);
-                        %                             return;
-                        %                         end
                         convexPeak = find(ss == max(ss));
                         if length(convexPeak) > 1
                             if convexPeak(end) == length(ss)
@@ -474,6 +498,7 @@ classdef splineHelper
                                 convexPeak = convexPeak(end);
                             end
                         end
+                        % test if just only one huge outlier concave
                         if convexPeak == length(ss)
                             concavePoints = 0;
                             turningPoint = x(1);
@@ -483,6 +508,7 @@ classdef splineHelper
                             concavePoints = turningPointIdx - 1; %minus 1 b/c the first one is not auto 0 concave
                         end
                     else
+                        %find the point where 2/3 of previous point are concave
                         idx = find(cumsum(originSecD <= 0) >= ((1:1:n-2) * 2/3));
                         if isempty(idx)
                             concavePoints = 0;
@@ -510,14 +536,24 @@ classdef splineHelper
             else
                 if isnan(turningPoint)
                     if usemax
-                        %find the maximum convexity point, then go to the next point it
-                        %turns concave
+                        if (sumd < -0.05 && max(originSecD) < 0.01) % if even most convex point doesn't make the curve convex, all poinst should be concave
+                            concavePoints = n-2;
+                            turningPoint = x(2);
+                            return;
+                        elseif (sumd > 0.05 && min(originSecD) > -0.01)
+                            concavePoints = 0;
+                            turningPoint = x(end);
+                            return;
+                        end
+                        if (sumd > 1e-3)
+                            potentials = [0 x(end)];
+                        elseif (sumd < -1e-3)
+                            potentials = [n-2 x(2)];
+                        elseif (max(originSecD) < 0.01 && min(originSecD) > -0.01)
+                            potentials = [0 x(end); n-2 x(2)];
+                        end
+                        %find the maximum convexity point, then go to the next point it turns concave
                         ss = cumsum(originSecD);
-                        %                         if (max(ss) < 0) % if even most convex point doesn't make the curve convex, all poinst should be concave
-                        %                             concavePoints = length(x)-2; % last point has 0 or fixed concavity
-                        %                             turningPoint = x(2);
-                        %                             return;
-                        %                         end
                         convexPeak = find(ss == max(ss));
                         if length(convexPeak) > 1
                             if convexPeak(end) == length(ss)
